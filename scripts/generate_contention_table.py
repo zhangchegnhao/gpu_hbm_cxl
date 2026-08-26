@@ -24,6 +24,10 @@ def main() -> int:
     )
     parser.add_argument("--output", required=True)
     parser.add_argument("--evidence")
+    parser.add_argument(
+        "--cache-dir",
+        help="optional shared exact-shape cache directory",
+    )
     args = parser.parse_args()
     table = build_contention_table(
         args.experiment,
@@ -31,6 +35,7 @@ def main() -> int:
         args.ramulator_root,
         args.output,
         args.evidence,
+        args.cache_dir,
     )
     print(
         json.dumps(

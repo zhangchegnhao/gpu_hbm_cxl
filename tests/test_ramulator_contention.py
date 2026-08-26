@@ -134,6 +134,26 @@ class RamulatorContentionTableTest(unittest.TestCase):
                     root / "cycle.json",
                 )
 
+    def test_schema_v3_supports_multi_workload_exact_rows(self) -> None:
+        raw = _table()
+        raw["schema_version"] = 3
+        raw["metadata"].update(  # type: ignore[union-attr]
+            {
+                "model_sha256": "e" * 64,
+                "hardware_sha256": "f" * 64,
+                "candidate_space": "hot-prefix",
+                "search_method": "enumerate-all-hot-prefixes-v1",
+                "workload_count": 96,
+                "workload_keys_sha256": "1" * 64,
+            }
+        )
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "contention-v3.json"
+            path.write_text(json.dumps(raw), encoding="utf-8")
+            table = RamulatorContentionTable.load(path)
+        self.assertEqual(table.schema_version, 3)
+        self.assertEqual(table.metadata["workload_count"], 96)
+
 
 @unittest.skipUnless(
     any(BINDING_ROOT.glob("_ramulator*.so")),

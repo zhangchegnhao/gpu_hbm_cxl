@@ -9,23 +9,27 @@ from typing import Any
 from ..config import LoadedConfiguration, load_configuration
 from ..report.writer import sha256_file
 from ..timing.ramulator_table import PINNED_RAMULATOR_COMMIT
-from ..trace import load_trace
+from ..trace import load_trace_set
 from .microbenchmark import MicrobenchmarkResult, SieveCycleConfig, run_milestones
 
 
 def candidate_token_counts(configuration: LoadedConfiguration) -> tuple[int, ...]:
-    trace = load_trace(
+    trace_set = load_trace_set(
         configuration.experiment.trace_path,
         configuration.model,
-        configuration.experiment.layer,
-        configuration.experiment.step,
+        configuration.experiment.layers,
+        configuration.experiment.steps,
     )
-    remaining = trace.total_expert_assignments
-    counts = {remaining}
-    for load in sorted(trace.expert_loads, key=lambda row: (-row.token_count, row.expert_id)):
-        remaining -= load.token_count
-        if remaining > 0:
-            counts.add(remaining)
+    counts: set[int] = set()
+    for trace in trace_set.batches:
+        remaining = trace.total_expert_assignments
+        counts.add(remaining)
+        for load in sorted(
+            trace.expert_loads, key=lambda row: (-row.token_count, row.expert_id)
+        ):
+            remaining -= load.token_count
+            if remaining > 0:
+                counts.add(remaining)
     return tuple(sorted(counts))
 
 
@@ -78,14 +82,17 @@ def build_timing_table(
     if cycle.ramulator_commit != PINNED_RAMULATOR_COMMIT:
         raise ValueError("cycle configuration uses an unpinned Ramulator revision")
     model = configuration.model
-    trace = load_trace(
+    trace_set = load_trace_set(
         configuration.experiment.trace_path,
         model,
-        configuration.experiment.layer,
-        configuration.experiment.step,
+        configuration.experiment.layers,
+        configuration.experiment.steps,
     )
-    if len(set(trace.context_lengths)) != 1:
-        raise ValueError("timing table schema v1 requires a uniform context length within the batch")
+    for trace in trace_set.batches:
+        if len(set(trace.context_lengths)) != 1:
+            raise ValueError(
+                "timing table schema v1 requires a uniform context length within each batch"
+            )
 
     token_counts = candidate_token_counts(configuration)
     total_pseudo_channels = cycle.total_pseudo_channels
@@ -110,20 +117,38 @@ def build_timing_table(
         for tokens in token_counts
     }
 
-    batch = trace.batch_size
-    context = trace.context_lengths[0]
-    attention_gwrite_waves = batch * _ceil_div(
-        model.q_projection_size * model.dtype_bytes, cycle.transaction_bytes
-    )
-    attention_operations = 4 * sum(trace.context_lengths) * model.num_attention_heads * model.head_dim
-    attention_mac_waves = _ceil_div(attention_operations, operations_per_mac_wave)
-    attention_read_waves = _ceil_div(
-        batch * model.q_projection_size * model.dtype_bytes, bytes_per_partitioned_wave
-    )
+    attention_shapes: dict[tuple[int, int], dict[str, int]] = {}
+    for trace in trace_set.batches:
+        batch = trace.batch_size
+        context = trace.context_lengths[0]
+        attention_shapes[(batch, context)] = {
+            "gwrite": batch
+            * _ceil_div(
+                model.q_projection_size * model.dtype_bytes,
+                cycle.transaction_bytes,
+            ),
+            "mac": _ceil_div(
+                4
+                * sum(trace.context_lengths)
+                * model.num_attention_heads
+                * model.head_dim,
+                operations_per_mac_wave,
+            ),
+            "read": _ceil_div(
+                batch * model.q_projection_size * model.dtype_bytes,
+                bytes_per_partitioned_wave,
+            ),
+        }
 
-    gwrite_milestones = set(expert_gwrite_waves.values()) | {attention_gwrite_waves}
-    mac_milestones = set(expert_mac_waves.values()) | {attention_mac_waves}
-    read_milestones = set(expert_read_waves.values()) | {attention_read_waves}
+    gwrite_milestones = set(expert_gwrite_waves.values()) | {
+        shape["gwrite"] for shape in attention_shapes.values()
+    }
+    mac_milestones = set(expert_mac_waves.values()) | {
+        shape["mac"] for shape in attention_shapes.values()
+    }
+    read_milestones = set(expert_read_waves.values()) | {
+        shape["read"] for shape in attention_shapes.values()
+    }
     gwrite = run_milestones(ramulator_root, cycle, "PIM_GWRITE", gwrite_milestones)
     mac = run_milestones(ramulator_root, cycle, "PIM_MAC", mac_milestones)
     read = run_milestones(ramulator_root, cycle, "PIM_READ", read_milestones)
@@ -143,11 +168,12 @@ def build_timing_table(
                 "batch_size": batch,
                 "context_length": context,
                 "duration_us": (
-                    gwrite.duration_us_by_waves[attention_gwrite_waves]
-                    + mac.duration_us_by_waves[attention_mac_waves]
-                    + read.duration_us_by_waves[attention_read_waves]
+                    gwrite.duration_us_by_waves[shape["gwrite"]]
+                    + mac.duration_us_by_waves[shape["mac"]]
+                    + read.duration_us_by_waves[shape["read"]]
                 ),
             }
+            for (batch, context), shape in sorted(attention_shapes.items())
         ],
         "expert_gemv": [
             {
@@ -178,9 +204,10 @@ def build_timing_table(
         "wave_model": {
             "operations_per_mac_wave": operations_per_mac_wave,
             "bytes_per_partitioned_wave": bytes_per_partitioned_wave,
-            "attention_gwrite_waves": attention_gwrite_waves,
-            "attention_mac_waves": attention_mac_waves,
-            "attention_read_waves": attention_read_waves,
+            "attention": {
+                f"batch={batch},context={context}": shape
+                for (batch, context), shape in sorted(attention_shapes.items())
+            },
             "expert_gwrite_waves": expert_gwrite_waves,
             "expert_mac_waves": expert_mac_waves,
             "expert_read_waves": expert_read_waves,

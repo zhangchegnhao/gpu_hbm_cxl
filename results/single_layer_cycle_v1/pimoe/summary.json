@@ -80,12 +80,12 @@
   },
   "experiment": "single-layer-cycle-v1",
   "input_hashes": {
-    "contention_timing_table_sha256": "af4156708d40cb420494c50c75f57b28b98b63125c7ec56d3a43d3de5e4e0ba5",
+    "contention_timing_table_sha256": "b0575449fbd961debf490f35afde5b965d671769fe8119b4b0c8e5bbc4806f6e",
     "hardware_sha256": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
-    "model_sha256": "304731cbd10740068fde224aee3568a4e9575d20455b28f63808aebffa28d594",
-    "pim_timing_table_sha256": "64f54fa82a2266c01e64a000088aedd9b2fdb21218c915c4e85c44a4ed10ff2c",
+    "model_sha256": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+    "pim_timing_table_sha256": "aabbf8c8a9266802e2e199af106dec40787b5022685a3e4042e5ea13ae253f52",
     "ramulator_cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
-    "trace_sha256": "0bbf3e9f7f3486c684a5414cf89e0777eb4259ddb42af08f0accb5189cc66bdf"
+    "trace_sha256": "6f44afd8ac29861d18a43174868f4eebfd9baddbae217cb9f3b05faab7387da6"
   },
   "layer": 0,
   "memory": {

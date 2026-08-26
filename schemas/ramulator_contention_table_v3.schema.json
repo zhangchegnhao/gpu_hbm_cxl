@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sieve multi-workload Ramulator cycle-v1 contention table",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "metadata", "expert_contention"],
+  "properties": {
+    "schema_version": {"const": 3},
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "units", "ramulator_commit", "extension_commit", "cycle_config_sha256",
+        "isolated_timing_table_sha256", "trace_sha256", "generator_sha256",
+        "dual_row_buffer", "model_sha256", "hardware_sha256", "candidate_space",
+        "search_method", "workload_count", "workload_keys_sha256"
+      ],
+      "properties": {
+        "units": {"const": "us"},
+        "ramulator_commit": {"type": "string", "minLength": 40, "maxLength": 40},
+        "extension_commit": {"type": "string", "minLength": 1},
+        "cycle_config_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "isolated_timing_table_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "trace_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "generator_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "dual_row_buffer": {"const": true},
+        "model_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "hardware_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "candidate_space": {"const": "hot-prefix"},
+        "search_method": {"const": "enumerate-all-hot-prefixes-v1"},
+        "workload_count": {"type": "integer", "minimum": 1},
+        "workload_keys_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "expert_contention": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "ramulator_contention_table.schema.json#/properties/expert_contention/items"
+      }
+    }
+  }
+}

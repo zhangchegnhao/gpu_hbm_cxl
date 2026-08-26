@@ -63,10 +63,10 @@
   },
   "experiment": "single-layer-cycle-v0",
   "input_hashes": {
-    "hardware_sha256": "0996d1261a2e5141551784970b17fad42541878a67b9e761599c7cce8d119874",
-    "model_sha256": "304731cbd10740068fde224aee3568a4e9575d20455b28f63808aebffa28d594",
-    "pim_timing_table_sha256": "64f54fa82a2266c01e64a000088aedd9b2fdb21218c915c4e85c44a4ed10ff2c",
-    "trace_sha256": "0bbf3e9f7f3486c684a5414cf89e0777eb4259ddb42af08f0accb5189cc66bdf"
+    "hardware_sha256": "725866e25c2aee8d6b83ccd2a5b6b9986fb380fe9a715eb135370771cac16dff",
+    "model_sha256": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+    "pim_timing_table_sha256": "aabbf8c8a9266802e2e199af106dec40787b5022685a3e4042e5ea13ae253f52",
+    "trace_sha256": "6f44afd8ac29861d18a43174868f4eebfd9baddbae217cb9f3b05faab7387da6"
   },
   "layer": 0,
   "memory": {

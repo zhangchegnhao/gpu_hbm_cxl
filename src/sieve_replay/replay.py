@@ -7,8 +7,8 @@ from typing import Any
 from .config import LoadedConfiguration, load_configuration
 from .model import MemoryFootprint, estimate_memory_footprint
 from .policy import create_policy
-from .report import write_results
-from .simulation import EventEngine, ScheduledEvent
+from .report import write_decode_results, write_results
+from .simulation import EventEngine, ScheduledEvent, build_decode_layer_graph
 from .simulation.layer_graph import build_layer_graph
 from .timing import (
     AnalyticTimingModel,
@@ -17,49 +17,58 @@ from .timing import (
     RamulatorTableTimingModel,
     RamulatorTimingTable,
 )
-from .trace import TraceBatch, load_trace
+from .trace import TraceBatch, load_trace_set
+from .trace_manifest import TraceManifest
 from .types import PlacementDecision
+
+
+@dataclass(frozen=True)
+class ReplayUnit:
+    trace: TraceBatch
+    decision: PlacementDecision
+    memory: MemoryFootprint
+    contention: dict[str, Any] | None
 
 
 @dataclass(frozen=True)
 class ReplayResult:
     configuration: LoadedConfiguration
-    trace: TraceBatch
-    decision: PlacementDecision
+    units: tuple[ReplayUnit, ...]
     events: tuple[ScheduledEvent, ...]
-    memory: MemoryFootprint
     summary: dict[str, Any]
 
+    @property
+    def trace(self) -> TraceBatch:
+        return self._single_unit.trace
 
-def run_experiment(
-    experiment_path: str | Path,
-    policy_name: str,
-    output_dir: str | Path,
-) -> ReplayResult:
-    configuration = load_configuration(experiment_path)
-    if policy_name not in configuration.experiment.policies:
-        raise ValueError(
-            f"policy {policy_name!r} is not enabled by experiment; "
-            f"allowed: {', '.join(configuration.experiment.policies)}"
-        )
-    trace = load_trace(
-        configuration.experiment.trace_path,
-        configuration.model,
-        configuration.experiment.layer,
-        configuration.experiment.step,
-    )
+    @property
+    def decision(self) -> PlacementDecision:
+        return self._single_unit.decision
+
+    @property
+    def memory(self) -> MemoryFootprint:
+        return self._single_unit.memory
+
+    @property
+    def _single_unit(self) -> ReplayUnit:
+        if len(self.units) != 1:
+            raise ValueError("single-layer compatibility property used for a decode replay")
+        return self.units[0]
+
+
+def _create_timing(configuration: LoadedConfiguration) -> AnalyticTimingModel:
     if configuration.hardware.timing_backend == "analytic-v0":
-        timing = AnalyticTimingModel(configuration.model, configuration.hardware)
-    elif configuration.hardware.timing_backend == "ramulator-table-v0":
+        return AnalyticTimingModel(configuration.model, configuration.hardware)
+    if configuration.hardware.timing_backend == "ramulator-table-v0":
         table_path = configuration.experiment.pim_timing_table_path
         if table_path is None:
             raise ValueError("ramulator-table-v0 requires experiment field pim_timing_table")
-        timing = RamulatorTableTimingModel(
+        return RamulatorTableTimingModel(
             configuration.model,
             configuration.hardware,
             RamulatorTimingTable.load(table_path),
         )
-    elif configuration.hardware.timing_backend == "ramulator-contention-v1":
+    if configuration.hardware.timing_backend == "ramulator-contention-v1":
         isolated_path = configuration.experiment.pim_timing_table_path
         contention_path = configuration.experiment.contention_timing_table_path
         cycle_config_path = configuration.experiment.ramulator_cycle_config_path
@@ -76,27 +85,89 @@ def run_experiment(
             configuration.experiment.model_path,
             configuration.experiment.hardware_path,
         )
-        timing = RamulatorContentionTimingModel(
+        return RamulatorContentionTimingModel(
             configuration.model,
             configuration.hardware,
             RamulatorTimingTable.load(isolated_path),
             contention_table,
         )
-    else:
-        raise ValueError(f"unsupported timing backend: {configuration.hardware.timing_backend}")
-    policy = create_policy(policy_name, timing)
-    decision = policy.place(trace)
-    graph = build_layer_graph(trace, decision, timing)
-    events = EventEngine().run(graph)
-    memory = estimate_memory_footprint(configuration.model, trace)
-    contention = getattr(timing, "last_contention_report", None)
-    summary = write_results(
+    raise ValueError(f"unsupported timing backend: {configuration.hardware.timing_backend}")
+
+
+def run_experiment(
+    experiment_path: str | Path,
+    policy_name: str,
+    output_dir: str | Path,
+) -> ReplayResult:
+    configuration = load_configuration(experiment_path)
+    if policy_name not in configuration.experiment.policies:
+        raise ValueError(
+            f"policy {policy_name!r} is not enabled by experiment; "
+            f"allowed: {', '.join(configuration.experiment.policies)}"
+        )
+    trace_set = load_trace_set(
+        configuration.experiment.trace_path,
+        configuration.model,
+        configuration.experiment.layers,
+        configuration.experiment.steps,
+    )
+    manifest_path = configuration.experiment.trace_manifest_path
+    is_real_trace = "real" in configuration.experiment.trace_path.parts
+    if is_real_trace and manifest_path is None:
+        raise ValueError("traces under traces/real require an experiment trace_manifest")
+    if manifest_path is not None:
+        TraceManifest.load_and_validate(
+            manifest_path,
+            configuration.experiment.trace_path,
+            configuration.model,
+            trace_set,
+        )
+
+    timing = _create_timing(configuration)
+    if configuration.experiment.is_single_layer_step:
+        trace = trace_set.batches[0]
+        decision = create_policy(policy_name, timing).place(trace)
+        if hasattr(timing, "last_contention_report"):
+            timing.last_contention_report = None
+        events = EventEngine().run(build_layer_graph(trace, decision, timing))
+        memory = estimate_memory_footprint(configuration.model, trace)
+        contention = getattr(timing, "last_contention_report", None)
+        summary = write_results(
+            output_dir,
+            configuration,
+            trace,
+            decision,
+            events,
+            memory,
+            contention=contention,
+        )
+        unit = ReplayUnit(trace, decision, memory, contention)
+        return ReplayResult(configuration, (unit,), events, summary)
+
+    graph = []
+    units: list[ReplayUnit] = []
+    previous_layer_tail: str | None = None
+    for trace in trace_set.batches:
+        decision = create_policy(policy_name, timing).place(trace)
+        if hasattr(timing, "last_contention_report"):
+            timing.last_contention_report = None
+        layer_graph, previous_layer_tail = build_decode_layer_graph(
+            trace, decision, timing, previous_layer_tail
+        )
+        graph.extend(layer_graph)
+        memory = estimate_memory_footprint(configuration.model, trace)
+        contention = getattr(timing, "last_contention_report", None)
+        if contention is not None:
+            contention = dict(contention)
+        units.append(ReplayUnit(trace, decision, memory, contention))
+    events = EventEngine().run(tuple(graph))
+    summary = write_decode_results(
         output_dir,
         configuration,
-        trace,
-        decision,
+        tuple(unit.trace for unit in units),
+        tuple(unit.decision for unit in units),
         events,
-        memory,
-        contention=contention,
+        tuple(unit.memory for unit in units),
+        tuple(unit.contention for unit in units),
     )
-    return ReplayResult(configuration, trace, decision, events, memory, summary)
+    return ReplayResult(configuration, tuple(units), events, summary)

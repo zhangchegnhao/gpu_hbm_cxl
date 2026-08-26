@@ -1,8 +1,9 @@
 # Sieve-compatible MoE Decode Trace Replay
 
 本仓库用于构建单 GPU、Qwen3-30B-A3B、Local HBM-PIM 架构下的端到端
-Decode 模拟基线。当前里程碑是单层 trace replay：同一份 Router Trace 经过
-Attention、Router、GPU/PIM Expert FFN 和 Combine，并输出事件时间线与关键路径。
+Decode 模拟基线。回放器支持单层回归，以及按 `step -> layer` 串联的多层、多
+Decode step 工作负载；每层均经过 Attention、Router、GPU/PIM Expert FFN 和
+Combine，并输出事件时间线与关键路径。
 
 当前提供三个后端：`analytic-v0` 用于快速功能检查；
 `ramulator-table-v0` 使用固定版 Ramulator 2.1 执行独立 PIM 命令微基准，再将
@@ -13,10 +14,10 @@ GPU计算仍是解析模型，因此三者都不是论文级性能结论。
 ## 当前范围
 
 - 单 GPU，8 个本地 HBM3E-PIM stacks；
-- Qwen3-30B-A3B 单层、单 Decode step；
+- Qwen3-30B-A3B 单层回归和 48 层、多 Decode step 回放；
 - `gpu-only`、`noexp`、`allexp`、`pimoe`、`sieve` 五个基线，以及
   `sieve-cycle-v1` 竞争时延感知策略；
-- 合成 Router Trace；
+- 确定性合成 Router Trace，以及带严格 manifest 的真实 Router Trace 接口；
 - 事件依赖、资源互斥、GPU/PIM 并行和关键路径计算；
 - 256 PCH 并行的 `PIM_GWRITE`、`PIM_MAC`、`PIM_READ` 周期微基准；
 - 普通GPU专家权重READ与PIM命令的同控制器竞争；
@@ -24,9 +25,10 @@ GPU计算仍是解析模型，因此三者都不是论文级性能结论。
 - Ramulator 时延表生成、输入哈希和原始周期证据；
 - JSON/CSV 结构化结果。
 
-暂不包含多 GPU、NVLink、Shared CXL-PIM 和真实 Router Trace 采集。`cycle-v1`
-仍不包含刷新、能耗、原生逐bank PIM ACT/PRE、GPU算术周期模拟和真实GPU访存
-trace，不能称为完整 Sieve 复现。
+暂不包含多 GPU、NVLink 和 Shared CXL-PIM。真实 Router Trace 采集代码已经提供，
+但仓库不包含 Qwen3 权重或正式数据集 Trace。`cycle-v1` 仍不包含刷新、能耗、
+原生逐bank PIM ACT/PRE、GPU算术周期模拟和真实GPU访存 trace，不能称为完整
+Sieve 复现。
 
 其中 `pimoe` 当前是配置化静态 token 阈值占位实现，并非论文基线的最终复现，
 不能用于正式对比。
@@ -55,6 +57,102 @@ PYTHONPATH=src python3 -m sieve_replay.cli run-all \
 ```bash
 PYTHONPATH=src python3 -m unittest discover -s tests -v
 ```
+
+## 48 层 Decode replay
+
+重新生成确定性的 48 层、2 step 合成 Router Trace：
+
+```bash
+python3 scripts/generate_synthetic_decode_trace.py \
+  --output traces/synthetic/decode_48layers_2steps.jsonl
+```
+
+运行五策略解析回放：
+
+```bash
+PYTHONPATH=src python3 -m sieve_replay.cli run-all \
+  --experiment configs/experiments/full_decode_synthetic.json \
+  --output results/full_decode_synthetic
+```
+
+`summary.json` 另外包含每 step 平均/P50/P95 时延和请求 token 吞吐率；多层输出新增
+`layers.csv` 和 `steps.csv`。`events.csv`、`placement.csv` 的每一行都带 step/layer。
+
+生成完整工作负载的 cycle-v0 表并运行五策略：
+
+```bash
+PYTHONPATH=src python3 scripts/generate_ramulator_table.py \
+  --experiment configs/experiments/full_decode_cycle_v0.json \
+  --cycle-config configs/ramulator/sieve_hbm3e_cycle_v0.json \
+  --output ramulator/timing_tables/generated/qwen3_full_decode_cycle_v0.json
+
+PYTHONPATH=src python3 -m sieve_replay.cli run-all \
+  --experiment configs/experiments/full_decode_cycle_v0.json \
+  --output results/full_decode_cycle_v0
+```
+
+## 真实 Router Trace
+
+采集依赖与模拟器核心依赖分离，不应把模型运行时间写入模拟结果：
+
+```bash
+python3 -m pip install -r requirements/trace_capture.txt
+
+PYTHONPATH=src python3 scripts/capture_qwen3_router_trace.py \
+  --model Qwen/Qwen3-30B-A3B \
+  --revision <immutable-commit> \
+  --prompts traces/real/prompts.example.jsonl \
+  --output traces/real/qwen3_30b_a3b/<dataset> \
+  --decode-steps 16 \
+  --dataset <dataset-name> \
+  --dataset-revision <dataset-revision> \
+  --dataset-split <split>
+```
+
+输出目录包含 `router.jsonl` 和 `manifest.json`。真实 Trace 实验配置必须提供
+`trace_manifest`；回放时会校验 Trace SHA-256、模型 shape、batch 和 decode step。
+仓库不会自动下载约 60 GB 的 BF16 模型权重。
+
+## 多层 cycle-v1 workload cache
+
+先生成目录，不运行 Ramulator：
+
+```bash
+PYTHONPATH=src python3 scripts/plan_decode_workloads.py \
+  --experiment configs/experiments/full_decode_cycle_v1.json \
+  --cycle-config configs/ramulator/sieve_hbm3e_cycle_v1.json \
+  --cache-dir ramulator/timing_tables/generated/.cache/decode_workloads \
+  --output /tmp/full_decode_workloads.json
+```
+
+提供正数上限后只补齐对应数量的缺失 shape，可重复执行并从缓存恢复：
+
+```bash
+PYTHONPATH=src python3 scripts/plan_decode_workloads.py \
+  --experiment configs/experiments/full_decode_cycle_v1.json \
+  --cycle-config configs/ramulator/sieve_hbm3e_cycle_v1.json \
+  --cache-dir ramulator/timing_tables/generated/.cache/decode_workloads \
+  --output /tmp/full_decode_workloads.json \
+  --max-new-runs 20
+```
+
+当 `missing_workload_shapes` 为 0 时，物化严格的 schema-v3 contention table：
+
+```bash
+PYTHONPATH=src python3 scripts/build_decode_contention_table.py \
+  --experiment configs/experiments/full_decode_cycle_v1.json \
+  --cycle-config configs/ramulator/sieve_hbm3e_cycle_v1.json \
+  --cache-dir ramulator/timing_tables/generated/.cache/decode_workloads \
+  --output ramulator/timing_tables/generated/qwen3_full_decode_cycle_v1_contention.json
+
+PYTHONPATH=src python3 -m sieve_replay.cli run-all \
+  --experiment configs/experiments/full_decode_cycle_v1.json \
+  --output results/full_decode_cycle_v1
+```
+
+物化器要求每个混合及隔离 shape 均精确命中；缺少任何键都会失败，不插值，也不会
+留下不完整的正式表。当前仓库不跟踪 `.cache`，因此新克隆必须重新补齐或显式传入
+已有缓存。
 
 ## Ramulator cycle-v0
 
@@ -134,7 +232,7 @@ scheduler + max(GPU mixed READ + analytic GPU compute, PIM mixed path)
 
 ```text
 configs/
-  experiments/             # 解析版、cycle-v0 与 cycle-v1 实验入口
+  experiments/             # 单层和完整Decode的解析版/cycle-v0/cycle-v1入口
   hardware/                # 端到端硬件参数
   models/                  # Qwen3 官方模型 shape
   ramulator/               # Ramulator 拓扑和命令速率
@@ -143,6 +241,7 @@ ramulator/
   timing_tables/           # Schema、生成说明和生成产物
 scripts/                   # 获取、构建和时延表生成
 src/sieve_replay/
+  capture/                 # Qwen3真实Router Trace采集
   policy/                  # 五个基线和cycle-v1感知放置策略
   ramulator/               # wave 映射和微基准驱动
   simulation/              # 单层 DAG 与离散事件调度

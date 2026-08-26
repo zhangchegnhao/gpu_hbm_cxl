@@ -163,10 +163,27 @@ class ExperimentConfig:
     pim_timing_table_path: Path | None
     contention_timing_table_path: Path | None
     ramulator_cycle_config_path: Path | None
-    layer: int
-    step: int
+    trace_manifest_path: Path | None
+    layers: tuple[int, ...]
+    steps: tuple[int, ...]
     policies: tuple[str, ...]
     raw: dict[str, Any]
+
+    @property
+    def layer(self) -> int:
+        if len(self.layers) != 1:
+            raise ValueError("this operation requires exactly one selected layer")
+        return self.layers[0]
+
+    @property
+    def step(self) -> int:
+        if len(self.steps) != 1:
+            raise ValueError("this operation requires exactly one selected decode step")
+        return self.steps[0]
+
+    @property
+    def is_single_layer_step(self) -> bool:
+        return len(self.layers) == 1 and len(self.steps) == 1
 
 
 @dataclass(frozen=True)
@@ -181,7 +198,7 @@ class LoadedConfiguration:
 def load_configuration(experiment_path: str | Path) -> LoadedConfiguration:
     experiment_file = Path(experiment_path).resolve()
     raw = _load_json(experiment_file)
-    required = {"name", "model", "hardware", "trace", "layer", "step", "policies"}
+    required = {"name", "model", "hardware", "trace", "policies"}
     missing = sorted(required - raw.keys())
     if missing:
         raise ValueError(f"experiment configuration missing fields: {', '.join(missing)}")
@@ -206,8 +223,15 @@ def load_configuration(experiment_path: str | Path) -> LoadedConfiguration:
         if "ramulator_cycle_config" in raw
         else None
     )
+    trace_manifest_path = (
+        resolve(raw["trace_manifest"]) if "trace_manifest" in raw else None
+    )
     model_raw = _load_json(model_path)
     hardware_raw = _load_json(hardware_path)
+    model = ModelConfig.from_dict(model_raw)
+    hardware = HardwareConfig.from_dict(hardware_raw)
+    layers = _parse_selection(raw, "layer", "layers", upper_bound=model.num_hidden_layers)
+    steps = _parse_selection(raw, "step", "steps")
     experiment = ExperimentConfig(
         name=str(raw["name"]),
         model_path=model_path,
@@ -216,15 +240,47 @@ def load_configuration(experiment_path: str | Path) -> LoadedConfiguration:
         pim_timing_table_path=pim_timing_table_path,
         contention_timing_table_path=contention_timing_table_path,
         ramulator_cycle_config_path=ramulator_cycle_config_path,
-        layer=int(raw["layer"]),
-        step=int(raw["step"]),
+        trace_manifest_path=trace_manifest_path,
+        layers=layers,
+        steps=steps,
         policies=tuple(str(policy) for policy in raw["policies"]),
         raw=raw,
     )
-    model = ModelConfig.from_dict(model_raw)
-    hardware = HardwareConfig.from_dict(hardware_raw)
-    if not 0 <= experiment.layer < model.num_hidden_layers:
-        raise ValueError(f"layer {experiment.layer} is outside model layer range")
-    if experiment.step < 0:
-        raise ValueError("step must be non-negative")
     return LoadedConfiguration(experiment, model, hardware, model_raw, hardware_raw)
+
+
+def _parse_selection(
+    raw: dict[str, Any],
+    singular: str,
+    plural: str,
+    upper_bound: int | None = None,
+) -> tuple[int, ...]:
+    has_singular = singular in raw
+    has_plural = plural in raw
+    if has_singular == has_plural:
+        raise ValueError(f"experiment must define exactly one of {singular!r} or {plural!r}")
+    value = raw[singular] if has_singular else raw[plural]
+    if has_singular:
+        values = (value,)
+    elif plural == "layers" and value == "all":
+        if upper_bound is None:
+            raise ValueError("layers='all' requires a known model layer count")
+        values = tuple(range(upper_bound))
+    else:
+        if not isinstance(value, list) or not value:
+            raise ValueError(f"experiment field {plural} must be a non-empty array")
+        values = tuple(value)
+
+    parsed: list[int] = []
+    for item in values:
+        if isinstance(item, bool) or not isinstance(item, int):
+            raise ValueError(f"experiment field {plural} must contain integers")
+        if item < 0:
+            raise ValueError(f"experiment field {plural} cannot contain negative values")
+        if upper_bound is not None and item >= upper_bound:
+            raise ValueError(f"{singular} {item} is outside model {singular} range")
+        parsed.append(item)
+    result = tuple(parsed)
+    if result != tuple(sorted(set(result))):
+        raise ValueError(f"experiment field {plural} must be sorted and unique")
+    return result

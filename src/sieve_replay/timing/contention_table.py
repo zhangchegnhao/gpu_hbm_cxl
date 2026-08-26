@@ -88,6 +88,14 @@ class RamulatorContentionTable:
         "search_selected_prefix",
         "search_measured_monotonicity_verified",
     }
+    _METADATA_FIELDS_V3 = _METADATA_FIELDS_V1 | {
+        "model_sha256",
+        "hardware_sha256",
+        "candidate_space",
+        "search_method",
+        "workload_count",
+        "workload_keys_sha256",
+    }
 
     def __init__(
         self,
@@ -110,12 +118,14 @@ class RamulatorContentionTable:
             raise ValueError(f"invalid Ramulator contention table JSON: {exc}") from exc
         cls._require_exact_keys(raw, {"schema_version", "metadata", "expert_contention"}, "table")
         schema_version = raw["schema_version"]
-        if schema_version not in {1, 2}:
+        if schema_version not in {1, 2, 3}:
             raise ValueError(f"unsupported contention table schema: {raw['schema_version']}")
         metadata = raw["metadata"]
-        metadata_fields = (
-            cls._METADATA_FIELDS_V1 if schema_version == 1 else cls._METADATA_FIELDS_V2
-        )
+        metadata_fields = {
+            1: cls._METADATA_FIELDS_V1,
+            2: cls._METADATA_FIELDS_V2,
+            3: cls._METADATA_FIELDS_V3,
+        }[schema_version]
         cls._require_exact_keys(metadata, metadata_fields, "metadata")
         if metadata["units"] != "us":
             raise ValueError("contention table units must be microseconds")
@@ -125,6 +135,8 @@ class RamulatorContentionTable:
             raise ValueError("formal contention tables require dual_row_buffer=true")
         if schema_version == 2:
             cls._validate_search_metadata(metadata)
+        if schema_version == 3:
+            cls._validate_workload_metadata(metadata)
         if not isinstance(metadata["extension_commit"], str) or not metadata["extension_commit"]:
             raise ValueError("extension_commit must be a non-empty string")
         for field in (
@@ -136,7 +148,7 @@ class RamulatorContentionTable:
             value = metadata[field]
             if not isinstance(value, str) or len(value) != 64:
                 raise ValueError(f"metadata field {field} must be a SHA-256 digest")
-        if schema_version == 2:
+        if schema_version in {2, 3}:
             for field in ("model_sha256", "hardware_sha256"):
                 value = metadata[field]
                 if not isinstance(value, str) or len(value) != 64:
@@ -210,6 +222,18 @@ class RamulatorContentionTable:
         return cls(dict(metadata), entries, schema_version=schema_version)
 
     @classmethod
+    def _validate_workload_metadata(cls, metadata: dict[str, Any]) -> None:
+        if metadata["candidate_space"] != "hot-prefix":
+            raise ValueError("schema v3 candidate_space must be hot-prefix")
+        if metadata["search_method"] != "enumerate-all-hot-prefixes-v1":
+            raise ValueError("unsupported schema v3 contention-table search method")
+        if cls._nonnegative_int(metadata["workload_count"], "workload_count") <= 0:
+            raise ValueError("schema v3 workload_count must be positive")
+        digest = metadata["workload_keys_sha256"]
+        if not isinstance(digest, str) or len(digest) != 64:
+            raise ValueError("workload_keys_sha256 must be a SHA-256 digest")
+
+    @classmethod
     def _validate_search_metadata(cls, metadata: dict[str, Any]) -> None:
         if metadata["candidate_space"] != "hot-prefix":
             raise ValueError("schema v2 candidate_space must be hot-prefix")
@@ -266,7 +290,7 @@ class RamulatorContentionTable:
                 raise ValueError(
                     f"contention table {metadata_key} does not match current input: {path}"
                 )
-        if self.schema_version == 2:
+        if self.schema_version in {2, 3}:
             if model_path is None or hardware_path is None:
                 raise ValueError("schema v2 contention validation requires model and hardware paths")
             for metadata_key, path in {

@@ -1,0 +1,9 @@
+{
+  "name": "full-decode-synthetic",
+  "model": "configs/models/qwen3_30b_a3b.json",
+  "hardware": "configs/hardware/sieve_b200_1gpu.json",
+  "trace": "traces/synthetic/decode_48layers_2steps.jsonl",
+  "layers": "all",
+  "steps": [0, 1],
+  "policies": ["gpu-only", "noexp", "allexp", "pimoe", "sieve"]
+}

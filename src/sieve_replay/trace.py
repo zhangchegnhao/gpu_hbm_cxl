@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
@@ -44,6 +45,26 @@ class TraceBatch:
         return sum(len(record.expert_ids) for record in self.records)
 
 
+@dataclass(frozen=True)
+class TraceSet:
+    batches: tuple[TraceBatch, ...]
+
+    @property
+    def steps(self) -> tuple[int, ...]:
+        return tuple(sorted({batch.step for batch in self.batches}))
+
+    @property
+    def layers(self) -> tuple[int, ...]:
+        return tuple(sorted({batch.layer for batch in self.batches}))
+
+    @property
+    def batch_size(self) -> int:
+        sizes = {batch.batch_size for batch in self.batches}
+        if len(sizes) != 1:
+            raise ValueError("trace set has inconsistent batch sizes")
+        return next(iter(sizes))
+
+
 def _parse_record(raw: object, line_number: int, model: ModelConfig) -> RouterTraceRecord:
     if not isinstance(raw, dict):
         raise ValueError(f"trace line {line_number}: record must be an object")
@@ -78,6 +99,8 @@ def _parse_record(raw: object, line_number: int, model: ModelConfig) -> RouterTr
     context_length = int(raw["context_length"])
     if step < 0 or layer < 0 or context_length <= 0:
         raise ValueError(f"trace line {line_number}: step/layer/context_length is invalid")
+    if layer >= model.num_hidden_layers:
+        raise ValueError(f"trace line {line_number}: layer exceeds model layer count")
     if context_length > model.max_position_embeddings:
         raise ValueError(f"trace line {line_number}: context exceeds model maximum")
     token_id = raw["token_id"]
@@ -93,10 +116,9 @@ def _parse_record(raw: object, line_number: int, model: ModelConfig) -> RouterTr
     )
 
 
-def load_trace(path: str | Path, model: ModelConfig, layer: int, step: int) -> TraceBatch:
+def _read_records(path: str | Path, model: ModelConfig) -> tuple[RouterTraceRecord, ...]:
     trace_path = Path(path)
-    selected: list[RouterTraceRecord] = []
-    seen_tokens: set[Hashable] = set()
+    records: list[RouterTraceRecord] = []
     try:
         lines = trace_path.read_text(encoding="utf-8").splitlines()
     except FileNotFoundError as exc:
@@ -108,13 +130,96 @@ def load_trace(path: str | Path, model: ModelConfig, layer: int, step: int) -> T
             raw = json.loads(line)
         except json.JSONDecodeError as exc:
             raise ValueError(f"invalid JSON on trace line {line_number}: {exc}") from exc
-        record = _parse_record(raw, line_number, model)
-        if record.layer != layer or record.step != step:
+        records.append(_parse_record(raw, line_number, model))
+    if not records:
+        raise ValueError(f"trace contains no records: {trace_path}")
+    return tuple(records)
+
+
+def load_trace_set(
+    path: str | Path,
+    model: ModelConfig,
+    layers: tuple[int, ...],
+    steps: tuple[int, ...],
+) -> TraceSet:
+    selected_layers = set(layers)
+    selected_steps = set(steps)
+    grouped: dict[tuple[int, int], list[RouterTraceRecord]] = {}
+    seen: dict[tuple[int, int], set[Hashable]] = {}
+    for record in _read_records(path, model):
+        if record.layer not in selected_layers or record.step not in selected_steps:
             continue
+        key = (record.step, record.layer)
+        seen_tokens = seen.setdefault(key, set())
         if record.token_id in seen_tokens:
-            raise ValueError(f"duplicate token_id {record.token_id!r} for layer={layer}, step={step}")
+            raise ValueError(
+                f"duplicate token_id {record.token_id!r} for "
+                f"layer={record.layer}, step={record.step}"
+            )
         seen_tokens.add(record.token_id)
-        selected.append(record)
-    if not selected:
-        raise ValueError(f"trace contains no records for layer={layer}, step={step}")
-    return TraceBatch(step=step, layer=layer, records=tuple(selected))
+        grouped.setdefault(key, []).append(record)
+
+    missing = [
+        (step, layer)
+        for step in steps
+        for layer in layers
+        if (step, layer) not in grouped
+    ]
+    if missing:
+        raise ValueError(f"trace is missing selected step/layer batches: {missing}")
+    batches = tuple(
+        TraceBatch(step=step, layer=layer, records=tuple(grouped[(step, layer)]))
+        for step in steps
+        for layer in layers
+    )
+    _validate_decode_sequence(batches, layers, steps)
+    return TraceSet(batches)
+
+
+def _validate_decode_sequence(
+    batches: tuple[TraceBatch, ...],
+    layers: tuple[int, ...],
+    steps: tuple[int, ...],
+) -> None:
+    by_key = {(batch.step, batch.layer): batch for batch in batches}
+    reference_tokens: tuple[Hashable, ...] | None = None
+    context_by_step: dict[int, tuple[int, ...]] = {}
+    for step in steps:
+        first = by_key[(step, layers[0])]
+        signature = tuple((record.token_id, record.context_length) for record in first.records)
+        tokens = tuple(record.token_id for record in first.records)
+        if reference_tokens is None:
+            reference_tokens = tokens
+        elif tokens != reference_tokens:
+            raise ValueError("decode trace token ordering must remain stable across steps")
+        context_by_step[step] = first.context_lengths
+        for layer in layers[1:]:
+            current = by_key[(step, layer)]
+            current_signature = tuple(
+                (record.token_id, record.context_length) for record in current.records
+            )
+            if current_signature != signature:
+                raise ValueError(
+                    f"decode trace request/context mismatch at step={step}, layer={layer}"
+                )
+    for previous, current in zip(steps, steps[1:]):
+        expected_delta = current - previous
+        if any(
+            current_length - previous_length != expected_delta
+            for previous_length, current_length in zip(
+                context_by_step[previous], context_by_step[current]
+            )
+        ):
+            raise ValueError("decode trace context lengths must advance once per decode step")
+
+
+def load_trace(path: str | Path, model: ModelConfig, layer: int, step: int) -> TraceBatch:
+    return load_trace_set(path, model, (layer,), (step,)).batches[0]
+
+
+def sha256_file(path: str | Path) -> str:
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as handle:
+        for block in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(block)
+    return digest.hexdigest()

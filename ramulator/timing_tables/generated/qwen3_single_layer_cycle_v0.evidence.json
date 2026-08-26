@@ -18,7 +18,7 @@
     "sid_per_pseudo_channel": 1,
     "transaction_bytes": 32
   },
-  "experiment": "configs/experiments/single_layer_smoke.json",
+  "experiment": "configs/experiments/single_layer_cycle_v0.json",
   "runs": [
     {
       "completed_requests": 2097152,
@@ -365,9 +365,13 @@
     64
   ],
   "wave_model": {
-    "attention_gwrite_waves": 2048,
-    "attention_mac_waves": 683,
-    "attention_read_waves": 8,
+    "attention": {
+      "batch=8,context=1024": {
+        "gwrite": 2048,
+        "mac": 683,
+        "read": 8
+      }
+    },
     "bytes_per_partitioned_wave": 8192,
     "expert_gwrite_waves": {
       "1": 128,

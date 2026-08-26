@@ -309,10 +309,10 @@
     }
   ],
   "metadata": {
-    "extension_commit": "cycle-v0-sha256:0f195da29e5f0430b06cdf9630c7be4429bc0a19a44154e8a9da69b7c64164d1",
+    "extension_commit": "cycle-v0-sha256:71a9909041fbf4cc70e1da5e4f6a98508e863053b392463349129791f1d182ce",
     "hardware_config_sha256": "b9d6a5132a95cdc58e6cc0bcb2ec9aec691cb9ed19682d7cd28b1263f3783ef0",
     "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
-    "trace_generator_sha256": "018301697c497b5848c84fa7015597873ad64592f904dcbe989e44c5f15e4d74",
+    "trace_generator_sha256": "c065d28f7106057e4705d941dc763bac3dd34e03b8c4a4fe09bdc95d9fccc62d",
     "units": "us"
   },
   "schema_version": 1

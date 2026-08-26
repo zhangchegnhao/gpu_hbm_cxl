@@ -35,14 +35,7 @@ def main(argv: list[str] | None = None) -> int:
         return 2
     print(
         json.dumps(
-            {
-                "policy": result.decision.policy,
-                "total_latency_us": result.summary["total_latency_us"],
-                "gpu_experts": len(result.decision.gpu_experts),
-                "pim_experts": len(result.decision.pim_experts),
-                "memory_feasible": result.summary["memory"]["feasible"],
-                "output": args.output,
-            },
+            _console_result(result, args.output),
             sort_keys=True,
         )
     )
@@ -60,18 +53,42 @@ def _run_all(experiment: str, output_dir: str) -> int:
             raise ValueError(f"experiment enables unknown policies: {', '.join(unknown)}")
         for policy in configured_policies:
             result = run_experiment(experiment, policy, output / policy)
-            rows.append(
-                {
-                    "policy": policy,
-                    "total_latency_us": result.summary["total_latency_us"],
-                    "attention_target": result.decision.attention_target.value,
-                    "gpu_experts": len(result.decision.gpu_experts),
-                    "pim_experts": len(result.decision.pim_experts),
-                    "gpu_expert_tokens": result.summary["placement"]["gpu_expert_tokens"],
-                    "pim_expert_tokens": result.summary["placement"]["pim_expert_tokens"],
-                    "memory_feasible": result.summary["memory"]["feasible"],
-                }
-            )
+            if len(result.units) == 1:
+                rows.append(
+                    {
+                        "policy": policy,
+                        "total_latency_us": result.summary["total_latency_us"],
+                        "attention_target": result.decision.attention_target.value,
+                        "gpu_experts": len(result.decision.gpu_experts),
+                        "pim_experts": len(result.decision.pim_experts),
+                        "gpu_expert_tokens": result.summary["placement"]["gpu_expert_tokens"],
+                        "pim_expert_tokens": result.summary["placement"]["pim_expert_tokens"],
+                        "memory_feasible": result.summary["memory"]["feasible"],
+                    }
+                )
+            else:
+                layer_count = len(result.units)
+                totals = result.summary["placement_totals"]
+                rows.append(
+                    {
+                        "policy": policy,
+                        "total_latency_us": result.summary["total_latency_us"],
+                        "mean_step_latency_us": result.summary["decode_step_latency_us"]["mean"],
+                        "p95_step_latency_us": result.summary["decode_step_latency_us"]["p95"],
+                        "throughput_request_tokens_per_s": result.summary[
+                            "throughput_request_tokens_per_s"
+                        ],
+                        "mean_gpu_experts_per_layer": round(
+                            totals["gpu_expert_executions"] / layer_count, 9
+                        ),
+                        "mean_pim_experts_per_layer": round(
+                            totals["pim_expert_executions"] / layer_count, 9
+                        ),
+                        "gpu_expert_tokens": totals["gpu_expert_tokens"],
+                        "pim_expert_tokens": totals["pim_expert_tokens"],
+                        "memory_feasible": result.summary["memory"]["feasible"],
+                    }
+                )
             if "contention" in result.summary:
                 contention_rows.append(
                     {"policy": policy, **result.summary["contention"]}
@@ -98,6 +115,26 @@ def _run_all(experiment: str, output_dir: str) -> int:
             writer.writerows(contention_rows)
     print(json.dumps({"policies": len(rows), "output": str(output)}, sort_keys=True))
     return 0
+
+
+def _console_result(result: object, output: str) -> dict[str, object]:
+    summary = result.summary
+    payload: dict[str, object] = {
+        "policy": summary["policy"],
+        "total_latency_us": summary["total_latency_us"],
+        "memory_feasible": summary["memory"]["feasible"],
+        "output": output,
+    }
+    if len(result.units) == 1:
+        payload["gpu_experts"] = len(result.decision.gpu_experts)
+        payload["pim_experts"] = len(result.decision.pim_experts)
+    else:
+        payload["steps"] = len(summary["scope"]["steps"])
+        payload["layers"] = len(summary["scope"]["layers"])
+        payload["throughput_request_tokens_per_s"] = summary[
+            "throughput_request_tokens_per_s"
+        ]
+    return payload
 
 
 if __name__ == "__main__":

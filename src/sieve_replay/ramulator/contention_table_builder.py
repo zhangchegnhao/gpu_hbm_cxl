@@ -13,6 +13,11 @@ from ..timing import RamulatorTableTimingModel, RamulatorTimingTable
 from ..trace import load_trace
 from ..types import ExpertLoad
 from .mixed_workload import MixedWorkloadResult, SieveCycleV1Config, run_mixed_workload
+from .workload_cache import (
+    ContentionWorkloadCache,
+    WorkloadShape,
+    cache_context,
+)
 
 
 def _ceil_div(numerator: int, denominator: int) -> int:
@@ -103,6 +108,7 @@ def build_contention_table(
     ramulator_root: str | Path,
     output_path: str | Path,
     evidence_path: str | Path | None = None,
+    cache_dir: str | Path | None = None,
 ) -> dict[str, Any]:
     configuration = load_configuration(experiment_path)
     if configuration.hardware.timing_backend not in {
@@ -121,66 +127,20 @@ def build_contention_table(
         raise ValueError("formal cycle-v1 contention tables require dual_row_buffer=true")
     project_root = Path(__file__).resolve().parents[3]
     output = Path(output_path)
-    cache_root = output.parent / ".cache" / output.stem
-    cache_root.mkdir(parents=True, exist_ok=True)
-    cache_context = {
-        "cycle_config_sha256": sha256_file(cycle_path),
-        "extension_sha256": _extension_hash(project_root),
-        "mixed_workload_sha256": sha256_file(
-            project_root / "src/sieve_replay/ramulator/mixed_workload.py"
-        ),
-    }
+    cache_root = Path(cache_dir) if cache_dir is not None else output.parent / ".cache" / output.stem
+    cache = ContentionWorkloadCache(
+        cache_root, cache_context(project_root, cycle_path)
+    )
 
     def run_case(label: str, shape: dict[str, int]) -> MixedWorkloadResult:
-        cache_input = {"context": cache_context, "shape": shape}
-        cache_key = hashlib.sha256(
-            json.dumps(cache_input, sort_keys=True).encode("utf-8")
-        ).hexdigest()
-        cache_path = cache_root / f"{cache_key}.json"
-        if cache_path.is_file():
-            cached = json.loads(cache_path.read_text(encoding="utf-8"))
-            if cached.get("cache_input") == cache_input:
-                print(f"cache hit: {label}", flush=True)
-                return MixedWorkloadResult(**cached["result"])
-        for legacy_path in cache_root.glob("*.json"):
-            cached = json.loads(legacy_path.read_text(encoding="utf-8"))
-            legacy_input = cached.get("cache_input", {})
-            legacy_context = legacy_input.get("context", {})
-            if (
-                legacy_input.get("shape") == shape
-                and legacy_context.get("cycle_config_sha256")
-                == cache_context["cycle_config_sha256"]
-                and legacy_context.get("extension_sha256")
-                == cache_context["extension_sha256"]
-                and (
-                    "mixed_workload_sha256" not in legacy_context
-                    or legacy_context.get("mixed_workload_sha256")
-                    == cache_context["mixed_workload_sha256"]
-                )
-            ):
-                result = MixedWorkloadResult(**cached["result"])
-                cache_path.write_text(
-                    json.dumps(
-                        {"cache_input": cache_input, "result": asdict(result)},
-                        indent=2,
-                        sort_keys=True,
-                    )
-                    + "\n",
-                    encoding="utf-8",
-                )
-                print(f"compatible cache hit: {label}", flush=True)
-                return result
+        workload_shape = WorkloadShape(**shape)
+        cached = cache.load(workload_shape)
+        if cached is not None:
+            print(f"cache hit: {label}", flush=True)
+            return cached
         print(f"running: {label} {shape}", flush=True)
         result = run_mixed_workload(ramulator_root, cycle, **shape)
-        cache_path.write_text(
-            json.dumps(
-                {"cache_input": cache_input, "result": asdict(result)},
-                indent=2,
-                sort_keys=True,
-            )
-            + "\n",
-            encoding="utf-8",
-        )
+        cache.store(workload_shape, result)
         print(
             f"completed: {label} total_us={result.total_completion_us:.6f}",
             flush=True,

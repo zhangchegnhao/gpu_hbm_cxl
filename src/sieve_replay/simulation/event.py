@@ -11,6 +11,8 @@ class Event:
     dependencies: tuple[str, ...]
     duration_us: float
     description: str = ""
+    step: int | None = None
+    layer: int | None = None
 
     def __post_init__(self) -> None:
         if not self.name:
