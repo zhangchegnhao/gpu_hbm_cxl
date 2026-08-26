@@ -1,0 +1,62 @@
+[
+  {
+    "attention_target": "gpu",
+    "gpu_expert_tokens": 64,
+    "gpu_experts": 50,
+    "memory_feasible": true,
+    "pim_expert_tokens": 0,
+    "pim_experts": 0,
+    "policy": "gpu-only",
+    "total_latency_us": 170.751483456
+  },
+  {
+    "attention_target": "pim",
+    "gpu_expert_tokens": 64,
+    "gpu_experts": 50,
+    "memory_feasible": true,
+    "pim_expert_tokens": 0,
+    "pim_experts": 0,
+    "policy": "noexp",
+    "total_latency_us": 186.542963456
+  },
+  {
+    "attention_target": "pim",
+    "gpu_expert_tokens": 0,
+    "gpu_experts": 0,
+    "memory_feasible": true,
+    "pim_expert_tokens": 64,
+    "pim_experts": 50,
+    "policy": "allexp",
+    "total_latency_us": 133.351096
+  },
+  {
+    "attention_target": "pim",
+    "gpu_expert_tokens": 13,
+    "gpu_experts": 2,
+    "memory_feasible": true,
+    "pim_expert_tokens": 51,
+    "pim_experts": 48,
+    "policy": "pimoe",
+    "total_latency_us": 113.362192
+  },
+  {
+    "attention_target": "pim",
+    "gpu_expert_tokens": 47,
+    "gpu_experts": 33,
+    "memory_feasible": true,
+    "pim_expert_tokens": 17,
+    "pim_experts": 17,
+    "policy": "sieve",
+    "total_latency_us": 155.565428288
+  },
+  {
+    "attention_target": "pim",
+    "gpu_expert_tokens": 30,
+    "gpu_experts": 16,
+    "memory_feasible": true,
+    "pim_expert_tokens": 34,
+    "pim_experts": 34,
+    "policy": "sieve-cycle-v1",
+    "total_latency_us": 107.181024
+  }
+]

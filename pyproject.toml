@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sieve-replay"
+version = "0.1.0"
+description = "Trace-driven single-GPU MoE Decode simulator for Sieve-like HBM-PIM systems"
+requires-python = ">=3.10"
+dependencies = []
+
+[project.scripts]
+sieve-replay = "sieve_replay.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

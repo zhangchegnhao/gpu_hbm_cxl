@@ -1,0 +1,19 @@
+name,category,resources,dependencies,start_us,duration_us,end_us,blocking_event,description
+norm1,norm,GPU_COMPUTE,,0.000000000,1.008192000,1.008192000,,RMSNorm
+qkv,qkv,GPU_COMPUTE,norm1,1.008192000,3.635776000,4.643968000,norm1,QKV projection
+rope,rope,GPU_COMPUTE,qkv,4.643968000,1.018432000,5.662400000,qkv,QK norm and RoPE
+attention,attention,PIM_COMPUTE,rope,5.662400000,17.577216000,23.239616000,rope,decode attention on PIM
+o_proj,attention_output,GPU_COMPUTE,attention,23.239616000,3.109440000,26.349056000,attention,attention output projection
+residual1,residual,GPU_COMPUTE,o_proj,26.349056000,1.012288000,27.361344000,o_proj,residual add
+norm2,norm,GPU_COMPUTE,residual1,27.361344000,1.008192000,28.369536000,residual1,RMSNorm
+router,router,GPU_COMPUTE,norm2,28.369536000,2.069888000,30.439424000,norm2,MoE router
+metadata,metadata,GPU_COMPUTE,router,30.439424000,1.000128000,31.439552000,router,routing metadata
+dispatch,dispatch,,metadata,31.439552000,0.000000000,31.439552000,metadata,single-GPU dispatch placeholder
+scheduler,scheduler,GPU_COMPUTE,metadata,31.439552000,0.000000000,31.439552000,metadata,noexp placement policy
+gpu_weight_load,gpu_weight_load,HBM_MEM_PATH,scheduler,31.439552000,58.982400000,90.421952000,scheduler,expert weights HBM to GPU
+gpu_expert_compute,gpu_expert,GPU_COMPUTE,gpu_weight_load;dispatch,90.421952000,3.268435456,93.690387456,gpu_weight_load,grouped expert GEMM
+pim_gwrite,pim_write,GPU_PIM_IO,scheduler;dispatch,31.439552000,0.000000000,31.439552000,scheduler,PIM_GWRITE token operands
+pim_expert_compute,pim_expert,PIM_COMPUTE,pim_gwrite,31.439552000,0.000000000,31.439552000,pim_gwrite,serialized PIM expert GEMV
+pim_read,pim_read,GPU_PIM_IO,pim_expert_compute,31.439552000,0.000000000,31.439552000,pim_gwrite,PIM expert result read
+combine,combine,GPU_COMPUTE,gpu_expert_compute;pim_read,93.690387456,1.036864000,94.727251456,gpu_expert_compute,weighted expert combine
+residual2,residual,GPU_COMPUTE,combine,94.727251456,1.012288000,95.739539456,combine,residual add

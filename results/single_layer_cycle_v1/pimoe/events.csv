@@ -1,0 +1,19 @@
+name,category,resources,dependencies,start_us,duration_us,end_us,blocking_event,description
+norm1,norm,GPU_COMPUTE,,0.000000000,1.008192000,1.008192000,,RMSNorm
+qkv,qkv,GPU_COMPUTE,norm1,1.008192000,3.635776000,4.643968000,norm1,QKV projection
+rope,rope,GPU_COMPUTE,qkv,4.643968000,1.018432000,5.662400000,qkv,QK norm and RoPE
+attention,attention,PIM_COMPUTE,rope,5.662400000,18.905016000,24.567416000,rope,decode attention from Ramulator cycle-v0 table
+o_proj,attention_output,GPU_COMPUTE,attention,24.567416000,3.109440000,27.676856000,attention,attention output projection
+residual1,residual,GPU_COMPUTE,o_proj,27.676856000,1.012288000,28.689144000,o_proj,residual add
+norm2,norm,GPU_COMPUTE,residual1,28.689144000,1.008192000,29.697336000,residual1,RMSNorm
+router,router,GPU_COMPUTE,norm2,29.697336000,2.069888000,31.767224000,norm2,MoE router
+metadata,metadata,GPU_COMPUTE,router,31.767224000,1.000128000,32.767352000,router,routing metadata
+dispatch,dispatch,,metadata,32.767352000,0.000000000,32.767352000,metadata,single-GPU dispatch placeholder
+scheduler,scheduler,GPU_COMPUTE,metadata,32.767352000,0.000000000,32.767352000,metadata,pimoe placement policy
+gpu_weight_load,gpu_weight_load,,scheduler,32.767352000,5.406336000,38.173688000,scheduler,ordinary GPU HBM reads from mixed Ramulator cycle-v1 run
+gpu_expert_compute,gpu_expert,GPU_COMPUTE,gpu_weight_load;dispatch,38.173688000,3.054525952,41.228213952,gpu_weight_load,grouped expert GEMM
+pim_gwrite,pim_write,,scheduler;dispatch,32.767352000,15.388152000,48.155504000,scheduler,PIM_GWRITE milestone from mixed Ramulator cycle-v1 run
+pim_expert_compute,pim_expert,,pim_gwrite,48.155504000,63.077040000,111.232544000,pim_gwrite,PIM_MAC milestone delta from mixed Ramulator cycle-v1 run
+pim_read,pim_read,,pim_expert_compute,111.232544000,0.080496000,111.313040000,pim_expert_compute,PIM_READ milestone delta from mixed Ramulator cycle-v1 run
+combine,combine,GPU_COMPUTE,gpu_expert_compute;pim_read,111.313040000,1.036864000,112.349904000,pim_read,weighted expert combine
+residual2,residual,GPU_COMPUTE,combine,112.349904000,1.012288000,113.362192000,combine,residual add

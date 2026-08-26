@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sieve Ramulator timing table",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "metadata", "attention", "expert_gemv"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "units",
+        "ramulator_commit",
+        "extension_commit",
+        "hardware_config_sha256",
+        "trace_generator_sha256"
+      ],
+      "properties": {
+        "units": {"const": "us"},
+        "ramulator_commit": {"type": "string", "minLength": 40, "maxLength": 40},
+        "extension_commit": {"type": "string", "minLength": 1},
+        "hardware_config_sha256": {"type": "string", "minLength": 64, "maxLength": 64},
+        "trace_generator_sha256": {"type": "string", "minLength": 64, "maxLength": 64}
+      }
+    },
+    "attention": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["batch_size", "context_length", "duration_us"],
+        "properties": {
+          "batch_size": {"type": "integer", "minimum": 1},
+          "context_length": {"type": "integer", "minimum": 1},
+          "duration_us": {"type": "number", "exclusiveMinimum": 0}
+        }
+      }
+    },
+    "expert_gemv": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["token_count", "gwrite_us", "compute_us", "read_us"],
+        "properties": {
+          "token_count": {"type": "integer", "minimum": 1},
+          "gwrite_us": {"type": "number", "minimum": 0},
+          "compute_us": {"type": "number", "exclusiveMinimum": 0},
+          "read_us": {"type": "number", "minimum": 0}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+  "dram_org_preset": "HBM3_8Gb_8hi",
+  "dram_timing_preset": "HBM3_6400Mbps",
+  "hbm_pim_stacks": 8,
+  "channels_per_stack": 16,
+  "pseudo_channels_per_channel": 2,
+  "sid_per_pseudo_channel": 1,
+  "bank_groups_per_pseudo_channel": 6,
+  "banks_per_bank_group": 4,
+  "rows": 16384,
+  "columns": 256,
+  "transaction_bytes": 32,
+  "internal_prefetch_size": 8,
+  "gpu_cachelines_per_row": 32,
+  "read_buffer_size": 256,
+  "pim_mac_interval_ps": 24576,
+  "pim_io_interval_ps": 1024,
+  "pim_buffer_size": 256,
+  "row_span_waves": 32,
+  "expected_tick_ps": 312,
+  "dual_row_buffer": true
+}

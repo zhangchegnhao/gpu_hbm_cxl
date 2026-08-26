@@ -1,0 +1,9 @@
+{
+  "name": "single-layer-smoke",
+  "model": "configs/models/qwen3_30b_a3b.json",
+  "hardware": "configs/hardware/sieve_b200_1gpu.json",
+  "trace": "traces/synthetic/hotspot_layer0_step0.jsonl",
+  "layer": 0,
+  "step": 0,
+  "policies": ["gpu-only", "noexp", "allexp", "pimoe", "sieve"]
+}

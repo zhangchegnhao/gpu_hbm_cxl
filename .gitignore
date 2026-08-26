@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+build/
+third_party/ramulator2/
+ramulator/timing_tables/generated/.cache/

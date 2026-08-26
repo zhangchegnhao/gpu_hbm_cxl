@@ -1,0 +1,10 @@
+{
+  "name": "single-layer-cycle-v0",
+  "model": "configs/models/qwen3_30b_a3b.json",
+  "hardware": "configs/hardware/sieve_b200_1gpu_cycle_v0.json",
+  "trace": "traces/synthetic/hotspot_layer0_step0.jsonl",
+  "pim_timing_table": "ramulator/timing_tables/generated/qwen3_single_layer_cycle_v0.json",
+  "layer": 0,
+  "step": 0,
+  "policies": ["gpu-only", "noexp", "allexp", "pimoe", "sieve"]
+}

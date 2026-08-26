@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sieve replay router trace record",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "step",
+    "layer",
+    "token_id",
+    "context_length",
+    "expert_ids",
+    "expert_weights"
+  ],
+  "properties": {
+    "step": {"type": "integer", "minimum": 0},
+    "layer": {"type": "integer", "minimum": 0},
+    "token_id": {"type": ["integer", "string"]},
+    "context_length": {"type": "integer", "minimum": 1},
+    "expert_ids": {
+      "type": "array",
+      "items": {"type": "integer", "minimum": 0},
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "expert_weights": {
+      "type": "array",
+      "items": {"type": "number", "minimum": 0.0}
+    }
+  }
+}

@@ -1,0 +1,7 @@
+policy,total_latency_us,attention_target,gpu_experts,pim_experts,gpu_expert_tokens,pim_expert_tokens,memory_feasible
+gpu-only,170.751483456,gpu,50,0,64,0,True
+noexp,186.542963456,pim,50,0,64,0,True
+allexp,133.351096,pim,0,50,0,64,True
+pimoe,113.362192,pim,2,48,13,51,True
+sieve,155.565428288,pim,33,17,47,17,True
+sieve-cycle-v1,107.181024,pim,16,34,30,34,True

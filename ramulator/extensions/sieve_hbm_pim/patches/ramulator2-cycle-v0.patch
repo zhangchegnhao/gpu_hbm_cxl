@@ -1,0 +1,142 @@
+diff --git a/src/ramulator/base/request.h b/src/ramulator/base/request.h
+index 8b62908..24e9a2b 100644
+--- a/src/ramulator/base/request.h
++++ b/src/ramulator/base/request.h
+@@ -17,7 +17,7 @@ struct Request {
+   // Universal built-in external request types — always Read = 0, Write = 1.
+   // Additional non-negative ids may exist as metadata for future extensions.
+   struct Type {
+-    enum : int { Read = 0, Write = 1 };
++    enum : int { Read = 0, Write = 1, PIM_GWRITE = 2, PIM_MAC = 3, PIM_READ = 4 };
+   };
+ 
+   int type_id = -1;        // Request type. -1 is the convention for internal maintenance/direct-command requests.
+diff --git a/src/ramulator/controller/CMakeLists.txt b/src/ramulator/controller/CMakeLists.txt
+index 4aa788f..9a7ab03 100644
+--- a/src/ramulator/controller/CMakeLists.txt
++++ b/src/ramulator/controller/CMakeLists.txt
+@@ -43,6 +43,7 @@ target_sources(
+   impl/hbm_controller_base.cpp
+   impl/hbm12_controller.cpp
+   impl/hbm34_controller.cpp
++  impl/sieve_hbm_pim_controller.cpp
+   impl/gddr7_controller.cpp
+   impl/prac_controller.cpp
+   impl/blockhammer_controller.cpp
+diff --git a/src/ramulator/controller/controller_base.cpp b/src/ramulator/controller/controller_base.cpp
+index 7d49aa6..601aa1d 100644
+--- a/src/ramulator/controller/controller_base.cpp
++++ b/src/ramulator/controller/controller_base.cpp
+@@ -201,6 +201,11 @@ bool ControllerBase::priority_send(Request& req) {
+   return is_success;
+ }
+ 
++bool ControllerBase::is_pending() const {
++  return m_active_buffer.size() || m_priority_buffer.size() || m_read_buffer.size() ||
++         m_write_buffer.size() || m_pending.size();
++}
++
+ // ── Tick preamble ───────────────────────────────────────────────────────
+ 
+ void ControllerBase::tick_prologue() {
+diff --git a/src/ramulator/controller/controller_base.h b/src/ramulator/controller/controller_base.h
+index a9e96dd..36bf1f7 100644
+--- a/src/ramulator/controller/controller_base.h
++++ b/src/ramulator/controller/controller_base.h
+@@ -34,6 +34,7 @@ class ControllerBase : public IController, public Implementation {
+ 
+   bool send(Request& req) override;
+   bool priority_send(Request& req) override;
++  bool is_pending() const override;
+ 
+   void update_stats() override;
+   void finalize() override;
+diff --git a/src/ramulator/controller/i_controller.h b/src/ramulator/controller/i_controller.h
+index 2967fc6..3ec4c39 100644
+--- a/src/ramulator/controller/i_controller.h
++++ b/src/ramulator/controller/i_controller.h
+@@ -23,6 +23,7 @@ class IController {
+   virtual bool send(Request& req) = 0;
+   virtual bool priority_send(Request& req) = 0;
+   virtual void tick() = 0;
++  virtual bool is_pending() const = 0;
+ 
+   virtual int get_tx_bytes() const = 0;
+   virtual int get_num_levels() const = 0;
+diff --git a/src/ramulator/frontend/CMakeLists.txt b/src/ramulator/frontend/CMakeLists.txt
+index 6006d4c..2fc2808 100644
+--- a/src/ramulator/frontend/CMakeLists.txt
++++ b/src/ramulator/frontend/CMakeLists.txt
+@@ -8,6 +8,7 @@ target_sources(
+   impl/memory_trace/loadstore_trace.cpp
+   impl/memory_trace/readwrite_trace.cpp
+   impl/memory_trace/latency_throughput_trace.cpp
++  impl/memory_trace/sieve_pim_frontend.cpp
+ 
+   impl/processor/simpleO3/simpleO3.cpp
+   impl/processor/simpleO3/core.h      impl/processor/simpleO3/core.cpp
+diff --git a/src/ramulator/memory_system/i_memory_system.h b/src/ramulator/memory_system/i_memory_system.h
+index 52e7f79..2a163f9 100644
+--- a/src/ramulator/memory_system/i_memory_system.h
++++ b/src/ramulator/memory_system/i_memory_system.h
+@@ -47,6 +47,9 @@ class IMemorySystem : public TopLevel<IMemorySystem> {
+ 
+   virtual bool send(Request& req) = 0;
+   virtual void tick() = 0;
++  virtual bool is_pending() const {
++    return false;
++  }
+ 
+   // Returns the clock ratio for the memory system (forwarded from controllers).
+   virtual int get_clock_ratio() = 0;
+diff --git a/src/ramulator/memory_system/impl/generic_dram_system.cpp b/src/ramulator/memory_system/impl/generic_dram_system.cpp
+index 4403b9d..fe18ae0 100644
+--- a/src/ramulator/memory_system/impl/generic_dram_system.cpp
++++ b/src/ramulator/memory_system/impl/generic_dram_system.cpp
+@@ -81,6 +81,15 @@ class GenericDRAMSystem final : public IMemorySystem, public Implementation {
+     }
+   };
+ 
++  bool is_pending() const override {
++    for (auto controller : m_controllers) {
++      if (controller->is_pending()) {
++        return true;
++      }
++    }
++    return false;
++  }
++
+   void reset_stats() override {
+     s_num_read_requests = 0;
+     s_num_write_requests = 0;
+diff --git a/src/ramulator/python/bindings.cpp b/src/ramulator/python/bindings.cpp
+index 3a880e1..7dd364b 100644
+--- a/src/ramulator/python/bindings.cpp
++++ b/src/ramulator/python/bindings.cpp
+@@ -48,18 +48,20 @@ class Simulation {
+ 
+     int fe_count = mem_tick - 1, mem_count = fe_tick - 1;
+     for (;;) {
+-      if (++fe_count >= mem_tick) {
++      if (!m_frontend->is_finished() && ++fe_count >= mem_tick) {
+         fe_count = 0;
+         m_frontend->tick();
+       }
+ 
+-      if (m_frontend->is_finished()) {
+-        break;
+-      }
+-
+       if (++mem_count >= fe_tick) {
+         mem_count = 0;
+         m_memory_system->tick();
+       }
++
++      // A trace is finished when all requests have been injected. Continue
++      // ticking until every controller has completed its buffered work.
++      if (m_frontend->is_finished() && !m_memory_system->is_pending()) {
++        break;
++      }
+     }
+   }
+ 

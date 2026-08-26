@@ -1,0 +1,24 @@
+diff --git a/src/ramulator/controller/CMakeLists.txt b/src/ramulator/controller/CMakeLists.txt
+index 9a7ab03..af525b2 100644
+--- a/src/ramulator/controller/CMakeLists.txt
++++ b/src/ramulator/controller/CMakeLists.txt
+@@ -44,6 +44,7 @@ target_sources(
+   impl/hbm12_controller.cpp
+   impl/hbm34_controller.cpp
+   impl/sieve_hbm_pim_controller.cpp
++  impl/sieve_hbm_pim_controller_v1.cpp
+   impl/gddr7_controller.cpp
+   impl/prac_controller.cpp
+   impl/blockhammer_controller.cpp
+diff --git a/src/ramulator/frontend/CMakeLists.txt b/src/ramulator/frontend/CMakeLists.txt
+index 2fc2808..1783fbc 100644
+--- a/src/ramulator/frontend/CMakeLists.txt
++++ b/src/ramulator/frontend/CMakeLists.txt
+@@ -9,6 +9,7 @@ target_sources(
+   impl/memory_trace/readwrite_trace.cpp
+   impl/memory_trace/latency_throughput_trace.cpp
+   impl/memory_trace/sieve_pim_frontend.cpp
++  impl/memory_trace/sieve_mixed_frontend.cpp
+ 
+   impl/processor/simpleO3/simpleO3.cpp
+   impl/processor/simpleO3/core.h      impl/processor/simpleO3/core.cpp

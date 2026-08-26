@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sieve Ramulator cycle-v1 contention table",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "metadata", "expert_contention"],
+  "properties": {
+    "schema_version": {"const": 2},
+    "metadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "units",
+        "ramulator_commit",
+        "extension_commit",
+        "cycle_config_sha256",
+        "isolated_timing_table_sha256",
+        "trace_sha256",
+        "generator_sha256",
+        "dual_row_buffer",
+        "model_sha256",
+        "hardware_sha256",
+        "candidate_space",
+        "search_method",
+        "search_total_prefixes",
+        "search_evaluated_prefixes",
+        "search_selected_prefix",
+        "search_measured_monotonicity_verified"
+      ],
+      "properties": {
+        "units": {"const": "us"},
+        "ramulator_commit": {"type": "string", "minLength": 40, "maxLength": 40},
+        "extension_commit": {"type": "string", "minLength": 1},
+        "cycle_config_sha256": {"type": "string", "minLength": 64, "maxLength": 64},
+        "isolated_timing_table_sha256": {"type": "string", "minLength": 64, "maxLength": 64},
+        "trace_sha256": {"type": "string", "minLength": 64, "maxLength": 64},
+        "generator_sha256": {"type": "string", "minLength": 64, "maxLength": 64},
+        "dual_row_buffer": {"const": true},
+        "model_sha256": {"type": "string", "minLength": 64, "maxLength": 64},
+        "hardware_sha256": {"type": "string", "minLength": 64, "maxLength": 64},
+        "candidate_space": {"const": "hot-prefix"},
+        "search_method": {"const": "monotonic-crossing-bisection-v1"},
+        "search_total_prefixes": {"type": "integer", "minimum": 2},
+        "search_evaluated_prefixes": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": {"type": "integer", "minimum": 0}
+        },
+        "search_selected_prefix": {"type": "integer", "minimum": 0},
+        "search_measured_monotonicity_verified": {"const": true}
+      }
+    },
+    "expert_contention": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "gpu_experts", "pim_experts", "gpu_token_count", "pim_token_count",
+          "gpu_read_transactions", "pim_gwrite_waves", "pim_mac_waves", "pim_read_waves",
+          "gpu_isolated_us", "pim_isolated_us", "gpu_contended_us", "pim_contended_us",
+          "pim_gwrite_contended_us", "pim_compute_contended_us", "pim_read_contended_us",
+          "total_memory_phase_us", "gpu_blocked_by_pim_cycles", "pim_blocked_by_gpu_cycles",
+          "pim_queue_wait_cycles", "gpu_column_issues", "pim_column_issues",
+          "pim_row_activations", "pim_row_conflicts"
+        ],
+        "properties": {
+          "gpu_experts": {"type": "array", "items": {"type": "integer", "minimum": 0}},
+          "pim_experts": {"type": "array", "items": {"type": "integer", "minimum": 0}},
+          "gpu_token_count": {"type": "integer", "minimum": 0},
+          "pim_token_count": {"type": "integer", "minimum": 0},
+          "gpu_read_transactions": {"type": "integer", "minimum": 0},
+          "pim_gwrite_waves": {"type": "integer", "minimum": 0},
+          "pim_mac_waves": {"type": "integer", "minimum": 0},
+          "pim_read_waves": {"type": "integer", "minimum": 0},
+          "gpu_isolated_us": {"type": ["number", "null"], "minimum": 0},
+          "pim_isolated_us": {"type": ["number", "null"], "minimum": 0},
+          "gpu_contended_us": {"type": "number", "minimum": 0},
+          "pim_contended_us": {"type": "number", "minimum": 0},
+          "pim_gwrite_contended_us": {"type": "number", "minimum": 0},
+          "pim_compute_contended_us": {"type": "number", "minimum": 0},
+          "pim_read_contended_us": {"type": "number", "minimum": 0},
+          "total_memory_phase_us": {"type": "number", "minimum": 0},
+          "gpu_blocked_by_pim_cycles": {"type": "integer", "minimum": 0},
+          "pim_blocked_by_gpu_cycles": {"type": "integer", "minimum": 0},
+          "pim_queue_wait_cycles": {"type": "integer", "minimum": 0},
+          "gpu_column_issues": {"type": "integer", "minimum": 0},
+          "pim_column_issues": {"type": "integer", "minimum": 0},
+          "pim_row_activations": {"type": "integer", "minimum": 0},
+          "pim_row_conflicts": {"type": "integer", "minimum": 0}
+        }
+      }
+    }
+  }
+}
