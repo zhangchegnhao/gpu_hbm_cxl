@@ -109,9 +109,24 @@ PYTHONPATH=src python3 scripts/capture_qwen3_router_trace.py \
   --dataset-split <split>
 ```
 
-输出目录包含 `router.jsonl` 和 `manifest.json`。真实 Trace 实验配置必须提供
-`trace_manifest`；回放时会校验 Trace SHA-256、模型 shape、batch 和 decode step。
+输出目录包含 `prompts.jsonl`、`router.jsonl` 和 `manifest.json`。schema-v2会绑定
+实际使用的prompt快照和Trace SHA-256、模型shape、batch、decode step及固定贪心
+生成语义。真实Trace实验配置必须提供`trace_manifest`。
 仓库不会自动下载约 60 GB 的 BF16 模型权重。
+
+捕获后先验证完整性并分析路由动态性：
+
+```bash
+PYTHONPATH=src python3 scripts/analyze_router_trace.py \
+  --experiment configs/experiments/<real-trace-experiment>.json \
+  --output results/router_trace_analysis/<capture-name>
+```
+
+分析输出包括逐层负载、逐专家负载和相邻Decode step的热点重合与load churn。
+当前真实Trace阶段协议、pilot prompts和本机执行限制见
+`docs/real_router_trace_stage.md`。
+Pilot捕获固定使用Qwen官方提交
+`ad44e777bcd18fa416d9da3bd8f70d33ebb85d39`，不跟随`main`漂移。
 
 ## 多层 cycle-v1 workload cache
 
@@ -171,6 +186,11 @@ cycle-v1回放。`sieve-cycle-v1`选择每层16个GPU专家和33个PIM专家，�
 10.144665 ms；完整的cycle-v0/v1差异、路径平衡和竞争指标解释见
 `docs/full_decode_cycle_v1_analysis.md`。这些数字仍受合成Trace和解析GPU模型限制，
 不能作为真实B200或论文级性能结论。
+
+固定16专家热点前缀消融与动态搜索得到完全相同的10.144665 ms，证明当前合成
+Trace只有一种负载计数shape，不能评价动态放置收益。消融见
+`docs/full_decode_cycle_v1_fixed_split_ablation.md`，真实Router Trace阶段协议见
+`docs/real_router_trace_stage.md`。
 
 ## Ramulator cycle-v0
 

@@ -24,10 +24,10 @@ class TraceManifestTest(unittest.TestCase):
             self.loaded.experiment.steps,
         )
 
-    def _manifest(self) -> dict[str, object]:
+    def _manifest(self, schema_version: int = 1) -> dict[str, object]:
         model = self.loaded.model
-        return {
-            "schema_version": 1,
+        manifest: dict[str, object] = {
+            "schema_version": schema_version,
             "trace_file": str(self.loaded.experiment.trace_path),
             "trace_sha256": sha256_file(self.loaded.experiment.trace_path),
             "model": {
@@ -56,6 +56,12 @@ class TraceManifestTest(unittest.TestCase):
                 "timing_source": "routing-only; no hardware timing captured",
             },
         }
+        if schema_version == 2:
+            capture = manifest["capture"]
+            assert isinstance(capture, dict)
+            capture["generation_strategy"] = "greedy-argmax-fixed-steps"
+            capture["fixed_batch"] = True
+        return manifest
 
     def test_manifest_binds_trace_and_model(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
@@ -78,6 +84,81 @@ class TraceManifestTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "SHA-256"):
                 TraceManifest.load_and_validate(
                     path,
+                    self.loaded.experiment.trace_path,
+                    self.loaded.model,
+                    self.trace_set,
+                )
+
+    def test_schema_v2_binds_prompt_snapshot(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            prompts = directory / "prompts.jsonl"
+            prompts.write_text(
+                "".join(
+                    f'{{"request_id":"request-{index}","prompt":"prompt {index}"}}\n'
+                    for index in range(8)
+                ),
+                encoding="utf-8",
+            )
+            raw = self._manifest(schema_version=2)
+            raw["prompts"] = {
+                "file": prompts.name,
+                "sha256": sha256_file(prompts),
+                "count": 8,
+            }
+            manifest_path = directory / "manifest.json"
+            manifest_path.write_text(json.dumps(raw), encoding="utf-8")
+            manifest = TraceManifest.load_and_validate(
+                manifest_path,
+                self.loaded.experiment.trace_path,
+                self.loaded.model,
+                self.trace_set,
+            )
+            self.assertEqual(manifest.raw["schema_version"], 2)
+
+    def test_schema_v2_rejects_stale_prompt_snapshot(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            prompts = directory / "prompts.jsonl"
+            prompts.write_text('{"request_id":"x","prompt":"x"}\n', encoding="utf-8")
+            raw = self._manifest(schema_version=2)
+            raw["prompts"] = {
+                "file": prompts.name,
+                "sha256": "0" * 64,
+                "count": 8,
+            }
+            manifest_path = directory / "manifest.json"
+            manifest_path.write_text(json.dumps(raw), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "prompt snapshot SHA-256"):
+                TraceManifest.load_and_validate(
+                    manifest_path,
+                    self.loaded.experiment.trace_path,
+                    self.loaded.model,
+                    self.trace_set,
+                )
+
+    def test_schema_v2_rejects_prompt_identity_mismatch(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            directory = Path(temporary)
+            prompts = directory / "prompts.jsonl"
+            prompts.write_text(
+                "".join(
+                    f'{{"request_id":"other-{index}","prompt":"prompt {index}"}}\n'
+                    for index in range(8)
+                ),
+                encoding="utf-8",
+            )
+            raw = self._manifest(schema_version=2)
+            raw["prompts"] = {
+                "file": prompts.name,
+                "sha256": sha256_file(prompts),
+                "count": 8,
+            }
+            manifest_path = directory / "manifest.json"
+            manifest_path.write_text(json.dumps(raw), encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "request IDs"):
+                TraceManifest.load_and_validate(
+                    manifest_path,
                     self.loaded.experiment.trace_path,
                     self.loaded.model,
                     self.trace_set,

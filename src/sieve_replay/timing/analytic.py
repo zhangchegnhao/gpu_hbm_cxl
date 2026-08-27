@@ -130,7 +130,11 @@ class AnalyticTimingModel:
     def scheduler(self, policy: str) -> TimingEstimate:
         overhead = (
             self.hardware.sieve_scheduler_overhead_us
-            if policy in {"sieve", "sieve-cycle-v1"}
+            if policy in {
+                "sieve",
+                "sieve-cycle-v1",
+                "sieve-fixed-16-cycle-v1",
+            }
             else self.hardware.static_policy_overhead_us
         )
         return TimingEstimate(overhead, description=f"{policy} placement policy")

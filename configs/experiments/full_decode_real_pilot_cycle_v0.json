@@ -1,0 +1,18 @@
+{
+  "name": "full-decode-real-pilot-cycle-v0",
+  "model": "configs/models/qwen3_30b_a3b.json",
+  "hardware": "configs/hardware/sieve_b200_1gpu_cycle_v0.json",
+  "trace": "traces/real/qwen3_30b_a3b/pilot_8x8/router.jsonl",
+  "trace_manifest": "traces/real/qwen3_30b_a3b/pilot_8x8/manifest.json",
+  "pim_timing_table": "ramulator/timing_tables/generated/qwen3_full_decode_cycle_v0.json",
+  "ramulator_cycle_config": "configs/ramulator/sieve_hbm3e_cycle_v0.json",
+  "layers": "all",
+  "steps": [0, 1, 2, 3, 4, 5, 6, 7],
+  "policies": [
+    "gpu-only",
+    "noexp",
+    "allexp",
+    "pimoe",
+    "sieve"
+  ]
+}

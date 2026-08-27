@@ -210,6 +210,78 @@ class SieveCycleV1Policy(PlacementPolicy):
         )
 
 
+class SieveFixed16CycleV1Policy(PlacementPolicy):
+    """Fixed-prefix ablation with the same scheduler overhead as dynamic Sieve."""
+
+    name = "sieve-fixed-16-cycle-v1"
+    attention_target = AttentionTarget.PIM
+    gpu_prefix_length = 16
+
+    def place(self, trace: TraceBatch) -> PlacementDecision:
+        if not isinstance(self.timing, RamulatorContentionTimingModel):
+            raise ValueError(
+                "sieve-fixed-16-cycle-v1 requires the ramulator-contention-v1 backend"
+            )
+        loads = trace.expert_loads
+        by_id = _loads_by_id(loads)
+        hot_order = tuple(
+            load.expert_id
+            for load in sorted(loads, key=lambda load: (-load.token_count, load.expert_id))
+        )
+        prefix_length = min(self.gpu_prefix_length, len(hot_order))
+        expected_gpu = set(hot_order[:prefix_length])
+        selected = next(
+            (
+                row
+                for row in self.timing.placement_candidates(loads)
+                if len(row.gpu_experts) == prefix_length
+                and set(row.gpu_experts) == expected_gpu
+            ),
+            None,
+        )
+        if selected is None:
+            raise ValueError(
+                "contention table has no exact fixed-16 hot-prefix candidate"
+            )
+        gpu_loads = tuple(by_id[expert] for expert in selected.gpu_experts)
+        gpu_compute_us = self.timing.gpu_expert_compute(gpu_loads).duration_us
+        gpu_path_us = selected.gpu_contended_us + gpu_compute_us
+        pim_path_us = selected.pim_contended_us
+        scheduler_us = self.timing.scheduler(self.name).duration_us
+        objective_us = scheduler_us + max(gpu_path_us, pim_path_us)
+        return PlacementDecision(
+            policy=self.name,
+            attention_target=self.attention_target,
+            gpu_experts=selected.gpu_experts,
+            pim_experts=selected.pim_experts,
+            estimated_objective_us=objective_us,
+            search_report={
+                "candidate_space": "fixed-hot-prefix-ablation",
+                "method": "fixed-gpu-prefix-length",
+                "objective": (
+                    "scheduler + max(gpu_contended + gpu_compute, pim_contended)"
+                ),
+                "candidate_count": 1,
+                "selected_gpu_prefix_length": prefix_length,
+                "configured_gpu_prefix_length": self.gpu_prefix_length,
+                "candidates": [
+                    {
+                        "gpu_prefix_length": prefix_length,
+                        "gpu_experts": list(selected.gpu_experts),
+                        "gpu_tokens": selected.gpu_token_count,
+                        "pim_tokens": selected.pim_token_count,
+                        "gpu_memory_us": selected.gpu_contended_us,
+                        "gpu_compute_us": gpu_compute_us,
+                        "gpu_path_us": gpu_path_us,
+                        "pim_path_us": pim_path_us,
+                        "scheduler_us": scheduler_us,
+                        "objective_us": objective_us,
+                    }
+                ],
+            },
+        )
+
+
 _POLICIES = {
     "gpu-only": GpuOnlyPolicy,
     "noexp": NoExpPolicy,
@@ -217,6 +289,7 @@ _POLICIES = {
     "pimoe": PimOePolicy,
     "sieve": SievePolicy,
     "sieve-cycle-v1": SieveCycleV1Policy,
+    "sieve-fixed-16-cycle-v1": SieveFixed16CycleV1Policy,
 }
 
 

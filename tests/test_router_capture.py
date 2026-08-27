@@ -31,6 +31,10 @@ class RouterCaptureInputTest(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "duplicate request_id"):
                 load_prompt_records(path)
 
+    def test_prompt_loader_rejects_nonpositive_limit(self) -> None:
+        with self.assertRaisesRegex(ValueError, "max_prompts must be positive"):
+            load_prompt_records("unused.jsonl", max_prompts=0)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -16,6 +16,8 @@ class PromptRecord:
 
 
 def load_prompt_records(path: str | Path, max_prompts: int | None = None) -> tuple[PromptRecord, ...]:
+    if max_prompts is not None and max_prompts <= 0:
+        raise ValueError("max_prompts must be positive")
     prompt_path = Path(path)
     try:
         lines = prompt_path.read_text(encoding="utf-8").splitlines()
@@ -40,7 +42,7 @@ def load_prompt_records(path: str | Path, max_prompts: int | None = None) -> tup
             raise ValueError(f"prompt line {line_number}: request_id must be a string or integer")
         if request_id in seen:
             raise ValueError(f"prompt line {line_number}: duplicate request_id {request_id!r}")
-        if not isinstance(prompt, str) or not prompt:
+        if not isinstance(prompt, str) or not prompt.strip():
             raise ValueError(f"prompt line {line_number}: prompt must be a non-empty string")
         seen.add(request_id)
         records.append(PromptRecord(request_id, prompt))
@@ -150,8 +152,11 @@ def capture_qwen3_router_trace(
     prompts = load_prompt_records(prompts_path, max_prompts=max_prompts)
     output = Path(output_dir)
     trace_path = output / "router.jsonl"
+    prompt_snapshot_path = output / "prompts.jsonl"
     manifest_path = output / "manifest.json"
-    if not overwrite and (trace_path.exists() or manifest_path.exists()):
+    if not overwrite and any(
+        path.exists() for path in (trace_path, prompt_snapshot_path, manifest_path)
+    ):
         raise ValueError(f"capture output already exists: {output}")
     output.mkdir(parents=True, exist_ok=True)
 
@@ -254,11 +259,25 @@ def capture_qwen3_router_trace(
     with trace_path.open("w", encoding="utf-8", newline="") as handle:
         for record in capture.records:
             handle.write(json.dumps(record, separators=(",", ":")) + "\n")
+    with prompt_snapshot_path.open("w", encoding="utf-8", newline="") as handle:
+        for record in prompts:
+            handle.write(
+                json.dumps(
+                    {"request_id": record.request_id, "prompt": record.prompt},
+                    separators=(",", ":"),
+                )
+                + "\n"
+            )
     resolved_revision = getattr(config, "_commit_hash", None) or revision
     manifest = {
-        "schema_version": 1,
+        "schema_version": 2,
         "trace_file": trace_path.name,
         "trace_sha256": _sha256(trace_path),
+        "prompts": {
+            "file": prompt_snapshot_path.name,
+            "sha256": _sha256(prompt_snapshot_path),
+            "count": len(prompts),
+        },
         "model": {
             "name": Path(str(model_name_or_path)).name,
             "revision": str(resolved_revision),
@@ -283,6 +302,8 @@ def capture_qwen3_router_trace(
             "device_map": device_map,
             "created_at_utc": datetime.now(timezone.utc).isoformat(),
             "timing_source": "routing-only; no hardware timing captured",
+            "generation_strategy": "greedy-argmax-fixed-steps",
+            "fixed_batch": True,
         },
     }
     manifest_path.write_text(

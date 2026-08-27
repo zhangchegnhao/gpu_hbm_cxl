@@ -76,10 +76,20 @@ class PolicyTest(unittest.TestCase):
             set(decision.gpu_experts) | set(decision.pim_experts),
             {load.expert_id for load in trace.expert_loads},
         )
+        fixed = create_policy("sieve-fixed-16-cycle-v1", timing).place(trace)
+        self.assertEqual(len(fixed.gpu_experts), 16)
+        self.assertEqual(len(fixed.pim_experts), len(trace.expert_loads) - 16)
+        assert fixed.search_report is not None
+        self.assertEqual(fixed.search_report["candidate_count"], 1)
+        self.assertEqual(
+            fixed.search_report["selected_gpu_prefix_length"], 16
+        )
 
     def test_cycle_v1_policy_rejects_analytic_backend(self) -> None:
         with self.assertRaises(ValueError):
             create_policy("sieve-cycle-v1", self.timing).place(self.trace)
+        with self.assertRaises(ValueError):
+            create_policy("sieve-fixed-16-cycle-v1", self.timing).place(self.trace)
 
 
 if __name__ == "__main__":

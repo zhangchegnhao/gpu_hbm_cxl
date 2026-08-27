@@ -5,6 +5,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from .capture import load_prompt_records
 from .config import ModelConfig
 from .trace import TraceSet, sha256_file
 
@@ -31,13 +32,20 @@ class TraceManifest:
             raise ValueError(f"invalid trace manifest JSON: {exc}") from exc
         if not isinstance(raw, dict):
             raise ValueError("trace manifest root must be an object")
-        _require_exact_keys(
-            raw,
-            {"schema_version", "trace_file", "trace_sha256", "model", "workload", "capture"},
-            "trace manifest",
-        )
-        if raw["schema_version"] != 1:
-            raise ValueError(f"unsupported trace manifest schema: {raw['schema_version']}")
+        schema_version = raw.get("schema_version")
+        if schema_version not in (1, 2):
+            raise ValueError(f"unsupported trace manifest schema: {schema_version}")
+        root_fields = {
+            "schema_version",
+            "trace_file",
+            "trace_sha256",
+            "model",
+            "workload",
+            "capture",
+        }
+        if schema_version == 2:
+            root_fields.add("prompts")
+        _require_exact_keys(raw, root_fields, "trace manifest")
 
         manifest_trace = (path.parent / _string(raw["trace_file"], "trace_file")).resolve()
         selected_trace = Path(trace_path).resolve()
@@ -48,6 +56,17 @@ class TraceManifest:
         expected_hash = _sha256(raw["trace_sha256"], "trace_sha256")
         if sha256_file(selected_trace) != expected_hash:
             raise ValueError("trace manifest SHA-256 does not match the trace file")
+
+        if schema_version == 2:
+            prompts = _object(raw["prompts"], "prompts")
+            _require_exact_keys(prompts, {"file", "sha256", "count"}, "prompts")
+            prompt_path = (path.parent / _string(prompts["file"], "prompts.file")).resolve()
+            prompt_hash = _sha256(prompts["sha256"], "prompts.sha256")
+            if not prompt_path.is_file():
+                raise ValueError(f"trace prompt snapshot does not exist: {prompt_path}")
+            if sha256_file(prompt_path) != prompt_hash:
+                raise ValueError("trace prompt snapshot SHA-256 does not match the manifest")
+            prompt_records = load_prompt_records(prompt_path)
 
         model_raw = _object(raw["model"], "model")
         _require_exact_keys(
@@ -99,26 +118,40 @@ class TraceManifest:
         _nonnegative_int(workload["seed"], "workload.seed")
         if prompt_count != batch_size or batch_size != trace_set.batch_size:
             raise ValueError("trace manifest prompt_count/batch_size does not match trace records")
+        if schema_version == 2:
+            snapshot_count = _positive_int(raw["prompts"]["count"], "prompts.count")
+            if snapshot_count != prompt_count or len(prompt_records) != prompt_count:
+                raise ValueError("trace prompt snapshot count does not match workload prompt_count")
+            trace_request_ids = tuple(
+                record.token_id for record in trace_set.batches[0].records
+            )
+            prompt_request_ids = tuple(record.request_id for record in prompt_records)
+            if prompt_request_ids != trace_request_ids:
+                raise ValueError("trace prompt request IDs do not match trace token IDs")
         if max(trace_set.steps) >= decode_steps:
             raise ValueError("selected trace step exceeds manifest decode_steps")
 
         capture = _object(raw["capture"], "capture")
-        _require_exact_keys(
-            capture,
-            {
-                "framework",
-                "framework_version",
-                "torch_version",
-                "device_map",
-                "created_at_utc",
-                "timing_source",
-            },
-            "trace manifest capture",
-        )
-        for field in capture:
+        capture_fields = {
+            "framework",
+            "framework_version",
+            "torch_version",
+            "device_map",
+            "created_at_utc",
+            "timing_source",
+        }
+        if schema_version == 2:
+            capture_fields.update({"generation_strategy", "fixed_batch"})
+        _require_exact_keys(capture, capture_fields, "trace manifest capture")
+        for field in capture_fields - {"fixed_batch"}:
             _string(capture[field], f"capture.{field}")
         if capture["timing_source"] != "routing-only; no hardware timing captured":
             raise ValueError("trace capture must explicitly exclude hardware timing")
+        if schema_version == 2:
+            if capture["generation_strategy"] != "greedy-argmax-fixed-steps":
+                raise ValueError("unsupported trace capture generation strategy")
+            if capture["fixed_batch"] is not True:
+                raise ValueError("trace capture must preserve a fixed request batch")
         return cls(path=path, raw=raw)
 
 

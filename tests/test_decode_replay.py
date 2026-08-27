@@ -15,6 +15,9 @@ from sieve_replay.trace import load_trace_set
 ROOT = Path(__file__).resolve().parents[1]
 FULL_DECODE = ROOT / "configs/experiments/full_decode_synthetic.json"
 FULL_CYCLE_V1 = ROOT / "configs/experiments/full_decode_cycle_v1.json"
+FIXED_SPLIT_ABLATION = (
+    ROOT / "configs/experiments/full_decode_cycle_v1_fixed_split_ablation.json"
+)
 SINGLE_LAYER = ROOT / "configs/experiments/single_layer_smoke.json"
 
 
@@ -103,6 +106,38 @@ class DecodeReplayTest(unittest.TestCase):
                 encoding="utf-8", newline=""
             ) as handle:
                 self.assertEqual(len(list(csv.DictReader(handle))), 96)
+
+    def test_fixed_16_ablation_matches_dynamic_on_repeated_load_shape(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary)
+            self.assertEqual(
+                main(
+                    [
+                        "run-all",
+                        "--experiment",
+                        str(FIXED_SPLIT_ABLATION),
+                        "--output",
+                        str(output),
+                    ]
+                ),
+                0,
+            )
+            fixed = json.loads(
+                (output / "sieve-fixed-16-cycle-v1/summary.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+            dynamic = json.loads(
+                (output / "sieve-cycle-v1/summary.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(fixed["total_latency_us"], dynamic["total_latency_us"])
+            self.assertEqual(fixed["placement_totals"], dynamic["placement_totals"])
+            self.assertEqual(
+                (output / "sieve-fixed-16-cycle-v1/layers.csv").read_text(
+                    encoding="utf-8"
+                ),
+                (output / "sieve-cycle-v1/layers.csv").read_text(encoding="utf-8"),
+            )
 
 
 if __name__ == "__main__":
