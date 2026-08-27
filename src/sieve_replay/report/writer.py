@@ -158,6 +158,28 @@ def _bounds(events: list[ScheduledEvent]) -> tuple[float, float, float]:
     return start, end, end - start
 
 
+def _contention_summary(rows: list[dict[str, Any]]) -> dict[str, Any]:
+    numeric_keys = sorted(
+        key
+        for key in rows[0]
+        if key not in {"step", "layer", "dual_row_buffer"}
+        and all(
+            isinstance(row.get(key), (int, float))
+            and not isinstance(row.get(key), bool)
+            for row in rows
+        )
+    )
+    totals = {key: sum(row[key] for row in rows) for key in numeric_keys}
+    return {
+        "layer_records": len(rows),
+        "dual_row_buffer": all(row.get("dual_row_buffer") is True for row in rows),
+        "totals": _round_nested(totals),
+        "means": _round_nested(
+            {key: totals[key] / len(rows) for key in numeric_keys}
+        ),
+    }
+
+
 def build_decode_summary(
     configuration: LoadedConfiguration,
     traces: tuple[TraceBatch, ...],
@@ -290,7 +312,9 @@ def build_decode_summary(
         if contention is not None
     ]
     if contention_rows:
-        summary["contention_by_layer"] = _round_nested(contention_rows)
+        rounded_contentions = _round_nested(contention_rows)
+        summary["contention_by_layer"] = rounded_contentions
+        summary["contention_summary"] = _contention_summary(rounded_contentions)
     search_rows = [
         {
             "step": trace.step,
@@ -461,6 +485,8 @@ def write_decode_results(
 
     _write_dict_rows(output / "layers.csv", summary["layers"])
     _write_dict_rows(output / "steps.csv", summary["steps"])
+    if "contention_by_layer" in summary:
+        _write_dict_rows(output / "contention.csv", summary["contention_by_layer"])
 
     with (output / "placement.csv").open("w", encoding="utf-8", newline="") as handle:
         writer = csv.writer(handle, lineterminator="\n")

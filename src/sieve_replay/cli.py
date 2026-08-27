@@ -89,7 +89,23 @@ def _run_all(experiment: str, output_dir: str) -> int:
                         "memory_feasible": result.summary["memory"]["feasible"],
                     }
                 )
-            if "contention" in result.summary:
+            if "contention_summary" in result.summary:
+                aggregate = result.summary["contention_summary"]
+                contention_row = {
+                    "policy": policy,
+                    "layer_records": aggregate["layer_records"],
+                    "dual_row_buffer": aggregate["dual_row_buffer"],
+                }
+                for label in ("totals", "means"):
+                    prefix = label[:-1]
+                    contention_row.update(
+                        {
+                            f"{prefix}_{key}": value
+                            for key, value in aggregate[label].items()
+                        }
+                    )
+                contention_rows.append(contention_row)
+            elif "contention" in result.summary:
                 contention_rows.append(
                     {"policy": policy, **result.summary["contention"]}
                 )

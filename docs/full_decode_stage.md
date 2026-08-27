@@ -48,7 +48,11 @@ Multi-layer runs write:
 - `layers.csv`: timing and placement counts for each layer execution;
 - `events.csv`: namespaced event schedule;
 - `placement.csv`: exact expert target for each step/layer;
+- `contention.csv`: per-layer cycle-v1 isolation, contention and row-buffer metrics;
 - `run_manifest.json`: full input snapshots and hashes.
+
+For multi-policy cycle-v1 runs, the result root additionally writes an
+aggregated `contention.csv` with per-policy totals and per-layer means.
 
 Synthetic and analytic results are functional validation, not paper-level
 performance claims. A formal real-trace cycle-v1 result additionally requires

@@ -1,0 +1,74 @@
+[
+  {
+    "gpu_expert_tokens": 6144,
+    "mean_gpu_experts_per_layer": 49.0,
+    "mean_pim_experts_per_layer": 0.0,
+    "mean_step_latency_us": 8054.746917888,
+    "memory_feasible": true,
+    "p95_step_latency_us": 8054.791154688,
+    "pim_expert_tokens": 0,
+    "policy": "gpu-only",
+    "throughput_request_tokens_per_s": 993.203148597,
+    "total_latency_us": 16109.493835776
+  },
+  {
+    "gpu_expert_tokens": 6144,
+    "mean_gpu_experts_per_layer": 49.0,
+    "mean_pim_experts_per_layer": 0.0,
+    "mean_step_latency_us": 8813.280357888,
+    "memory_feasible": true,
+    "p95_step_latency_us": 8813.812754688,
+    "pim_expert_tokens": 0,
+    "policy": "noexp",
+    "throughput_request_tokens_per_s": 907.721038607,
+    "total_latency_us": 17626.560715776
+  },
+  {
+    "gpu_expert_tokens": 0,
+    "mean_gpu_experts_per_layer": 0.0,
+    "mean_pim_experts_per_layer": 49.0,
+    "mean_step_latency_us": 6401.44416,
+    "memory_feasible": true,
+    "p95_step_latency_us": 6401.9765568,
+    "pim_expert_tokens": 6144,
+    "policy": "allexp",
+    "throughput_request_tokens_per_s": 1249.718001133,
+    "total_latency_us": 12802.88832
+  },
+  {
+    "gpu_expert_tokens": 1248,
+    "mean_gpu_experts_per_layer": 2.0,
+    "mean_pim_experts_per_layer": 47.0,
+    "mean_step_latency_us": 5441.976768,
+    "memory_feasible": true,
+    "p95_step_latency_us": 5442.5091648,
+    "pim_expert_tokens": 4896,
+    "policy": "pimoe",
+    "throughput_request_tokens_per_s": 1470.054052241,
+    "total_latency_us": 10883.953536
+  },
+  {
+    "gpu_expert_tokens": 4512,
+    "mean_gpu_experts_per_layer": 32.0,
+    "mean_pim_experts_per_layer": 17.0,
+    "mean_step_latency_us": 7323.004045824,
+    "memory_feasible": true,
+    "p95_step_latency_us": 7323.536442624,
+    "pim_expert_tokens": 1632,
+    "policy": "sieve",
+    "throughput_request_tokens_per_s": 1092.447846531,
+    "total_latency_us": 14646.008091648
+  },
+  {
+    "gpu_expert_tokens": 2976,
+    "mean_gpu_experts_per_layer": 16.0,
+    "mean_pim_experts_per_layer": 33.0,
+    "mean_step_latency_us": 5072.332608,
+    "memory_feasible": true,
+    "p95_step_latency_us": 5072.8650048,
+    "pim_expert_tokens": 3168,
+    "policy": "sieve-cycle-v1",
+    "throughput_request_tokens_per_s": 1577.183638822,
+    "total_latency_us": 10144.665216
+  }
+]

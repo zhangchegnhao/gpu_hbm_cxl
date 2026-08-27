@@ -136,6 +136,18 @@ PYTHONPATH=src python3 scripts/plan_decode_workloads.py \
   --max-new-runs 20
 ```
 
+需要补齐大量shape时，可以使用独立进程并行运行；父进程为每个完成shape立即写入
+同一精确缓存，`--workers`应按宿主机实际CPU和内存能力设置：
+
+```bash
+PYTHONPATH=src python3 scripts/fill_decode_workloads_parallel.py \
+  --experiment configs/experiments/full_decode_cycle_v1.json \
+  --cycle-config configs/ramulator/sieve_hbm3e_cycle_v1.json \
+  --cache-dir ramulator/timing_tables/generated/.cache/decode_workloads \
+  --catalog-output /tmp/full_decode_workloads.json \
+  --workers 4
+```
+
 当 `missing_workload_shapes` 为 0 时，物化严格的 schema-v3 contention table：
 
 ```bash
@@ -153,6 +165,12 @@ PYTHONPATH=src python3 -m sieve_replay.cli run-all \
 物化器要求每个混合及隔离 shape 均精确命中；缺少任何键都会失败，不插值，也不会
 留下不完整的正式表。当前仓库不跟踪 `.cache`，因此新克隆必须重新补齐或显式传入
 已有缓存。
+
+当前提供的48层合成Trace已经完成146/146个精确workload、schema-v3表和六策略
+cycle-v1回放。`sieve-cycle-v1`选择每层16个GPU专家和33个PIM专家，总时延为
+10.144665 ms；完整的cycle-v0/v1差异、路径平衡和竞争指标解释见
+`docs/full_decode_cycle_v1_analysis.md`。这些数字仍受合成Trace和解析GPU模型限制，
+不能作为真实B200或论文级性能结论。
 
 ## Ramulator cycle-v0
 

@@ -1,10 +1,12 @@
 from __future__ import annotations
 
+import csv
 import json
 import tempfile
 import unittest
 from pathlib import Path
 
+from sieve_replay.cli import main
 from sieve_replay.config import load_configuration
 from sieve_replay.replay import run_experiment
 from sieve_replay.trace import load_trace_set
@@ -12,6 +14,7 @@ from sieve_replay.trace import load_trace_set
 
 ROOT = Path(__file__).resolve().parents[1]
 FULL_DECODE = ROOT / "configs/experiments/full_decode_synthetic.json"
+FULL_CYCLE_V1 = ROOT / "configs/experiments/full_decode_cycle_v1.json"
 SINGLE_LAYER = ROOT / "configs/experiments/single_layer_smoke.json"
 
 
@@ -64,6 +67,42 @@ class DecodeReplayTest(unittest.TestCase):
                 )
         self.assertEqual(result.summary["total_latency_us"], legacy.summary["total_latency_us"])
         self.assertEqual(result.summary["placement"], legacy.summary["placement"])
+
+    def test_full_cycle_v1_writes_layer_and_policy_contention_reports(self) -> None:
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary)
+            self.assertEqual(
+                main(
+                    [
+                        "run-all",
+                        "--experiment",
+                        str(FULL_CYCLE_V1),
+                        "--output",
+                        str(output),
+                    ]
+                ),
+                0,
+            )
+            with (output / "contention.csv").open(encoding="utf-8", newline="") as handle:
+                policy_rows = list(csv.DictReader(handle))
+            self.assertEqual(len(policy_rows), 6)
+            self.assertTrue(all(row["layer_records"] == "96" for row in policy_rows))
+
+            summary = json.loads(
+                (output / "sieve-cycle-v1/summary.json").read_text(encoding="utf-8")
+            )
+            by_layer = summary["contention_by_layer"]
+            aggregate = summary["contention_summary"]
+            self.assertEqual(len(by_layer), 96)
+            self.assertEqual(aggregate["layer_records"], 96)
+            self.assertAlmostEqual(
+                aggregate["totals"]["gpu_contended_us"],
+                sum(row["gpu_contended_us"] for row in by_layer),
+            )
+            with (output / "sieve-cycle-v1/contention.csv").open(
+                encoding="utf-8", newline=""
+            ) as handle:
+                self.assertEqual(len(list(csv.DictReader(handle))), 96)
 
 
 if __name__ == "__main__":
