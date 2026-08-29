@@ -88,7 +88,8 @@ cycle-v0与cycle-v1的主要差异来自用请求级Ramulator时序替换理想�
 
 ## 当前阶段
 
-当前阶段目标是真实Qwen3 Router Trace驱动的动态cycle-v1实验。
+当前阶段是**真实Qwen3 Router Trace驱动的动态cycle-v1实验**。真实pilot的路由捕获
+已经在外部云实例完成，但真实Trace的Ramulator时序和六策略性能回放尚未完成。
 
 已经完成：
 
@@ -98,13 +99,14 @@ cycle-v0与cycle-v1的主要差异来自用请求级Ramulator时序替换理想�
   load churn和逐请求路由变化；
 - Batch 8、8 Decode step的pilot prompts和cycle-v0/cycle-v1配置；
 - Qwen模型固定提交
-  `ad44e777bcd18fa416d9da3bd8f70d33ebb85d39`。
+  `ad44e777bcd18fa416d9da3bd8f70d33ebb85d39`；
+- 在单张`NVIDIA A800-SXM4-80GB`云实例上完成BF16模型加载和真实pilot捕获；
+- 真实pilot产生384个层批次、3072条Router记录，并通过manifest完整性校验；
+- 真实pilot路由分析完成，得到340个unique load signatures；
+- 云端捕获环境固定为PyTorch `2.7.1+cu126`、Transformers `4.53.2`、Python
+  `3.12.11`，驱动报告CUDA `13.2`。
 
-当前主机没有可用GPU、没有Qwen3权重、没有Trace捕获依赖，内存约15 GiB，无法
-加载约60 GB的BF16模型。因此真实pilot尚未捕获。不得使用随机路由、小模型路由或
-人工生成数据冒充真实Qwen3 Router Trace。
-
-真实捕获目录必须包含：
+真实pilot目录必须包含：
 
 ```text
 prompts.jsonl
@@ -112,15 +114,27 @@ router.jsonl
 manifest.json
 ```
 
-取得真实Trace后的执行顺序为：
+云端pilot归档文件为`qwen3_router_pilot_8x8.tar.gz`，已生成的归档SHA-256为
+`910d531a9e188f27cd2f3b3fac43180523d5e28b171b2ddd28aa399a332f4208`。当前工作树已
+导入该pilot目录；manifest记录的`router.jsonl` SHA-256为
+`a22fdc8afb9b93af6ea133ac254bac98830a5d07e4225edf2b37c348ea80bb34`，
+`prompts.jsonl` SHA-256为
+`50b874b743669f7686b35b58cf3227c3942a1c2a2ea9ee14bcdda0a606a46866`。模型权重不需要
+复制或提交，真实Trace文件当前保持为工作树中的未跟踪实验输入。
+
+真实Trace导入后的执行顺序为：
 
 1. 通过manifest、Trace完整性和prompt身份校验；
 2. 运行Router特征分析；
-3. 枚举并去重全部精确cycle-v1 workload；
-4. 使用可恢复缓存补齐Ramulator运行，禁止插值；
-5. 物化与真实Trace哈希绑定的schema-v3表；
-6. 回放六个主要策略和固定16专家消融；
-7. 比较动态放置、固定分界、cycle-v0/v1和isolated/contended结果。
+3. 构建`third_party/ramulator2/python`下的Sieve Ramulator Python binding；
+4. 枚举并去重真实Trace所需的全部精确cycle-v1 workload；
+5. 使用可恢复缓存补齐Ramulator运行，禁止插值；云服务器上的首次pilot填充因该
+   环境未构建Ramulator Python binding而失败`1030`个shape，这属于环境前置条件
+   错误，不是workload时序失败；当前本地工作树已有Ramulator环境，但真实Trace
+   workload填充尚未在本地重试；
+6. 仅在`failed=0`、`remaining=0`且插值为0后，物化与真实Trace哈希绑定的schema-v3表；
+7. 回放六个主要策略和固定16专家消融；
+8. 比较动态放置、固定分界、cycle-v0/v1和isolated/contended结果。
 
 详细协议见`docs/real_router_trace_stage.md`。
 
@@ -129,6 +143,7 @@ manifest.json
 现有结果是模拟器阶段性结果，不是论文级硬件性能结论。后续工作必须保留以下边界：
 
 - 当前已完成性能结果使用确定性合成Router Trace；
+- 真实Qwen3 pilot目前只提供路由Trace和路由统计，尚未产生真实Trace驱动的性能数字；
 - 只有2个Decode step，不能代表长序列或连续批处理；
 - GPU算术、Router、Scheduler和GPU Attention仍是解析模型；
 - PIM Attention尚未进入cycle-v1混合请求模拟；
