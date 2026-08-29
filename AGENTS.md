@@ -120,7 +120,7 @@ manifest.json
 `a22fdc8afb9b93af6ea133ac254bac98830a5d07e4225edf2b37c348ea80bb34`，
 `prompts.jsonl` SHA-256为
 `50b874b743669f7686b35b58cf3227c3942a1c2a2ea9ee14bcdda0a606a46866`。模型权重不需要
-复制或提交，真实Trace文件当前保持为工作树中的未跟踪实验输入。
+复制或提交，真实Trace文件已纳入当前仓库版本控制。
 
 真实Trace导入后的执行顺序为：
 
