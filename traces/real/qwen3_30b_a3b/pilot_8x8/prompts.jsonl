@@ -1,0 +1,8 @@
+{"request_id":"pilot-0","prompt":"Explain how memory bandwidth limits autoregressive language-model decoding."}
+{"request_id":"pilot-1","prompt":"Compare mixture-of-experts routing with a dense transformer feed-forward layer."}
+{"request_id":"pilot-2","prompt":"A train travels 180 kilometers in 2.5 hours. Calculate its average speed and show the reasoning."}
+{"request_id":"pilot-3","prompt":"Find the bug in a binary search that updates low to mid instead of mid plus one."}
+{"request_id":"pilot-4","prompt":"Summarize the main causes of seasonal changes on Earth in three sentences."}
+{"request_id":"pilot-5","prompt":"Write a concise project plan for migrating a service without interrupting users."}
+{"request_id":"pilot-6","prompt":"Explain why a shared cache can improve performance but also create contention."}
+{"request_id":"pilot-7","prompt":"Describe a quiet city street after a summer rain using concrete sensory details."}
