@@ -1,0 +1,290 @@
+{"kind":"deck","id":"pr/z0x7ph","name":"Deck"}
+{"kind":"layout","layoutId":"143fc937-5bc7-49d0-bffe-35f7bb0a53c6","name":"Master","type":"master"}
+{"kind":"layout","layoutId":"b3b1aa63-7b36-444b-a608-89472404fcb8","name":"Title Slide","type":"title"}
+{"kind":"slide","id":"sl/2pgk0v","slide":1,"title":"QWEN3 REAL ROUTER TRACE","textShapes":15}
+{"kind":"textbox","id":"sh/crqtsjy9","slide":1,"text":"QWEN3 REAL ROUTER TRACE","textPreview":"QWEN3 REAL ROUTER TRACE","textChars":23,"textLines":1,"bbox":[64,62,480,24]}
+{"kind":"textbox","id":"sh/rqhcjex4","slide":1,"text":"动态 GPU / PIM 分界\n在 cycle-v1 上的实验结果","textPreview":"动态 GPU / PIM 分界 | 在 cycle-v1 上的实验结果","textChars":33,"textLines":2,"bbox":[64,128,650,154]}
+{"kind":"textbox","id":"sh/qp8bq9gj","slide":1,"text":"真实 Qwen3 Router Trace · 请求级 Ramulator · 7 策略回放","textPreview":"真实 Qwen3 Router Trace · 请求级 Ramulator · 7 策略回放","textChars":46,"textLines":1,"bbox":[68,310,620,36]}
+{"kind":"shape","id":"sh/1gjup8f6","slide":1,"bbox":[68,426,240,108]}
+{"kind":"textbox","id":"sh/0fqdw3yl","slide":1,"text":"1030/1030","textPreview":"1030/1030","textChars":9,"textLines":1,"bbox":[86,442,204,42]}
+{"kind":"textbox","id":"sh/zehcnyx0","slide":1,"text":"精确 workload shapes","textPreview":"精确 workload shapes","textChars":18,"textLines":1,"bbox":[86,491,204,26]}
+{"kind":"shape","id":"sh/ed8vutgf","slide":1,"bbox":[330,426,240,108]}
+{"kind":"textbox","id":"sh/hkfud4fm","slide":1,"text":"30.551 ms","textPreview":"30.551 ms","textChars":9,"textLines":1,"bbox":[348,442,204,42]}
+{"kind":"textbox","id":"sh/gj6tkzy1","slide":1,"text":"最佳端到端时延","textPreview":"最佳端到端时延","textChars":7,"textLines":1,"bbox":[348,491,204,26]}
+{"kind":"shape","id":"sh/q1wjapw7","slide":1,"bbox":[592,426,240,108]}
+{"kind":"textbox","id":"sh/r25kjuds","slide":1,"text":"340","textPreview":"340","textChars":3,"textLines":1,"bbox":[610,442,204,42]}
+{"kind":"textbox","id":"sh/s3y1czed","slide":1,"text":"unique load signatures","textPreview":"unique load signatures","textChars":22,"textLines":1,"bbox":[610,491,204,26]}
+{"kind":"shape","id":"sh/d472l4vy","slide":1,"bbox":[864,132,300,116]}
+{"kind":"textbox","id":"sh/e5gje9wj","slide":1,"text":"GPU","textPreview":"GPU","textChars":3,"textLines":1,"bbox":[888,153,112,30]}
+{"kind":"textbox","id":"sh/fqpkned4","slide":1,"text":"Expert READ + analytic compute","textPreview":"Expert READ + analytic compute","textChars":30,"textLines":1,"bbox":[888,192,220,24]}
+{"kind":"shape","id":"sh/0ry1gje9","slide":1,"bbox":[864,300,300,116]}
+{"kind":"textbox","id":"sh/1s72p4vu","slide":1,"text":"Local HBM-PIM","textPreview":"Local HBM-PIM","textChars":13,"textLines":1,"bbox":[888,321,220,30]}
+{"kind":"textbox","id":"sh/2tgji9wf","slide":1,"text":"gwrite → MAC → read","textPreview":"gwrite → MAC → read","textChars":19,"textLines":1,"bbox":[888,360,220,24]}
+{"kind":"shape","id":"sh/nupkred0","slide":1,"bbox":[1014,250,0,44]}
+{"kind":"textbox","id":"sh/zy90zet8","slide":1,"text":"1 GPU + 8 Local HBM-PIM Stacks","textPreview":"1 GPU + 8 Local HBM-PIM Stacks","textChars":30,"textLines":1,"bbox":[864,454,300,28]}
+{"kind":"textbox","id":"sh/yx0j69cn","slide":1,"text":"组会汇报 · 2026","textPreview":"组会汇报 · 2026","textChars":11,"textLines":1,"bbox":[64,646,260,20]}
+{"kind":"notes","id":"nt/2pgk0v","slide":1,"text":"[Sources]\nExperiment outputs: results/full_decode_real_pilot_cycle_v1/*/summary.json\nTrace: traces/real/qwen3_30b_a3b/pilot_8x8/router.jsonl\nAnalysis: docs/full_decode_real_pilot_cycle_v1_analysis.md"}
+{"kind":"slide","id":"sl/pojk16","slide":2,"title":"QUESTION","textShapes":13}
+{"kind":"textbox","id":"sh/pwjixkf6","slide":2,"text":"QUESTION","textPreview":"QUESTION","textChars":8,"textLines":1,"bbox":[64,18,300,18]}
+{"kind":"textbox","id":"sh/2t8jmpgv","slide":2,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[1160,18,56,18]}
+{"kind":"shape","id":"sh/nuh0vaxg","slide":2,"bbox":[64,38,1152,0]}
+{"kind":"textbox","id":"sh/cza1szyx","slide":2,"name":"slide-title","text":"问题不是把更多专家放到 PIM，而是让两条路径接近同步","textPreview":"问题不是把更多专家放到 PIM，而是让两条路径接近同步","textChars":27,"textLines":1,"bbox":[64,60,1152,56]}
+{"kind":"textbox","id":"sh/x0ji14fi","slide":2,"text":"每个 layer-batch 都有不同的路由负载形状","textPreview":"每个 layer-batch 都有不同的路由负载形状","textChars":26,"textLines":1,"bbox":[64,116,1152,32]}
+{"kind":"textbox","id":"sh/axsjqpgr","slide":2,"text":"MoE Decode 的关键瓶颈是两条 Expert path 的最大值：","textPreview":"MoE Decode 的关键瓶颈是两条 Expert path 的最大值：","textChars":37,"textLines":1,"bbox":[80,185,470,30]}
+{"kind":"textbox","id":"sh/by10zuxc","slide":2,"text":"layer latency ≈ scheduler + max(GPU path, PIM path)","textPreview":"layer latency ≈ scheduler + max(GPU path, PIM path)","textChars":51,"textLines":1,"bbox":[80,240,610,46]}
+{"kind":"textbox","id":"sh/knu1wzyt","slide":2,"text":"固定分界容易在某些负载上偏向 GPU，\n或让 PIM 成为关键路径。","textPreview":"固定分界容易在某些负载上偏向 GPU， | 或让 PIM 成为关键路径。","textChars":34,"textLines":2,"bbox":[80,322,500,74]}
+{"kind":"shape","id":"sh/lo3254fe","slide":2,"bbox":[734,184,390,112]}
+{"kind":"textbox","id":"sh/xg7qlk3i","slide":2,"text":"GPU Expert path","textPreview":"GPU Expert path","textChars":15,"textLines":1,"bbox":[762,207,300,28]}
+{"kind":"textbox","id":"sh/wfy9cfmx","slide":2,"text":"Ramulator READ + analytic compute","textPreview":"Ramulator READ + analytic compute","textChars":33,"textLines":1,"bbox":[762,250,300,24]}
+{"kind":"shape","id":"sh/vep8jalc","slide":2,"bbox":[734,386,390,112]}
+{"kind":"textbox","id":"sh/adg7a54r","slide":2,"text":"PIM Expert path","textPreview":"PIM Expert path","textChars":15,"textLines":1,"bbox":[762,409,300,28]}
+{"kind":"textbox","id":"sh/54rqpk3e","slide":2,"text":"gwrite → MAC → result read","textPreview":"gwrite → MAC → result read","textChars":26,"textLines":1,"bbox":[762,452,300,24]}
+{"kind":"shape","id":"sh/43i9gfmt","slide":2,"bbox":[929,302,0,76]}
+{"kind":"textbox","id":"sh/jip8nal8","slide":2,"text":"scheduler + max(path)","textPreview":"scheduler + max(path)","textChars":21,"textLines":1,"bbox":[812,322,250,24]}
+{"kind":"shape","id":"sh/ihgrep4n","slide":2,"bbox":[80,500,1044,78]}
+{"kind":"textbox","id":"sh/l8nqd03a","slide":2,"text":"真实 Trace 的价值：把“动态分界是否有用”变成可测量的问题。","textPreview":"真实 Trace 的价值：把“动态分界是否有用”变成可测量的问题。","textChars":33,"textLines":1,"bbox":[110,523,980,32]}
+{"kind":"notes","id":"nt/pojk16","slide":2,"text":"[Sources]\nMethod definition: src/sieve_replay/policy/policies.py\nExperiment scope and limits: AGENTS.md, docs/real_router_trace_stage.md"}
+{"kind":"slide","id":"sl/36vr0m","slide":3,"title":"ARCHITECTURE","textShapes":13}
+{"kind":"textbox","id":"sh/kfy10jml","slide":3,"text":"ARCHITECTURE","textPreview":"ARCHITECTURE","textChars":12,"textLines":1,"bbox":[64,18,300,18]}
+{"kind":"textbox","id":"sh/je5k7yl0","slide":3,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[1160,18,56,18]}
+{"kind":"shape","id":"sh/idwjyt4f","slide":3,"bbox":[64,38,1152,0]}
+{"kind":"textbox","id":"sh/xcn25onu","slide":3,"name":"slide-title","text":"当前实验是单 GPU + 8 个 Local HBM-PIM Stack","textPreview":"当前实验是单 GPU + 8 个 Local HBM-PIM Stack","textChars":36,"textLines":1,"bbox":[64,60,1152,56]}
+{"kind":"textbox","id":"sh/wbe1wjm9","slide":3,"text":"Shared CXL-PIM 和多 GPU 属于后续架构，不在本次结果中","textPreview":"Shared CXL-PIM 和多 GPU 属于后续架构，不在本次结果中","textChars":36,"textLines":1,"bbox":[64,116,1152,32]}
+{"kind":"shape","id":"sh/va5k3e5o","slide":3,"bbox":[92,196,172,74]}
+{"kind":"textbox","id":"sh/a9wju943","slide":3,"text":"Qwen3 Decode","textPreview":"Qwen3 Decode","textChars":12,"textLines":1,"bbox":[109,218,138,30]}
+{"kind":"shape","id":"sh/h8r2h83y","slide":3,"bbox":[318,196,172,74]}
+{"kind":"textbox","id":"sh/g7il83md","slide":3,"text":"Router","textPreview":"Router","textChars":6,"textLines":1,"bbox":[343,218,122,30]}
+{"kind":"shape","id":"sh/yxs3ytcf","slide":3,"bbox":[544,196,212,74]}
+{"kind":"textbox","id":"sh/jy1kret0","slide":3,"text":"Policy / Scheduler","textPreview":"Policy / Scheduler","textChars":18,"textLines":1,"bbox":[566,218,168,30]}
+{"kind":"shape","id":"sh/kzal0ju5","slide":3,"bbox":[264,233,54,0]}
+{"kind":"shape","id":"sh/l032tobq","slide":3,"bbox":[490,233,54,0]}
+{"kind":"shape","id":"sh/a9sju9c3","slide":3,"bbox":[300,352,320,124]}
+{"kind":"textbox","id":"sh/ba1kneto","slide":3,"text":"GPU","textPreview":"GPU","textChars":3,"textLines":1,"bbox":[326,375,90,32]}
+{"kind":"textbox","id":"sh/wbalwju9","slide":3,"text":"Expert READ\nanalytic compute","textPreview":"Expert READ | analytic compute","textChars":28,"textLines":2,"bbox":[326,414,240,48]}
+{"kind":"shape","id":"sh/xcj2pobu","slide":3,"bbox":[680,352,320,124]}
+{"kind":"textbox","id":"sh/u5c36dsn","slide":3,"text":"Local HBM-PIM × 8","textPreview":"Local HBM-PIM × 8","textChars":17,"textLines":1,"bbox":[706,375,264,32]}
+{"kind":"textbox","id":"sh/v6lkzyts","slide":3,"text":"gwrite → MAC → read\nrequest-level Ramulator","textPreview":"gwrite → MAC → read | request-level Ramulator","textChars":43,"textLines":2,"bbox":[706,414,258,48]}
+{"kind":"shape","id":"sh/rax0rq9k","slide":3,"bbox":[460,270,190,82]}
+{"kind":"shape","id":"sh/q94zy5sz","slide":3,"bbox":[650,270,190,82]}
+{"kind":"shape","id":"sh/dcfit0ra","slide":3,"bbox":[454,536,260,64]}
+{"kind":"textbox","id":"sh/cb6h0va5","slide":3,"text":"Combine → next layer","textPreview":"Combine → next layer","textChars":20,"textLines":1,"bbox":[474,555,220,26]}
+{"kind":"shape","id":"sh/zex0va9g","slide":3,"bbox":[460,476,80,60]}
+{"kind":"shape","id":"sh/edoz25sv","slide":3,"bbox":[640,476,200,60]}
+{"kind":"shape","id":"sh/1gfixkrm","slide":3,"bbox":[1030,352,176,124]}
+{"kind":"textbox","id":"sh/0f6h4fa1","slide":3,"text":"Shared CXL-PIM\nOUT OF SCOPE","textPreview":"Shared CXL-PIM | OUT OF SCOPE","textChars":27,"textLines":2,"bbox":[1044,384,148,56]}
+{"kind":"notes","id":"nt/36vr0m","slide":3,"text":"[Sources]\nArchitecture scope: AGENTS.md, sections 当前实现范围 and 科研结论边界\nHardware config: configs/hardware/sieve_b200_1gpu_cycle_v1.json"}
+{"kind":"slide","id":"sl/lw7xla","slide":4,"title":"METHOD","textShapes":20}
+{"kind":"textbox","id":"sh/pkzahkzu","slide":4,"text":"METHOD","textPreview":"METHOD","textChars":6,"textLines":1,"bbox":[64,18,300,18]}
+{"kind":"textbox","id":"sh/2hor6pg3","slide":4,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[1160,18,56,18]}
+{"kind":"shape","id":"sh/3ixsfaho","slide":4,"bbox":[64,38,1152,0]}
+{"kind":"textbox","id":"sh/cnq9czy5","slide":4,"name":"slide-title","text":"从真实路由到端到端结果，实验链路已经闭环","textPreview":"从真实路由到端到端结果，实验链路已经闭环","textChars":20,"textLines":1,"bbox":[64,60,1152,56]}
+{"kind":"textbox","id":"sh/dozal4zq","slide":4,"text":"每一步都保留输入身份和可复现证据","textPreview":"每一步都保留输入身份和可复现证据","textChars":16,"textLines":1,"bbox":[64,116,1152,32]}
+{"kind":"shape","id":"sh/ql8rapgf","slide":4,"bbox":[78,224,180,176]}
+{"kind":"textbox","id":"sh/rmhsjuh0","slide":4,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[96,244,56,28]}
+{"kind":"textbox","id":"sh/srm90vi1","slide":4,"text":"Router Trace","textPreview":"Router Trace","textChars":12,"textLines":1,"bbox":[96,287,144,28]}
+{"kind":"textbox","id":"sh/tsfq90zm","slide":4,"text":"384 layer-batches\n3072 records","textPreview":"384 layer-batches | 3072 records","textChars":30,"textLines":2,"bbox":[96,331,144,52]}
+{"kind":"shape","id":"sh/14juhgn6","slide":4,"bbox":[258,312,46,0]}
+{"kind":"shape","id":"sh/g3at8bml","slide":4,"bbox":[304,224,180,176]}
+{"kind":"textbox","id":"sh/f21cf650","slide":4,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[322,244,56,28]}
+{"kind":"textbox","id":"sh/e1sb614f","slide":4,"text":"Manifest","textPreview":"Manifest","textChars":8,"textLines":1,"bbox":[322,287,144,28]}
+{"kind":"textbox","id":"sh/p8jul0n2","slide":4,"text":"prompt / trace\nSHA-256 binding","textPreview":"prompt / trace | SHA-256 binding","textChars":30,"textLines":2,"bbox":[322,331,144,52]}
+{"kind":"shape","id":"sh/o7atcvmh","slide":4,"bbox":[484,312,46,0]}
+{"kind":"shape","id":"sh/361cjq5w","slide":4,"bbox":[530,224,180,176]}
+{"kind":"textbox","id":"sh/25sbal4b","slide":4,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[548,244,56,28]}
+{"kind":"textbox","id":"sh/xw3up0ne","slide":4,"text":"Workload cache","textPreview":"Workload cache","textChars":14,"textLines":1,"bbox":[548,287,144,28]}
+{"kind":"textbox","id":"sh/cvudgvmt","slide":4,"text":"1030/1030 exact\ninterpolation = 0","textPreview":"1030/1030 exact | interpolation = 0","textChars":33,"textLines":2,"bbox":[548,331,144,52]}
+{"kind":"shape","id":"sh/wbm583y1","slide":4,"bbox":[710,312,46,0]}
+{"kind":"shape","id":"sh/hcv618fm","slide":4,"bbox":[756,224,180,176]}
+{"kind":"textbox","id":"sh/upkn6tgv","slide":4,"text":"04","textPreview":"04","textChars":2,"textLines":1,"bbox":[774,244,56,28]}
+{"kind":"textbox","id":"sh/vqd4zyxg","slide":4,"text":"Schema-v3","textPreview":"Schema-v3","textChars":9,"textLines":1,"bbox":[774,287,144,28]}
+{"kind":"textbox","id":"sh/4fm5c3yd","slide":4,"text":"14,527 placement\ntiming entries","textPreview":"14,527 placement | timing entries","textChars":31,"textLines":2,"bbox":[774,331,144,52]}
+{"kind":"shape","id":"sh/5gv658fi","slide":4,"bbox":[936,312,46,0]}
+{"kind":"shape","id":"sh/id4nadg7","slide":4,"bbox":[982,224,180,176]}
+{"kind":"textbox","id":"sh/jedo3ixs","slide":4,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[1000,244,56,28]}
+{"kind":"textbox","id":"sh/kj250jyt","slide":4,"text":"Replay","textPreview":"Replay","textChars":6,"textLines":1,"bbox":[1000,287,144,28]}
+{"kind":"textbox","id":"sh/lkbmtoze","slide":4,"text":"7 policies × 384\nlayer-batches","textPreview":"7 policies × 384 | layer-batches","textChars":30,"textLines":2,"bbox":[1000,331,144,52]}
+{"kind":"shape","id":"sh/3eh8fmhw","slide":4,"bbox":[78,472,1084,88]}
+{"kind":"textbox","id":"sh/2d876h0b","slide":4,"text":"真实路由只提供 placement decision；时延数字全部来自解析模型 + Ramulator。","textPreview":"真实路由只提供 placement decision；时延数字全部来自解析模型 + Ramulator。","textChars":52,"textLines":1,"bbox":[112,503,1016,30]}
+{"kind":"notes","id":"nt/lw7xla","slide":4,"text":"[Sources]\nTrace and manifest: traces/real/qwen3_30b_a3b/pilot_8x8/\nCache evidence: ramulator/timing_tables/generated/qwen3_real_pilot_decode_cycle_v1_contention.evidence.json"}
+{"kind":"slide","id":"sl/f8x3u7","slide":5,"title":"BACKEND","textShapes":24}
+{"kind":"textbox","id":"sh/r6lwz2xo","slide":5,"text":"BACKEND","textPreview":"BACKEND","textChars":7,"textLines":1,"bbox":[64,18,300,18]}
+{"kind":"textbox","id":"sh/s7ud87y9","slide":5,"text":"05","textPreview":"05","textChars":2,"textLines":1,"bbox":[1160,18,56,18]}
+{"kind":"shape","id":"sh/d83e1sfu","slide":5,"bbox":[64,38,1152,0]}
+{"kind":"textbox","id":"sh/e9cvaxgf","slide":5,"name":"slide-title","text":"cycle-v1 同时改变了访存后端和竞争模型","textPreview":"cycle-v1 同时改变了访存后端和竞争模型","textChars":23,"textLines":1,"bbox":[64,60,1152,56]}
+{"kind":"textbox","id":"sh/falw32x0","slide":5,"text":"因此 v0 → v1 的差值不能全部归因于 contention","textPreview":"因此 v0 → v1 的差值不能全部归因于 contention","textChars":32,"textLines":1,"bbox":[64,116,1152,32]}
+{"kind":"textbox","id":"sh/0budc7y5","slide":5,"text":"cycle-v0","textPreview":"cycle-v0","textChars":8,"textLines":1,"bbox":[118,188,220,34]}
+{"kind":"textbox","id":"sh/1c3e5cfq","slide":5,"text":"cycle-v1","textPreview":"cycle-v1","textChars":8,"textLines":1,"bbox":[518,188,220,34]}
+{"kind":"textbox","id":"sh/ud8vydgv","slide":5,"text":"解释","textPreview":"解释","textChars":2,"textLines":1,"bbox":[896,188,220,34]}
+{"kind":"shape","id":"sh/vehcrixg","slide":5,"bbox":[78,250,302,50]}
+{"kind":"textbox","id":"sh/nidg3els","slide":5,"text":"GPU Expert READ","textPreview":"GPU Expert READ","textChars":15,"textLines":1,"bbox":[96,264,266,22]}
+{"kind":"shape","id":"sh/mhkza9k7","slide":5,"bbox":[418,250,302,50]}
+{"kind":"textbox","id":"sh/9kvy5o3y","slide":5,"text":"解析估计","textPreview":"解析估计","textChars":4,"textLines":1,"bbox":[436,264,266,22]}
+{"kind":"shape","id":"sh/ojmhcj2d","slide":5,"bbox":[758,250,302,50]}
+{"kind":"textbox","id":"sh/zutgzelw","slide":5,"text":"请求级 Ramulator","textPreview":"请求级 Ramulator","textChars":13,"textLines":1,"bbox":[776,264,266,22]}
+{"kind":"textbox","id":"sh/etkz69kb","slide":5,"text":"GPU-only 也会变化","textPreview":"GPU-only 也会变化","textChars":13,"textLines":1,"bbox":[1090,259,130,34]}
+{"kind":"shape","id":"sh/1wby143m","slide":5,"bbox":[78,320,302,50]}
+{"kind":"textbox","id":"sh/0v2h8j2h","slide":5,"text":"PIM 命令","textPreview":"PIM 命令","textChars":6,"textLines":1,"bbox":[96,334,266,22]}
+{"kind":"shape","id":"sh/rq9gvulk","slide":5,"bbox":[418,320,302,50]}
+{"kind":"textbox","id":"sh/qp0f2p4z","slide":5,"text":"独立 timing","textPreview":"独立 timing","textChars":9,"textLines":1,"bbox":[436,334,266,22]}
+{"kind":"shape","id":"sh/ul0zepo7","slide":5,"bbox":[758,320,302,50]}
+{"kind":"textbox","id":"sh/fm90nu5c","slide":5,"text":"混合请求流","textPreview":"混合请求流","textChars":5,"textLines":1,"bbox":[776,334,266,22]}
+{"kind":"textbox","id":"sh/gnihgz6x","slide":5,"text":"PIM path 更完整","textPreview":"PIM path 更完整","textChars":12,"textLines":1,"bbox":[1090,329,130,34]}
+{"kind":"shape","id":"sh/horip4ni","slide":5,"bbox":[78,390,302,50]}
+{"kind":"textbox","id":"sh/2p0zi9o3","slide":5,"text":"请求竞争","textPreview":"请求竞争","textChars":4,"textLines":1,"bbox":[96,404,266,22]}
+{"kind":"shape","id":"sh/3q90re5o","slide":5,"bbox":[418,390,302,50]}
+{"kind":"textbox","id":"sh/4r2hkz69","slide":5,"text":"不建模","textPreview":"不建模","textChars":3,"textLines":1,"bbox":[436,404,266,22]}
+{"kind":"shape","id":"sh/psbit4nu","slide":5,"bbox":[758,390,302,50]}
+{"kind":"textbox","id":"sh/qtkzm9oz","slide":5,"text":"双 Row Buffer","textPreview":"双 Row Buffer","textChars":12,"textLines":1,"bbox":[776,404,266,22]}
+{"kind":"textbox","id":"sh/rut0ve5k","slide":5,"text":"显式 delta 可测","textPreview":"显式 delta 可测","textChars":11,"textLines":1,"bbox":[1090,399,130,34]}
+{"kind":"shape","id":"sh/1ov2l872","slide":5,"bbox":[78,460,302,50]}
+{"kind":"textbox","id":"sh/0nmlc3qh","slide":5,"text":"放置搜索","textPreview":"放置搜索","textChars":4,"textLines":1,"bbox":[96,474,266,22]}
+{"kind":"shape","id":"sh/zmdkjypw","slide":5,"bbox":[418,460,302,50]}
+{"kind":"textbox","id":"sh/el43ad8b","slide":5,"text":"解析目标","textPreview":"解析目标","textChars":4,"textLines":1,"bbox":[436,474,266,22]}
+{"kind":"shape","id":"sh/9cf2ps7y","slide":5,"bbox":[758,460,302,50]}
+{"kind":"textbox","id":"sh/ob6lgnqd","slide":5,"text":"精确候选表","textPreview":"精确候选表","textChars":5,"textLines":1,"bbox":[776,474,266,22]}
+{"kind":"textbox","id":"sh/nadknips","slide":5,"text":"动态分界可重算","textPreview":"动态分界可重算","textChars":7,"textLines":1,"bbox":[1090,469,130,34]}
+{"kind":"shape","id":"sh/m943ed87","slide":5,"bbox":[80,558,1040,62]}
+{"kind":"textbox","id":"sh/xgf2ts7u","slide":5,"text":"关键控制：GPU 算术、Router、Scheduler、GPU Attention 仍是解析模型。","textPreview":"关键控制：GPU 算术、Router、Scheduler、GPU Attention 仍是解析模型。","textChars":50,"textLines":1,"bbox":[108,578,984,24]}
+{"kind":"notes","id":"nt/f8x3u7","slide":5,"text":"[Sources]\nBackend definitions: src/sieve_replay/replay.py, src/sieve_replay/report/writer.py\nTiming table: ramulator/timing_tables/generated/qwen3_real_pilot_decode_cycle_v1_contention.json"}
+{"kind":"slide","id":"sl/gp1clb","slide":6,"title":"STRATEGIES","textShapes":29}
+{"kind":"textbox","id":"sh/5k3q50bq","slide":6,"text":"STRATEGIES","textPreview":"STRATEGIES","textChars":10,"textLines":1,"bbox":[64,18,300,18]}
+{"kind":"textbox","id":"sh/ihc7ulsz","slide":6,"text":"06","textPreview":"06","textChars":2,"textLines":1,"bbox":[1160,18,56,18]}
+{"kind":"shape","id":"sh/jilo3qtk","slide":6,"bbox":[64,38,1152,0]}
+{"kind":"textbox","id":"sh/s7up0vah","slide":6,"name":"slide-title","text":"七种策略覆盖从纯 GPU 到精确动态搜索的完整对照","textPreview":"七种策略覆盖从纯 GPU 到精确动态搜索的完整对照","textChars":25,"textLines":1,"bbox":[64,60,1152,56]}
+{"kind":"textbox","id":"sh/t83q90bm","slide":6,"text":"专家数指 MoE Expert 执行位置；Attention 位置单独列出","textPreview":"专家数指 MoE Expert 执行位置；Attention 位置单独列出","textChars":37,"textLines":1,"bbox":[64,116,1152,32]}
+{"kind":"textbox","id":"sh/6lc7y5sb","slide":6,"text":"策略","textPreview":"策略","textChars":2,"textLines":1,"bbox":[102,166,220,22]}
+{"kind":"textbox","id":"sh/r6l87qtw","slide":6,"text":"规则","textPreview":"规则","textChars":2,"textLines":1,"bbox":[330,166,590,22]}
+{"kind":"textbox","id":"sh/gbep4fad","slide":6,"text":"cycle-v1","textPreview":"cycle-v1","textChars":8,"textLines":1,"bbox":[946,166,220,22]}
+{"kind":"shape","id":"sh/1cnqdkby","slide":6,"bbox":[80,194,1120,48]}
+{"kind":"shape","id":"sh/xoj25ova","slide":6,"bbox":[80,194,8,48]}
+{"kind":"textbox","id":"sh/w3alwju5","slide":6,"text":"gpu-only","textPreview":"gpu-only","textChars":8,"textLines":1,"bbox":[102,205,220,24]}
+{"kind":"textbox","id":"sh/v2hk3edk","slide":6,"text":"Attention GPU · 所有 Expert GPU","textPreview":"Attention GPU · 所有 Expert GPU","textChars":29,"textLines":1,"bbox":[330,205,590,24]}
+{"kind":"textbox","id":"sh/a183u9cz","slide":6,"text":"49.715 ms","textPreview":"49.715 ms","textChars":9,"textLines":1,"bbox":[946,205,220,24]}
+{"kind":"shape","id":"sh/5sj29ovm","slide":6,"bbox":[80,248,1120,48]}
+{"kind":"shape","id":"sh/kral0ju1","slide":6,"bbox":[80,248,8,48]}
+{"kind":"textbox","id":"sh/jq1k7ydg","slide":6,"text":"noexp","textPreview":"noexp","textChars":5,"textLines":1,"bbox":[102,259,220,24]}
+{"kind":"textbox","id":"sh/ips3ytcv","slide":6,"text":"Attention PIM · 所有 Expert GPU","textPreview":"Attention PIM · 所有 Expert GPU","textChars":29,"textLines":1,"bbox":[330,259,590,24]}
+{"kind":"textbox","id":"sh/lwz2x4vi","slide":6,"text":"50.254 ms","textPreview":"50.254 ms","textChars":9,"textLines":1,"bbox":[946,259,220,24]}
+{"kind":"shape","id":"sh/0v61ozux","slide":6,"bbox":[80,302,1120,48]}
+{"kind":"shape","id":"sh/cfal4z2t","slide":6,"bbox":[80,302,8,48]}
+{"kind":"textbox","id":"sh/dgj2d43y","slide":6,"text":"allexp","textPreview":"allexp","textChars":6,"textLines":1,"bbox":[102,313,220,24]}
+{"kind":"textbox","id":"sh/qds32pkn","slide":6,"text":"Attention PIM · 所有 Expert PIM","textPreview":"Attention PIM · 所有 Expert PIM","textChars":29,"textLines":1,"bbox":[330,313,590,24]}
+{"kind":"textbox","id":"sh/re1kbul8","slide":6,"text":"44.893 ms","textPreview":"44.893 ms","textChars":9,"textLines":1,"bbox":[946,313,220,24]}
+{"kind":"shape","id":"sh/03ul8j2p","slide":6,"bbox":[80,356,1120,48]}
+{"kind":"shape","id":"sh/1432h43a","slide":6,"bbox":[80,356,8,48]}
+{"kind":"textbox","id":"sh/ehc369kj","slide":6,"text":"pimoe","textPreview":"pimoe","textChars":5,"textLines":1,"bbox":[102,367,220,24]}
+{"kind":"textbox","id":"sh/zilkfel4","slide":6,"text":"token ≥ 4 → GPU，否则 PIM（占位）","textPreview":"token ≥ 4 → GPU，否则 PIM（占位）","textChars":26,"textLines":1,"bbox":[330,367,590,24]}
+{"kind":"textbox","id":"sh/o7ulcj2l","slide":6,"text":"35.458 ms","textPreview":"35.458 ms","textChars":9,"textLines":1,"bbox":[946,367,220,24]}
+{"kind":"shape","id":"sh/9832lo36","slide":6,"bbox":[80,410,1120,48]}
+{"kind":"shape","id":"sh/j2pobi5o","slide":6,"bbox":[80,410,8,48]}
+{"kind":"textbox","id":"sh/y1gn2d43","slide":6,"text":"sieve","textPreview":"sieve","textChars":5,"textLines":1,"bbox":[102,421,220,24]}
+{"kind":"textbox","id":"sh/l476dsne","slide":6,"text":"旧版热点专家贪心迁移","textPreview":"旧版热点专家贪心迁移","textChars":10,"textLines":1,"bbox":[330,421,590,24]}
+{"kind":"textbox","id":"sh/k3y54nmt","slide":6,"text":"37.673 ms","textPreview":"37.673 ms","textChars":9,"textLines":1,"bbox":[946,421,220,24]}
+{"kind":"shape","id":"sh/by5o7i5c","slide":6,"bbox":[80,464,1120,48]}
+{"kind":"shape","id":"sh/axwnyd4r","slide":6,"bbox":[80,464,8,48]}
+{"kind":"textbox","id":"sh/x07698ni","slide":6,"text":"sieve-cycle-v1","textPreview":"sieve-cycle-v1","textChars":14,"textLines":1,"bbox":[102,475,220,24]}
+{"kind":"textbox","id":"sh/wze503mx","slide":6,"text":"精确 contention table 枚举 hot-prefix","textPreview":"精确 contention table 枚举 hot-prefix","textChars":33,"textLines":1,"bbox":[330,475,590,24]}
+{"kind":"textbox","id":"sh/vu9oj25g","slide":6,"text":"30.551 ms","textPreview":"30.551 ms","textChars":9,"textLines":1,"bbox":[946,475,220,24]}
+{"kind":"shape","id":"sh/ut0nax4b","slide":6,"bbox":[80,518,1120,48]}
+{"kind":"shape","id":"sh/2hgre10f","slide":6,"bbox":[80,518,8,48]}
+{"kind":"textbox","id":"sh/3ips7610","slide":6,"text":"fixed-16","textPreview":"fixed-16","textChars":8,"textLines":1,"bbox":[102,529,220,24]}
+{"kind":"textbox","id":"sh/4jy9gbil","slide":6,"text":"固定最热 16 个到 GPU（消融）","textPreview":"固定最热 16 个到 GPU（消融）","textChars":18,"textLines":1,"bbox":[330,529,590,24]}
+{"kind":"textbox","id":"sh/pk7a9wj6","slide":6,"text":"34.004 ms","textPreview":"34.004 ms","textChars":9,"textLines":1,"bbox":[946,529,220,24]}
+{"kind":"textbox","id":"sh/udwrah03","slide":6,"text":"* pimoe = static token-threshold placeholder; not a PIMoE paper reproduction.","textPreview":"* pimoe = static token-threshold placeholder; not a PIMoE paper reproduction.","textChars":77,"textLines":1,"bbox":[80,604,900,24]}
+{"kind":"notes","id":"nt/gp1clb","slide":6,"text":"[Sources]\nPolicy implementations: src/sieve_replay/policy/policies.py\nResults: results/full_decode_real_pilot_cycle_v1/*/summary.json"}
+{"kind":"slide","id":"sl/68c763","slide":7,"title":"RESULTS","textShapes":7}
+{"kind":"textbox","id":"sh/3u1w369c","slide":7,"text":"RESULTS","textPreview":"RESULTS","textChars":7,"textLines":1,"bbox":[64,18,300,18]}
+{"kind":"textbox","id":"sh/4vaxwbax","slide":7,"text":"07","textPreview":"07","textChars":2,"textLines":1,"bbox":[1160,18,56,18]}
+{"kind":"shape","id":"sh/pgje5wr2","slide":7,"bbox":[64,38,1152,0]}
+{"kind":"textbox","id":"sh/up8fqhsf","slide":7,"name":"slide-title","text":"精确 cycle-v1 时序下，动态搜索达到最低端到端时延","textPreview":"精确 cycle-v1 时序下，动态搜索达到最低端到端时延","textChars":29,"textLines":1,"bbox":[64,60,1152,56]}
+{"kind":"textbox","id":"sh/fqhwzm90","slide":7,"text":"384 个 layer-batch · 8 个 Decode step · 单位：ms","textPreview":"384 个 layer-batch · 8 个 Decode step · 单位：ms","textChars":43,"textLines":1,"bbox":[64,116,1152,32]}
+{"kind":"shape","id":"sh/hsje1wr6","slide":7,"bbox":[876,218,300,170]}
+{"kind":"textbox","id":"sh/elcf2lsz","slide":7,"text":"30.551 ms","textPreview":"30.551 ms","textChars":9,"textLines":1,"bbox":[900,244,252,46]}
+{"kind":"textbox","id":"sh/zmlgbq9k","slide":7,"text":"sieve-cycle-v1\n当前最快策略","textPreview":"sieve-cycle-v1 | 当前最快策略","textChars":21,"textLines":2,"bbox":[900,304,252,52]}
+{"kind":"textbox","id":"sh/jmhwnilc","slide":7,"text":"比 fixed-16 快 10.15%\n比 gpu-only 快 38.55%","textPreview":"比 fixed-16 快 10.15% | 比 gpu-only 快 38.55%","textChars":39,"textLines":2,"bbox":[900,422,252,56]}
+{"kind":"chart","id":"ch/o3q98z29","slide":7,"name":"","chartType":"bar","bbox":[90,170,720,404]}
+{"kind":"notes","id":"nt/68c763","slide":7,"text":"[Sources]\nChart data: results/full_decode_real_pilot_cycle_v1/comparison.json\nScope: 48 layers × 8 Decode steps = 384 layer-batches"}
+{"kind":"slide","id":"sl/dlqihj","slide":8,"title":"RESULTS","textShapes":11}
+{"kind":"textbox","id":"sh/i5kzy1kz","slide":8,"text":"RESULTS","textPreview":"RESULTS","textChars":7,"textLines":1,"bbox":[64,18,300,18]}
+{"kind":"textbox","id":"sh/58vi9g3q","slide":8,"text":"08","textPreview":"08","textChars":2,"textLines":1,"bbox":[1160,18,56,18]}
+{"kind":"shape","id":"sh/472h0b25","slide":8,"bbox":[64,38,1152,0]}
+{"kind":"textbox","id":"sh/rad0bqlw","slide":8,"name":"slide-title","text":"真实负载让 GPU/PIM 分界随 layer-batch 改变","textPreview":"真实负载让 GPU/PIM 分界随 layer-batch 改变","textChars":32,"textLines":1,"bbox":[64,60,1152,56]}
+{"kind":"textbox","id":"sh/694z2lkb","slide":8,"text":"sieve-cycle-v1 不是固定 16；它从精确候选中逐层选择","textPreview":"sieve-cycle-v1 不是固定 16；它从精确候选中逐层选择","textChars":34,"textLines":1,"bbox":[64,116,1152,32]}
+{"kind":"shape","id":"sh/sbmh4b2h","slide":8,"bbox":[842,202,300,108]}
+{"kind":"textbox","id":"sh/fed0fqls","slide":8,"text":"7–16","textPreview":"7–16","textChars":4,"textLines":1,"bbox":[860,218,264,42]}
+{"kind":"textbox","id":"sh/ed4z6lk7","slide":8,"text":"GPU experts selected","textPreview":"GPU experts selected","textChars":20,"textLines":1,"bbox":[860,267,264,26]}
+{"kind":"shape","id":"sh/gbu1kfu1","slide":8,"bbox":[842,334,300,108]}
+{"kind":"textbox","id":"sh/hc3itkbm","slide":8,"text":"12.765625","textPreview":"12.765625","textChars":9,"textLines":1,"bbox":[860,350,264,42]}
+{"kind":"textbox","id":"sh/u9cji5cb","slide":8,"text":"mean GPU prefix","textPreview":"mean GPU prefix","textChars":15,"textLines":1,"bbox":[860,399,264,26]}
+{"kind":"shape","id":"sh/fal0ratg","slide":8,"bbox":[842,466,300,108]}
+{"kind":"textbox","id":"sh/4fe1ofud","slide":8,"text":"340","textPreview":"340","textChars":3,"textLines":1,"bbox":[860,482,264,42]}
+{"kind":"textbox","id":"sh/pgn2xkby","slide":8,"text":"unique load signatures","textPreview":"unique load signatures","textChars":22,"textLines":1,"bbox":[860,531,264,26]}
+{"kind":"textbox","id":"sh/2dcjm5c7","slide":8,"text":"301 signatures 出现 1 次；34 出现 2 次；5 出现 3 次。\n没有 signature 映射到多个不同边界。","textPreview":"301 signatures 出现 1 次；34 出现 2 次；5 出现 3 次。 | 没有 signature 映射到多个不同边界。","textChars":65,"textLines":2,"bbox":[842,594,330,46]}
+{"kind":"chart","id":"ch/58jux0re","slide":8,"name":"","chartType":"bar","bbox":[86,180,670,382]}
+{"kind":"notes","id":"nt/dlqihj","slide":8,"text":"[Sources]\nPrefix distribution: results/full_decode_real_pilot_cycle_v1/sieve-cycle-v1/summary.json\nSignature counts: results/router_trace_analysis/real_pilot/batches.csv"}
+{"kind":"slide","id":"sl/3pc6qw","slide":9,"title":"ABLATION","textShapes":8}
+{"kind":"textbox","id":"sh/s7ytonqd","slide":9,"text":"ABLATION","textPreview":"ABLATION","textChars":8,"textLines":1,"bbox":[64,18,300,18]}
+{"kind":"textbox","id":"sh/r6psvi9s","slide":9,"text":"09","textPreview":"09","textChars":2,"textLines":1,"bbox":[1160,18,56,18]}
+{"kind":"shape","id":"sh/q5wrmd87","slide":9,"bbox":[64,38,1152,0]}
+{"kind":"textbox","id":"sh/54natsrm","slide":9,"name":"slide-title","text":"动态搜索相对固定 16 专家有实际收益","textPreview":"动态搜索相对固定 16 专家有实际收益","textChars":19,"textLines":1,"bbox":[64,60,1152,56]}
+{"kind":"textbox","id":"sh/43e9knq1","slide":9,"text":"真实负载下，合成 Trace 阶段的“完全相同”不再成立","textPreview":"真实负载下，合成 Trace 阶段的“完全相同”不再成立","textChars":28,"textLines":1,"bbox":[64,116,1152,32]}
+{"kind":"shape","id":"sh/ihwrid8b","slide":9,"bbox":[820,214,330,142]}
+{"kind":"textbox","id":"sh/hgnap8rq","slide":9,"text":"10.15%","textPreview":"10.15%","textChars":6,"textLines":1,"bbox":[844,238,282,52]}
+{"kind":"textbox","id":"sh/gfe9g3q5","slide":9,"text":"dynamic search 更快","textPreview":"dynamic search 更快","textChars":17,"textLines":1,"bbox":[844,298,282,26]}
+{"kind":"textbox","id":"sh/m50ri14f","slide":9,"text":"376 / 384 layer-batches 更快\n8 / 384 与 fixed-16 持平","textPreview":"376 / 384 layer-batches 更快 | 8 / 384 与 fixed-16 持平","textChars":48,"textLines":2,"bbox":[820,408,330,62]}
+{"kind":"textbox","id":"sh/n69sr6l0","slide":9,"text":"固定 16 仍是一个有用的工程 baseline，\n但不再是当前真实负载的最优分界。","textPreview":"固定 16 仍是一个有用的工程 baseline， | 但不再是当前真实负载的最优分界。","textChars":42,"textLines":2,"bbox":[820,512,330,58]}
+{"kind":"chart","id":"ch/vi1o72ds","slide":9,"name":"","chartType":"bar","bbox":[100,196,620,300]}
+{"kind":"notes","id":"nt/3pc6qw","slide":9,"text":"[Sources]\nAblation outputs: results/full_decode_real_pilot_cycle_v1/sieve-cycle-v1/summary.json and sieve-fixed-16-cycle-v1/summary.json"}
+{"kind":"slide","id":"sl/0gpcfk","slide":10,"title":"COMPARISON","textShapes":11}
+{"kind":"textbox","id":"sh/76xsjm9w","slide":10,"text":"COMPARISON","textPreview":"COMPARISON","textChars":10,"textLines":1,"bbox":[64,18,300,18]}
+{"kind":"textbox","id":"sh/s7qtsrah","slide":10,"text":"10","textPreview":"10","textChars":2,"textLines":1,"bbox":[1160,18,56,18]}
+{"kind":"shape","id":"sh/t8zalwr2","slide":10,"bbox":[64,38,1152,0]}
+{"kind":"textbox","id":"sh/u98bu1sn","slide":10,"name":"slide-title","text":"v0 → v1 的变化最大来自后端替换，不应全部叫竞争惩罚","textPreview":"v0 → v1 的变化最大来自后端替换，不应全部叫竞争惩罚","textChars":29,"textLines":1,"bbox":[64,60,1152,56]}
+{"kind":"textbox","id":"sh/fahsn698","slide":10,"text":"共同的五个策略；单位：ms","textPreview":"共同的五个策略；单位：ms","textChars":13,"textLines":1,"bbox":[64,116,1152,32]}
+{"kind":"shape","id":"sh/hczupgry","slide":10,"bbox":[874,208,296,350]}
+{"kind":"textbox","id":"sh/ad4bixsj","slide":10,"text":"怎么读这张图","textPreview":"怎么读这张图","textChars":6,"textLines":1,"bbox":[900,236,244,28]}
+{"kind":"textbox","id":"sh/vedsr29o","slide":10,"text":"1","textPreview":"1","textChars":1,"textLines":1,"bbox":[906,300,30,28]}
+{"kind":"textbox","id":"sh/rutsba1o","slide":10,"text":"gpu-only 没有 PIM 竞争，\n但 GPU READ 后端也换成了 Ramulator。","textPreview":"gpu-only 没有 PIM 竞争， | 但 GPU READ 后端也换成了 Ramulator。","textChars":48,"textLines":2,"bbox":[948,296,190,58]}
+{"kind":"textbox","id":"sh/qtkr25k3","slide":10,"text":"2","textPreview":"2","textChars":1,"textLines":1,"bbox":[906,386,30,28]}
+{"kind":"textbox","id":"sh/dwbadkju","slide":10,"text":"allexp / pimoe / sieve\n还叠加了 PIM 命令与 placement 变化。","textPreview":"allexp / pimoe / sieve | 还叠加了 PIM 命令与 placement 变化。","textChars":49,"textLines":2,"bbox":[948,382,190,58]}
+{"kind":"textbox","id":"sh/sv294f29","slide":10,"text":"3","textPreview":"3","textChars":1,"textLines":1,"bbox":[906,472,30,28]}
+{"kind":"textbox","id":"sh/3qts7a1c","slide":10,"text":"显式 contention delta\n需要单独看 isolated / contended 报告。","textPreview":"显式 contention delta | 需要单独看 isolated / contended 报告。","textChars":50,"textLines":2,"bbox":[948,468,190,58]}
+{"kind":"chart","id":"ch/w7id8ru5","slide":10,"name":"","chartType":"bar","bbox":[90,180,730,390]}
+{"kind":"notes","id":"nt/0gpcfk","slide":10,"text":"[Sources]\nComparison data: results/full_decode_real_pilot_cycle_v0/comparison.json and results/full_decode_real_pilot_cycle_v1/comparison.json"}
+{"kind":"slide","id":"sl/ohd567","slide":11,"title":"CONTENTION","textShapes":8}
+{"kind":"textbox","id":"sh/retwb2xk","slide":11,"text":"CONTENTION","textPreview":"CONTENTION","textChars":10,"textLines":1,"bbox":[64,18,300,18]}
+{"kind":"textbox","id":"sh/sf2x47y5","slide":11,"text":"11","textPreview":"11","textChars":2,"textLines":1,"bbox":[1160,18,56,18]}
+{"kind":"shape","id":"sh/dgvedcfq","slide":11,"bbox":[64,38,1152,0]}
+{"kind":"textbox","id":"sh/ipkfyxg3","slide":11,"name":"slide-title","text":"显式 contention delta 很小，主要收益来自更好的路径平衡","textPreview":"显式 contention delta 很小，主要收益来自更好的路径平衡","textChars":36,"textLines":1,"bbox":[64,60,1152,56]}
+{"kind":"textbox","id":"sh/3qtw72xo","slide":11,"text":"384 层累计 memory-phase delta；单位：us","textPreview":"384 层累计 memory-phase delta；单位：us","textChars":32,"textLines":1,"bbox":[64,116,1152,32]}
+{"kind":"shape","id":"sh/5cbe9cfu","slide":11,"bbox":[898,214,280,282]}
+{"kind":"textbox","id":"sh/ul0vudg7","slide":11,"text":"解释边界","textPreview":"解释边界","textChars":4,"textLines":1,"bbox":[920,240,236,30]}
+{"kind":"textbox","id":"sh/vm9w3ixs","slide":11,"text":"PIM delta\n≈ +0.45 到 +1.19 us","textPreview":"PIM delta | ≈ +0.45 到 +1.19 us","textChars":28,"textLines":2,"bbox":[920,304,236,60]}
+{"kind":"textbox","id":"sh/v2dczmhw","slide":11,"text":"负 GPU delta 来自\n请求完成顺序变化，\n不是竞争带来加速。","textPreview":"负 GPU delta 来自 | 请求完成顺序变化， | 不是竞争带来加速。","textChars":34,"textLines":3,"bbox":[920,402,236,72]}
+{"kind":"textbox","id":"sh/u14b6hgr","slide":11,"text":"结论：cycle-v1 的主要贡献是\n提供可用于 placement 的精确路径时延。","textPreview":"结论：cycle-v1 的主要贡献是 | 提供可用于 placement 的精确路径时延。","textChars":43,"textLines":2,"bbox":[98,592,1080,32]}
+{"kind":"chart","id":"ch/4byxo765","slide":11,"name":"","chartType":"bar","bbox":[84,188,760,368]}
+{"kind":"notes","id":"nt/ohd567","slide":11,"text":"[Sources]\nContention data: results/full_decode_real_pilot_cycle_v1/contention.csv\nInterpretation: docs/full_decode_real_pilot_cycle_v1_analysis.md, section Isolated/contended delta"}
+{"kind":"slide","id":"sl/rwhz84","slide":12,"title":"TAKEAWAYS","textShapes":16}
+{"kind":"textbox","id":"sh/dcrah4fi","slide":12,"text":"TAKEAWAYS","textPreview":"TAKEAWAYS","textChars":9,"textLines":1,"bbox":[64,18,300,18]}
+{"kind":"textbox","id":"sh/q90r69wr","slide":12,"text":"12","textPreview":"12","textChars":2,"textLines":1,"bbox":[1160,18,56,18]}
+{"kind":"shape","id":"sh/ra9sfexc","slide":12,"bbox":[64,38,1152,0]}
+{"kind":"textbox","id":"sh/0f29cjet","slide":12,"name":"slide-title","text":"三条结论，和三条必须保留的边界","textPreview":"三条结论，和三条必须保留的边界","textChars":15,"textLines":1,"bbox":[64,60,1152,56]}
+{"kind":"textbox","id":"sh/1gbalofe","slide":12,"text":"适合作为组会讨论的收束页","textPreview":"适合作为组会讨论的收束页","textChars":12,"textLines":1,"bbox":[64,116,1152,32]}
+{"kind":"shape","id":"sh/edkra9wn","slide":12,"bbox":[82,188,556,88]}
+{"kind":"textbox","id":"sh/fetsjex8","slide":12,"text":"01","textPreview":"01","textChars":2,"textLines":1,"bbox":[106,213,64,34]}
+{"kind":"textbox","id":"sh/gjy90zyp","slide":12,"text":"真实 Router Trace 触发了动态分界","textPreview":"真实 Router Trace 触发了动态分界","textChars":23,"textLines":1,"bbox":[168,204,436,28]}
+{"kind":"textbox","id":"sh/hk7a9kfa","slide":12,"text":"GPU prefix 在 7–16 之间变化；340 个 signature 纳入决策。","textPreview":"GPU prefix 在 7–16 之间变化；340 个 signature 纳入决策。","textChars":44,"textLines":1,"bbox":[168,237,436,26]}
+{"kind":"shape","id":"sh/x4321sfe","slide":12,"bbox":[82,300,556,88]}
+{"kind":"textbox","id":"sh/w3u187et","slide":12,"text":"02","textPreview":"02","textChars":2,"textLines":1,"bbox":[106,325,64,34]}
+{"kind":"textbox","id":"sh/v2lkz2xo","slide":12,"text":"精确动态搜索在当前 pilot 上最快","textPreview":"精确动态搜索在当前 pilot 上最快","textChars":19,"textLines":1,"bbox":[168,316,436,28]}
+{"kind":"textbox","id":"sh/a1cj6xw3","slide":12,"text":"sieve-cycle-v1 = 30.551 ms；比 fixed-16 快 10.15%。","textPreview":"sieve-cycle-v1 = 30.551 ms；比 fixed-16 快 10.15%。","textChars":47,"textLines":1,"bbox":[168,349,436,26]}
+{"kind":"shape","id":"sh/58n25cvq","slide":12,"bbox":[82,412,556,88]}
+{"kind":"textbox","id":"sh/k7ulc7e5","slide":12,"text":"03","textPreview":"03","textChars":2,"textLines":1,"bbox":[106,437,64,34]}
+{"kind":"textbox","id":"sh/j6lk32xk","slide":12,"text":"收益来自路径重估，不是巨大竞争惩罚","textPreview":"收益来自路径重估，不是巨大竞争惩罚","textChars":17,"textLines":1,"bbox":[168,428,436,28]}
+{"kind":"textbox","id":"sh/i5cjaxwz","slide":12,"text":"显式 PIM contention delta 仅约 0.45–1.19 us。","textPreview":"显式 PIM contention delta 仅约 0.45–1.19 us。","textChars":40,"textLines":1,"bbox":[168,461,436,26]}
+{"kind":"shape","id":"sh/twn29cvm","slide":12,"bbox":[706,188,468,312]}
+{"kind":"textbox","id":"sh/svelgre1","slide":12,"text":"边界","textPreview":"边界","textChars":2,"textLines":1,"bbox":[734,212,410,30]}
+{"kind":"textbox","id":"sh/szm5cvmd","slide":12,"text":"• GPU 算术、Router、Scheduler、GPU Attention 仍是解析模型\n\n• GPU READ 是抽象顺序请求流，不是真实 GPU memory trace\n\n• 8-step pilot、无刷新、无多 GPU / NVLink / Shared CXL-PIM\n\n• pimoe 是静态阈值占位策略，不是论文复现","textPreview":"• GPU 算术、Router、Scheduler、GPU Attention 仍是解析模型 |  | • GPU READ 是抽象顺序请求流，不是真实 GPU memory trace |  | • 8-step pilot、无刷新、无多 GPU / NVLink / S...","textChars":168,"textLines":7,"bbox":[734,264,408,204]}
+{"kind":"shape","id":"sh/d0vm503y","slide":12,"bbox":[82,560,1092,58]}
+{"kind":"textbox","id":"sh/qd4nal47","slide":12,"text":"下一步：扩大 decode steps / prompt groups，并校准 GPU memory behavior。","textPreview":"下一步：扩大 decode steps / prompt groups，并校准 GPU memory behavior。","textChars":60,"textLines":1,"bbox":[112,579,1032,24]}
+{"kind":"notes","id":"nt/rwhz84","slide":12,"text":"[Sources]\nSummary: docs/full_decode_real_pilot_cycle_v1_analysis.md\nLimitations: AGENTS.md, 科研结论边界"}

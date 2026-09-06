@@ -61,6 +61,12 @@ def main() -> int:
         default=0,
         help="maximum missing shapes to run; 0 runs every missing shape",
     )
+    parser.add_argument(
+        "--order",
+        choices=("largest-first", "smallest-first"),
+        default="largest-first",
+        help="submission order for missing shapes (default: largest-first)",
+    )
     args = parser.parse_args()
     if args.workers <= 0:
         parser.error("--workers must be positive")
@@ -82,8 +88,11 @@ def main() -> int:
         if not row["cached"]
     ]
     missing.sort(
-        key=lambda shape: (_request_count(shape, cycle.total_pseudo_channels), asdict(shape)),
-        reverse=True,
+        key=lambda shape: (
+            _request_count(shape, cycle.total_pseudo_channels),
+            asdict(shape),
+        ),
+        reverse=args.order == "largest-first",
     )
     if args.limit:
         missing = missing[: args.limit]

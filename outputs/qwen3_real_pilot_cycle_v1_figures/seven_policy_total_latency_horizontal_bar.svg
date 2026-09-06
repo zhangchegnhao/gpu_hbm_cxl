@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1350" viewBox="0 0 2400 1350">
+<rect width="2400" height="1350" fill="#F7F8FA"/>
+<text x="110" y="126" fill="#20242B" font-family="Noto Sans CJK SC, sans-serif" font-size="62" font-weight="700" text-anchor="start">七策略总时延</text>
+<text x="110" y="188" fill="#66717E" font-family="Noto Sans CJK SC, sans-serif" font-size="31" font-weight="400" text-anchor="start">真实 Qwen3 pilot · cycle-v1 · 数值越低越好</text>
+<line x1="690" y1="252" x2="690" y2="1120" stroke="#D9DEE5" stroke-width="2"/>
+<text x="690" y="1166" fill="#66717E" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="400" text-anchor="middle">0</text>
+<line x1="968" y1="252" x2="968" y2="1120" stroke="#D9DEE5" stroke-width="2"/>
+<text x="968" y="1166" fill="#66717E" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="400" text-anchor="middle">10</text>
+<line x1="1246" y1="252" x2="1246" y2="1120" stroke="#D9DEE5" stroke-width="2"/>
+<text x="1246" y="1166" fill="#66717E" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="400" text-anchor="middle">20</text>
+<line x1="1525" y1="252" x2="1525" y2="1120" stroke="#D9DEE5" stroke-width="2"/>
+<text x="1525" y="1166" fill="#66717E" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="400" text-anchor="middle">30</text>
+<line x1="1803" y1="252" x2="1803" y2="1120" stroke="#D9DEE5" stroke-width="2"/>
+<text x="1803" y="1166" fill="#66717E" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="400" text-anchor="middle">40</text>
+<line x1="2081" y1="252" x2="2081" y2="1120" stroke="#D9DEE5" stroke-width="2"/>
+<text x="2081" y="1166" fill="#66717E" font-family="Noto Sans CJK SC, sans-serif" font-size="25" font-weight="400" text-anchor="middle">50</text>
+<text x="656" y="324.0" fill="#D84A3A" font-family="Noto Sans CJK SC, sans-serif" font-size="31" font-weight="700" text-anchor="end">sieve-cycle-v1</text>
+<rect x="690" y="270" width="850" height="86" fill="#D84A3A"/>
+<text x="1518" y="324.0" fill="#FFFFFF" font-family="Noto Sans CJK SC, sans-serif" font-size="29" font-weight="700" text-anchor="end">30.551 ms</text>
+<text x="656" y="448.0" fill="#20242B" font-family="Noto Sans CJK SC, sans-serif" font-size="31" font-weight="500" text-anchor="end">sieve-fixed-16-cycle-v1</text>
+<rect x="690" y="394" width="946" height="86" fill="#71849A"/>
+<text x="1614" y="448.0" fill="#FFFFFF" font-family="Noto Sans CJK SC, sans-serif" font-size="29" font-weight="700" text-anchor="end">34.004 ms</text>
+<text x="656" y="572.0" fill="#20242B" font-family="Noto Sans CJK SC, sans-serif" font-size="31" font-weight="500" text-anchor="end">pimoe</text>
+<rect x="690" y="518" width="986" height="86" fill="#71849A"/>
+<text x="1654" y="572.0" fill="#FFFFFF" font-family="Noto Sans CJK SC, sans-serif" font-size="29" font-weight="700" text-anchor="end">35.458 ms</text>
+<text x="656" y="696.0" fill="#20242B" font-family="Noto Sans CJK SC, sans-serif" font-size="31" font-weight="500" text-anchor="end">sieve</text>
+<rect x="690" y="642" width="1048" height="86" fill="#71849A"/>
+<text x="1716" y="696.0" fill="#FFFFFF" font-family="Noto Sans CJK SC, sans-serif" font-size="29" font-weight="700" text-anchor="end">37.673 ms</text>
+<text x="656" y="820.0" fill="#20242B" font-family="Noto Sans CJK SC, sans-serif" font-size="31" font-weight="500" text-anchor="end">allexp</text>
+<rect x="690" y="766" width="1249" height="86" fill="#71849A"/>
+<text x="1917" y="820.0" fill="#FFFFFF" font-family="Noto Sans CJK SC, sans-serif" font-size="29" font-weight="700" text-anchor="end">44.893 ms</text>
+<text x="656" y="944.0" fill="#20242B" font-family="Noto Sans CJK SC, sans-serif" font-size="31" font-weight="500" text-anchor="end">gpu-only</text>
+<rect x="690" y="890" width="1383" height="86" fill="#71849A"/>
+<text x="2051" y="944.0" fill="#FFFFFF" font-family="Noto Sans CJK SC, sans-serif" font-size="29" font-weight="700" text-anchor="end">49.715 ms</text>
+<text x="656" y="1068.0" fill="#20242B" font-family="Noto Sans CJK SC, sans-serif" font-size="31" font-weight="500" text-anchor="end">noexp</text>
+<rect x="690" y="1014" width="1398" height="86" fill="#71849A"/>
+<text x="2066" y="1068.0" fill="#FFFFFF" font-family="Noto Sans CJK SC, sans-serif" font-size="29" font-weight="700" text-anchor="end">50.254 ms</text>
+<text x="1455.0" y="1219" fill="#20242B" font-family="Noto Sans CJK SC, sans-serif" font-size="31" font-weight="400" text-anchor="middle">总时延（ms）</text>
+<text x="110" y="1298" fill="#66717E" font-family="Noto Sans CJK SC, sans-serif" font-size="24" font-weight="400" text-anchor="start">Batch=8，8 个 Decode step，共 64 个生成 token；结果为模拟总时延，并非真实 B200 实测。</text>
+</svg>

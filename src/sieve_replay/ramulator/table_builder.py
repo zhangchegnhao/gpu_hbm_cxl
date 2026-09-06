@@ -88,12 +88,6 @@ def build_timing_table(
         configuration.experiment.layers,
         configuration.experiment.steps,
     )
-    for trace in trace_set.batches:
-        if len(set(trace.context_lengths)) != 1:
-            raise ValueError(
-                "timing table schema v1 requires a uniform context length within each batch"
-            )
-
     token_counts = candidate_token_counts(configuration)
     total_pseudo_channels = cycle.total_pseudo_channels
     operations_per_mac_wave = (
@@ -117,12 +111,11 @@ def build_timing_table(
         for tokens in token_counts
     }
 
-    attention_shapes: dict[tuple[int, int], dict[str, int]] = {}
+    attention_shapes: dict[tuple[int, ...], dict[str, int]] = {}
     for trace in trace_set.batches:
-        batch = trace.batch_size
-        context = trace.context_lengths[0]
-        attention_shapes[(batch, context)] = {
-            "gwrite": batch
+        context_lengths = trace.context_lengths
+        attention_shapes[context_lengths] = {
+            "gwrite": trace.batch_size
             * _ceil_div(
                 model.q_projection_size * model.dtype_bytes,
                 cycle.transaction_bytes,
@@ -135,7 +128,7 @@ def build_timing_table(
                 operations_per_mac_wave,
             ),
             "read": _ceil_div(
-                batch * model.q_projection_size * model.dtype_bytes,
+                trace.batch_size * model.q_projection_size * model.dtype_bytes,
                 bytes_per_partitioned_wave,
             ),
         }
@@ -154,8 +147,9 @@ def build_timing_table(
     read = run_milestones(ramulator_root, cycle, "PIM_READ", read_milestones)
 
     project_root = Path(__file__).resolve().parents[3]
+    schema_version = 2 if any(len(set(key)) != 1 for key in attention_shapes) else 1
     table = {
-        "schema_version": 1,
+        "schema_version": schema_version,
         "metadata": {
             "units": "us",
             "ramulator_commit": cycle.ramulator_commit,
@@ -165,15 +159,21 @@ def build_timing_table(
         },
         "attention": [
             {
-                "batch_size": batch,
-                "context_length": context,
+                **(
+                    {
+                        "batch_size": len(context_lengths),
+                        "context_length": context_lengths[0],
+                    }
+                    if schema_version == 1
+                    else {"context_lengths": list(context_lengths)}
+                ),
                 "duration_us": (
                     gwrite.duration_us_by_waves[shape["gwrite"]]
                     + mac.duration_us_by_waves[shape["mac"]]
                     + read.duration_us_by_waves[shape["read"]]
                 ),
             }
-            for (batch, context), shape in sorted(attention_shapes.items())
+            for context_lengths, shape in sorted(attention_shapes.items())
         ],
         "expert_gemv": [
             {
@@ -197,7 +197,7 @@ def build_timing_table(
             return str(resolved)
 
     evidence = {
-        "schema_version": 1,
+        "schema_version": schema_version,
         "cycle_config": asdict(cycle),
         "experiment": portable_path(experiment_path),
         "token_counts": list(token_counts),
@@ -205,8 +205,12 @@ def build_timing_table(
             "operations_per_mac_wave": operations_per_mac_wave,
             "bytes_per_partitioned_wave": bytes_per_partitioned_wave,
             "attention": {
-                f"batch={batch},context={context}": shape
-                for (batch, context), shape in sorted(attention_shapes.items())
+                (
+                    f"batch={len(context_lengths)},context={context_lengths[0]}"
+                    if schema_version == 1
+                    else f"context_lengths={','.join(str(value) for value in context_lengths)}"
+                ): shape
+                for context_lengths, shape in sorted(attention_shapes.items())
             },
             "expert_gwrite_waves": expert_gwrite_waves,
             "expert_mac_waves": expert_mac_waves,

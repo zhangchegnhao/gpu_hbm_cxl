@@ -22,12 +22,14 @@ class RamulatorTimingTable:
     def __init__(
         self,
         metadata: dict[str, str],
-        attention: dict[tuple[int, int], float],
+        attention: dict[tuple[int, ...], float],
         expert_gemv: dict[int, ExpertGemvTiming],
+        schema_version: int = 1,
     ) -> None:
         self.metadata = metadata
         self._attention = attention
         self._expert_gemv = expert_gemv
+        self.schema_version = schema_version
 
     @classmethod
     def load(cls, path: str | Path) -> "RamulatorTimingTable":
@@ -40,10 +42,38 @@ class RamulatorTimingTable:
             raise ValueError(f"invalid Ramulator timing table JSON: {exc}") from exc
         cls._validate_root(raw)
         metadata = raw["metadata"]
-        attention: dict[tuple[int, int], float] = {}
+        schema_version = raw["schema_version"]
+        attention: dict[tuple[int, ...], float] = {}
         for row in raw["attention"]:
-            cls._require_exact_keys(row, {"batch_size", "context_length", "duration_us"}, "attention row")
-            key = (cls._positive_int(row["batch_size"], "batch_size"), cls._positive_int(row["context_length"], "context_length"))
+            if schema_version == 1:
+                cls._require_exact_keys(
+                    row,
+                    {"batch_size", "context_length", "duration_us"},
+                    "attention row",
+                )
+                key = (
+                    cls._positive_int(row["batch_size"], "batch_size"),
+                    cls._positive_int(row["context_length"], "context_length"),
+                )
+            else:
+                cls._require_exact_keys(
+                    row, {"context_lengths", "duration_us"}, "attention row"
+                )
+                context_lengths = row["context_lengths"]
+                if (
+                    not isinstance(context_lengths, list)
+                    or not context_lengths
+                    or any(
+                        isinstance(value, bool)
+                        or not isinstance(value, int)
+                        or value <= 0
+                        for value in context_lengths
+                    )
+                ):
+                    raise ValueError(
+                        "attention row context_lengths must be a non-empty positive integer array"
+                    )
+                key = tuple(context_lengths)
             if key in attention:
                 raise ValueError(f"duplicate attention timing entry: {key}")
             attention[key] = cls._positive_number(row["duration_us"], "duration_us")
@@ -65,7 +95,7 @@ class RamulatorTimingTable:
             )
         if not attention or not expert_gemv:
             raise ValueError("Ramulator timing table cannot contain empty timing sections")
-        return cls(dict(metadata), attention, expert_gemv)
+        return cls(dict(metadata), attention, expert_gemv, schema_version=schema_version)
 
     @staticmethod
     def _validate_root(raw: Any) -> None:
@@ -74,7 +104,7 @@ class RamulatorTimingTable:
         RamulatorTimingTable._require_exact_keys(
             raw, {"schema_version", "metadata", "attention", "expert_gemv"}, "table"
         )
-        if raw["schema_version"] != 1:
+        if raw["schema_version"] not in {1, 2}:
             raise ValueError(f"unsupported Ramulator timing table schema: {raw['schema_version']}")
         metadata = raw["metadata"]
         if not isinstance(metadata, dict):
@@ -126,8 +156,29 @@ class RamulatorTimingTable:
             raise ValueError(f"{label} must be non-negative")
         return float(value)
 
-    def attention_us(self, batch_size: int, context_length: int) -> float:
-        key = (batch_size, context_length)
+    def attention_us(
+        self,
+        batch_size_or_context_lengths: int | tuple[int, ...],
+        context_length: int | None = None,
+    ) -> float:
+        if self.schema_version == 1:
+            if (
+                isinstance(batch_size_or_context_lengths, bool)
+                or not isinstance(batch_size_or_context_lengths, int)
+                or context_length is None
+            ):
+                raise ValueError(
+                    "Ramulator timing table schema v1 requires batch_size and context_length"
+                )
+            key = (batch_size_or_context_lengths, context_length)
+        else:
+            if context_length is not None or not isinstance(
+                batch_size_or_context_lengths, tuple
+            ):
+                raise ValueError(
+                    "Ramulator timing table schema v2 requires the complete context_lengths tuple"
+                )
+            key = batch_size_or_context_lengths
         try:
             return self._attention[key]
         except KeyError as exc:

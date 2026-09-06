@@ -79,6 +79,45 @@ class RamulatorTimingTableTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             timing.pim_expert_compute((ExpertLoad(expert_id=0, token_count=2),))
 
+    def test_schema_v2_uses_complete_context_tuple(self) -> None:
+        raw = {
+            "schema_version": 2,
+            "metadata": {
+                "units": "us",
+                "ramulator_commit": PINNED_RAMULATOR_COMMIT,
+                "extension_commit": "test-extension",
+                "hardware_config_sha256": "a" * 64,
+                "trace_generator_sha256": "b" * 64,
+            },
+            "attention": [
+                {"context_lengths": [14, 15, 25, 19], "duration_us": 7.5}
+            ],
+            "expert_gemv": [
+                {"token_count": 1, "gwrite_us": 0.1, "compute_us": 2.0, "read_us": 0.2}
+            ],
+        }
+        with tempfile.TemporaryDirectory() as temporary:
+            path = Path(temporary) / "table.json"
+            path.write_text(json.dumps(raw), encoding="utf-8")
+            table = RamulatorTimingTable.load(path)
+        self.assertEqual(table.schema_version, 2)
+        self.assertEqual(table.attention_us((14, 15, 25, 19)), 7.5)
+        with self.assertRaises(ValueError):
+            table.attention_us(4, 14)
+
+    def test_cycle_model_accepts_nonuniform_contexts_with_schema_v2(self) -> None:
+        configuration = load_configuration(EXPERIMENT)
+        hardware = replace(configuration.hardware, timing_backend="ramulator-table-v0")
+        table = RamulatorTimingTable(
+            metadata={},
+            attention={(14, 15, 25, 19): 7.5},
+            expert_gemv={1: ExpertGemvTiming(0.1, 2.0, 0.2)},
+            schema_version=2,
+        )
+        timing = RamulatorTableTimingModel(configuration.model, hardware, table)
+        result = timing.pim_attention((14, 15, 25, 19))
+        self.assertEqual(result.duration_us, 7.5)
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -84,6 +84,21 @@ PYTHONPATH=src python3 scripts/fill_decode_workloads_parallel.py \
   --workers 4
 ```
 
+The filler writes each completed exact shape to the provenance-bound cache, so an
+interrupted run can be resumed with the same command.  The default submission order is
+`largest-first`; on a workstation where the largest GPU streams take substantially longer,
+`--order smallest-first` gives earlier progress while preserving the same exact results:
+
+```bash
+PYTHONPATH=src python3 scripts/fill_decode_workloads_parallel.py \
+  --experiment configs/experiments/full_decode_real_pilot_cycle_v1.json \
+  --cycle-config configs/ramulator/sieve_hbm3e_cycle_v1.json \
+  --cache-dir ramulator/timing_tables/generated/.cache/qwen3_real_pilot_cycle_v1 \
+  --catalog-output /tmp/qwen3_real_pilot_workloads.json \
+  --workers 24 \
+  --order smallest-first
+```
+
 缓存达到`missing_workload_shapes=0`后才能物化schema-v3表并进行六个主要策略加
 固定16专家消融的回放。禁止插值，也不能复用哈希不匹配的合成Trace正式表。
 

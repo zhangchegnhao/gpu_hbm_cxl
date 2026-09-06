@@ -27,9 +27,16 @@ class RamulatorTableTimingModel(AnalyticTimingModel):
         return sum(load.token_count for load in loads)
 
     def pim_attention(self, context_lengths: tuple[int, ...]) -> TimingEstimate:
-        if not context_lengths or len(set(context_lengths)) != 1:
-            raise ValueError("Ramulator timing table v1 requires uniform context lengths")
-        duration = self.table.attention_us(len(context_lengths), context_lengths[0])
+        if not context_lengths:
+            raise ValueError("Ramulator timing table requires at least one context length")
+        if self.table.schema_version == 1:
+            if len(set(context_lengths)) != 1:
+                raise ValueError(
+                    "Ramulator timing table schema v1 requires uniform context lengths"
+                )
+            duration = self.table.attention_us(len(context_lengths), context_lengths[0])
+        else:
+            duration = self.table.attention_us(context_lengths)
         operations, bytes_accessed = self._attention_shape(context_lengths)
         return TimingEstimate(
             duration,

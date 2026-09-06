@@ -86,10 +86,18 @@ cycle-v0与cycle-v1的主要差异来自用请求级Ramulator时序替换理想�
 - `docs/full_decode_cycle_v1_analysis.md`；
 - `docs/full_decode_cycle_v1_fixed_split_ablation.md`。
 
+真实pilot中间结果：
+
+- `results/router_trace_analysis/real_pilot/`；
+- `ramulator/timing_tables/generated/qwen3_real_pilot_decode_cycle_v0.json`及其
+  evidence；
+- `results/full_decode_real_pilot_cycle_v0/`。
+
 ## 当前阶段
 
-当前阶段是**真实Qwen3 Router Trace驱动的动态cycle-v1实验**。真实pilot的路由捕获
-已经在外部云实例完成，但真实Trace的Ramulator时序和六策略性能回放尚未完成。
+当前阶段是**真实Qwen3 Router Trace驱动的动态cycle-v1实验**，已完成。真实pilot的
+路由捕获、cycle-v0基线、cycle-v1精确竞争workload、七策略回放和固定16专家消融
+均已完成。
 
 已经完成：
 
@@ -103,6 +111,13 @@ cycle-v0与cycle-v1的主要差异来自用请求级Ramulator时序替换理想�
 - 在单张`NVIDIA A800-SXM4-80GB`云实例上完成BF16模型加载和真实pilot捕获；
 - 真实pilot产生384个层批次、3072条Router记录，并通过manifest完整性校验；
 - 真实pilot路由分析完成，得到340个unique load signatures；
+- 真实cycle-v0表已按8个非均匀`context_lengths` tuple生成schema-v2，并完成384个
+  layer-batch的5策略回放；
+- 真实cycle-v1已精确补齐1030/1030个workload shape，插值为0，并生成包含14,527条
+  entry的schema-v3 contention table及evidence；
+- 真实cycle-v1七策略（含`sieve-fixed-16-cycle-v1`固定分界消融）均完成384个
+  layer-batch回放，输入哈希和timing entry完整性校验通过；
+- 真实pilot cycle-v1分析报告为`docs/full_decode_real_pilot_cycle_v1_analysis.md`。
 - 云端捕获环境固定为PyTorch `2.7.1+cu126`、Transformers `4.53.2`、Python
   `3.12.11`，驱动报告CUDA `13.2`。
 
@@ -130,11 +145,10 @@ manifest.json
 4. 枚举并去重真实Trace所需的全部精确cycle-v1 workload；
 5. 使用可恢复缓存补齐Ramulator运行，禁止插值；云服务器上的首次pilot填充因该
    环境未构建Ramulator Python binding而失败`1030`个shape，这属于环境前置条件
-   错误，不是workload时序失败；当前本地工作树已有Ramulator环境，但真实Trace
-   workload填充尚未在本地重试；
-6. 仅在`failed=0`、`remaining=0`且插值为0后，物化与真实Trace哈希绑定的schema-v3表；
-7. 回放六个主要策略和固定16专家消融；
-8. 比较动态放置、固定分界、cycle-v0/v1和isolated/contended结果。
+   错误，不是workload时序失败；本地已构建binding并完成1030个shape的精确缓存；
+6. 已在`failed=0`、`remaining=0`且插值为0后，物化与真实Trace哈希绑定的schema-v3表；
+7. 已回放七个策略和固定16专家消融；
+8. 已完成动态放置、固定分界、cycle-v0/v1和isolated/contended结果比较。
 
 详细协议见`docs/real_router_trace_stage.md`。
 
@@ -142,9 +156,10 @@ manifest.json
 
 现有结果是模拟器阶段性结果，不是论文级硬件性能结论。后续工作必须保留以下边界：
 
-- 当前已完成性能结果使用确定性合成Router Trace；
-- 真实Qwen3 pilot目前只提供路由Trace和路由统计，尚未产生真实Trace驱动的性能数字；
-- 只有2个Decode step，不能代表长序列或连续批处理；
+- 当前合成Trace性能结果只用于验证和对照；
+- 真实Qwen3 pilot已产生cycle-v0和cycle-v1的模拟性能数字；cycle-v1数字仅在
+  1030/1030精确workload、无插值和输入哈希校验通过的范围内有效；
+- 当前真实pilot固定为8个Decode step，不能代表更长序列或连续批处理；合成验证仍为2个step；
 - GPU算术、Router、Scheduler和GPU Attention仍是解析模型；
 - PIM Attention尚未进入cycle-v1混合请求模拟；
 - GPU READ是抽象顺序请求流，不是真实GPU访存Trace；
