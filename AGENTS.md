@@ -45,6 +45,10 @@ Attention -> Router -> GPU/PIM Expert -> Combine
 - `ramulator-contention-v1`：GPU Expert READ与PIM命令进入同一次请求级Ramulator
   运行，GPU算术和部分其他组件仍为解析模型。
 
+当前新增`sieve-runtime-v1`在线策略：使用少量离线校准点的分段线性时序模型，
+决策时不读取精确放置候选表；最终选定放置仍由`ramulator-contention-v1`精确表做
+模拟器真值评价。`sieve-cycle-v1`在该阶段冻结为离线Oracle。
+
 六个主要策略为`gpu-only`、`noexp`、`allexp`、`pimoe`、`sieve`和
 `sieve-cycle-v1`。另有`sieve-fixed-16-cycle-v1`，只用于固定分界消融。
 当前`pimoe`是静态token阈值占位策略，不是正式PIMoE论文复现，报告中必须明确。
@@ -95,9 +99,10 @@ cycle-v0与cycle-v1的主要差异来自用请求级Ramulator时序替换理想�
 
 ## 当前阶段
 
-当前阶段是**真实Qwen3 Router Trace驱动的动态cycle-v1实验**，已完成。真实pilot的
-路由捕获、cycle-v0基线、cycle-v1精确竞争workload、七策略回放和固定16专家消融
-均已完成。
+MoE专家调度的真实pilot、runtime-v1在线策略验证和runtime-v2
+signature-level holdout均已完成。`sieve-cycle-v1`在当前阶段冻结为离线Oracle；
+下一阶段转向**单GPU设备上的KV Cache容量与延迟瓶颈实验**，目标仍限定为当前的
+`1 GPU + 8 Local HBM-PIM Stacks`模拟硬件，不扩展Shared CXL-PIM或多GPU。
 
 已经完成：
 
@@ -118,8 +123,48 @@ cycle-v0与cycle-v1的主要差异来自用请求级Ramulator时序替换理想�
 - 真实cycle-v1七策略（含`sieve-fixed-16-cycle-v1`固定分界消融）均完成384个
   layer-batch回放，输入哈希和timing entry完整性校验通过；
 - 真实pilot cycle-v1分析报告为`docs/full_decode_real_pilot_cycle_v1_analysis.md`。
+- runtime-v1阶段已完成：`sieve-runtime-v1`、cycle-v1 Oracle、legacy `sieve`和
+  `sieve-fixed-16-cycle-v1`均完成384个layer-batch回放；runtime校准使用15个非零
+  anchor点，运行时决策不读取精确候选表且本阶段新增Ramulator运行数为0；
+  结果与评价见`docs/full_decode_real_pilot_runtime_v1_analysis.md`。
+- runtime-v2 signature-level holdout已完成：按340个unique load signature进行5-fold
+  分组留出，比较5/9/15/25个非零校准点；每个预算覆盖384个留出layer-batch，所有
+  选定放置均未外推。25点预算达到380/384 prefix一致，平均regret
+  `0.00005092 us`、最大`0.00488832 us`；9/15点为377/384，5点为376/384。候选
+  空间中每个fold有1个GPU计数超出训练范围，但没有被runtime选中。结果见
+  `results/full_decode_real_pilot_runtime_v2_holdout/`和
+  `docs/full_decode_real_pilot_runtime_v2_holdout_analysis.md`。
+- 已单独测量Python版runtime决策开销（10轮warmup、100轮、38,400次决策）：中位数
+  `370.164 us`、P95 `471.678 us`、P99 `503.041 us`，约为配置20 us scheduler
+  假设的18.5倍。该测量包含解释器和对象分配开销，不等同于生产C++ scheduler，
+  因此没有直接改写30.551 ms基线；部署型runtime-v2必须在目标运行时测量并重新
+  回放端到端时延。敏感性结果见
+  `results/full_decode_real_pilot_runtime_v2_holdout/runtime_scheduler_benchmark.json`。
 - 云端捕获环境固定为PyTorch `2.7.1+cu126`、Transformers `4.53.2`、Python
   `3.12.11`，驱动报告CUDA `13.2`。
+
+KV Cache瓶颈阶段尚未开始正式回放，目前处于实验设计阶段。当前旧pilot的Batch为8、
+Context很短，峰值KV Cache约18.68 MB，不能作为KV瓶颈证据。现有实现只提供KV容量
+估算和解析Attention时延，尚未建模KV READ请求、KV与Expert的HBM请求竞争、paging、
+spill或eviction。
+
+下一阶段执行顺序固定为：
+
+1. 以旧pilot为基线，补齐Attention、Expert、KV大小、峰值内存和吞吐量分解；
+2. 在本地做受控的Batch×Context解析扫描，保持专家路由不变，首轮矩阵为B8的
+   `512/2k/4k/8k/16k/32k`、B16的`4k/8k/16k/32k`和B32的`4k/8k/16k`；
+3. 根据扫描结果，在A800上捕获新的真实长Context Router Trace，优先B8/C4k、
+   B8/C8k、B8/C16k、B16/C4k和B16/C8k；
+4. 每个新配置独立保存`prompts.jsonl`、`router.jsonl`和`manifest.json`，绑定
+   SHA-256，不能复制旧Trace后修改Context；
+5. 对新Trace重新规划并精确补齐Attention及Expert workload timing，禁止插值；
+6. 回放并输出KV大小、Attention时延占比、峰值内存、容量状态和总时延分解；
+7. 只有在证据表明KV确实形成瓶颈后，才扩展KV请求级Ramulator竞争或容量溢出模型。
+
+物理A800显存为80 GB，当前模拟容量为96 GB，二者必须分开报告。Batch=16、
+Context=32k和Batch=32、Context=16k可用于模拟容量压力，但不能直接称为A800实测
+结果。若未实现spill，只能将超容量配置标记为`infeasible`，不能声称已经完成KV
+paging性能建模。
 
 真实pilot目录必须包含：
 
@@ -166,6 +211,19 @@ manifest.json
 - 当前未建模刷新、能耗、原生逐Bank PIM命令、多GPU、NVLink和Shared CXL-PIM；
 - 容量可行只表示估算字节数低于96 GB，不代表真实布局和驻留已经实现；
 - 不得将当前数字描述为真实B200性能或Sieve/PIMoE论文的完整复现。
+- runtime-v1的`98.9583%` prefix一致率、`0.019553 us`端到端Oracle gap和预测误差
+  只适用于当前同一真实pilot、模型、硬件和观测计数范围；15个校准点来自已有精确
+  cycle-v1表，是独立硬件微基准的代理，不是跨workload验证。尚未进行新prompt、
+  Batch、Context或模型的留出测试，禁止宣称泛化。
+- 在线策略在真实部署中仍需承担实际调度开销；本阶段没有把离线校准时间计入请求
+  延迟，也没有声称校准点可被提前知道。当前模拟器仍用精确cycle-v1表计算选定放置
+  的真值时延；这只是评价机制，不是runtime决策依赖。
+- 当前30.551 ms runtime基线使用配置的20 us scheduler模型参数；Python决策开销基准
+  仅作为敏感性证据，不能直接替代目标运行时scheduler时间。若将370.164 us机械
+  替换到384个layer-batch，scheduler部分约为142.14 ms，但这不是生产系统性能结论。
+- signature-level holdout仍来自同一个真实pilot，只能说明对未参与训练的已有负载
+  形状具有初步留出能力；它不能替代新prompt、不同Batch/Context或独立硬件微基准
+  的验证。在这些留出实验完成前，不得宣称runtime-v1具有跨workload泛化能力。
 
 ## 后续修改规则
 
@@ -175,6 +233,8 @@ manifest.json
 - 正式cycle-v1表只允许精确Ramulator结果，禁止插值和哈希不匹配的缓存复用；
 - 真实Trace必须有manifest，合成验证不得放入`traces/real/`；
 - 生成结果必须保存输入哈希、配置快照、时延分类和限制说明；
+- runtime校准必须保存anchor、方法、来源哈希和适用范围；评价脚本必须校验策略、
+  layer-batch数量、timing backend和输入哈希；
 - `.cache`、Ramulator构建树、模型权重和认证信息不得提交；
 - 不修改或撤销用户已有的无关改动；
 - 修改后按风险补充测试，完整验证命令为：

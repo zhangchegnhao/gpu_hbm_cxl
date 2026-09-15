@@ -5,12 +5,18 @@ from collections.abc import Iterable
 from ..config import HardwareConfig, ModelConfig
 from ..types import ExpertLoad, TimingEstimate
 from .coupled import CoupledExpertTiming
+from .runtime_model import RuntimeExpertTimingModel
 
 
 class AnalyticTimingModel:
     """Ideal roofline model used only for functional trace-replay validation."""
 
-    def __init__(self, model: ModelConfig, hardware: HardwareConfig) -> None:
+    def __init__(
+        self,
+        model: ModelConfig,
+        hardware: HardwareConfig,
+        runtime_expert_timing: RuntimeExpertTimingModel | None = None,
+    ) -> None:
         if hardware.timing_backend not in {
             "analytic-v0",
             "ramulator-table-v0",
@@ -19,6 +25,7 @@ class AnalyticTimingModel:
             raise ValueError(f"unsupported timing backend: {hardware.timing_backend}")
         self.model = model
         self.hardware = hardware
+        self.runtime_expert_timing = runtime_expert_timing
 
     def coupled_expert_timing(
         self,
@@ -132,6 +139,7 @@ class AnalyticTimingModel:
             self.hardware.sieve_scheduler_overhead_us
             if policy in {
                 "sieve",
+                "sieve-runtime-v1",
                 "sieve-cycle-v1",
                 "sieve-fixed-16-cycle-v1",
             }

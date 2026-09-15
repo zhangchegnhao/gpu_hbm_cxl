@@ -210,6 +210,93 @@ class SieveCycleV1Policy(PlacementPolicy):
         )
 
 
+class SieveRuntimeV1Policy(PlacementPolicy):
+    """Online hot-prefix search using only a small calibrated timing model."""
+
+    name = "sieve-runtime-v1"
+    attention_target = AttentionTarget.PIM
+
+    def place(self, trace: TraceBatch) -> PlacementDecision:
+        calibration = self.timing.runtime_expert_timing
+        if calibration is None:
+            raise ValueError("sieve-runtime-v1 requires runtime_calibration")
+        loads = trace.expert_loads
+        by_id = _loads_by_id(loads)
+        hot_order = tuple(
+            load.expert_id
+            for load in sorted(loads, key=lambda load: (-load.token_count, load.expert_id))
+        )
+        scheduler_us = self.timing.scheduler(self.name).duration_us
+        evaluated: list[dict[str, object]] = []
+        ranked: list[tuple[tuple[float, float, int, tuple[int, ...]], dict[str, object]]] = []
+        for prefix_length in range(len(hot_order) + 1):
+            gpu_experts = tuple(sorted(hot_order[:prefix_length]))
+            pim_experts = tuple(sorted(hot_order[prefix_length:]))
+            gpu_loads = tuple(by_id[expert] for expert in gpu_experts)
+            pim_tokens = sum(by_id[expert].token_count for expert in pim_experts)
+            gpu_memory_us = calibration.gpu_expert_read_us(prefix_length)
+            gpu_compute_us = self.timing.gpu_expert_compute(gpu_loads).duration_us
+            gpu_path_us = gpu_memory_us + gpu_compute_us
+            pim_path_us = calibration.pim_expert_pipeline_us(pim_tokens)
+            gpu_extrapolated = calibration.gpu_prediction_is_extrapolated(prefix_length)
+            pim_extrapolated = calibration.pim_prediction_is_extrapolated(pim_tokens)
+            objective_us = scheduler_us + max(gpu_path_us, pim_path_us)
+            candidate: dict[str, object] = {
+                "gpu_prefix_length": prefix_length,
+                "gpu_experts": list(gpu_experts),
+                "gpu_tokens": sum(load.token_count for load in gpu_loads),
+                "pim_tokens": pim_tokens,
+                "gpu_memory_us": gpu_memory_us,
+                "gpu_compute_us": gpu_compute_us,
+                "gpu_path_us": gpu_path_us,
+                "pim_path_us": pim_path_us,
+                "scheduler_us": scheduler_us,
+                "objective_us": objective_us,
+                "isolation_available": False,
+                "gpu_prediction_extrapolated": gpu_extrapolated,
+                "pim_prediction_extrapolated": pim_extrapolated,
+            }
+            evaluated.append(candidate)
+            rank = (
+                objective_us,
+                abs(gpu_path_us - pim_path_us),
+                prefix_length,
+                gpu_experts,
+            )
+            ranked.append((rank, candidate))
+        ranked.sort(key=lambda item: item[0])
+        selected = ranked[0][1]
+        selected_gpu = tuple(int(value) for value in selected["gpu_experts"])
+        selected_pim = tuple(
+            expert for expert in sorted(by_id) if expert not in set(selected_gpu)
+        )
+        search_report = {
+            "candidate_space": "runtime-hot-prefix",
+            "method": calibration.metadata["method"],
+            "objective": (
+                "scheduler + max(predicted_gpu_memory + analytic_gpu_compute, "
+                "predicted_pim_expert_pipeline)"
+            ),
+            "oracle_access_during_decision": False,
+            "candidate_count": len(evaluated),
+            "selected_gpu_prefix_length": len(selected_gpu),
+            "selected_prediction_extrapolated": bool(
+                selected["gpu_prediction_extrapolated"]
+                or selected["pim_prediction_extrapolated"]
+            ),
+            "calibration": calibration.report(),
+            "candidates": evaluated,
+        }
+        return PlacementDecision(
+            policy=self.name,
+            attention_target=self.attention_target,
+            gpu_experts=selected_gpu,
+            pim_experts=selected_pim,
+            estimated_objective_us=float(selected["objective_us"]),
+            search_report=search_report,
+        )
+
+
 class SieveFixed16CycleV1Policy(PlacementPolicy):
     """Fixed-prefix ablation with the same scheduler overhead as dynamic Sieve."""
 
@@ -288,6 +375,7 @@ _POLICIES = {
     "allexp": AllExpPolicy,
     "pimoe": PimOePolicy,
     "sieve": SievePolicy,
+    "sieve-runtime-v1": SieveRuntimeV1Policy,
     "sieve-cycle-v1": SieveCycleV1Policy,
     "sieve-fixed-16-cycle-v1": SieveFixed16CycleV1Policy,
 }

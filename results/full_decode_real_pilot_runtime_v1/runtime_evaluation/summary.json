@@ -1,0 +1,91 @@
+{
+  "calibration": {
+    "gpu_anchor_count": 8,
+    "gpu_calibrated_range": [
+      0,
+      49
+    ],
+    "method": "piecewise-linear-isolated-v1",
+    "nonzero_calibration_points": 15,
+    "pim_anchor_count": 9,
+    "pim_calibrated_range": [
+      0,
+      64
+    ],
+    "scope": "current Qwen3/B200 HBM-PIM model; not validated across models or hardware",
+    "source": "sparse exact isolated anchors extracted from cycle-v1 table"
+  },
+  "decision_metrics": {
+    "layer_batches": 384,
+    "max_regret_percent": 0.009334180489442118,
+    "max_regret_us": 0.004888319999999169,
+    "mean_regret_percent": 9.723104676502206e-05,
+    "mean_regret_us": 5.091999999999134e-05,
+    "p95_regret_percent": 0.0,
+    "p95_regret_us": 0.0,
+    "prediction_extrapolated_layer_batches": 0,
+    "prefix_match_rate": 0.9895833333333334,
+    "prefix_matches": 380
+  },
+  "end_to_end": {
+    "fixed_16_total_latency_us": 34003.663205377,
+    "legacy_sieve_total_latency_us": 37673.216097601,
+    "oracle_total_latency_us": 30551.096427585,
+    "runtime_oracle_gap_percent": 6.400189285818276e-05,
+    "runtime_oracle_gap_us": 0.01955328000258305,
+    "runtime_total_latency_us": 30551.115980865,
+    "runtime_vs_fixed_16_reduction_percent": 10.153456713352133,
+    "runtime_vs_legacy_reduction_percent": 18.904943231511172
+  },
+  "evaluation_scope": "within-pilot non-anchor count interpolation",
+  "input_hashes": {
+    "contention_timing_table_sha256": "bb3047087ea5b47fd1e2ed6bd6c43b91549947f12b218171fed2d664d906cba7",
+    "hardware_sha256": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
+    "model_sha256": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+    "pim_timing_table_sha256": "3259005ab793d2d71154dec90c5fc1e6c8f11b5a024cf7538056a406cec2bf74",
+    "ramulator_cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+    "runtime_calibration_sha256": "3b3fa5c0c83d465ed1f62d45ab7f008029e899a75e68ff7688c3a83e93248fed",
+    "trace_manifest_sha256": "78405e3e387e9ca309eb02e36500a9866ba01349d610b63d999878aeaa65aff4",
+    "trace_sha256": "a22fdc8afb9b93af6ea133ac254bac98830a5d07e4225edf2b37c348ea80bb34"
+  },
+  "method_boundary": {
+    "exact_table_role": "post-decision simulator ground truth and Oracle only",
+    "generalization_claim": "none beyond non-anchor counts in the same pilot, model, and hardware",
+    "new_ramulator_runs": 0,
+    "runtime_decision_reads_exact_candidates": false
+  },
+  "oracle_policy": "sieve-cycle-v1",
+  "prediction_metrics": {
+    "gpu_expert_read": {
+      "mae_us": 0.01952752941176563,
+      "mape_percent": 0.045251243367006574,
+      "max_absolute_error_us": 0.03494400000001008,
+      "max_percentage_error": 0.4148916466012156,
+      "non_anchor_counts": 42,
+      "p95_absolute_error_us": 0.034944000000009544,
+      "p95_percentage_error": 0.16982506595535501
+    },
+    "pim_expert_pipeline": {
+      "mae_us": 0.01022666666666682,
+      "mape_percent": 0.037461564476461796,
+      "max_absolute_error_us": 0.018408000000007974,
+      "max_percentage_error": 0.39433230851490403,
+      "non_anchor_counts": 54,
+      "p95_absolute_error_us": 0.018408000000000868,
+      "p95_percentage_error": 0.14558411245421335
+    }
+  },
+  "result_validation": {
+    "input_hashes_match": true,
+    "layer_batches_per_policy": 384,
+    "policies": [
+      "sieve",
+      "sieve-cycle-v1",
+      "sieve-fixed-16-cycle-v1",
+      "sieve-runtime-v1"
+    ],
+    "timing_backend_match": true
+  },
+  "runtime_policy": "sieve-runtime-v1",
+  "schema_version": 1
+}

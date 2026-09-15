@@ -1,0 +1,75 @@
+{
+  "candidate_counts": [
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47,
+    48,
+    49,
+    50
+  ],
+  "configured_scheduler_overhead_us": 20.0,
+  "decision_cpu_time_us": {
+    "max": 554.313,
+    "mean": 365.5351064583333,
+    "median": 370.164,
+    "min": 174.155,
+    "p95": 471.67749999999995,
+    "p99": 503.04134000000005
+  },
+  "environment": {
+    "platform": "Linux-6.8.0-124-generic-x86_64-with-glibc2.35",
+    "processor": "x86_64",
+    "python": "3.10.12"
+  },
+  "experiment": "configs/experiments/full_decode_real_pilot_runtime_v1.json",
+  "implied_eight_step_total_overhead_us": {
+    "configured_model": 7680.0,
+    "measured_median": 142142.976,
+    "measured_p95": 181124.15999999997
+  },
+  "input_hashes": {
+    "benchmark_script_sha256": "3e1c245f28ce6007faca909838c3bb2e611ed98714b8a92f8b3e45fcd0621df8",
+    "hardware_sha256": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
+    "model_sha256": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+    "ramulator_cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+    "runtime_calibration_sha256": "3b3fa5c0c83d465ed1f62d45ab7f008029e899a75e68ff7688c3a83e93248fed",
+    "trace_sha256": "a22fdc8afb9b93af6ea133ac254bac98830a5d07e4225edf2b37c348ea80bb34"
+  },
+  "measurements": 38400,
+  "median_overhead_ratio_to_model": 18.5082,
+  "method_boundary": {
+    "exact_table_candidates_read": false,
+    "measurement_scope": "Python process CPU decision time; excludes event replay",
+    "ramulator_runs": 0,
+    "scheduler_model_comparison": "configured 20 us overhead is a separate simulation parameter"
+  },
+  "policy": "sieve-runtime-v1",
+  "repeats": 100,
+  "schema_version": 1,
+  "trace_layer_batches": 384,
+  "warmup_rounds": 10
+}

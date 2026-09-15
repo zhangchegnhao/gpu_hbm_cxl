@@ -34,6 +34,7 @@ def _input_hashes(configuration: LoadedConfiguration) -> dict[str, str]:
         "contention_timing_table_sha256": configuration.experiment.contention_timing_table_path,
         "ramulator_cycle_config_sha256": configuration.experiment.ramulator_cycle_config_path,
         "trace_manifest_sha256": configuration.experiment.trace_manifest_path,
+        "runtime_calibration_sha256": configuration.experiment.runtime_calibration_path,
     }
     for name, path in optional_paths.items():
         if path is not None:

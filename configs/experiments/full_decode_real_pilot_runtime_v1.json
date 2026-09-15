@@ -1,0 +1,19 @@
+{
+  "name": "full-decode-real-pilot-runtime-v1",
+  "model": "configs/models/qwen3_30b_a3b.json",
+  "hardware": "configs/hardware/sieve_b200_1gpu_cycle_v1.json",
+  "trace": "traces/real/qwen3_30b_a3b/pilot_8x8/router.jsonl",
+  "trace_manifest": "traces/real/qwen3_30b_a3b/pilot_8x8/manifest.json",
+  "pim_timing_table": "ramulator/timing_tables/generated/qwen3_real_pilot_decode_cycle_v0.json",
+  "contention_timing_table": "ramulator/timing_tables/generated/qwen3_real_pilot_decode_cycle_v1_contention.json",
+  "runtime_calibration": "ramulator/timing_tables/generated/qwen3_real_pilot_runtime_calibration_v1.json",
+  "ramulator_cycle_config": "configs/ramulator/sieve_hbm3e_cycle_v1.json",
+  "layers": "all",
+  "steps": [0, 1, 2, 3, 4, 5, 6, 7],
+  "policies": [
+    "sieve-runtime-v1",
+    "sieve-cycle-v1",
+    "sieve",
+    "sieve-fixed-16-cycle-v1"
+  ]
+}

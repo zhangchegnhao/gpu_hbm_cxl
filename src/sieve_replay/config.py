@@ -164,6 +164,7 @@ class ExperimentConfig:
     contention_timing_table_path: Path | None
     ramulator_cycle_config_path: Path | None
     trace_manifest_path: Path | None
+    runtime_calibration_path: Path | None
     layers: tuple[int, ...]
     steps: tuple[int, ...]
     policies: tuple[str, ...]
@@ -226,6 +227,11 @@ def load_configuration(experiment_path: str | Path) -> LoadedConfiguration:
     trace_manifest_path = (
         resolve(raw["trace_manifest"]) if "trace_manifest" in raw else None
     )
+    runtime_calibration_path = (
+        resolve(raw["runtime_calibration"])
+        if "runtime_calibration" in raw
+        else None
+    )
     model_raw = _load_json(model_path)
     hardware_raw = _load_json(hardware_path)
     model = ModelConfig.from_dict(model_raw)
@@ -241,6 +247,7 @@ def load_configuration(experiment_path: str | Path) -> LoadedConfiguration:
         contention_timing_table_path=contention_timing_table_path,
         ramulator_cycle_config_path=ramulator_cycle_config_path,
         trace_manifest_path=trace_manifest_path,
+        runtime_calibration_path=runtime_calibration_path,
         layers=layers,
         steps=steps,
         policies=tuple(str(policy) for policy in raw["policies"]),

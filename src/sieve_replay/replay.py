@@ -16,6 +16,7 @@ from .timing import (
     RamulatorContentionTimingModel,
     RamulatorTableTimingModel,
     RamulatorTimingTable,
+    RuntimeExpertTimingModel,
 )
 from .trace import TraceBatch, load_trace_set
 from .trace_manifest import TraceManifest
@@ -57,8 +58,11 @@ class ReplayResult:
 
 
 def _create_timing(configuration: LoadedConfiguration) -> AnalyticTimingModel:
+    runtime_timing = _load_runtime_timing(configuration)
     if configuration.hardware.timing_backend == "analytic-v0":
-        return AnalyticTimingModel(configuration.model, configuration.hardware)
+        return AnalyticTimingModel(
+            configuration.model, configuration.hardware, runtime_timing
+        )
     if configuration.hardware.timing_backend == "ramulator-table-v0":
         table_path = configuration.experiment.pim_timing_table_path
         if table_path is None:
@@ -67,6 +71,7 @@ def _create_timing(configuration: LoadedConfiguration) -> AnalyticTimingModel:
             configuration.model,
             configuration.hardware,
             RamulatorTimingTable.load(table_path),
+            runtime_timing,
         )
     if configuration.hardware.timing_backend == "ramulator-contention-v1":
         isolated_path = configuration.experiment.pim_timing_table_path
@@ -90,8 +95,27 @@ def _create_timing(configuration: LoadedConfiguration) -> AnalyticTimingModel:
             configuration.hardware,
             RamulatorTimingTable.load(isolated_path),
             contention_table,
+            runtime_timing,
         )
     raise ValueError(f"unsupported timing backend: {configuration.hardware.timing_backend}")
+
+
+def _load_runtime_timing(
+    configuration: LoadedConfiguration,
+) -> RuntimeExpertTimingModel | None:
+    calibration_path = configuration.experiment.runtime_calibration_path
+    if calibration_path is None:
+        return None
+    cycle_path = configuration.experiment.ramulator_cycle_config_path
+    if cycle_path is None:
+        raise ValueError("runtime_calibration requires ramulator_cycle_config")
+    calibration = RuntimeExpertTimingModel.load(calibration_path)
+    calibration.validate_inputs(
+        configuration.experiment.model_path,
+        configuration.experiment.hardware_path,
+        cycle_path,
+    )
+    return calibration
 
 
 def run_experiment(
@@ -124,9 +148,10 @@ def run_experiment(
         )
 
     timing = _create_timing(configuration)
+    policy = create_policy(policy_name, timing)
     if configuration.experiment.is_single_layer_step:
         trace = trace_set.batches[0]
-        decision = create_policy(policy_name, timing).place(trace)
+        decision = policy.place(trace)
         if hasattr(timing, "last_contention_report"):
             timing.last_contention_report = None
         events = EventEngine().run(build_layer_graph(trace, decision, timing))
@@ -148,7 +173,7 @@ def run_experiment(
     units: list[ReplayUnit] = []
     previous_layer_tail: str | None = None
     for trace in trace_set.batches:
-        decision = create_policy(policy_name, timing).place(trace)
+        decision = policy.place(trace)
         if hasattr(timing, "last_contention_report"):
             timing.last_contention_report = None
         layer_graph, previous_layer_tail = build_decode_layer_graph(

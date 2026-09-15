@@ -6,6 +6,7 @@ from ..config import HardwareConfig, ModelConfig
 from ..types import ExpertLoad, TimingEstimate
 from .analytic import AnalyticTimingModel
 from .ramulator_table import RamulatorTimingTable
+from .runtime_model import RuntimeExpertTimingModel
 
 
 class RamulatorTableTimingModel(AnalyticTimingModel):
@@ -16,8 +17,9 @@ class RamulatorTableTimingModel(AnalyticTimingModel):
         model: ModelConfig,
         hardware: HardwareConfig,
         table: RamulatorTimingTable,
+        runtime_expert_timing: RuntimeExpertTimingModel | None = None,
     ) -> None:
-        super().__init__(model, hardware)
+        super().__init__(model, hardware, runtime_expert_timing)
         if hardware.timing_backend not in {"ramulator-table-v0", "ramulator-contention-v1"}:
             raise ValueError(f"unsupported Ramulator table backend: {hardware.timing_backend}")
         self.table = table

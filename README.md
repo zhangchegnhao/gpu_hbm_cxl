@@ -266,6 +266,52 @@ scheduler + max(GPU mixed READ + analytic GPU compute, PIM mixed path)
 选择16个GPU专家和34个PIM专家，单层时延为107.181024 us。该结果
 只是在热点前缀约束下搜索，并不是全部 `2^50` 放置的穷举全局最优。
 
+## Runtime-v1在线策略
+
+`sieve-runtime-v1`将`sieve-cycle-v1`冻结为离线Oracle，仅使用少量分段线性校准
+点预测GPU READ和PIM pipeline时延；在线决策不读取精确放置候选表，也不运行
+Ramulator。先生成校准文件，再执行四策略回放和Oracle评价：
+
+```bash
+PYTHONPATH=src python3 scripts/build_runtime_calibration.py \
+  --experiment configs/experiments/full_decode_real_pilot_cycle_v1.json \
+  --output ramulator/timing_tables/generated/qwen3_real_pilot_runtime_calibration_v1.json \
+  --evidence-output ramulator/timing_tables/generated/qwen3_real_pilot_runtime_calibration_v1.evidence.json
+
+PYTHONPATH=src python3 -m sieve_replay.cli run-all \
+  --experiment configs/experiments/full_decode_real_pilot_runtime_v1.json \
+  --output results/full_decode_real_pilot_runtime_v1
+
+PYTHONPATH=src python3 scripts/evaluate_runtime_scheduler.py \
+  --experiment configs/experiments/full_decode_real_pilot_runtime_v1.json \
+  --results results/full_decode_real_pilot_runtime_v1 \
+  --output results/full_decode_real_pilot_runtime_v1/runtime_evaluation
+```
+
+该阶段的同pilot结果和适用边界见
+`docs/full_decode_real_pilot_runtime_v1_analysis.md`；图表由
+`scripts/plot_runtime_v1_results.py`生成。当前结果不代表跨workload泛化。
+
+### Runtime-v2 signature holdout
+
+对340个unique load signature做5-fold分组留出，校准只使用训练signature，验证
+部分仍用精确cycle-v1表做事后Oracle评价。运行：
+
+```bash
+PYTHONPATH=src python3 scripts/evaluate_runtime_holdout.py \
+  --experiment configs/experiments/full_decode_real_pilot_cycle_v1.json \
+  --output results/full_decode_real_pilot_runtime_v2_holdout \
+  --folds 5 --budgets 5,9,15,25
+```
+
+25个非零校准点达到`380/384` prefix一致率，最大regret`0.00488832 us`；该结果
+仍只适用于同一pilot的signature-level留出，不能替代新prompt、Batch、Context或
+硬件的泛化验证。详见`docs/full_decode_real_pilot_runtime_v2_holdout_analysis.md`。
+
+另外测得Python实现的runtime决策中位数为`370.164 us`（P95 `471.678 us`），高于
+仿真使用的20 us scheduler参数。该数字包含解释器开销，仅用于敏感性分析，未直接
+替换基线总时延；部署型实现需在目标运行时重新测量。
+
 ## 目录
 
 ```text

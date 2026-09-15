@@ -1,0 +1,46 @@
+{
+  "gpu_expert_count_anchors": [
+    {
+      "duration_us": 0.0,
+      "expert_count": 0
+    },
+    {
+      "duration_us": 2.461992,
+      "expert_count": 1
+    },
+    {
+      "duration_us": 145.512744,
+      "expert_count": 49
+    }
+  ],
+  "metadata": {
+    "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+    "generator_sha256": "e8dbfbeb868c4f686efc7261bcbe1c4afedacfc728729f1a7f00009a62ec6ddb",
+    "hardware_sha256": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
+    "method": "piecewise-linear-isolated-v1",
+    "model_sha256": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+    "scope": "Qwen3 real-pilot signature holdout; fold=2; budget=5",
+    "source": "exact isolated timings from training signatures only",
+    "source_contention_table_sha256": "bb3047087ea5b47fd1e2ed6bd6c43b91549947f12b218171fed2d664d906cba7",
+    "units": "us"
+  },
+  "pim_token_count_anchors": [
+    {
+      "duration_us": 0.0,
+      "token_count": 0
+    },
+    {
+      "duration_us": 1.589952,
+      "token_count": 1
+    },
+    {
+      "duration_us": 49.28352,
+      "token_count": 32
+    },
+    {
+      "duration_us": 98.534592,
+      "token_count": 64
+    }
+  ],
+  "schema_version": 1
+}

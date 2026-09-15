@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="figure-title figure-description">
+<title id="figure-title">Motivation: Limitations of GPU-Local HBM-PIM for Multi-GPU MoE Inference</title>
+<desc id="figure-description">Conceptual motivation, not measured performance. (a) A token on GPU0 reaches Expert E7 only through GPU1 and its private local HBM-PIM1. (b) Equal-height schematic HBM-capacity bars show growing KV-cache capacity displacing space available to expert weights at increasing context lengths; no measured occupancy is asserted. (c) E7 requests of 2, 3, 2, and 1 tokens from four GPUs aggregate to 8. All workload bars use 15 drawing units per token. Local and shared PIM domains are complementary. No proposed multi-GPU or CXL architecture is depicted or claimed implemented.</desc>
+<metadata>{"type": "conceptual motivation figure", "capacity_data": "qualitative schematic; not measured", "context_labels": ["2K", "8K", "16K", "32K"], "local_E7_tokens": [2, 3, 2, 1], "aggregated_E7_tokens": 8, "workload_bar_units_per_token": 15, "hardware_scope": "conceptual observation only; no implementation claim"}</metadata>
+<rect x="0" y="0" width="1600" height="900" fill="#FFFFFF"/>
+<g id="title">
+<text x="800" y="53" font-family="Liberation Sans, Arial, sans-serif" font-size="34" font-weight="700" fill="#24292D" text-anchor="middle">Motivation: Limitations of GPU-Local HBM-PIM for Multi-GPU MoE Inference</text>
+<polyline points="40,87 1560,87" fill="none" stroke="#CDD1D4" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="butt"/>
+</g>
+<polyline points="493,160 493,681" fill="none" stroke="#CDD1D4" stroke-width="1" stroke-linejoin="round" stroke-linecap="butt"/>
+<polyline points="974,160 974,681" fill="none" stroke="#CDD1D4" stroke-width="1" stroke-linejoin="round" stroke-linecap="butt"/>
+<g id="a-remote-expert-access">
+<text x="43" y="130" font-family="Liberation Sans, Arial, sans-serif" font-size="25" font-weight="700" fill="#24292D" text-anchor="start">(a)</text>
+<text x="86" y="130" font-family="Liberation Sans, Arial, sans-serif" font-size="25" font-weight="700" fill="#24292D" text-anchor="start">Remote Expert Access</text>
+<rect x="64" y="266" width="168" height="115" fill="#D9E6DC" stroke="#7F878C" stroke-width="1.6"/>
+<text x="148" y="302" font-family="Liberation Sans, Arial, sans-serif" font-size="26" font-weight="700" fill="#24292D" text-anchor="middle">GPU0</text>
+<polyline points="141,381 141,465" fill="none" stroke="#587D9B" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="butt"/>
+<polyline points="155,381 155,465" fill="none" stroke="#587D9B" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="butt"/>
+<rect x="290" y="266" width="168" height="115" fill="#D9E6DC" stroke="#7F878C" stroke-width="1.6"/>
+<text x="374" y="302" font-family="Liberation Sans, Arial, sans-serif" font-size="26" font-weight="700" fill="#24292D" text-anchor="middle">GPU1</text>
+<polyline points="367,381 367,465" fill="none" stroke="#587D9B" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="butt"/>
+<polyline points="381,381 381,465" fill="none" stroke="#587D9B" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="butt"/>
+<rect x="58" y="481" width="180" height="122" fill="#DCE8F2" stroke="#7F878C" stroke-width="1.4"/>
+<rect x="58" y="473" width="180" height="122" fill="#DCE8F2" stroke="#7F878C" stroke-width="1.4"/>
+<rect x="58" y="465" width="180" height="122" fill="#DCE8F2" stroke="#7F878C" stroke-width="1.6"/>
+<text x="148" y="496" font-family="Liberation Sans, Arial, sans-serif" font-size="21" font-weight="400" fill="#60686D" text-anchor="middle">Local</text>
+<text x="148" y="524" font-family="Liberation Sans, Arial, sans-serif" font-size="23" font-weight="700" fill="#24292D" text-anchor="middle">HBM-PIM0</text>
+<rect x="284" y="481" width="180" height="122" fill="#DCE8F2" stroke="#7F878C" stroke-width="1.4"/>
+<rect x="284" y="473" width="180" height="122" fill="#DCE8F2" stroke="#7F878C" stroke-width="1.4"/>
+<rect x="284" y="465" width="180" height="122" fill="#DCE8F2" stroke="#7F878C" stroke-width="1.6"/>
+<text x="374" y="496" font-family="Liberation Sans, Arial, sans-serif" font-size="21" font-weight="400" fill="#60686D" text-anchor="middle">Local</text>
+<text x="374" y="524" font-family="Liberation Sans, Arial, sans-serif" font-size="23" font-weight="700" fill="#24292D" text-anchor="middle">HBM-PIM1</text>
+<rect x="105" y="321" width="86" height="36" fill="#FFFFFF" rx="2" stroke="#9B693A" stroke-width="1.5"/>
+<text x="148" y="346" font-family="Liberation Sans, Arial, sans-serif" font-size="21" font-weight="400" fill="#24292D" text-anchor="middle">Token</text>
+<rect x="307" y="541" width="134" height="34" fill="#E2B27C" stroke="#9B693A" stroke-width="1.3"/>
+<text x="374" y="565" font-family="Liberation Sans, Arial, sans-serif" font-size="21" font-weight="700" fill="#24292D" text-anchor="middle">Expert E7</text>
+<polyline points="193,339 290,339" fill="none" stroke="#AF5652" stroke-width="2.7" stroke-linejoin="round" stroke-linecap="butt" stroke-dasharray="7,5"/>
+<polygon points="290.000,339.000 279.000,334.160 279.000,343.840" fill="#AF5652"/>
+<polyline points="301,339 374,339 374,458" fill="none" stroke="#AF5652" stroke-width="2.7" stroke-linejoin="round" stroke-linecap="butt" stroke-dasharray="7,5"/>
+<polygon points="374.000,458.000 378.840,447.000 369.160,447.000" fill="#AF5652"/>
+<text x="374" y="225" font-family="Liberation Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#AF5652" text-anchor="middle">Remote GPU Proxy</text>
+<polyline points="374,237 374,259" fill="none" stroke="#AF5652" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="butt"/>
+<polyline points="254,352 254,395" fill="none" stroke="#AF5652" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="butt"/>
+<text x="254" y="423" font-family="Liberation Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#AF5652" text-anchor="middle">Inter-GPU Traffic</text>
+<text x="254" y="663" font-family="Liberation Sans, Arial, sans-serif" font-size="25" font-weight="700" fill="#AF5652" text-anchor="middle">Extra Latency</text>
+</g>
+<g id="b-hbm-capacity-competition">
+<text x="519" y="130" font-family="Liberation Sans, Arial, sans-serif" font-size="25" font-weight="700" fill="#24292D" text-anchor="start">(b)</text>
+<text x="562" y="130" font-family="Liberation Sans, Arial, sans-serif" font-size="25" font-weight="700" fill="#24292D" text-anchor="start">HBM Capacity Competition</text>
+<rect x="534.771" y="177" width="18" height="18" fill="#A6C1D8" stroke="#7F878C" stroke-width="1"/>
+<text x="560.771" y="193" font-family="Liberation Sans, Arial, sans-serif" font-size="21" font-weight="400" fill="#24292D" text-anchor="start">KV Cache</text>
+<rect x="672.323" y="177" width="18" height="18" fill="#E2B27C" stroke="#7F878C" stroke-width="1"/>
+<text x="698.323" y="193" font-family="Liberation Sans, Arial, sans-serif" font-size="21" font-weight="400" fill="#24292D" text-anchor="start">Expert Weights</text>
+<rect x="857.708" y="177" width="18" height="18" fill="#E2E4E6" stroke="#7F878C" stroke-width="1"/>
+<text x="883.708" y="193" font-family="Liberation Sans, Arial, sans-serif" font-size="21" font-weight="400" fill="#24292D" text-anchor="start">Other</text>
+<rect x="542" y="237" width="72" height="34" fill="#E2E4E6"/>
+<rect x="542" y="271" width="72" height="225" fill="#E2B27C"/>
+<rect x="542" y="496" width="72" height="63" fill="#A6C1D8"/>
+<polyline points="542,271 614,271" fill="none" stroke="#7F878C" stroke-width="1" stroke-linejoin="round" stroke-linecap="butt"/>
+<polyline points="542,496 614,496" fill="none" stroke="#7F878C" stroke-width="1" stroke-linejoin="round" stroke-linecap="butt"/>
+<rect x="542" y="237" width="72" height="322" fill="none" stroke="#7F878C" stroke-width="1.5"/>
+<text x="578" y="594" font-family="Liberation Sans, Arial, sans-serif" font-size="24" font-weight="400" fill="#24292D" text-anchor="middle">2K</text>
+<rect x="645" y="237" width="72" height="34" fill="#E2E4E6"/>
+<rect x="645" y="271" width="72" height="167" fill="#E2B27C"/>
+<rect x="645" y="438" width="72" height="121" fill="#A6C1D8"/>
+<polyline points="645,271 717,271" fill="none" stroke="#7F878C" stroke-width="1" stroke-linejoin="round" stroke-linecap="butt"/>
+<polyline points="645,438 717,438" fill="none" stroke="#7F878C" stroke-width="1" stroke-linejoin="round" stroke-linecap="butt"/>
+<rect x="645" y="237" width="72" height="322" fill="none" stroke="#7F878C" stroke-width="1.5"/>
+<text x="681" y="594" font-family="Liberation Sans, Arial, sans-serif" font-size="24" font-weight="400" fill="#24292D" text-anchor="middle">8K</text>
+<rect x="748" y="237" width="72" height="34" fill="#E2E4E6"/>
+<rect x="748" y="271" width="72" height="104" fill="#E2B27C"/>
+<rect x="748" y="375" width="72" height="184" fill="#A6C1D8"/>
+<polyline points="748,271 820,271" fill="none" stroke="#7F878C" stroke-width="1" stroke-linejoin="round" stroke-linecap="butt"/>
+<polyline points="748,375 820,375" fill="none" stroke="#7F878C" stroke-width="1" stroke-linejoin="round" stroke-linecap="butt"/>
+<rect x="748" y="237" width="72" height="322" fill="none" stroke="#7F878C" stroke-width="1.5"/>
+<text x="784" y="594" font-family="Liberation Sans, Arial, sans-serif" font-size="24" font-weight="400" fill="#24292D" text-anchor="middle">16K</text>
+<rect x="851" y="237" width="72" height="34" fill="#E2E4E6"/>
+<rect x="851" y="271" width="72" height="42" fill="#E2B27C"/>
+<rect x="851" y="313" width="72" height="246" fill="#A6C1D8"/>
+<polyline points="851,271 923,271" fill="none" stroke="#7F878C" stroke-width="1" stroke-linejoin="round" stroke-linecap="butt"/>
+<polyline points="851,313 923,313" fill="none" stroke="#7F878C" stroke-width="1" stroke-linejoin="round" stroke-linecap="butt"/>
+<rect x="851" y="237" width="72" height="322" fill="none" stroke="#7F878C" stroke-width="1.5"/>
+<text x="887" y="594" font-family="Liberation Sans, Arial, sans-serif" font-size="24" font-weight="400" fill="#24292D" text-anchor="middle">32K</text>
+<text x="736" y="627" font-family="Liberation Sans, Arial, sans-serif" font-size="21" font-weight="400" fill="#60686D" text-anchor="middle">Context length</text>
+<text x="535.492" y="663" font-family="Liberation Sans, Arial, sans-serif" font-size="22" font-weight="700" fill="#587D9B" text-anchor="start">KV Cache ↑</text>
+<text x="655.31" y="663" font-family="Liberation Sans, Arial, sans-serif" font-size="22" font-weight="700" fill="#60686D" text-anchor="start"> → </text>
+<text x="689.535" y="663" font-family="Liberation Sans, Arial, sans-serif" font-size="22" font-weight="700" fill="#9B693A" text-anchor="start">Local Expert Capacity ↓</text>
+</g>
+<g id="c-local-vs-global-expert-hotness">
+<text x="1000" y="130" font-family="Liberation Sans, Arial, sans-serif" font-size="25" font-weight="700" fill="#24292D" text-anchor="start">(c)</text>
+<text x="1043" y="130" font-family="Liberation Sans, Arial, sans-serif" font-size="25" font-weight="700" fill="#24292D" text-anchor="start">Local vs Global Expert Hotness</text>
+<rect x="1014" y="184" width="116" height="204" fill="#FFFFFF" stroke="#7F878C" stroke-width="1.3"/>
+<rect x="1014" y="184" width="116" height="44" fill="#D9E6DC" stroke="#7F878C" stroke-width="1.3"/>
+<text x="1072" y="214" font-family="Liberation Sans, Arial, sans-serif" font-size="23" font-weight="700" fill="#24292D" text-anchor="middle">GPU0</text>
+<text x="1072" y="260" font-family="Liberation Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#24292D" text-anchor="middle">E7</text>
+<rect x="1057" y="310" width="30" height="30" fill="#F1DDC5" stroke="#9B693A" stroke-width="1.2"/>
+<polyline points="1033,340 1111,340" fill="none" stroke="#7F878C" stroke-width="1" stroke-linejoin="round" stroke-linecap="butt"/>
+<text x="1072" y="374" font-family="Liberation Sans, Arial, sans-serif" font-size="21" font-weight="400" fill="#24292D" text-anchor="middle">2 tokens</text>
+<polyline points="1072,388 1072,416" fill="none" stroke="#60686D" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="butt"/>
+<rect x="1149" y="184" width="116" height="204" fill="#FFFFFF" stroke="#7F878C" stroke-width="1.3"/>
+<rect x="1149" y="184" width="116" height="44" fill="#D9E6DC" stroke="#7F878C" stroke-width="1.3"/>
+<text x="1207" y="214" font-family="Liberation Sans, Arial, sans-serif" font-size="23" font-weight="700" fill="#24292D" text-anchor="middle">GPU1</text>
+<text x="1207" y="260" font-family="Liberation Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#24292D" text-anchor="middle">E7</text>
+<rect x="1192" y="295" width="30" height="45" fill="#F1DDC5" stroke="#9B693A" stroke-width="1.2"/>
+<polyline points="1168,340 1246,340" fill="none" stroke="#7F878C" stroke-width="1" stroke-linejoin="round" stroke-linecap="butt"/>
+<text x="1207" y="374" font-family="Liberation Sans, Arial, sans-serif" font-size="21" font-weight="400" fill="#24292D" text-anchor="middle">3 tokens</text>
+<polyline points="1207,388 1207,416" fill="none" stroke="#60686D" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="butt"/>
+<rect x="1284" y="184" width="116" height="204" fill="#FFFFFF" stroke="#7F878C" stroke-width="1.3"/>
+<rect x="1284" y="184" width="116" height="44" fill="#D9E6DC" stroke="#7F878C" stroke-width="1.3"/>
+<text x="1342" y="214" font-family="Liberation Sans, Arial, sans-serif" font-size="23" font-weight="700" fill="#24292D" text-anchor="middle">GPU2</text>
+<text x="1342" y="260" font-family="Liberation Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#24292D" text-anchor="middle">E7</text>
+<rect x="1327" y="310" width="30" height="30" fill="#F1DDC5" stroke="#9B693A" stroke-width="1.2"/>
+<polyline points="1303,340 1381,340" fill="none" stroke="#7F878C" stroke-width="1" stroke-linejoin="round" stroke-linecap="butt"/>
+<text x="1342" y="374" font-family="Liberation Sans, Arial, sans-serif" font-size="21" font-weight="400" fill="#24292D" text-anchor="middle">2 tokens</text>
+<polyline points="1342,388 1342,416" fill="none" stroke="#60686D" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="butt"/>
+<rect x="1419" y="184" width="116" height="204" fill="#FFFFFF" stroke="#7F878C" stroke-width="1.3"/>
+<rect x="1419" y="184" width="116" height="44" fill="#D9E6DC" stroke="#7F878C" stroke-width="1.3"/>
+<text x="1477" y="214" font-family="Liberation Sans, Arial, sans-serif" font-size="23" font-weight="700" fill="#24292D" text-anchor="middle">GPU3</text>
+<text x="1477" y="260" font-family="Liberation Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#24292D" text-anchor="middle">E7</text>
+<rect x="1462" y="325" width="30" height="15" fill="#F1DDC5" stroke="#9B693A" stroke-width="1.2"/>
+<polyline points="1438,340 1516,340" fill="none" stroke="#7F878C" stroke-width="1" stroke-linejoin="round" stroke-linecap="butt"/>
+<text x="1477" y="374" font-family="Liberation Sans, Arial, sans-serif" font-size="21" font-weight="400" fill="#24292D" text-anchor="middle">1 token</text>
+<polyline points="1477,388 1477,416" fill="none" stroke="#60686D" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="butt"/>
+<polyline points="1072,416 1477,416" fill="none" stroke="#60686D" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="butt"/>
+<polyline points="1274.5,416 1274.5,442" fill="none" stroke="#60686D" stroke-width="1.7" stroke-linejoin="round" stroke-linecap="butt"/>
+<polygon points="1274.500,442.000 1278.900,432.000 1270.100,432.000" fill="#60686D"/>
+<text x="1274.5" y="469" font-family="Liberation Sans, Arial, sans-serif" font-size="25" font-weight="700" fill="#24292D" text-anchor="middle">E7 = 8 tokens</text>
+<rect x="1238.5" y="478" width="72" height="120" fill="#E2B27C" stroke="#9B693A" stroke-width="1.6"/>
+<polyline points="1175.5,598 1373.5,598" fill="none" stroke="#7F878C" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="butt"/>
+<text x="1274.5" y="632" font-family="Liberation Sans, Arial, sans-serif" font-size="25" font-weight="700" fill="#9B693A" text-anchor="middle">Globally Hot</text>
+<text x="1274.5" y="671" font-family="Liberation Sans, Arial, sans-serif" font-size="25" font-weight="700" fill="#24292D" text-anchor="middle">Locally Cold → Globally Hot</text>
+</g>
+<g id="complementary-capabilities">
+<rect x="66" y="718" width="660" height="99" fill="#F7FAFC" stroke="#CDD1D4" stroke-width="1.1"/>
+<rect x="874" y="718" width="660" height="99" fill="#FCF9F5" stroke="#CDD1D4" stroke-width="1.1"/>
+<text x="396" y="752" font-family="Liberation Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#587D9B" text-anchor="middle">Local HBM-PIM</text>
+<text x="396" y="791" font-family="Liberation Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#24292D" text-anchor="middle">High Bandwidth   ·   Low Latency   ·   Locality</text>
+<text x="800" y="782" font-family="Liberation Sans, Arial, sans-serif" font-size="43" font-weight="400" fill="#60686D" text-anchor="middle">+</text>
+<text x="1204" y="752" font-family="Liberation Sans, Arial, sans-serif" font-size="24" font-weight="700" fill="#9B693A" text-anchor="middle">Missing Shared Capability</text>
+<text x="1204" y="791" font-family="Liberation Sans, Arial, sans-serif" font-size="22" font-weight="400" fill="#24292D" text-anchor="middle">Large Capacity   ·   Cross-GPU Sharing   ·   Global Aggregation</text>
+<text x="800" y="867" font-family="Liberation Sans, Arial, sans-serif" font-size="30" font-weight="700" fill="#24292D" text-anchor="middle">Local and Shared PIM Domains Are Complementary</text>
+</g>
+</svg>
