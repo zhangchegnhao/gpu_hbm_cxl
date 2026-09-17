@@ -1,0 +1,279 @@
+{
+  "capture_kind": "a800-timing-memory-v1",
+  "cases": [
+    {
+      "batch_size": 8,
+      "case": "b8_c4k",
+      "context_length": 4096,
+      "input_artifacts": {
+        "manifest": {
+          "file": "manifest.json",
+          "sha256": "ee480b33260ce37eee51ec36f265d0443c9083122679d4cf39fc17cfb6ee8e33"
+        },
+        "prompts": {
+          "file": "prompts.jsonl",
+          "sha256": "18a8d59e0a5518c408277dcc529991b1be9a4a526641efdbf87b3f5fbeadf4b8"
+        },
+        "router": {
+          "file": "router.jsonl",
+          "sha256": "afc5f6bf27a84bdf54294cd79b01bdc54037b6d8905ace7e6ae5c1e60eab750f"
+        }
+      },
+      "input_dir": "/home/ubuntu22/gpu_hbm_cxl/traces/real/qwen3_30b_a3b/kv_b8_c4k",
+      "output_artifacts": [
+        {
+          "file": "prompts.jsonl",
+          "sha256": "captured-at-run"
+        },
+        {
+          "file": "router.jsonl",
+          "sha256": "captured-at-run"
+        },
+        {
+          "file": "timing.jsonl",
+          "sha256": "captured-at-run"
+        },
+        {
+          "file": "memory.jsonl",
+          "sha256": "captured-at-run"
+        },
+        {
+          "file": "manifest.json",
+          "sha256": "captured-at-run"
+        }
+      ],
+      "output_dir": "/home/ubuntu22/gpu_hbm_cxl/results/a800_capture_plan_v1/cases/b8_c4k",
+      "prompt_count": 8,
+      "router_records": 3072,
+      "status": "planned"
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c8k",
+      "context_length": 8192,
+      "input_artifacts": {
+        "manifest": {
+          "file": "manifest.json",
+          "sha256": "5c6519bd6ffb19fd4b819d2e003edcda806c52c3f5d44f8a4b4524002a676175"
+        },
+        "prompts": {
+          "file": "prompts.jsonl",
+          "sha256": "449fda2363c429e1b8ab870416c3e33d04e69cb28a07312b3a33985a49a68472"
+        },
+        "router": {
+          "file": "router.jsonl",
+          "sha256": "24e318ce191d407a49b2b0e049706d7f43224018b8920459169f5ae722cb3bc9"
+        }
+      },
+      "input_dir": "/home/ubuntu22/gpu_hbm_cxl/traces/real/qwen3_30b_a3b/kv_b8_c8k",
+      "output_artifacts": [
+        {
+          "file": "prompts.jsonl",
+          "sha256": "captured-at-run"
+        },
+        {
+          "file": "router.jsonl",
+          "sha256": "captured-at-run"
+        },
+        {
+          "file": "timing.jsonl",
+          "sha256": "captured-at-run"
+        },
+        {
+          "file": "memory.jsonl",
+          "sha256": "captured-at-run"
+        },
+        {
+          "file": "manifest.json",
+          "sha256": "captured-at-run"
+        }
+      ],
+      "output_dir": "/home/ubuntu22/gpu_hbm_cxl/results/a800_capture_plan_v1/cases/b8_c8k",
+      "prompt_count": 8,
+      "router_records": 3072,
+      "status": "planned"
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c16k",
+      "context_length": 16384,
+      "input_artifacts": {
+        "manifest": {
+          "file": "manifest.json",
+          "sha256": "084e8e8ca7282ebea81dbffe46a27e03b62ba147de5ac6247133269663c53cef"
+        },
+        "prompts": {
+          "file": "prompts.jsonl",
+          "sha256": "6dd416aaf44d48188a9d3761eea650744680a2bc4dedf43fe3f4fcf8fc92544a"
+        },
+        "router": {
+          "file": "router.jsonl",
+          "sha256": "2cee5ba38e5d91d1bab52926974e03ed6338c9f9a76ffb6f02c39584aa089463"
+        }
+      },
+      "input_dir": "/home/ubuntu22/gpu_hbm_cxl/traces/real/qwen3_30b_a3b/kv_b8_c16k",
+      "output_artifacts": [
+        {
+          "file": "prompts.jsonl",
+          "sha256": "captured-at-run"
+        },
+        {
+          "file": "router.jsonl",
+          "sha256": "captured-at-run"
+        },
+        {
+          "file": "timing.jsonl",
+          "sha256": "captured-at-run"
+        },
+        {
+          "file": "memory.jsonl",
+          "sha256": "captured-at-run"
+        },
+        {
+          "file": "manifest.json",
+          "sha256": "captured-at-run"
+        }
+      ],
+      "output_dir": "/home/ubuntu22/gpu_hbm_cxl/results/a800_capture_plan_v1/cases/b8_c16k",
+      "prompt_count": 8,
+      "router_records": 3072,
+      "status": "planned"
+    },
+    {
+      "batch_size": 16,
+      "case": "b16_c4k",
+      "context_length": 4096,
+      "input_artifacts": {
+        "manifest": {
+          "file": "manifest.json",
+          "sha256": "4c3504c49f8c203dadb322ee24ba568b5dc6ac8349850b38f5d8df0f23f8a443"
+        },
+        "prompts": {
+          "file": "prompts.jsonl",
+          "sha256": "71c232393c12574235fab7d91e199b74a360d24b838be1079614cc03878047ab"
+        },
+        "router": {
+          "file": "router.jsonl",
+          "sha256": "8cea512f5d4172ae4b8f6c54ee876f773660d0199eebae1d02a0aa88564f9a88"
+        }
+      },
+      "input_dir": "/home/ubuntu22/gpu_hbm_cxl/traces/real/qwen3_30b_a3b/kv_b16_c4k",
+      "output_artifacts": [
+        {
+          "file": "prompts.jsonl",
+          "sha256": "captured-at-run"
+        },
+        {
+          "file": "router.jsonl",
+          "sha256": "captured-at-run"
+        },
+        {
+          "file": "timing.jsonl",
+          "sha256": "captured-at-run"
+        },
+        {
+          "file": "memory.jsonl",
+          "sha256": "captured-at-run"
+        },
+        {
+          "file": "manifest.json",
+          "sha256": "captured-at-run"
+        }
+      ],
+      "output_dir": "/home/ubuntu22/gpu_hbm_cxl/results/a800_capture_plan_v1/cases/b16_c4k",
+      "prompt_count": 16,
+      "router_records": 6144,
+      "status": "planned"
+    },
+    {
+      "batch_size": 16,
+      "case": "b16_c8k",
+      "context_length": 8192,
+      "input_artifacts": {
+        "manifest": {
+          "file": "manifest.json",
+          "sha256": "bb7f2cf26af39430d13e7033ec098f4b7276905e60f29a444dbd2f9366bf61e8"
+        },
+        "prompts": {
+          "file": "prompts.jsonl",
+          "sha256": "c2c1e60a8498c6109e48316d8ccf62dbf7ac5d69b324e25289f0b075b1f94df5"
+        },
+        "router": {
+          "file": "router.jsonl",
+          "sha256": "03ac02f1de90c0486918fe6cd17c379c2ab58c74ca0d517b186a15c4aa61d552"
+        }
+      },
+      "input_dir": "/home/ubuntu22/gpu_hbm_cxl/traces/real/qwen3_30b_a3b/kv_b16_c8k",
+      "output_artifacts": [
+        {
+          "file": "prompts.jsonl",
+          "sha256": "captured-at-run"
+        },
+        {
+          "file": "router.jsonl",
+          "sha256": "captured-at-run"
+        },
+        {
+          "file": "timing.jsonl",
+          "sha256": "captured-at-run"
+        },
+        {
+          "file": "memory.jsonl",
+          "sha256": "captured-at-run"
+        },
+        {
+          "file": "manifest.json",
+          "sha256": "captured-at-run"
+        }
+      ],
+      "output_dir": "/home/ubuntu22/gpu_hbm_cxl/results/a800_capture_plan_v1/cases/b16_c8k",
+      "prompt_count": 16,
+      "router_records": 6144,
+      "status": "planned"
+    }
+  ],
+  "execution_implemented": false,
+  "hardware_scope": {
+    "cpu_offload": false,
+    "device": "NVIDIA A800-SXM4-80GB",
+    "device_map": "explicit-single-device (cuda:0)",
+    "single_cuda_device": true
+  },
+  "limitations": [
+    "This command does not load model weights or execute CUDA.",
+    "A800 timing applies only to the exact prompt batch, model revision, and fixed Decode scope.",
+    "Attention events are module-boundary measurements, not kernel-only timings.",
+    "No KV paging, spill, eviction, PIM timing, or Expert READ trace is included.",
+    "Existing traces are inputs and are never copied with modified Context values; a future run must capture fresh Router JSONL."
+  ],
+  "measurement_protocol": {
+    "artifact_binding": "each case writes independent prompts/router/timing/memory/manifest with SHA-256",
+    "attention_pass": "self_attn pre/post CUDA events; includes Python/module launch gaps",
+    "baseline_pass": "no instrumentation; per Decode step CUDA events",
+    "memory_pass": "reset_peak_memory_stats per repeat; record allocated and reserved peaks",
+    "repeat_prefill": "rebuild prefill and KV cache for every measured repeat",
+    "repeats": 3,
+    "routing_pass": "fresh Router pass; preserve prompts.jsonl, greedy argmax and fixed 8 Decode steps",
+    "timing_pass": "separate model pass with no Router hooks or CPU synchronization",
+    "token_alignment": "timing pass must assert greedy tokens match fresh Router pass before accepting rows",
+    "warmup": 1
+  },
+  "model_scope": {
+    "dtype": "bfloat16",
+    "experts": 128,
+    "layers": 48,
+    "name": "Qwen3-30B-A3B",
+    "revision": "ad44e777bcd18fa416d9da3bd8f70d33ebb85d39",
+    "top_k": 8
+  },
+  "required_outputs": [
+    "prompts.jsonl",
+    "router.jsonl",
+    "timing.jsonl",
+    "memory.jsonl",
+    "manifest.json"
+  ],
+  "result_classification": "dry-run protocol only; no A800 execution performed",
+  "schema_version": 1,
+  "status": "planned"
+}

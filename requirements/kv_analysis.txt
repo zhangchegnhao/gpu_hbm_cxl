@@ -1,0 +1,2 @@
+# Plotting dependency for the analytic sweep and long-context cycle-v1 summary.
+matplotlib==3.10.6

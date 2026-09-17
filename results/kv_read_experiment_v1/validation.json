@@ -1,0 +1,46 @@
+{
+  "classification": "exact Ramulator result audit; no additional hardware timing",
+  "comparison_sha256": "553ad5ac548d85e0fb2247ff1ad9b4f9a1217493aefa5ed502cf0ab1bf5a3446",
+  "completed_requests_over_unique_runs": {
+    "gpu": 28901376,
+    "kv": 75497472,
+    "pim": 14458880
+  },
+  "exact_results_sha256": "34571b0d9a825056e47f9abf2d08231e454e1fe0ab1626222ea9bc826097ad53",
+  "expert_only_regressions": [
+    {
+      "all_legacy_fields_equal": true,
+      "baseline_shape_key": "e47ce17f9f112aea8a35bd333b7d637629f7c189edac964f9e0cfe4262e516d4",
+      "kv_shape_key": "52ccb710699d573f717b10f9f89d0a7e6287c632dfb3e3159a64e267549eee5f"
+    },
+    {
+      "all_legacy_fields_equal": true,
+      "baseline_shape_key": "a53b374f2461d32a215d89be92ceb23f8ae1ea70b47aa55e77bd341cbc5256c2",
+      "kv_shape_key": "61a354e5410c6bc400a1b8d3592198586eb22ba9a4a79bb194fb02114ba4fe0f"
+    },
+    {
+      "all_legacy_fields_equal": true,
+      "baseline_shape_key": "b52b029741375e31820de3f88e52d3e2b6a288c61cf277f55ec5aa7d30c0cedc",
+      "kv_shape_key": "721d1ffbcce835c31d643e3ffad679cfa42c3ac840b91dc3a8f84338dbc69245"
+    },
+    {
+      "all_legacy_fields_equal": true,
+      "baseline_shape_key": "2a0867cb33843dc498b00e572c97f0dc680545d4617a958ada32a626f8001dc1",
+      "kv_shape_key": "a57657f8f60627c0b42bc8893efddef5de1d5c4d963625a8d6ddb8a4c5765bb1"
+    },
+    {
+      "all_legacy_fields_equal": true,
+      "baseline_shape_key": "2be9efc4db1cd366471a9c288af3cc82d6ad4a17b619a81f3b6e1e64de47b9b4",
+      "kv_shape_key": "f6613ee99fd29306ac38ed1dfcddb7a9f4a11b218a49024de13b5a74d1e87881"
+    }
+  ],
+  "frozen_baseline_sha256": "e60dc296d9c34384d1ec3c65e967f9eded2ae5b0f4b605c815e7ceb7cf1558ca",
+  "frozen_files_verified": 350,
+  "summary": {
+    "completed": 19,
+    "failed": 0,
+    "interpolated_workloads": 0,
+    "remaining": 0,
+    "required_shapes": 19
+  }
+}

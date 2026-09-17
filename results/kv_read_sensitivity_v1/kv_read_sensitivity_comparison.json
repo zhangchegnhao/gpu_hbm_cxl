@@ -1,0 +1,1724 @@
+{
+  "classification": "exact Ramulator request-level sensitivity; not A800 timing or end-to-end replay",
+  "exact_results_sha256": "31954060210fe9d1f544873c26b5a123c5f5b8d0e4b371f272f9a667bac27b88",
+  "frozen_baseline_sha256": "e60dc296d9c34384d1ec3c65e967f9eded2ae5b0f4b605c815e7ceb7cf1558ca",
+  "limitations": [
+    "Controller read-buffer and dual-row assumptions only; no staggered/serial injection mode is implemented",
+    "KV and Expert requests are abstract sequential streams, not A800 memory traces",
+    "These are request-level microbenchmarks, not end-to-end decode timing"
+  ],
+  "plan_sha256": "a47f7d70aaf730c9839c92c7770f18fbb70e5c68332a1e26dd8a24b8a3c09499",
+  "rows": [
+    {
+      "baseline_total_completion_us": 20.662824,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.0,
+      "gpu_injection_rejected_attempts": 0,
+      "kv_accepted_to_column_issue_mean_us": 0.32253767431640623,
+      "kv_injection_rejected_attempts": 10458368,
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "086651f43deeb27c329b73ea5fdb2636c7cd239593e7acc1b658e39600fd7639",
+      "total_completion_us": 20.662824,
+      "variant": "baseline-rb256-dual"
+    },
+    {
+      "baseline_total_completion_us": 40.710072,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.31873740476190476,
+      "gpu_injection_rejected_attempts": 10723328,
+      "kv_accepted_to_column_issue_mean_us": 0.333682857421875,
+      "kv_injection_rejected_attempts": 10218368,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "0fc462e51034129a5d92c1202114715804695f13840a57af0c1faec0550e2aea",
+      "total_completion_us": 40.710072,
+      "variant": "baseline-rb256-dual"
+    },
+    {
+      "baseline_total_completion_us": 107.276208,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.31810788411458335,
+      "gpu_injection_rejected_attempts": 12205312,
+      "kv_accepted_to_column_issue_mean_us": 0.33492508264160153,
+      "kv_injection_rejected_attempts": 43079936,
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "1b902657bc662f98c6776b4b7fe03d29366b5b588b8ce1d2b751943a5efed8a8",
+      "total_completion_us": 107.276208,
+      "variant": "baseline-rb256-dual"
+    },
+    {
+      "baseline_total_completion_us": 49.301928,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.3134297630208333,
+      "gpu_injection_rejected_attempts": 7828992,
+      "kv_accepted_to_column_issue_mean_us": 0.33473090625,
+      "kv_injection_rejected_attempts": 8695808,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "48b0cab302207be90ff4dae6f2bbb9fae82174adf9934ab09d10a3dc970f7903",
+      "total_completion_us": 49.301928,
+      "variant": "baseline-rb256-dual"
+    },
+    {
+      "baseline_total_completion_us": 23.288616,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.3234077877604167,
+      "gpu_injection_rejected_attempts": 11812096,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "52ccb710699d573f717b10f9f89d0a7e6287c632dfb3e3159a64e267549eee5f",
+      "total_completion_us": 23.288616,
+      "variant": "baseline-rb256-dual"
+    },
+    {
+      "baseline_total_completion_us": 98.535528,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.31279692708333334,
+      "gpu_injection_rejected_attempts": 5655552,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 8192,
+        "pim_mac_waves": 3072,
+        "pim_read_waves": 32
+      },
+      "shape_key": "61a354e5410c6bc400a1b8d3592198586eb22ba9a4a79bb194fb02114ba4fe0f",
+      "total_completion_us": 98.535528,
+      "variant": "baseline-rb256-dual"
+    },
+    {
+      "baseline_total_completion_us": 64.851696,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.31772892057291663,
+      "gpu_injection_rejected_attempts": 12372736,
+      "kv_accepted_to_column_issue_mean_us": 0.3357748894042969,
+      "kv_injection_rejected_attempts": 20993536,
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "6ac70e80a43138efda6468880d2247d1b954ba6a0caf3846af8f69cdc438dbf3",
+      "total_completion_us": 64.851696,
+      "variant": "baseline-rb256-dual"
+    },
+    {
+      "baseline_total_completion_us": 24.661104,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.32232035565476186,
+      "gpu_injection_rejected_attempts": 10305152,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 2048,
+        "pim_mac_waves": 768,
+        "pim_read_waves": 8
+      },
+      "shape_key": "721d1ffbcce835c31d643e3ffad679cfa42c3ac840b91dc3a8f84338dbc69245",
+      "total_completion_us": 24.661104,
+      "variant": "baseline-rb256-dual"
+    },
+    {
+      "baseline_total_completion_us": 61.883016,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.3180559880952381,
+      "gpu_injection_rejected_attempts": 11127168,
+      "kv_accepted_to_column_issue_mean_us": 0.33410700146484373,
+      "kv_injection_rejected_attempts": 20745472,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "7481f917e97e1db6760f8506ae31d31cbe4c6a1a0469acad5569d337ef33c8ce",
+      "total_completion_us": 61.883016,
+      "variant": "baseline-rb256-dual"
+    },
+    {
+      "baseline_total_completion_us": 95.2926,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.3036494973958333,
+      "gpu_injection_rejected_attempts": 16914432,
+      "kv_accepted_to_column_issue_mean_us": 0.3333908192138672,
+      "kv_injection_rejected_attempts": 32287744,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "987be3fda115241bbe194b830e0005589b32a70b6852bfd1ae7b3abd93502d71",
+      "total_completion_us": 95.2926,
+      "variant": "baseline-rb256-dual"
+    },
+    {
+      "baseline_total_completion_us": 49.28508,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.31299087760416666,
+      "gpu_injection_rejected_attempts": 5658112,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "a57657f8f60627c0b42bc8893efddef5de1d5c4d963625a8d6ddb8a4c5765bb1",
+      "total_completion_us": 49.28508,
+      "variant": "baseline-rb256-dual"
+    },
+    {
+      "baseline_total_completion_us": 104.280384,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.3177755788690476,
+      "gpu_injection_rejected_attempts": 10831104,
+      "kv_accepted_to_column_issue_mean_us": 0.33415464221191404,
+      "kv_injection_rejected_attempts": 42949376,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "a69e6d5251ebb1936b42ad0ed5eac084d5e705c93ce4529f6ca527bd16cca2ce",
+      "total_completion_us": 104.280384,
+      "variant": "baseline-rb256-dual"
+    },
+    {
+      "baseline_total_completion_us": 41.860104,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.0,
+      "gpu_injection_rejected_attempts": 0,
+      "kv_accepted_to_column_issue_mean_us": 0.3283321926269531,
+      "kv_injection_rejected_attempts": 21390848,
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "a6fb6210aaef4eefd3cf865a407e648d37fa1dce41ab0a5618cb76989bc07b14",
+      "total_completion_us": 41.860104,
+      "variant": "baseline-rb256-dual"
+    },
+    {
+      "baseline_total_completion_us": 53.350752,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.31011550781249997,
+      "gpu_injection_rejected_attempts": 11250560,
+      "kv_accepted_to_column_issue_mean_us": 0.3343011921386719,
+      "kv_injection_rejected_attempts": 16194048,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "c2804e40610e68d4510163daa20ec4d6ef40aa53468413b1aed624dbbe747444",
+      "total_completion_us": 53.350752,
+      "variant": "baseline-rb256-dual"
+    },
+    {
+      "baseline_total_completion_us": 84.240936,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.0,
+      "gpu_injection_rejected_attempts": 0,
+      "kv_accepted_to_column_issue_mean_us": 0.33113111389160155,
+      "kv_injection_rejected_attempts": 43291904,
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "c3898dba0eadc0cc0f7933a1ff3a0c21b9bb856f4cdb0894aa3710cfa4930c34",
+      "total_completion_us": 84.240936,
+      "variant": "baseline-rb256-dual"
+    },
+    {
+      "baseline_total_completion_us": 103.918152,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.314688775297619,
+      "gpu_injection_rejected_attempts": 10588416,
+      "kv_accepted_to_column_issue_mean_us": 0.3335631104736328,
+      "kv_injection_rejected_attempts": 43084672,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 2048,
+        "pim_mac_waves": 768,
+        "pim_read_waves": 8
+      },
+      "shape_key": "cc5fa2d380d97dda182ca3a78f37d544a336823837d178ae929ee4c6cd5711c3",
+      "total_completion_us": 103.918152,
+      "variant": "baseline-rb256-dual"
+    },
+    {
+      "baseline_total_completion_us": 43.688112,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.31920325260416665,
+      "gpu_injection_rejected_attempts": 11839744,
+      "kv_accepted_to_column_issue_mean_us": 0.335244609375,
+      "kv_injection_rejected_attempts": 10590336,
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "cdcaff2fdb04a5fd6014e8c0bdd542bbe1943c614df1ba1d737f25dbeb4bf2a9",
+      "total_completion_us": 43.688112,
+      "variant": "baseline-rb256-dual"
+    },
+    {
+      "baseline_total_completion_us": 98.559552,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.30814509375000004,
+      "gpu_injection_rejected_attempts": 15931776,
+      "kv_accepted_to_column_issue_mean_us": 0.33457678674316405,
+      "kv_injection_rejected_attempts": 33453056,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 8192,
+        "pim_mac_waves": 3072,
+        "pim_read_waves": 32
+      },
+      "shape_key": "cdf700c1a76b5dbd55ae7847ef3095b4b4175691e5eb606f84bace92efe889c5",
+      "total_completion_us": 98.559552,
+      "variant": "baseline-rb256-dual"
+    },
+    {
+      "baseline_total_completion_us": 20.298408,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.3218815476190476,
+      "gpu_injection_rejected_attempts": 10291840,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "f6613ee99fd29306ac38ed1dfcddb7a9f4a11b218a49024de13b5a74d1e87881",
+      "total_completion_us": 20.298408,
+      "variant": "baseline-rb256-dual"
+    },
+    {
+      "baseline_total_completion_us": 20.662824,
+      "delta_total_completion_us": 0.2084159999999997,
+      "gpu_accepted_to_column_issue_mean_us": 0.0,
+      "gpu_injection_rejected_attempts": 0,
+      "kv_accepted_to_column_issue_mean_us": 0.16392448388671876,
+      "kv_injection_rejected_attempts": 10664704,
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "086651f43deeb27c329b73ea5fdb2636c7cd239593e7acc1b658e39600fd7639",
+      "total_completion_us": 20.87124,
+      "variant": "rb128-dual"
+    },
+    {
+      "baseline_total_completion_us": 40.710072,
+      "delta_total_completion_us": 1.106976000000003,
+      "gpu_accepted_to_column_issue_mean_us": 0.16393000000000002,
+      "gpu_injection_rejected_attempts": 10228864,
+      "kv_accepted_to_column_issue_mean_us": 0.17920242919921875,
+      "kv_injection_rejected_attempts": 11524608,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "0fc462e51034129a5d92c1202114715804695f13840a57af0c1faec0550e2aea",
+      "total_completion_us": 41.817048,
+      "variant": "rb128-dual"
+    },
+    {
+      "baseline_total_completion_us": 107.276208,
+      "delta_total_completion_us": 1.0355279999999993,
+      "gpu_accepted_to_column_issue_mean_us": 0.1646280390625,
+      "gpu_injection_rejected_attempts": 26298496,
+      "kv_accepted_to_column_issue_mean_us": 0.17043929772949218,
+      "kv_injection_rejected_attempts": 29773184,
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "1b902657bc662f98c6776b4b7fe03d29366b5b588b8ce1d2b751943a5efed8a8",
+      "total_completion_us": 108.311736,
+      "variant": "rb128-dual"
+    },
+    {
+      "baseline_total_completion_us": 49.301928,
+      "delta_total_completion_us": 0.011544000000000665,
+      "gpu_accepted_to_column_issue_mean_us": 0.16328605989583334,
+      "gpu_injection_rejected_attempts": 6643968,
+      "kv_accepted_to_column_issue_mean_us": 0.173697697265625,
+      "kv_injection_rejected_attempts": 10359296,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "48b0cab302207be90ff4dae6f2bbb9fae82174adf9934ab09d10a3dc970f7903",
+      "total_completion_us": 49.313472,
+      "variant": "rb128-dual"
+    },
+    {
+      "baseline_total_completion_us": 23.288616,
+      "delta_total_completion_us": 0.20342399999999827,
+      "gpu_accepted_to_column_issue_mean_us": 0.1640547356770833,
+      "gpu_injection_rejected_attempts": 12015360,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "52ccb710699d573f717b10f9f89d0a7e6287c632dfb3e3159a64e267549eee5f",
+      "total_completion_us": 23.49204,
+      "variant": "rb128-dual"
+    },
+    {
+      "baseline_total_completion_us": 98.535528,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.16123429427083333,
+      "gpu_injection_rejected_attempts": 5877760,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 8192,
+        "pim_mac_waves": 3072,
+        "pim_read_waves": 32
+      },
+      "shape_key": "61a354e5410c6bc400a1b8d3592198586eb22ba9a4a79bb194fb02114ba4fe0f",
+      "total_completion_us": 98.535528,
+      "variant": "rb128-dual"
+    },
+    {
+      "baseline_total_completion_us": 64.851696,
+      "delta_total_completion_us": 1.2027599999999978,
+      "gpu_accepted_to_column_issue_mean_us": 0.1646280390625,
+      "gpu_injection_rejected_attempts": 17630336,
+      "kv_accepted_to_column_issue_mean_us": 0.17410911108398439,
+      "kv_injection_rejected_attempts": 16631168,
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "6ac70e80a43138efda6468880d2247d1b954ba6a0caf3846af8f69cdc438dbf3",
+      "total_completion_us": 66.054456,
+      "variant": "rb128-dual"
+    },
+    {
+      "baseline_total_completion_us": 24.661104,
+      "delta_total_completion_us": -0.0006240000000019563,
+      "gpu_accepted_to_column_issue_mean_us": 0.16445001934523812,
+      "gpu_injection_rejected_attempts": 10546048,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 2048,
+        "pim_mac_waves": 768,
+        "pim_read_waves": 8
+      },
+      "shape_key": "721d1ffbcce835c31d643e3ffad679cfa42c3ac840b91dc3a8f84338dbc69245",
+      "total_completion_us": 24.66048,
+      "variant": "rb128-dual"
+    },
+    {
+      "baseline_total_completion_us": 61.883016,
+      "delta_total_completion_us": 1.1300640000000044,
+      "gpu_accepted_to_column_issue_mean_us": 0.16483574404761903,
+      "gpu_injection_rejected_attempts": 14439296,
+      "kv_accepted_to_column_issue_mean_us": 0.17287098486328126,
+      "kv_injection_rejected_attempts": 18259584,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "7481f917e97e1db6760f8506ae31d31cbe4c6a1a0469acad5569d337ef33c8ce",
+      "total_completion_us": 63.01308,
+      "variant": "rb128-dual"
+    },
+    {
+      "baseline_total_completion_us": 95.2926,
+      "delta_total_completion_us": 0.8374080000000106,
+      "gpu_accepted_to_column_issue_mean_us": 0.1599843984375,
+      "gpu_injection_rejected_attempts": 13622144,
+      "kv_accepted_to_column_issue_mean_us": 0.1687078634033203,
+      "kv_injection_rejected_attempts": 36155776,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "987be3fda115241bbe194b830e0005589b32a70b6852bfd1ae7b3abd93502d71",
+      "total_completion_us": 96.130008,
+      "variant": "rb128-dual"
+    },
+    {
+      "baseline_total_completion_us": 49.28508,
+      "delta_total_completion_us": 0.00031200000000097816,
+      "gpu_accepted_to_column_issue_mean_us": 0.16139750520833332,
+      "gpu_injection_rejected_attempts": 5882240,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "a57657f8f60627c0b42bc8893efddef5de1d5c4d963625a8d6ddb8a4c5765bb1",
+      "total_completion_us": 49.285392,
+      "variant": "rb128-dual"
+    },
+    {
+      "baseline_total_completion_us": 104.280384,
+      "delta_total_completion_us": 0.9899759999999986,
+      "gpu_accepted_to_column_issue_mean_us": 0.16483574404761903,
+      "gpu_injection_rejected_attempts": 23107456,
+      "kv_accepted_to_column_issue_mean_us": 0.16982023461914061,
+      "kv_injection_rejected_attempts": 31401600,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "a69e6d5251ebb1936b42ad0ed5eac084d5e705c93ce4529f6ca527bd16cca2ce",
+      "total_completion_us": 105.27036,
+      "variant": "rb128-dual"
+    },
+    {
+      "baseline_total_completion_us": 41.860104,
+      "delta_total_completion_us": 0.17222399999999993,
+      "gpu_accepted_to_column_issue_mean_us": 0.0,
+      "gpu_injection_rejected_attempts": 0,
+      "kv_accepted_to_column_issue_mean_us": 0.16551425756835939,
+      "kv_injection_rejected_attempts": 21589760,
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "a6fb6210aaef4eefd3cf865a407e648d37fa1dce41ab0a5618cb76989bc07b14",
+      "total_completion_us": 42.032328,
+      "variant": "rb128-dual"
+    },
+    {
+      "baseline_total_completion_us": 53.350752,
+      "delta_total_completion_us": 0.7500479999999996,
+      "gpu_accepted_to_column_issue_mean_us": 0.16261930208333333,
+      "gpu_injection_rejected_attempts": 8538112,
+      "kv_accepted_to_column_issue_mean_us": 0.17072517553710936,
+      "kv_injection_rejected_attempts": 19447424,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "c2804e40610e68d4510163daa20ec4d6ef40aa53468413b1aed624dbbe747444",
+      "total_completion_us": 54.1008,
+      "variant": "rb128-dual"
+    },
+    {
+      "baseline_total_completion_us": 84.240936,
+      "delta_total_completion_us": 0.048671999999996274,
+      "gpu_accepted_to_column_issue_mean_us": 0.0,
+      "gpu_injection_rejected_attempts": 0,
+      "kv_accepted_to_column_issue_mean_us": 0.16614187097167968,
+      "kv_injection_rejected_attempts": 43399936,
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "c3898dba0eadc0cc0f7933a1ff3a0c21b9bb856f4cdb0894aa3710cfa4930c34",
+      "total_completion_us": 84.289608,
+      "variant": "rb128-dual"
+    },
+    {
+      "baseline_total_completion_us": 103.918152,
+      "delta_total_completion_us": 0.9896639999999906,
+      "gpu_accepted_to_column_issue_mean_us": 0.16294681696428573,
+      "gpu_injection_rejected_attempts": 23132032,
+      "kv_accepted_to_column_issue_mean_us": 0.16965505590820312,
+      "kv_injection_rejected_attempts": 31244800,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 2048,
+        "pim_mac_waves": 768,
+        "pim_read_waves": 8
+      },
+      "shape_key": "cc5fa2d380d97dda182ca3a78f37d544a336823837d178ae929ee4c6cd5711c3",
+      "total_completion_us": 104.907816,
+      "variant": "rb128-dual"
+    },
+    {
+      "baseline_total_completion_us": 43.688112,
+      "delta_total_completion_us": 1.2636000000000038,
+      "gpu_accepted_to_column_issue_mean_us": 0.16519655208333334,
+      "gpu_injection_rejected_attempts": 13625088,
+      "kv_accepted_to_column_issue_mean_us": 0.1795157431640625,
+      "kv_injection_rejected_attempts": 9678720,
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "cdcaff2fdb04a5fd6014e8c0bdd542bbe1943c614df1ba1d737f25dbeb4bf2a9",
+      "total_completion_us": 44.951712,
+      "variant": "rb128-dual"
+    },
+    {
+      "baseline_total_completion_us": 98.559552,
+      "delta_total_completion_us": 0.009360000000000923,
+      "gpu_accepted_to_column_issue_mean_us": 0.16049370052083334,
+      "gpu_injection_rejected_attempts": 11283712,
+      "kv_accepted_to_column_issue_mean_us": 0.16904230078125,
+      "kv_injection_rejected_attempts": 38513792,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 8192,
+        "pim_mac_waves": 3072,
+        "pim_read_waves": 32
+      },
+      "shape_key": "cdf700c1a76b5dbd55ae7847ef3095b4b4175691e5eb606f84bace92efe889c5",
+      "total_completion_us": 98.568912,
+      "variant": "rb128-dual"
+    },
+    {
+      "baseline_total_completion_us": 20.298408,
+      "delta_total_completion_us": 0.30950400000000045,
+      "gpu_accepted_to_column_issue_mean_us": 0.16444943898809525,
+      "gpu_injection_rejected_attempts": 10551296,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "f6613ee99fd29306ac38ed1dfcddb7a9f4a11b218a49024de13b5a74d1e87881",
+      "total_completion_us": 20.607912,
+      "variant": "rb128-dual"
+    },
+    {
+      "baseline_total_completion_us": 20.662824,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.0,
+      "gpu_injection_rejected_attempts": 0,
+      "kv_accepted_to_column_issue_mean_us": 0.32253767431640623,
+      "kv_injection_rejected_attempts": 10458368,
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "086651f43deeb27c329b73ea5fdb2636c7cd239593e7acc1b658e39600fd7639",
+      "total_completion_us": 20.662824,
+      "variant": "rb256-single"
+    },
+    {
+      "baseline_total_completion_us": 40.710072,
+      "delta_total_completion_us": 12.336792000000003,
+      "gpu_accepted_to_column_issue_mean_us": 0.3166275744047619,
+      "gpu_injection_rejected_attempts": 10884608,
+      "kv_accepted_to_column_issue_mean_us": 0.3357441826171875,
+      "kv_injection_rejected_attempts": 10010496,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "0fc462e51034129a5d92c1202114715804695f13840a57af0c1faec0550e2aea",
+      "total_completion_us": 53.046864,
+      "variant": "rb256-single"
+    },
+    {
+      "baseline_total_completion_us": 107.276208,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.31810788411458335,
+      "gpu_injection_rejected_attempts": 12205312,
+      "kv_accepted_to_column_issue_mean_us": 0.33492508264160153,
+      "kv_injection_rejected_attempts": 43079936,
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "1b902657bc662f98c6776b4b7fe03d29366b5b588b8ce1d2b751943a5efed8a8",
+      "total_completion_us": 107.276208,
+      "variant": "rb256-single"
+    },
+    {
+      "baseline_total_completion_us": 49.301928,
+      "delta_total_completion_us": 30.830903999999997,
+      "gpu_accepted_to_column_issue_mean_us": 0.31176518750000004,
+      "gpu_injection_rejected_attempts": 8080128,
+      "kv_accepted_to_column_issue_mean_us": 0.39070552294921873,
+      "kv_injection_rejected_attempts": 10465408,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "48b0cab302207be90ff4dae6f2bbb9fae82174adf9934ab09d10a3dc970f7903",
+      "total_completion_us": 80.132832,
+      "variant": "rb256-single"
+    },
+    {
+      "baseline_total_completion_us": 23.288616,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.3234077877604167,
+      "gpu_injection_rejected_attempts": 11812096,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "52ccb710699d573f717b10f9f89d0a7e6287c632dfb3e3159a64e267549eee5f",
+      "total_completion_us": 23.288616,
+      "variant": "rb256-single"
+    },
+    {
+      "baseline_total_completion_us": 98.535528,
+      "delta_total_completion_us": 9.634248,
+      "gpu_accepted_to_column_issue_mean_us": 0.4434129375,
+      "gpu_injection_rejected_attempts": 8413440,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 8192,
+        "pim_mac_waves": 3072,
+        "pim_read_waves": 32
+      },
+      "shape_key": "61a354e5410c6bc400a1b8d3592198586eb22ba9a4a79bb194fb02114ba4fe0f",
+      "total_completion_us": 108.169776,
+      "variant": "rb256-single"
+    },
+    {
+      "baseline_total_completion_us": 64.851696,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.31772892057291663,
+      "gpu_injection_rejected_attempts": 12372736,
+      "kv_accepted_to_column_issue_mean_us": 0.3357748894042969,
+      "kv_injection_rejected_attempts": 20993536,
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "6ac70e80a43138efda6468880d2247d1b954ba6a0caf3846af8f69cdc438dbf3",
+      "total_completion_us": 64.851696,
+      "variant": "rb256-single"
+    },
+    {
+      "baseline_total_completion_us": 24.661104,
+      "delta_total_completion_us": 10.021752,
+      "gpu_accepted_to_column_issue_mean_us": 0.3890097366071429,
+      "gpu_injection_rejected_attempts": 13439872,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 2048,
+        "pim_mac_waves": 768,
+        "pim_read_waves": 8
+      },
+      "shape_key": "721d1ffbcce835c31d643e3ffad679cfa42c3ac840b91dc3a8f84338dbc69245",
+      "total_completion_us": 34.682856,
+      "variant": "rb256-single"
+    },
+    {
+      "baseline_total_completion_us": 61.883016,
+      "delta_total_completion_us": 2.361840000000001,
+      "gpu_accepted_to_column_issue_mean_us": 0.3161831369047619,
+      "gpu_injection_rejected_attempts": 14130560,
+      "kv_accepted_to_column_issue_mean_us": 0.35412307543945315,
+      "kv_injection_rejected_attempts": 19543552,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "7481f917e97e1db6760f8506ae31d31cbe4c6a1a0469acad5569d337ef33c8ce",
+      "total_completion_us": 64.244856,
+      "variant": "rb256-single"
+    },
+    {
+      "baseline_total_completion_us": 95.2926,
+      "delta_total_completion_us": 9.579024000000004,
+      "gpu_accepted_to_column_issue_mean_us": 0.303366375,
+      "gpu_injection_rejected_attempts": 16897408,
+      "kv_accepted_to_column_issue_mean_us": 0.37212773583984377,
+      "kv_injection_rejected_attempts": 39500288,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "987be3fda115241bbe194b830e0005589b32a70b6852bfd1ae7b3abd93502d71",
+      "total_completion_us": 104.871624,
+      "variant": "rb256-single"
+    },
+    {
+      "baseline_total_completion_us": 49.28508,
+      "delta_total_completion_us": 9.633623999999998,
+      "gpu_accepted_to_column_issue_mean_us": 0.4434129375,
+      "gpu_injection_rejected_attempts": 8413440,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "a57657f8f60627c0b42bc8893efddef5de1d5c4d963625a8d6ddb8a4c5765bb1",
+      "total_completion_us": 58.918704,
+      "variant": "rb256-single"
+    },
+    {
+      "baseline_total_completion_us": 104.280384,
+      "delta_total_completion_us": 2.126903999999996,
+      "gpu_accepted_to_column_issue_mean_us": 0.31340676636904763,
+      "gpu_injection_rejected_attempts": 21947264,
+      "kv_accepted_to_column_issue_mean_us": 0.3438930402832031,
+      "kv_injection_rejected_attempts": 33706880,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "a69e6d5251ebb1936b42ad0ed5eac084d5e705c93ce4529f6ca527bd16cca2ce",
+      "total_completion_us": 106.407288,
+      "variant": "rb256-single"
+    },
+    {
+      "baseline_total_completion_us": 41.860104,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.0,
+      "gpu_injection_rejected_attempts": 0,
+      "kv_accepted_to_column_issue_mean_us": 0.3283321926269531,
+      "kv_injection_rejected_attempts": 21390848,
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "a6fb6210aaef4eefd3cf865a407e648d37fa1dce41ab0a5618cb76989bc07b14",
+      "total_completion_us": 41.860104,
+      "variant": "rb256-single"
+    },
+    {
+      "baseline_total_completion_us": 53.350752,
+      "delta_total_completion_us": 37.265280000000004,
+      "gpu_accepted_to_column_issue_mean_us": 0.312702609375,
+      "gpu_injection_rejected_attempts": 12152192,
+      "kv_accepted_to_column_issue_mean_us": 0.3965289580078125,
+      "kv_injection_rejected_attempts": 20803072,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "c2804e40610e68d4510163daa20ec4d6ef40aa53468413b1aed624dbbe747444",
+      "total_completion_us": 90.616032,
+      "variant": "rb256-single"
+    },
+    {
+      "baseline_total_completion_us": 84.240936,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.0,
+      "gpu_injection_rejected_attempts": 0,
+      "kv_accepted_to_column_issue_mean_us": 0.33113111389160155,
+      "kv_injection_rejected_attempts": 43291904,
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "c3898dba0eadc0cc0f7933a1ff3a0c21b9bb856f4cdb0894aa3710cfa4930c34",
+      "total_completion_us": 84.240936,
+      "variant": "rb256-single"
+    },
+    {
+      "baseline_total_completion_us": 103.918152,
+      "delta_total_completion_us": 4.5957599999999985,
+      "gpu_accepted_to_column_issue_mean_us": 0.3112609732142857,
+      "gpu_injection_rejected_attempts": 19901184,
+      "kv_accepted_to_column_issue_mean_us": 0.35304851403808596,
+      "kv_injection_rejected_attempts": 37613184,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 2048,
+        "pim_mac_waves": 768,
+        "pim_read_waves": 8
+      },
+      "shape_key": "cc5fa2d380d97dda182ca3a78f37d544a336823837d178ae929ee4c6cd5711c3",
+      "total_completion_us": 108.513912,
+      "variant": "rb256-single"
+    },
+    {
+      "baseline_total_completion_us": 43.688112,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.31920325260416665,
+      "gpu_injection_rejected_attempts": 11839744,
+      "kv_accepted_to_column_issue_mean_us": 0.335244609375,
+      "kv_injection_rejected_attempts": 10590336,
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "cdcaff2fdb04a5fd6014e8c0bdd542bbe1943c614df1ba1d737f25dbeb4bf2a9",
+      "total_completion_us": 43.688112,
+      "variant": "rb256-single"
+    },
+    {
+      "baseline_total_completion_us": 98.559552,
+      "delta_total_completion_us": 62.1114,
+      "gpu_accepted_to_column_issue_mean_us": 0.30971409895833335,
+      "gpu_injection_rejected_attempts": 19069696,
+      "kv_accepted_to_column_issue_mean_us": 0.398841650390625,
+      "kv_injection_rejected_attempts": 42578816,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 8192,
+        "pim_mac_waves": 3072,
+        "pim_read_waves": 32
+      },
+      "shape_key": "cdf700c1a76b5dbd55ae7847ef3095b4b4175691e5eb606f84bace92efe889c5",
+      "total_completion_us": 160.670952,
+      "variant": "rb256-single"
+    },
+    {
+      "baseline_total_completion_us": 20.298408,
+      "delta_total_completion_us": 2.3272080000000024,
+      "gpu_accepted_to_column_issue_mean_us": 0.36042616071428574,
+      "gpu_injection_rejected_attempts": 12114048,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "f6613ee99fd29306ac38ed1dfcddb7a9f4a11b218a49024de13b5a74d1e87881",
+      "total_completion_us": 22.625616,
+      "variant": "rb256-single"
+    },
+    {
+      "baseline_total_completion_us": 20.662824,
+      "delta_total_completion_us": 0.5603519999999982,
+      "gpu_accepted_to_column_issue_mean_us": 0.0,
+      "gpu_injection_rejected_attempts": 0,
+      "kv_accepted_to_column_issue_mean_us": 0.042261603515625,
+      "kv_injection_rejected_attempts": 10940672,
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "086651f43deeb27c329b73ea5fdb2636c7cd239593e7acc1b658e39600fd7639",
+      "total_completion_us": 21.223176,
+      "variant": "rb32-dual"
+    },
+    {
+      "baseline_total_completion_us": 40.710072,
+      "delta_total_completion_us": 45.13080000000001,
+      "gpu_accepted_to_column_issue_mean_us": 0.08930905208333333,
+      "gpu_injection_rejected_attempts": 19671936,
+      "kv_accepted_to_column_issue_mean_us": 0.1076019521484375,
+      "kv_injection_rejected_attempts": 24204160,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "0fc462e51034129a5d92c1202114715804695f13840a57af0c1faec0550e2aea",
+      "total_completion_us": 85.840872,
+      "variant": "rb32-dual"
+    },
+    {
+      "baseline_total_completion_us": 107.276208,
+      "delta_total_completion_us": 24.952200000000005,
+      "gpu_accepted_to_column_issue_mean_us": 0.06966034765625001,
+      "gpu_injection_rejected_attempts": 36697984,
+      "kv_accepted_to_column_issue_mean_us": 0.051393682983398435,
+      "kv_injection_rejected_attempts": 33884160,
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "1b902657bc662f98c6776b4b7fe03d29366b5b588b8ce1d2b751943a5efed8a8",
+      "total_completion_us": 132.228408,
+      "variant": "rb32-dual"
+    },
+    {
+      "baseline_total_completion_us": 49.301928,
+      "delta_total_completion_us": 0.029952000000001533,
+      "gpu_accepted_to_column_issue_mean_us": 0.06770897656250001,
+      "gpu_injection_rejected_attempts": 11148544,
+      "kv_accepted_to_column_issue_mean_us": 0.06122183056640625,
+      "kv_injection_rejected_attempts": 13099904,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "48b0cab302207be90ff4dae6f2bbb9fae82174adf9934ab09d10a3dc970f7903",
+      "total_completion_us": 49.33188,
+      "variant": "rb32-dual"
+    },
+    {
+      "baseline_total_completion_us": 23.288616,
+      "delta_total_completion_us": 0.575327999999999,
+      "gpu_accepted_to_column_issue_mean_us": 0.0422231875,
+      "gpu_injection_rejected_attempts": 12302848,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "52ccb710699d573f717b10f9f89d0a7e6287c632dfb3e3159a64e267549eee5f",
+      "total_completion_us": 23.863944,
+      "variant": "rb32-dual"
+    },
+    {
+      "baseline_total_completion_us": 98.535528,
+      "delta_total_completion_us": 0.0009359999999958291,
+      "gpu_accepted_to_column_issue_mean_us": 0.041978692708333334,
+      "gpu_injection_rejected_attempts": 6111232,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 8192,
+        "pim_mac_waves": 3072,
+        "pim_read_waves": 32
+      },
+      "shape_key": "61a354e5410c6bc400a1b8d3592198586eb22ba9a4a79bb194fb02114ba4fe0f",
+      "total_completion_us": 98.536464,
+      "variant": "rb32-dual"
+    },
+    {
+      "baseline_total_completion_us": 64.851696,
+      "delta_total_completion_us": 24.809928,
+      "gpu_accepted_to_column_issue_mean_us": 0.06966027994791667,
+      "gpu_injection_rejected_attempts": 27965824,
+      "kv_accepted_to_column_issue_mean_us": 0.06035024340820312,
+      "kv_injection_rejected_attempts": 20614912,
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "6ac70e80a43138efda6468880d2247d1b954ba6a0caf3846af8f69cdc438dbf3",
+      "total_completion_us": 89.661624,
+      "variant": "rb32-dual"
+    },
+    {
+      "baseline_total_completion_us": 24.661104,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.04252452827380952,
+      "gpu_injection_rejected_attempts": 10831104,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 2048,
+        "pim_mac_waves": 768,
+        "pim_read_waves": 8
+      },
+      "shape_key": "721d1ffbcce835c31d643e3ffad679cfa42c3ac840b91dc3a8f84338dbc69245",
+      "total_completion_us": 24.661104,
+      "variant": "rb32-dual"
+    },
+    {
+      "baseline_total_completion_us": 61.883016,
+      "delta_total_completion_us": 21.749207999999996,
+      "gpu_accepted_to_column_issue_mean_us": 0.06951229613095238,
+      "gpu_injection_rejected_attempts": 16746624,
+      "kv_accepted_to_column_issue_mean_us": 0.058148923828125,
+      "kv_injection_rejected_attempts": 28502016,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "7481f917e97e1db6760f8506ae31d31cbe4c6a1a0469acad5569d337ef33c8ce",
+      "total_completion_us": 83.632224,
+      "variant": "rb32-dual"
+    },
+    {
+      "baseline_total_completion_us": 95.2926,
+      "delta_total_completion_us": 13.070616000000001,
+      "gpu_accepted_to_column_issue_mean_us": 0.06842915625,
+      "gpu_injection_rejected_attempts": 14832384,
+      "kv_accepted_to_column_issue_mean_us": 0.04700530224609375,
+      "kv_injection_rejected_attempts": 42437248,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "987be3fda115241bbe194b830e0005589b32a70b6852bfd1ae7b3abd93502d71",
+      "total_completion_us": 108.363216,
+      "variant": "rb32-dual"
+    },
+    {
+      "baseline_total_completion_us": 49.28508,
+      "delta_total_completion_us": 0.0009359999999958291,
+      "gpu_accepted_to_column_issue_mean_us": 0.042007333333333334,
+      "gpu_injection_rejected_attempts": 6114560,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "a57657f8f60627c0b42bc8893efddef5de1d5c4d963625a8d6ddb8a4c5765bb1",
+      "total_completion_us": 49.286016,
+      "variant": "rb32-dual"
+    },
+    {
+      "baseline_total_completion_us": 104.280384,
+      "delta_total_completion_us": 45.458088000000004,
+      "gpu_accepted_to_column_issue_mean_us": 0.08930905208333333,
+      "gpu_injection_rejected_attempts": 19671936,
+      "kv_accepted_to_column_issue_mean_us": 0.05876150756835938,
+      "kv_injection_rejected_attempts": 57234304,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "a69e6d5251ebb1936b42ad0ed5eac084d5e705c93ce4529f6ca527bd16cca2ce",
+      "total_completion_us": 149.738472,
+      "variant": "rb32-dual"
+    },
+    {
+      "baseline_total_completion_us": 41.860104,
+      "delta_total_completion_us": 0.6938880000000012,
+      "gpu_accepted_to_column_issue_mean_us": 0.0,
+      "gpu_injection_rejected_attempts": 0,
+      "kv_accepted_to_column_issue_mean_us": 0.04241568017578125,
+      "kv_injection_rejected_attempts": 21969408,
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "a6fb6210aaef4eefd3cf865a407e648d37fa1dce41ab0a5618cb76989bc07b14",
+      "total_completion_us": 42.553992,
+      "variant": "rb32-dual"
+    },
+    {
+      "baseline_total_completion_us": 53.350752,
+      "delta_total_completion_us": 12.489360000000005,
+      "gpu_accepted_to_column_issue_mean_us": 0.06640731770833334,
+      "gpu_injection_rejected_attempts": 13088384,
+      "kv_accepted_to_column_issue_mean_us": 0.05216405200195313,
+      "kv_injection_rejected_attempts": 22164480,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "c2804e40610e68d4510163daa20ec4d6ef40aa53468413b1aed624dbbe747444",
+      "total_completion_us": 65.840112,
+      "variant": "rb32-dual"
+    },
+    {
+      "baseline_total_completion_us": 84.240936,
+      "delta_total_completion_us": 0.8798400000000015,
+      "gpu_accepted_to_column_issue_mean_us": 0.0,
+      "gpu_injection_rejected_attempts": 0,
+      "kv_accepted_to_column_issue_mean_us": 0.04242642041015625,
+      "kv_injection_rejected_attempts": 43970816,
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "c3898dba0eadc0cc0f7933a1ff3a0c21b9bb856f4cdb0894aa3710cfa4930c34",
+      "total_completion_us": 85.120776,
+      "variant": "rb32-dual"
+    },
+    {
+      "baseline_total_completion_us": 103.918152,
+      "delta_total_completion_us": 21.533303999999987,
+      "gpu_accepted_to_column_issue_mean_us": 0.06850328720238096,
+      "gpu_injection_rejected_attempts": 32307328,
+      "kv_accepted_to_column_issue_mean_us": 0.05022768200683594,
+      "kv_injection_rejected_attempts": 34623616,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 2048,
+        "pim_mac_waves": 768,
+        "pim_read_waves": 8
+      },
+      "shape_key": "cc5fa2d380d97dda182ca3a78f37d544a336823837d178ae929ee4c6cd5711c3",
+      "total_completion_us": 125.451456,
+      "variant": "rb32-dual"
+    },
+    {
+      "baseline_total_completion_us": 43.688112,
+      "delta_total_completion_us": 22.12953600000001,
+      "gpu_accepted_to_column_issue_mean_us": 0.06677355208333333,
+      "gpu_injection_rejected_attempts": 22999808,
+      "kv_accepted_to_column_issue_mean_us": 0.07415398681640625,
+      "kv_injection_rejected_attempts": 13001472,
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "cdcaff2fdb04a5fd6014e8c0bdd542bbe1943c614df1ba1d737f25dbeb4bf2a9",
+      "total_completion_us": 65.817648,
+      "variant": "rb32-dual"
+    },
+    {
+      "baseline_total_completion_us": 98.559552,
+      "delta_total_completion_us": 9.986184000000009,
+      "gpu_accepted_to_column_issue_mean_us": 0.06757819791666667,
+      "gpu_injection_rejected_attempts": 17671424,
+      "kv_accepted_to_column_issue_mean_us": 0.047198655029296877,
+      "kv_injection_rejected_attempts": 39734272,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 8192,
+        "pim_mac_waves": 3072,
+        "pim_read_waves": 32
+      },
+      "shape_key": "cdf700c1a76b5dbd55ae7847ef3095b4b4175691e5eb606f84bace92efe889c5",
+      "total_completion_us": 108.545736,
+      "variant": "rb32-dual"
+    },
+    {
+      "baseline_total_completion_us": 20.298408,
+      "delta_total_completion_us": 0.6667440000000013,
+      "gpu_accepted_to_column_issue_mean_us": 0.042423004464285714,
+      "gpu_injection_rejected_attempts": 10824704,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "f6613ee99fd29306ac38ed1dfcddb7a9f4a11b218a49024de13b5a74d1e87881",
+      "total_completion_us": 20.965152,
+      "variant": "rb32-dual"
+    },
+    {
+      "baseline_total_completion_us": 20.662824,
+      "delta_total_completion_us": 0.3319679999999998,
+      "gpu_accepted_to_column_issue_mean_us": 0.0,
+      "gpu_injection_rejected_attempts": 0,
+      "kv_accepted_to_column_issue_mean_us": 0.0829314814453125,
+      "kv_injection_rejected_attempts": 10780416,
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "086651f43deeb27c329b73ea5fdb2636c7cd239593e7acc1b658e39600fd7639",
+      "total_completion_us": 20.994792,
+      "variant": "rb64-dual"
+    },
+    {
+      "baseline_total_completion_us": 40.710072,
+      "delta_total_completion_us": 5.407584,
+      "gpu_accepted_to_column_issue_mean_us": 0.09195039285714286,
+      "gpu_injection_rejected_attempts": 12475392,
+      "kv_accepted_to_column_issue_mean_us": 0.1056444111328125,
+      "kv_injection_rejected_attempts": 12066688,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "0fc462e51034129a5d92c1202114715804695f13840a57af0c1faec0550e2aea",
+      "total_completion_us": 46.117656,
+      "variant": "rb64-dual"
+    },
+    {
+      "baseline_total_completion_us": 107.276208,
+      "delta_total_completion_us": 6.307704000000001,
+      "gpu_accepted_to_column_issue_mean_us": 0.09334997005208333,
+      "gpu_injection_rejected_attempts": 13474304,
+      "kv_accepted_to_column_issue_mean_us": 0.09009149963378907,
+      "kv_injection_rejected_attempts": 45912832,
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "1b902657bc662f98c6776b4b7fe03d29366b5b588b8ce1d2b751943a5efed8a8",
+      "total_completion_us": 113.583912,
+      "variant": "rb64-dual"
+    },
+    {
+      "baseline_total_completion_us": 49.301928,
+      "delta_total_completion_us": 0.019344000000003803,
+      "gpu_accepted_to_column_issue_mean_us": 0.09107133072916668,
+      "gpu_injection_rejected_attempts": 8025344,
+      "kv_accepted_to_column_issue_mean_us": 0.0958079560546875,
+      "kv_injection_rejected_attempts": 10459520,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "48b0cab302207be90ff4dae6f2bbb9fae82174adf9934ab09d10a3dc970f7903",
+      "total_completion_us": 49.321272,
+      "variant": "rb64-dual"
+    },
+    {
+      "baseline_total_completion_us": 23.288616,
+      "delta_total_completion_us": 0.3269759999999984,
+      "gpu_accepted_to_column_issue_mean_us": 0.08291423697916667,
+      "gpu_injection_rejected_attempts": 12131072,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "52ccb710699d573f717b10f9f89d0a7e6287c632dfb3e3159a64e267549eee5f",
+      "total_completion_us": 23.615592,
+      "variant": "rb64-dual"
+    },
+    {
+      "baseline_total_completion_us": 98.535528,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.08215681770833333,
+      "gpu_injection_rejected_attempts": 5997568,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 8192,
+        "pim_mac_waves": 3072,
+        "pim_read_waves": 32
+      },
+      "shape_key": "61a354e5410c6bc400a1b8d3592198586eb22ba9a4a79bb194fb02114ba4fe0f",
+      "total_completion_us": 98.535528,
+      "variant": "rb64-dual"
+    },
+    {
+      "baseline_total_completion_us": 64.851696,
+      "delta_total_completion_us": 6.474936,
+      "gpu_accepted_to_column_issue_mean_us": 0.09334997005208333,
+      "gpu_injection_rejected_attempts": 13474304,
+      "kv_accepted_to_column_issue_mean_us": 0.09649913012695313,
+      "kv_injection_rejected_attempts": 24102656,
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "6ac70e80a43138efda6468880d2247d1b954ba6a0caf3846af8f69cdc438dbf3",
+      "total_completion_us": 71.326632,
+      "variant": "rb64-dual"
+    },
+    {
+      "baseline_total_completion_us": 24.661104,
+      "delta_total_completion_us": -0.00031200000000097816,
+      "gpu_accepted_to_column_issue_mean_us": 0.08341248809523809,
+      "gpu_injection_rejected_attempts": 10679936,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 2048,
+        "pim_mac_waves": 768,
+        "pim_read_waves": 8
+      },
+      "shape_key": "721d1ffbcce835c31d643e3ffad679cfa42c3ac840b91dc3a8f84338dbc69245",
+      "total_completion_us": 24.660792,
+      "variant": "rb64-dual"
+    },
+    {
+      "baseline_total_completion_us": 61.883016,
+      "delta_total_completion_us": 5.687759999999997,
+      "gpu_accepted_to_column_issue_mean_us": 0.09278713244047619,
+      "gpu_injection_rejected_attempts": 12571392,
+      "kv_accepted_to_column_issue_mean_us": 0.09496897045898438,
+      "kv_injection_rejected_attempts": 23018880,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "7481f917e97e1db6760f8506ae31d31cbe4c6a1a0469acad5569d337ef33c8ce",
+      "total_completion_us": 67.570776,
+      "variant": "rb64-dual"
+    },
+    {
+      "baseline_total_completion_us": 95.2926,
+      "delta_total_completion_us": 3.339024000000009,
+      "gpu_accepted_to_column_issue_mean_us": 0.09001051041666668,
+      "gpu_injection_rejected_attempts": 14120576,
+      "kv_accepted_to_column_issue_mean_us": 0.08692603454589844,
+      "kv_injection_rejected_attempts": 37219712,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "987be3fda115241bbe194b830e0005589b32a70b6852bfd1ae7b3abd93502d71",
+      "total_completion_us": 98.631624,
+      "variant": "rb64-dual"
+    },
+    {
+      "baseline_total_completion_us": 49.28508,
+      "delta_total_completion_us": 0.0,
+      "gpu_accepted_to_column_issue_mean_us": 0.08220583854166667,
+      "gpu_injection_rejected_attempts": 6000384,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "a57657f8f60627c0b42bc8893efddef5de1d5c4d963625a8d6ddb8a4c5765bb1",
+      "total_completion_us": 49.28508,
+      "variant": "rb64-dual"
+    },
+    {
+      "baseline_total_completion_us": 104.280384,
+      "delta_total_completion_us": 5.547672000000006,
+      "gpu_accepted_to_column_issue_mean_us": 0.09278713244047619,
+      "gpu_injection_rejected_attempts": 12571392,
+      "kv_accepted_to_column_issue_mean_us": 0.08932641979980468,
+      "kv_injection_rejected_attempts": 44829056,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "a69e6d5251ebb1936b42ad0ed5eac084d5e705c93ce4529f6ca527bd16cca2ce",
+      "total_completion_us": 109.828056,
+      "variant": "rb64-dual"
+    },
+    {
+      "baseline_total_completion_us": 41.860104,
+      "delta_total_completion_us": 0.2957760000000036,
+      "gpu_accepted_to_column_issue_mean_us": 0.0,
+      "gpu_injection_rejected_attempts": 0,
+      "kv_accepted_to_column_issue_mean_us": 0.08339843408203125,
+      "kv_injection_rejected_attempts": 21705472,
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "a6fb6210aaef4eefd3cf865a407e648d37fa1dce41ab0a5618cb76989bc07b14",
+      "total_completion_us": 42.15588,
+      "variant": "rb64-dual"
+    },
+    {
+      "baseline_total_completion_us": 53.350752,
+      "delta_total_completion_us": 3.0161039999999986,
+      "gpu_accepted_to_column_issue_mean_us": 0.09042373437500001,
+      "gpu_injection_rejected_attempts": 9594240,
+      "kv_accepted_to_column_issue_mean_us": 0.09000100268554688,
+      "kv_injection_rejected_attempts": 19838080,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "c2804e40610e68d4510163daa20ec4d6ef40aa53468413b1aed624dbbe747444",
+      "total_completion_us": 56.366856,
+      "variant": "rb64-dual"
+    },
+    {
+      "baseline_total_completion_us": 84.240936,
+      "delta_total_completion_us": 0.17222399999999993,
+      "gpu_accepted_to_column_issue_mean_us": 0.0,
+      "gpu_injection_rejected_attempts": 0,
+      "kv_accepted_to_column_issue_mean_us": 0.08354115161132812,
+      "kv_injection_rejected_attempts": 43515648,
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "c3898dba0eadc0cc0f7933a1ff3a0c21b9bb856f4cdb0894aa3710cfa4930c34",
+      "total_completion_us": 84.41316,
+      "variant": "rb64-dual"
+    },
+    {
+      "baseline_total_completion_us": 103.918152,
+      "delta_total_completion_us": 5.45875199999999,
+      "gpu_accepted_to_column_issue_mean_us": 0.09200808035714286,
+      "gpu_injection_rejected_attempts": 24875264,
+      "kv_accepted_to_column_issue_mean_us": 0.0890515869140625,
+      "kv_injection_rejected_attempts": 32233728,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 2048,
+        "pim_mac_waves": 768,
+        "pim_read_waves": 8
+      },
+      "shape_key": "cc5fa2d380d97dda182ca3a78f37d544a336823837d178ae929ee4c6cd5711c3",
+      "total_completion_us": 109.376904,
+      "variant": "rb64-dual"
+    },
+    {
+      "baseline_total_completion_us": 43.688112,
+      "delta_total_completion_us": 6.0468720000000005,
+      "gpu_accepted_to_column_issue_mean_us": 0.09257701171875,
+      "gpu_injection_rejected_attempts": 13322624,
+      "kv_accepted_to_column_issue_mean_us": 0.106579001953125,
+      "kv_injection_rejected_attempts": 12963712,
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "cdcaff2fdb04a5fd6014e8c0bdd542bbe1943c614df1ba1d737f25dbeb4bf2a9",
+      "total_completion_us": 49.734984,
+      "variant": "rb64-dual"
+    },
+    {
+      "baseline_total_completion_us": 98.559552,
+      "delta_total_completion_us": 0.2764319999999998,
+      "gpu_accepted_to_column_issue_mean_us": 0.09006884114583333,
+      "gpu_injection_rejected_attempts": 16374912,
+      "kv_accepted_to_column_issue_mean_us": 0.08710232958984375,
+      "kv_injection_rejected_attempts": 34982144,
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 8192,
+        "pim_mac_waves": 3072,
+        "pim_read_waves": 32
+      },
+      "shape_key": "cdf700c1a76b5dbd55ae7847ef3095b4b4175691e5eb606f84bace92efe889c5",
+      "total_completion_us": 98.835984,
+      "variant": "rb64-dual"
+    },
+    {
+      "baseline_total_completion_us": 20.298408,
+      "delta_total_completion_us": 0.46238400000000013,
+      "gpu_accepted_to_column_issue_mean_us": 0.08332044345238096,
+      "gpu_injection_rejected_attempts": 10683264,
+      "kv_accepted_to_column_issue_mean_us": 0.0,
+      "kv_injection_rejected_attempts": 0,
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "f6613ee99fd29306ac38ed1dfcddb7a9f4a11b218a49024de13b5a74d1e87881",
+      "total_completion_us": 20.760792,
+      "variant": "rb64-dual"
+    }
+  ],
+  "schema_version": 1
+}

@@ -101,7 +101,7 @@ cycle-v0与cycle-v1的主要差异来自用请求级Ramulator时序替换理想�
 
 MoE专家调度的真实pilot、runtime-v1在线策略验证和runtime-v2
 signature-level holdout均已完成。`sieve-cycle-v1`在当前阶段冻结为离线Oracle；
-下一阶段转向**单GPU设备上的KV Cache容量与延迟瓶颈实验**，目标仍限定为当前的
+当前研究**单GPU设备上的KV Cache容量与延迟瓶颈实验**，目标仍限定为当前的
 `1 GPU + 8 Local HBM-PIM Stacks`模拟硬件，不扩展Shared CXL-PIM或多GPU。
 
 已经完成：
@@ -143,12 +143,22 @@ signature-level holdout均已完成。`sieve-cycle-v1`在当前阶段冻结为�
 - 云端捕获环境固定为PyTorch `2.7.1+cu126`、Transformers `4.53.2`、Python
   `3.12.11`，驱动报告CUDA `13.2`。
 
-KV Cache瓶颈阶段尚未开始正式回放，目前处于实验设计阶段。当前旧pilot的Batch为8、
-Context很短，峰值KV Cache约18.68 MB，不能作为KV瓶颈证据。现有实现只提供KV容量
-估算和解析Attention时延，尚未建模KV READ请求、KV与Expert的HBM请求竞争、paging、
-spill或eviction。
+KV Cache 长 Context 阶段已完成首轮五组独立 A800 Router 捕获、精确 workload 填充、
+cycle-v0 isolated Attention 表、cycle-v1 contention 表和七策略回放。五组配置为
+B8/C4k、B8/C8k、B8/C16k、B16/C4k、B16/C8k；每组 8 Decode step × 48 层，分别
+包含 3072、3072、3072、6144、6144 条 Router 记录。342 个 union cycle-v1 shape
+全部精确完成，failed=0、remaining=0、interpolation=0。五张 isolated 表的
+Attention/Expert entry 数分别为 8/22、8/49、8/21、8/40、8/76；contention 表
+entry 数分别为 3754、3888、3717、3855、3934。正式回放与汇总位于
+`results/full_decode_real_kv_cycle_v1/` 和 `docs/kv_long_context_cycle_v1_analysis.md`。
 
-下一阶段执行顺序固定为：
+上述冻结回放不包含 KV READ request-level 竞争、paging、spill 或 eviction。旧 pilot 的
+Batch=8 短 Context 峰值 KV Cache 约 18.68 MB，不能作为 KV 瓶颈证据；长 Context 回放
+使用真实 A800 路由但 GPU Attention/GPU arithmetic 仍为解析模型，PIM Attention 使用
+isolated cycle-v0 分段时序，Expert 使用 cycle-v1 contention。A800 物理容量为 80 GB，
+模拟容量为 96 GB，报告严格分开两者；本轮五组真实配置均未超过估算容量。
+
+本轮长 Context 基线已依次完成：
 
 1. 以旧pilot为基线，补齐Attention、Expert、KV大小、峰值内存和吞吐量分解；
 2. 在本地做受控的Batch×Context解析扫描，保持专家路由不变，首轮矩阵为B8的
@@ -159,7 +169,48 @@ spill或eviction。
    SHA-256，不能复制旧Trace后修改Context；
 5. 对新Trace重新规划并精确补齐Attention及Expert workload timing，禁止插值；
 6. 回放并输出KV大小、Attention时延占比、峰值内存、容量状态和总时延分解；
-7. 只有在证据表明KV确实形成瓶颈后，才扩展KV请求级Ramulator竞争或容量溢出模型。
+
+以上端到端回放与解析扫描只提供进一步建模的动机，未证明真实 KV 带宽瓶颈。
+`results/kv_read_experiment_v1/frozen_baseline.json` 固定了 350 个基线文件的 SHA-256；
+后续实验只能校验，不得刷新该清单以接受基线变化。冻结文档中的“当前/下一步”描述
+对应该文档生成时的阶段，最新状态以本文件与新增报告为准。
+
+容量准入模型已实现 `resident / spill / oom` 字节分类，输出为
+`results/kv_capacity_states_v1/`，说明见 `docs/kv_capacity_states_v1.md`。正式实验分别
+使用 A800 80 GB 与模拟 96 GB 两个容量域，各自 spill budget 均为 0，不把二者相加或
+互相作为 spill 目的地。B8/C32k 与 B16/C16k 的峰值约 86.835 GB，在模拟容量内
+`resident`，在 A800 容量下 `oom/infeasible`；B16/C32k 与 B32/C16k 约 112.606 GB，
+两域均 `oom/infeasible`。这只是解析准入结果，不是实测 OOM，也没有实现分页、传输、
+驱逐或恢复时延。
+
+独立 KV READ 微基准使用新增 `SieveKVRead` frontend，KV 与 GPU Expert 普通 READ
+共用 HBM 请求队列，分别记录注入、完成、驻留、最大驻留和拒绝注入次数。它不修改
+旧 `SieveMixed` 接口或正式 cycle-v1 表。实验范围为 B8/C4k、B8/C8k、B8/C16k、
+B16/C8k 各一个 step=0/layer=0，三种固定放置（GPU-only、旧 Expert-only Oracle、
+fixed-half-prefix）与 expert-only/kv-only/combined 三种模式，36 个消费者去重为
+19 个 workload shape。combined 是强制同时注入的受控请求级实验，端到端串行图
+未变；不得将这些数值描述为端到端回放或真实 A800 带宽结论。具体请求模型见
+`docs/kv_read_request_model_v1.md`，实验分析见 `docs/kv_read_experiment_v1_analysis.md`。
+
+KV READ v1 已完成 19/19 精确 shape，failed=0、remaining=0、interpolation=0；
+5 个 zero-KV shape 与旧 Expert-only 结果逐字段一致。控制器敏感性扫描随后完成
+5 个变体 × 19 个 shape：READ buffer 为 256/128/64/32 的 dual-row，以及
+READ buffer=256 的 single-row。95/95 完成、失败和插值均为 0。结果位于
+`results/kv_read_sensitivity_v1/`，报告为 `docs/kv_read_sensitivity_v1_analysis.md`。
+
+独立审计 `scripts/audit_kv_read_sensitivity.py` 校验当前计划、源码、95 个缓存哈希、
+请求计数、原始 JSON/CSV，以及基准变体全部 19 个结果与 KV READ v1 的逐字段一致性。
+`validation.json` 状态为 `passed_with_provenance_limitation`：历史敏感性运行没有
+保存 binding/library 二进制哈希，不得将事后检查当作执行时证明。缓存目录包含两个
+计划版本各 95 个文件，只按当前计划选取结果，不能把文件总数当作完成量或统计重复。
+
+`matched_comparison.json/csv` 按同一变体的 expert-only/kv-only/combined 重建
+60 组比较；全部 combined−max(isolated)>0，但增量及 Context 单调性依赖控制器
+和放置。19 个去重 shape 的平均控制器差值不是 KV 平均竞争惩罚。single/dual 只改变
+PIM/normal row-buffer 假设，并未改变 KV/Expert 地址映射；serial/staggered 注入和
+地址布局扫描尚未实现。不能把结果直接纳入串行端到端回放或宣称真实 A800 带宽瓶颈。
+下一步是独立 A800 Attention/Decode 计时与显存采样的准备；原 Router hook 的
+`.cpu().tolist()` 会引入同步，不能直接用该捕获 pass 的时间作无干扰性能基准。
 
 物理A800显存为80 GB，当前模拟容量为96 GB，二者必须分开报告。Batch=16、
 Context=32k和Batch=32、Context=16k可用于模拟容量压力，但不能直接称为A800实测

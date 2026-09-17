@@ -218,6 +218,10 @@ def capture_qwen3_router_trace(
                 input_ids=input_ids,
                 attention_mask=attention_mask,
                 use_cache=True,
+                # The prefill only needs the final token logits to seed greedy
+                # decode.  Keeping logits for every context token can allocate
+                # tens of GiB in the LM head on long-context A800 captures.
+                logits_to_keep=1,
             )
             past_key_values = prefill.past_key_values
             next_tokens = prefill.logits[:, -1, :].argmax(dim=-1)

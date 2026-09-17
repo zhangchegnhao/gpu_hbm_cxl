@@ -1,0 +1,262 @@
+{
+  "base_exact_results_sha256": "34571b0d9a825056e47f9abf2d08231e454e1fe0ab1626222ea9bc826097ad53",
+  "base_plan_sha256": "83b25936281e4fd31d2c50d9e1ae23b70b61a12abf521b37de341352522ff9c2",
+  "classification": "exact Ramulator request-level sensitivity; not A800 timing or end-to-end replay",
+  "consumer_count": 36,
+  "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+  "cycle_config_snapshot": {
+    "bank_groups_per_pseudo_channel": 6,
+    "banks_per_bank_group": 4,
+    "channels_per_stack": 16,
+    "columns": 256,
+    "dram_org_preset": "HBM3_8Gb_8hi",
+    "dram_timing_preset": "HBM3_6400Mbps",
+    "dual_row_buffer": true,
+    "expected_tick_ps": 312,
+    "gpu_cachelines_per_row": 32,
+    "hbm_pim_stacks": 8,
+    "internal_prefetch_size": 8,
+    "pim_buffer_size": 256,
+    "pim_io_interval_ps": 1024,
+    "pim_mac_interval_ps": 24576,
+    "pseudo_channels_per_channel": 2,
+    "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+    "read_buffer_size": 256,
+    "row_span_waves": 32,
+    "rows": 16384,
+    "sid_per_pseudo_channel": 1,
+    "transaction_bytes": 32
+  },
+  "frozen_baseline_sha256": "e60dc296d9c34384d1ec3c65e967f9eded2ae5b0f4b605c815e7ceb7cf1558ca",
+  "method": "kv-read-controller-sensitivity-v1",
+  "runner_sha256": "748664bcdba12d5487f884ebb73d8dc3784546e0ee4368c2adabffa77e598777",
+  "schema_version": 1,
+  "scope": "19 exact shapes reused by the four real A800 Router cases; controller read-buffer/row-buffer sensitivity",
+  "shapes": [
+    {
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "086651f43deeb27c329b73ea5fdb2636c7cd239593e7acc1b658e39600fd7639"
+    },
+    {
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "0fc462e51034129a5d92c1202114715804695f13840a57af0c1faec0550e2aea"
+    },
+    {
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "1b902657bc662f98c6776b4b7fe03d29366b5b588b8ce1d2b751943a5efed8a8"
+    },
+    {
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "48b0cab302207be90ff4dae6f2bbb9fae82174adf9934ab09d10a3dc970f7903"
+    },
+    {
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "52ccb710699d573f717b10f9f89d0a7e6287c632dfb3e3159a64e267549eee5f"
+    },
+    {
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 8192,
+        "pim_mac_waves": 3072,
+        "pim_read_waves": 32
+      },
+      "shape_key": "61a354e5410c6bc400a1b8d3592198586eb22ba9a4a79bb194fb02114ba4fe0f"
+    },
+    {
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "6ac70e80a43138efda6468880d2247d1b954ba6a0caf3846af8f69cdc438dbf3"
+    },
+    {
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 2048,
+        "pim_mac_waves": 768,
+        "pim_read_waves": 8
+      },
+      "shape_key": "721d1ffbcce835c31d643e3ffad679cfa42c3ac840b91dc3a8f84338dbc69245"
+    },
+    {
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "7481f917e97e1db6760f8506ae31d31cbe4c6a1a0469acad5569d337ef33c8ce"
+    },
+    {
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "987be3fda115241bbe194b830e0005589b32a70b6852bfd1ae7b3abd93502d71"
+    },
+    {
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "a57657f8f60627c0b42bc8893efddef5de1d5c4d963625a8d6ddb8a4c5765bb1"
+    },
+    {
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "a69e6d5251ebb1936b42ad0ed5eac084d5e705c93ce4529f6ca527bd16cca2ce"
+    },
+    {
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "a6fb6210aaef4eefd3cf865a407e648d37fa1dce41ab0a5618cb76989bc07b14"
+    },
+    {
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "c2804e40610e68d4510163daa20ec4d6ef40aa53468413b1aed624dbbe747444"
+    },
+    {
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "c3898dba0eadc0cc0f7933a1ff3a0c21b9bb856f4cdb0894aa3710cfa4930c34"
+    },
+    {
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 2048,
+        "pim_mac_waves": 768,
+        "pim_read_waves": 8
+      },
+      "shape_key": "cc5fa2d380d97dda182ca3a78f37d544a336823837d178ae929ee4c6cd5711c3"
+    },
+    {
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "cdcaff2fdb04a5fd6014e8c0bdd542bbe1943c614df1ba1d737f25dbeb4bf2a9"
+    },
+    {
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 8192,
+        "pim_mac_waves": 3072,
+        "pim_read_waves": 32
+      },
+      "shape_key": "cdf700c1a76b5dbd55ae7847ef3095b4b4175691e5eb606f84bace92efe889c5"
+    },
+    {
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "f6613ee99fd29306ac38ed1dfcddb7a9f4a11b218a49024de13b5a74d1e87881"
+    }
+  ],
+  "simulation_context": {
+    "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+    "extension_sha256": "8c1d2d8c82690296779d808d3dbd06b6d6ed8ba9b25d2e1a907cf6adbba388bd",
+    "kv_read_workload_sha256": "061a4989a645f91bf42e0ff677668967b6f4ad50249b6fc2f8514ef94af05900",
+    "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+    "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+    "model": "kv-read-concurrent-stress-v1"
+  },
+  "variants": [
+    {
+      "dual_row_buffer": true,
+      "name": "baseline-rb256-dual",
+      "read_buffer_size": 256
+    },
+    {
+      "dual_row_buffer": true,
+      "name": "rb32-dual",
+      "read_buffer_size": 32
+    },
+    {
+      "dual_row_buffer": true,
+      "name": "rb64-dual",
+      "read_buffer_size": 64
+    },
+    {
+      "dual_row_buffer": true,
+      "name": "rb128-dual",
+      "read_buffer_size": 128
+    },
+    {
+      "dual_row_buffer": false,
+      "name": "rb256-single",
+      "read_buffer_size": 256
+    }
+  ]
+}

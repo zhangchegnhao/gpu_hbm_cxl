@@ -1,0 +1,2676 @@
+{
+  "cases": {
+    "b16_c8k": {
+      "configuration_snapshot": {
+        "contention_timing_table": "ramulator/timing_tables/generated/qwen3_real_kv_b16_c8k_decode_cycle_v1_contention.json",
+        "hardware": "configs/hardware/sieve_b200_1gpu_cycle_v1.json",
+        "layers": "all",
+        "model": "configs/models/qwen3_30b_a3b.json",
+        "name": "full-decode-real-kv-b16_c8k",
+        "pim_timing_table": "ramulator/timing_tables/generated/qwen3_real_kv_b16_c8k_decode_cycle_v0.json",
+        "policies": [
+          "gpu-only",
+          "noexp",
+          "allexp",
+          "pimoe",
+          "sieve",
+          "sieve-cycle-v1",
+          "sieve-fixed-16-cycle-v1"
+        ],
+        "ramulator_cycle_config": "configs/ramulator/sieve_hbm3e_cycle_v1.json",
+        "steps": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "trace": "traces/real/qwen3_30b_a3b/kv_b16_c8k/router.jsonl",
+        "trace_manifest": "traces/real/qwen3_30b_a3b/kv_b16_c8k/manifest.json"
+      },
+      "frozen_placement": {
+        "contention_timing_table_sha256": "5acbd465e2857804a24eee0edb436a7d36e3835a74539142c65310ebeb873a81",
+        "pim_timing_table_sha256": "655f778cfe7fb529e585fb0141458ab11c09aa023444dfff0dc2a7e7626d5932",
+        "placement_manifest_path": "results/full_decode_real_kv_cycle_v1/b16_c8k/sieve-cycle-v1/run_manifest.json",
+        "placement_manifest_sha256": "92e5be6e83d49b95f1fad772b663d628784100261b14ee25d15fa8adea1a5392",
+        "placement_path": "results/full_decode_real_kv_cycle_v1/b16_c8k/sieve-cycle-v1/placement.csv",
+        "placement_sha256": "778f302786680b044caa701eb70c282b429397e5b64a3065ddb7044419f36f31"
+      },
+      "hardware_snapshot": {
+        "banks_per_pseudo_channel": 24,
+        "gpu_compute_efficiency": 1.0,
+        "gpu_count": 1,
+        "gpu_kernel_overhead_us": 1.0,
+        "gpu_peak_tflops": 2250.0,
+        "hbm_bandwidth_efficiency": 1.0,
+        "hbm_bandwidth_tb_s": 8.0,
+        "hbm_pim_capacity_gb": 96.0,
+        "hbm_pim_stacks": 8,
+        "metadata_overhead_us": 1.0,
+        "name": "sieve-b200-1gpu-ramulator-contention-v1",
+        "notes": "Expert GPU HBM reads and PIM waves share Ramulator cycle-v1 resources with dual row buffers. GPU compute remains analytic; legacy sieve uses isolated estimates, while sieve-cycle-v1 selects from strict mixed-timing candidates.",
+        "nvlink_bandwidth_gb_s_per_direction": 900.0,
+        "nvlink_latency_us": 0.8,
+        "pim_command_overhead_us": 0.05,
+        "pim_compute_density_ops_per_byte": 1.0,
+        "pim_compute_efficiency": 1.0,
+        "pim_gwrite_overhead_us": 0.05,
+        "pim_read_overhead_us": 0.05,
+        "pimoe_token_threshold": 4,
+        "pseudo_channels_per_stack": 32,
+        "router_overhead_us": 1.0,
+        "sieve_scheduler_overhead_us": 20.0,
+        "source": "Sieve arXiv:2605.11277 Table 1",
+        "static_policy_overhead_us": 0.0,
+        "timing_backend": "ramulator-contention-v1"
+      },
+      "input_hashes": {
+        "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+        "experiment_sha256": "6f0d881f5b5a7c2a1b4b351966c1620a185e15faae1e69a26e5f1528d0ffb9b5",
+        "hardware_sha256": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
+        "model_sha256": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+        "prompts_sha256": "c2c1e60a8498c6109e48316d8ccf62dbf7ac5d69b324e25289f0b075b1f94df5",
+        "trace_manifest_sha256": "bb7f2cf26af39430d13e7033ec098f4b7276905e60f29a444dbd2f9366bf61e8",
+        "trace_sha256": "03ac02f1de90c0486918fe6cd17c379c2ab58c74ca0d517b186a15c4aa61d552"
+      },
+      "model_snapshot": {
+        "architecture": "Qwen3MoeForCausalLM",
+        "architecture_reference": "QwenLM/Qwen3@7a2f61ffc7a20d47efcd2bf97f6f2bf52729042e",
+        "dtype": "bfloat16",
+        "dtype_bytes": 2,
+        "has_shared_expert": false,
+        "head_dim": 128,
+        "hidden_act": "silu",
+        "hidden_size": 2048,
+        "intermediate_size": 6144,
+        "max_position_embeddings": 40960,
+        "moe_intermediate_size": 768,
+        "name": "Qwen3-30B-A3B",
+        "norm_topk_prob": true,
+        "num_attention_heads": 32,
+        "num_experts": 128,
+        "num_experts_per_tok": 8,
+        "num_hidden_layers": 48,
+        "num_key_value_heads": 4,
+        "source": "https://modelscope.cn/models/Qwen/Qwen3-30B-A3B/resolve/master/config.json",
+        "source_snapshot_date": "2026-08-25",
+        "vocab_size": 151936
+      },
+      "representative": {
+        "context_lengths": [
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192
+        ],
+        "expert_loads": [
+          {
+            "expert_id": 43,
+            "token_count": 16
+          },
+          {
+            "expert_id": 45,
+            "token_count": 16
+          },
+          {
+            "expert_id": 65,
+            "token_count": 16
+          },
+          {
+            "expert_id": 73,
+            "token_count": 16
+          },
+          {
+            "expert_id": 85,
+            "token_count": 16
+          },
+          {
+            "expert_id": 98,
+            "token_count": 16
+          },
+          {
+            "expert_id": 100,
+            "token_count": 16
+          },
+          {
+            "expert_id": 114,
+            "token_count": 16
+          }
+        ],
+        "layer": 0,
+        "step": 0
+      },
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "selected_layer_batches": 1,
+      "trace_layer_batches": 384
+    },
+    "b8_c16k": {
+      "configuration_snapshot": {
+        "contention_timing_table": "ramulator/timing_tables/generated/qwen3_real_kv_b8_c16k_decode_cycle_v1_contention.json",
+        "hardware": "configs/hardware/sieve_b200_1gpu_cycle_v1.json",
+        "layers": "all",
+        "model": "configs/models/qwen3_30b_a3b.json",
+        "name": "full-decode-real-kv-b8_c16k",
+        "pim_timing_table": "ramulator/timing_tables/generated/qwen3_real_kv_b8_c16k_decode_cycle_v0.json",
+        "policies": [
+          "gpu-only",
+          "noexp",
+          "allexp",
+          "pimoe",
+          "sieve",
+          "sieve-cycle-v1",
+          "sieve-fixed-16-cycle-v1"
+        ],
+        "ramulator_cycle_config": "configs/ramulator/sieve_hbm3e_cycle_v1.json",
+        "steps": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "trace": "traces/real/qwen3_30b_a3b/kv_b8_c16k/router.jsonl",
+        "trace_manifest": "traces/real/qwen3_30b_a3b/kv_b8_c16k/manifest.json"
+      },
+      "frozen_placement": {
+        "contention_timing_table_sha256": "046fc3babee4b0836c9a40cc38fe71a7abf5555b71ffdef49177be1f9135e15c",
+        "pim_timing_table_sha256": "cdffe340013f45d2ee4e06a836dca3bdd49d67c46c12e6b1c665c446f026a144",
+        "placement_manifest_path": "results/full_decode_real_kv_cycle_v1/b8_c16k/sieve-cycle-v1/run_manifest.json",
+        "placement_manifest_sha256": "a95f7651bc5d461fe9765ce5674bf42782ad59b77a1739fa1beeaf823fc8df3e",
+        "placement_path": "results/full_decode_real_kv_cycle_v1/b8_c16k/sieve-cycle-v1/placement.csv",
+        "placement_sha256": "b519fd8be3c93e66ca17e298b7010826daf7a5b7ee444c89dbef0439894a0267"
+      },
+      "hardware_snapshot": {
+        "banks_per_pseudo_channel": 24,
+        "gpu_compute_efficiency": 1.0,
+        "gpu_count": 1,
+        "gpu_kernel_overhead_us": 1.0,
+        "gpu_peak_tflops": 2250.0,
+        "hbm_bandwidth_efficiency": 1.0,
+        "hbm_bandwidth_tb_s": 8.0,
+        "hbm_pim_capacity_gb": 96.0,
+        "hbm_pim_stacks": 8,
+        "metadata_overhead_us": 1.0,
+        "name": "sieve-b200-1gpu-ramulator-contention-v1",
+        "notes": "Expert GPU HBM reads and PIM waves share Ramulator cycle-v1 resources with dual row buffers. GPU compute remains analytic; legacy sieve uses isolated estimates, while sieve-cycle-v1 selects from strict mixed-timing candidates.",
+        "nvlink_bandwidth_gb_s_per_direction": 900.0,
+        "nvlink_latency_us": 0.8,
+        "pim_command_overhead_us": 0.05,
+        "pim_compute_density_ops_per_byte": 1.0,
+        "pim_compute_efficiency": 1.0,
+        "pim_gwrite_overhead_us": 0.05,
+        "pim_read_overhead_us": 0.05,
+        "pimoe_token_threshold": 4,
+        "pseudo_channels_per_stack": 32,
+        "router_overhead_us": 1.0,
+        "sieve_scheduler_overhead_us": 20.0,
+        "source": "Sieve arXiv:2605.11277 Table 1",
+        "static_policy_overhead_us": 0.0,
+        "timing_backend": "ramulator-contention-v1"
+      },
+      "input_hashes": {
+        "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+        "experiment_sha256": "f0cfbbcc7339f4b53e871f3e2f6fd8c9a2635125d332d931f2af7435e0fec3d6",
+        "hardware_sha256": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
+        "model_sha256": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+        "prompts_sha256": "6dd416aaf44d48188a9d3761eea650744680a2bc4dedf43fe3f4fcf8fc92544a",
+        "trace_manifest_sha256": "084e8e8ca7282ebea81dbffe46a27e03b62ba147de5ac6247133269663c53cef",
+        "trace_sha256": "2cee5ba38e5d91d1bab52926974e03ed6338c9f9a76ffb6f02c39584aa089463"
+      },
+      "model_snapshot": {
+        "architecture": "Qwen3MoeForCausalLM",
+        "architecture_reference": "QwenLM/Qwen3@7a2f61ffc7a20d47efcd2bf97f6f2bf52729042e",
+        "dtype": "bfloat16",
+        "dtype_bytes": 2,
+        "has_shared_expert": false,
+        "head_dim": 128,
+        "hidden_act": "silu",
+        "hidden_size": 2048,
+        "intermediate_size": 6144,
+        "max_position_embeddings": 40960,
+        "moe_intermediate_size": 768,
+        "name": "Qwen3-30B-A3B",
+        "norm_topk_prob": true,
+        "num_attention_heads": 32,
+        "num_experts": 128,
+        "num_experts_per_tok": 8,
+        "num_hidden_layers": 48,
+        "num_key_value_heads": 4,
+        "source": "https://modelscope.cn/models/Qwen/Qwen3-30B-A3B/resolve/master/config.json",
+        "source_snapshot_date": "2026-08-25",
+        "vocab_size": 151936
+      },
+      "representative": {
+        "context_lengths": [
+          16384,
+          16384,
+          16384,
+          16384,
+          16384,
+          16384,
+          16384,
+          16384
+        ],
+        "expert_loads": [
+          {
+            "expert_id": 6,
+            "token_count": 8
+          },
+          {
+            "expert_id": 26,
+            "token_count": 8
+          },
+          {
+            "expert_id": 43,
+            "token_count": 8
+          },
+          {
+            "expert_id": 44,
+            "token_count": 8
+          },
+          {
+            "expert_id": 59,
+            "token_count": 8
+          },
+          {
+            "expert_id": 65,
+            "token_count": 8
+          },
+          {
+            "expert_id": 92,
+            "token_count": 8
+          },
+          {
+            "expert_id": 114,
+            "token_count": 8
+          }
+        ],
+        "layer": 0,
+        "step": 0
+      },
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "selected_layer_batches": 1,
+      "trace_layer_batches": 384
+    },
+    "b8_c4k": {
+      "configuration_snapshot": {
+        "contention_timing_table": "ramulator/timing_tables/generated/qwen3_real_kv_b8_c4k_decode_cycle_v1_contention.json",
+        "hardware": "configs/hardware/sieve_b200_1gpu_cycle_v1.json",
+        "layers": "all",
+        "model": "configs/models/qwen3_30b_a3b.json",
+        "name": "full-decode-real-kv-b8_c4k",
+        "pim_timing_table": "ramulator/timing_tables/generated/qwen3_real_kv_b8_c4k_decode_cycle_v0.json",
+        "policies": [
+          "gpu-only",
+          "noexp",
+          "allexp",
+          "pimoe",
+          "sieve",
+          "sieve-cycle-v1",
+          "sieve-fixed-16-cycle-v1"
+        ],
+        "ramulator_cycle_config": "configs/ramulator/sieve_hbm3e_cycle_v1.json",
+        "steps": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "trace": "traces/real/qwen3_30b_a3b/kv_b8_c4k/router.jsonl",
+        "trace_manifest": "traces/real/qwen3_30b_a3b/kv_b8_c4k/manifest.json"
+      },
+      "frozen_placement": {
+        "contention_timing_table_sha256": "15106ffb47c691391a43aec068edb8807b8adcfdf0a6e879ad4cfae96ff2ce95",
+        "pim_timing_table_sha256": "feef5308a80d85107c104b0a993ca8af16c4374d1b569224a25e2aa9e5f61127",
+        "placement_manifest_path": "results/full_decode_real_kv_cycle_v1/b8_c4k/sieve-cycle-v1/run_manifest.json",
+        "placement_manifest_sha256": "a64921b2c078b08456d8b6c57e8217575c981e714c80a160f577dd89d9b02566",
+        "placement_path": "results/full_decode_real_kv_cycle_v1/b8_c4k/sieve-cycle-v1/placement.csv",
+        "placement_sha256": "e1ba66e9fc41e900dff5b6ecdd41b206bf76d4341bf2c3a3b6ec3df27cdeb9b5"
+      },
+      "hardware_snapshot": {
+        "banks_per_pseudo_channel": 24,
+        "gpu_compute_efficiency": 1.0,
+        "gpu_count": 1,
+        "gpu_kernel_overhead_us": 1.0,
+        "gpu_peak_tflops": 2250.0,
+        "hbm_bandwidth_efficiency": 1.0,
+        "hbm_bandwidth_tb_s": 8.0,
+        "hbm_pim_capacity_gb": 96.0,
+        "hbm_pim_stacks": 8,
+        "metadata_overhead_us": 1.0,
+        "name": "sieve-b200-1gpu-ramulator-contention-v1",
+        "notes": "Expert GPU HBM reads and PIM waves share Ramulator cycle-v1 resources with dual row buffers. GPU compute remains analytic; legacy sieve uses isolated estimates, while sieve-cycle-v1 selects from strict mixed-timing candidates.",
+        "nvlink_bandwidth_gb_s_per_direction": 900.0,
+        "nvlink_latency_us": 0.8,
+        "pim_command_overhead_us": 0.05,
+        "pim_compute_density_ops_per_byte": 1.0,
+        "pim_compute_efficiency": 1.0,
+        "pim_gwrite_overhead_us": 0.05,
+        "pim_read_overhead_us": 0.05,
+        "pimoe_token_threshold": 4,
+        "pseudo_channels_per_stack": 32,
+        "router_overhead_us": 1.0,
+        "sieve_scheduler_overhead_us": 20.0,
+        "source": "Sieve arXiv:2605.11277 Table 1",
+        "static_policy_overhead_us": 0.0,
+        "timing_backend": "ramulator-contention-v1"
+      },
+      "input_hashes": {
+        "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+        "experiment_sha256": "a7c9b066bf13605c02c80722c4da7d592407fd7a9e6a3c8df5ba1fad852559d9",
+        "hardware_sha256": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
+        "model_sha256": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+        "prompts_sha256": "18a8d59e0a5518c408277dcc529991b1be9a4a526641efdbf87b3f5fbeadf4b8",
+        "trace_manifest_sha256": "ee480b33260ce37eee51ec36f265d0443c9083122679d4cf39fc17cfb6ee8e33",
+        "trace_sha256": "afc5f6bf27a84bdf54294cd79b01bdc54037b6d8905ace7e6ae5c1e60eab750f"
+      },
+      "model_snapshot": {
+        "architecture": "Qwen3MoeForCausalLM",
+        "architecture_reference": "QwenLM/Qwen3@7a2f61ffc7a20d47efcd2bf97f6f2bf52729042e",
+        "dtype": "bfloat16",
+        "dtype_bytes": 2,
+        "has_shared_expert": false,
+        "head_dim": 128,
+        "hidden_act": "silu",
+        "hidden_size": 2048,
+        "intermediate_size": 6144,
+        "max_position_embeddings": 40960,
+        "moe_intermediate_size": 768,
+        "name": "Qwen3-30B-A3B",
+        "norm_topk_prob": true,
+        "num_attention_heads": 32,
+        "num_experts": 128,
+        "num_experts_per_tok": 8,
+        "num_hidden_layers": 48,
+        "num_key_value_heads": 4,
+        "source": "https://modelscope.cn/models/Qwen/Qwen3-30B-A3B/resolve/master/config.json",
+        "source_snapshot_date": "2026-08-25",
+        "vocab_size": 151936
+      },
+      "representative": {
+        "context_lengths": [
+          4096,
+          4096,
+          4096,
+          4096,
+          4096,
+          4096,
+          4096,
+          4096
+        ],
+        "expert_loads": [
+          {
+            "expert_id": 14,
+            "token_count": 8
+          },
+          {
+            "expert_id": 31,
+            "token_count": 8
+          },
+          {
+            "expert_id": 43,
+            "token_count": 8
+          },
+          {
+            "expert_id": 63,
+            "token_count": 8
+          },
+          {
+            "expert_id": 83,
+            "token_count": 8
+          },
+          {
+            "expert_id": 93,
+            "token_count": 8
+          },
+          {
+            "expert_id": 97,
+            "token_count": 8
+          },
+          {
+            "expert_id": 120,
+            "token_count": 8
+          }
+        ],
+        "layer": 0,
+        "step": 0
+      },
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "selected_layer_batches": 1,
+      "trace_layer_batches": 384
+    },
+    "b8_c8k": {
+      "configuration_snapshot": {
+        "contention_timing_table": "ramulator/timing_tables/generated/qwen3_real_kv_b8_c8k_decode_cycle_v1_contention.json",
+        "hardware": "configs/hardware/sieve_b200_1gpu_cycle_v1.json",
+        "layers": "all",
+        "model": "configs/models/qwen3_30b_a3b.json",
+        "name": "full-decode-real-kv-b8_c8k",
+        "pim_timing_table": "ramulator/timing_tables/generated/qwen3_real_kv_b8_c8k_decode_cycle_v0.json",
+        "policies": [
+          "gpu-only",
+          "noexp",
+          "allexp",
+          "pimoe",
+          "sieve",
+          "sieve-cycle-v1",
+          "sieve-fixed-16-cycle-v1"
+        ],
+        "ramulator_cycle_config": "configs/ramulator/sieve_hbm3e_cycle_v1.json",
+        "steps": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "trace": "traces/real/qwen3_30b_a3b/kv_b8_c8k/router.jsonl",
+        "trace_manifest": "traces/real/qwen3_30b_a3b/kv_b8_c8k/manifest.json"
+      },
+      "frozen_placement": {
+        "contention_timing_table_sha256": "90041aef19bbaab342d3c8952aee48ba26854dbb08f5d70ce39a55794c14b062",
+        "pim_timing_table_sha256": "bf71afe01479d249b7c556b4afbaf5fbb68e9f772e07f3f80da3c18bf27a2ad4",
+        "placement_manifest_path": "results/full_decode_real_kv_cycle_v1/b8_c8k/sieve-cycle-v1/run_manifest.json",
+        "placement_manifest_sha256": "411b7d43f617745ef0024dfda3b3682e064e4ed3fbcb3c53c0d52b4940a19428",
+        "placement_path": "results/full_decode_real_kv_cycle_v1/b8_c8k/sieve-cycle-v1/placement.csv",
+        "placement_sha256": "832dbcc2bbc1c7c8a4d0e9a3f43b0679856863869129b5a5208d2608f7eef250"
+      },
+      "hardware_snapshot": {
+        "banks_per_pseudo_channel": 24,
+        "gpu_compute_efficiency": 1.0,
+        "gpu_count": 1,
+        "gpu_kernel_overhead_us": 1.0,
+        "gpu_peak_tflops": 2250.0,
+        "hbm_bandwidth_efficiency": 1.0,
+        "hbm_bandwidth_tb_s": 8.0,
+        "hbm_pim_capacity_gb": 96.0,
+        "hbm_pim_stacks": 8,
+        "metadata_overhead_us": 1.0,
+        "name": "sieve-b200-1gpu-ramulator-contention-v1",
+        "notes": "Expert GPU HBM reads and PIM waves share Ramulator cycle-v1 resources with dual row buffers. GPU compute remains analytic; legacy sieve uses isolated estimates, while sieve-cycle-v1 selects from strict mixed-timing candidates.",
+        "nvlink_bandwidth_gb_s_per_direction": 900.0,
+        "nvlink_latency_us": 0.8,
+        "pim_command_overhead_us": 0.05,
+        "pim_compute_density_ops_per_byte": 1.0,
+        "pim_compute_efficiency": 1.0,
+        "pim_gwrite_overhead_us": 0.05,
+        "pim_read_overhead_us": 0.05,
+        "pimoe_token_threshold": 4,
+        "pseudo_channels_per_stack": 32,
+        "router_overhead_us": 1.0,
+        "sieve_scheduler_overhead_us": 20.0,
+        "source": "Sieve arXiv:2605.11277 Table 1",
+        "static_policy_overhead_us": 0.0,
+        "timing_backend": "ramulator-contention-v1"
+      },
+      "input_hashes": {
+        "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+        "experiment_sha256": "86d02fb8d51ca934d15e564b63fa462ef6222dfc1a842ecedf7389d42d5f28c3",
+        "hardware_sha256": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
+        "model_sha256": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+        "prompts_sha256": "449fda2363c429e1b8ab870416c3e33d04e69cb28a07312b3a33985a49a68472",
+        "trace_manifest_sha256": "5c6519bd6ffb19fd4b819d2e003edcda806c52c3f5d44f8a4b4524002a676175",
+        "trace_sha256": "24e318ce191d407a49b2b0e049706d7f43224018b8920459169f5ae722cb3bc9"
+      },
+      "model_snapshot": {
+        "architecture": "Qwen3MoeForCausalLM",
+        "architecture_reference": "QwenLM/Qwen3@7a2f61ffc7a20d47efcd2bf97f6f2bf52729042e",
+        "dtype": "bfloat16",
+        "dtype_bytes": 2,
+        "has_shared_expert": false,
+        "head_dim": 128,
+        "hidden_act": "silu",
+        "hidden_size": 2048,
+        "intermediate_size": 6144,
+        "max_position_embeddings": 40960,
+        "moe_intermediate_size": 768,
+        "name": "Qwen3-30B-A3B",
+        "norm_topk_prob": true,
+        "num_attention_heads": 32,
+        "num_experts": 128,
+        "num_experts_per_tok": 8,
+        "num_hidden_layers": 48,
+        "num_key_value_heads": 4,
+        "source": "https://modelscope.cn/models/Qwen/Qwen3-30B-A3B/resolve/master/config.json",
+        "source_snapshot_date": "2026-08-25",
+        "vocab_size": 151936
+      },
+      "representative": {
+        "context_lengths": [
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192,
+          8192
+        ],
+        "expert_loads": [
+          {
+            "expert_id": 14,
+            "token_count": 8
+          },
+          {
+            "expert_id": 21,
+            "token_count": 8
+          },
+          {
+            "expert_id": 50,
+            "token_count": 8
+          },
+          {
+            "expert_id": 51,
+            "token_count": 8
+          },
+          {
+            "expert_id": 57,
+            "token_count": 8
+          },
+          {
+            "expert_id": 103,
+            "token_count": 8
+          },
+          {
+            "expert_id": 106,
+            "token_count": 8
+          },
+          {
+            "expert_id": 110,
+            "token_count": 8
+          }
+        ],
+        "layer": 0,
+        "step": 0
+      },
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "selected_layer_batches": 1,
+      "trace_layer_batches": 384
+    }
+  },
+  "classification": "planning only; real A800 routing is input, no A800 timing",
+  "consumers": [
+    {
+      "batch_size": 8,
+      "case": "b8_c4k",
+      "context_lengths": [
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096
+      ],
+      "gpu_experts": [
+        14,
+        31,
+        43,
+        63,
+        83,
+        93,
+        97,
+        120
+      ],
+      "gpu_tokens": 64,
+      "kv_read_bytes_per_layer": 67108864,
+      "layer": 0,
+      "mode": "expert-only",
+      "pim_experts": [],
+      "pim_tokens": 0,
+      "placement": "gpu-only",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "52ccb710699d573f717b10f9f89d0a7e6287c632dfb3e3159a64e267549eee5f",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c4k",
+      "context_lengths": [
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096
+      ],
+      "gpu_experts": [
+        14,
+        31,
+        43,
+        63,
+        83,
+        93,
+        97,
+        120
+      ],
+      "gpu_tokens": 64,
+      "kv_read_bytes_per_layer": 67108864,
+      "layer": 0,
+      "mode": "kv-only",
+      "pim_experts": [],
+      "pim_tokens": 0,
+      "placement": "gpu-only",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "086651f43deeb27c329b73ea5fdb2636c7cd239593e7acc1b658e39600fd7639",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c4k",
+      "context_lengths": [
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096
+      ],
+      "gpu_experts": [
+        14,
+        31,
+        43,
+        63,
+        83,
+        93,
+        97,
+        120
+      ],
+      "gpu_tokens": 64,
+      "kv_read_bytes_per_layer": 67108864,
+      "layer": 0,
+      "mode": "combined",
+      "pim_experts": [],
+      "pim_tokens": 0,
+      "placement": "gpu-only",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "cdcaff2fdb04a5fd6014e8c0bdd542bbe1943c614df1ba1d737f25dbeb4bf2a9",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c4k",
+      "context_lengths": [
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096
+      ],
+      "gpu_experts": [
+        14,
+        31,
+        43,
+        63,
+        83,
+        93,
+        97
+      ],
+      "gpu_tokens": 56,
+      "kv_read_bytes_per_layer": 67108864,
+      "layer": 0,
+      "mode": "expert-only",
+      "pim_experts": [
+        120
+      ],
+      "pim_tokens": 8,
+      "placement": "frozen-oracle",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "f6613ee99fd29306ac38ed1dfcddb7a9f4a11b218a49024de13b5a74d1e87881",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c4k",
+      "context_lengths": [
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096
+      ],
+      "gpu_experts": [
+        14,
+        31,
+        43,
+        63,
+        83,
+        93,
+        97
+      ],
+      "gpu_tokens": 56,
+      "kv_read_bytes_per_layer": 67108864,
+      "layer": 0,
+      "mode": "kv-only",
+      "pim_experts": [
+        120
+      ],
+      "pim_tokens": 8,
+      "placement": "frozen-oracle",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "086651f43deeb27c329b73ea5fdb2636c7cd239593e7acc1b658e39600fd7639",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c4k",
+      "context_lengths": [
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096
+      ],
+      "gpu_experts": [
+        14,
+        31,
+        43,
+        63,
+        83,
+        93,
+        97
+      ],
+      "gpu_tokens": 56,
+      "kv_read_bytes_per_layer": 67108864,
+      "layer": 0,
+      "mode": "combined",
+      "pim_experts": [
+        120
+      ],
+      "pim_tokens": 8,
+      "placement": "frozen-oracle",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "0fc462e51034129a5d92c1202114715804695f13840a57af0c1faec0550e2aea",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c4k",
+      "context_lengths": [
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096
+      ],
+      "gpu_experts": [
+        14,
+        31,
+        43,
+        63
+      ],
+      "gpu_tokens": 32,
+      "kv_read_bytes_per_layer": 67108864,
+      "layer": 0,
+      "mode": "expert-only",
+      "pim_experts": [
+        83,
+        93,
+        97,
+        120
+      ],
+      "pim_tokens": 32,
+      "placement": "fixed-half-prefix",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "a57657f8f60627c0b42bc8893efddef5de1d5c4d963625a8d6ddb8a4c5765bb1",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c4k",
+      "context_lengths": [
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096
+      ],
+      "gpu_experts": [
+        14,
+        31,
+        43,
+        63
+      ],
+      "gpu_tokens": 32,
+      "kv_read_bytes_per_layer": 67108864,
+      "layer": 0,
+      "mode": "kv-only",
+      "pim_experts": [
+        83,
+        93,
+        97,
+        120
+      ],
+      "pim_tokens": 32,
+      "placement": "fixed-half-prefix",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "086651f43deeb27c329b73ea5fdb2636c7cd239593e7acc1b658e39600fd7639",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c4k",
+      "context_lengths": [
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096,
+        4096
+      ],
+      "gpu_experts": [
+        14,
+        31,
+        43,
+        63
+      ],
+      "gpu_tokens": 32,
+      "kv_read_bytes_per_layer": 67108864,
+      "layer": 0,
+      "mode": "combined",
+      "pim_experts": [
+        83,
+        93,
+        97,
+        120
+      ],
+      "pim_tokens": 32,
+      "placement": "fixed-half-prefix",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "48b0cab302207be90ff4dae6f2bbb9fae82174adf9934ab09d10a3dc970f7903",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c8k",
+      "context_lengths": [
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192
+      ],
+      "gpu_experts": [
+        14,
+        21,
+        50,
+        51,
+        57,
+        103,
+        106,
+        110
+      ],
+      "gpu_tokens": 64,
+      "kv_read_bytes_per_layer": 134217728,
+      "layer": 0,
+      "mode": "expert-only",
+      "pim_experts": [],
+      "pim_tokens": 0,
+      "placement": "gpu-only",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "52ccb710699d573f717b10f9f89d0a7e6287c632dfb3e3159a64e267549eee5f",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c8k",
+      "context_lengths": [
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192
+      ],
+      "gpu_experts": [
+        14,
+        21,
+        50,
+        51,
+        57,
+        103,
+        106,
+        110
+      ],
+      "gpu_tokens": 64,
+      "kv_read_bytes_per_layer": 134217728,
+      "layer": 0,
+      "mode": "kv-only",
+      "pim_experts": [],
+      "pim_tokens": 0,
+      "placement": "gpu-only",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "a6fb6210aaef4eefd3cf865a407e648d37fa1dce41ab0a5618cb76989bc07b14",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c8k",
+      "context_lengths": [
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192
+      ],
+      "gpu_experts": [
+        14,
+        21,
+        50,
+        51,
+        57,
+        103,
+        106,
+        110
+      ],
+      "gpu_tokens": 64,
+      "kv_read_bytes_per_layer": 134217728,
+      "layer": 0,
+      "mode": "combined",
+      "pim_experts": [],
+      "pim_tokens": 0,
+      "placement": "gpu-only",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "6ac70e80a43138efda6468880d2247d1b954ba6a0caf3846af8f69cdc438dbf3",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c8k",
+      "context_lengths": [
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192
+      ],
+      "gpu_experts": [
+        14,
+        21,
+        50,
+        51,
+        57,
+        103,
+        106
+      ],
+      "gpu_tokens": 56,
+      "kv_read_bytes_per_layer": 134217728,
+      "layer": 0,
+      "mode": "expert-only",
+      "pim_experts": [
+        110
+      ],
+      "pim_tokens": 8,
+      "placement": "frozen-oracle",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "f6613ee99fd29306ac38ed1dfcddb7a9f4a11b218a49024de13b5a74d1e87881",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c8k",
+      "context_lengths": [
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192
+      ],
+      "gpu_experts": [
+        14,
+        21,
+        50,
+        51,
+        57,
+        103,
+        106
+      ],
+      "gpu_tokens": 56,
+      "kv_read_bytes_per_layer": 134217728,
+      "layer": 0,
+      "mode": "kv-only",
+      "pim_experts": [
+        110
+      ],
+      "pim_tokens": 8,
+      "placement": "frozen-oracle",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "a6fb6210aaef4eefd3cf865a407e648d37fa1dce41ab0a5618cb76989bc07b14",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c8k",
+      "context_lengths": [
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192
+      ],
+      "gpu_experts": [
+        14,
+        21,
+        50,
+        51,
+        57,
+        103,
+        106
+      ],
+      "gpu_tokens": 56,
+      "kv_read_bytes_per_layer": 134217728,
+      "layer": 0,
+      "mode": "combined",
+      "pim_experts": [
+        110
+      ],
+      "pim_tokens": 8,
+      "placement": "frozen-oracle",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "7481f917e97e1db6760f8506ae31d31cbe4c6a1a0469acad5569d337ef33c8ce",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c8k",
+      "context_lengths": [
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192
+      ],
+      "gpu_experts": [
+        14,
+        21,
+        50,
+        51
+      ],
+      "gpu_tokens": 32,
+      "kv_read_bytes_per_layer": 134217728,
+      "layer": 0,
+      "mode": "expert-only",
+      "pim_experts": [
+        57,
+        103,
+        106,
+        110
+      ],
+      "pim_tokens": 32,
+      "placement": "fixed-half-prefix",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "a57657f8f60627c0b42bc8893efddef5de1d5c4d963625a8d6ddb8a4c5765bb1",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c8k",
+      "context_lengths": [
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192
+      ],
+      "gpu_experts": [
+        14,
+        21,
+        50,
+        51
+      ],
+      "gpu_tokens": 32,
+      "kv_read_bytes_per_layer": 134217728,
+      "layer": 0,
+      "mode": "kv-only",
+      "pim_experts": [
+        57,
+        103,
+        106,
+        110
+      ],
+      "pim_tokens": 32,
+      "placement": "fixed-half-prefix",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "a6fb6210aaef4eefd3cf865a407e648d37fa1dce41ab0a5618cb76989bc07b14",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c8k",
+      "context_lengths": [
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192
+      ],
+      "gpu_experts": [
+        14,
+        21,
+        50,
+        51
+      ],
+      "gpu_tokens": 32,
+      "kv_read_bytes_per_layer": 134217728,
+      "layer": 0,
+      "mode": "combined",
+      "pim_experts": [
+        57,
+        103,
+        106,
+        110
+      ],
+      "pim_tokens": 32,
+      "placement": "fixed-half-prefix",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "c2804e40610e68d4510163daa20ec4d6ef40aa53468413b1aed624dbbe747444",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c16k",
+      "context_lengths": [
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384
+      ],
+      "gpu_experts": [
+        6,
+        26,
+        43,
+        44,
+        59,
+        65,
+        92,
+        114
+      ],
+      "gpu_tokens": 64,
+      "kv_read_bytes_per_layer": 268435456,
+      "layer": 0,
+      "mode": "expert-only",
+      "pim_experts": [],
+      "pim_tokens": 0,
+      "placement": "gpu-only",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "52ccb710699d573f717b10f9f89d0a7e6287c632dfb3e3159a64e267549eee5f",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c16k",
+      "context_lengths": [
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384
+      ],
+      "gpu_experts": [
+        6,
+        26,
+        43,
+        44,
+        59,
+        65,
+        92,
+        114
+      ],
+      "gpu_tokens": 64,
+      "kv_read_bytes_per_layer": 268435456,
+      "layer": 0,
+      "mode": "kv-only",
+      "pim_experts": [],
+      "pim_tokens": 0,
+      "placement": "gpu-only",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "c3898dba0eadc0cc0f7933a1ff3a0c21b9bb856f4cdb0894aa3710cfa4930c34",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c16k",
+      "context_lengths": [
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384
+      ],
+      "gpu_experts": [
+        6,
+        26,
+        43,
+        44,
+        59,
+        65,
+        92,
+        114
+      ],
+      "gpu_tokens": 64,
+      "kv_read_bytes_per_layer": 268435456,
+      "layer": 0,
+      "mode": "combined",
+      "pim_experts": [],
+      "pim_tokens": 0,
+      "placement": "gpu-only",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "1b902657bc662f98c6776b4b7fe03d29366b5b588b8ce1d2b751943a5efed8a8",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c16k",
+      "context_lengths": [
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384
+      ],
+      "gpu_experts": [
+        6,
+        26,
+        43,
+        44,
+        59,
+        65,
+        92
+      ],
+      "gpu_tokens": 56,
+      "kv_read_bytes_per_layer": 268435456,
+      "layer": 0,
+      "mode": "expert-only",
+      "pim_experts": [
+        114
+      ],
+      "pim_tokens": 8,
+      "placement": "frozen-oracle",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "f6613ee99fd29306ac38ed1dfcddb7a9f4a11b218a49024de13b5a74d1e87881",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c16k",
+      "context_lengths": [
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384
+      ],
+      "gpu_experts": [
+        6,
+        26,
+        43,
+        44,
+        59,
+        65,
+        92
+      ],
+      "gpu_tokens": 56,
+      "kv_read_bytes_per_layer": 268435456,
+      "layer": 0,
+      "mode": "kv-only",
+      "pim_experts": [
+        114
+      ],
+      "pim_tokens": 8,
+      "placement": "frozen-oracle",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "c3898dba0eadc0cc0f7933a1ff3a0c21b9bb856f4cdb0894aa3710cfa4930c34",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c16k",
+      "context_lengths": [
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384
+      ],
+      "gpu_experts": [
+        6,
+        26,
+        43,
+        44,
+        59,
+        65,
+        92
+      ],
+      "gpu_tokens": 56,
+      "kv_read_bytes_per_layer": 268435456,
+      "layer": 0,
+      "mode": "combined",
+      "pim_experts": [
+        114
+      ],
+      "pim_tokens": 8,
+      "placement": "frozen-oracle",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "a69e6d5251ebb1936b42ad0ed5eac084d5e705c93ce4529f6ca527bd16cca2ce",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c16k",
+      "context_lengths": [
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384
+      ],
+      "gpu_experts": [
+        6,
+        26,
+        43,
+        44
+      ],
+      "gpu_tokens": 32,
+      "kv_read_bytes_per_layer": 268435456,
+      "layer": 0,
+      "mode": "expert-only",
+      "pim_experts": [
+        59,
+        65,
+        92,
+        114
+      ],
+      "pim_tokens": 32,
+      "placement": "fixed-half-prefix",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "a57657f8f60627c0b42bc8893efddef5de1d5c4d963625a8d6ddb8a4c5765bb1",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c16k",
+      "context_lengths": [
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384
+      ],
+      "gpu_experts": [
+        6,
+        26,
+        43,
+        44
+      ],
+      "gpu_tokens": 32,
+      "kv_read_bytes_per_layer": 268435456,
+      "layer": 0,
+      "mode": "kv-only",
+      "pim_experts": [
+        59,
+        65,
+        92,
+        114
+      ],
+      "pim_tokens": 32,
+      "placement": "fixed-half-prefix",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "c3898dba0eadc0cc0f7933a1ff3a0c21b9bb856f4cdb0894aa3710cfa4930c34",
+      "step": 0
+    },
+    {
+      "batch_size": 8,
+      "case": "b8_c16k",
+      "context_lengths": [
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384,
+        16384
+      ],
+      "gpu_experts": [
+        6,
+        26,
+        43,
+        44
+      ],
+      "gpu_tokens": 32,
+      "kv_read_bytes_per_layer": 268435456,
+      "layer": 0,
+      "mode": "combined",
+      "pim_experts": [
+        59,
+        65,
+        92,
+        114
+      ],
+      "pim_tokens": 32,
+      "placement": "fixed-half-prefix",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "987be3fda115241bbe194b830e0005589b32a70b6852bfd1ae7b3abd93502d71",
+      "step": 0
+    },
+    {
+      "batch_size": 16,
+      "case": "b16_c8k",
+      "context_lengths": [
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192
+      ],
+      "gpu_experts": [
+        43,
+        45,
+        65,
+        73,
+        85,
+        98,
+        100,
+        114
+      ],
+      "gpu_tokens": 128,
+      "kv_read_bytes_per_layer": 268435456,
+      "layer": 0,
+      "mode": "expert-only",
+      "pim_experts": [],
+      "pim_tokens": 0,
+      "placement": "gpu-only",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "52ccb710699d573f717b10f9f89d0a7e6287c632dfb3e3159a64e267549eee5f",
+      "step": 0
+    },
+    {
+      "batch_size": 16,
+      "case": "b16_c8k",
+      "context_lengths": [
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192
+      ],
+      "gpu_experts": [
+        43,
+        45,
+        65,
+        73,
+        85,
+        98,
+        100,
+        114
+      ],
+      "gpu_tokens": 128,
+      "kv_read_bytes_per_layer": 268435456,
+      "layer": 0,
+      "mode": "kv-only",
+      "pim_experts": [],
+      "pim_tokens": 0,
+      "placement": "gpu-only",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "c3898dba0eadc0cc0f7933a1ff3a0c21b9bb856f4cdb0894aa3710cfa4930c34",
+      "step": 0
+    },
+    {
+      "batch_size": 16,
+      "case": "b16_c8k",
+      "context_lengths": [
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192
+      ],
+      "gpu_experts": [
+        43,
+        45,
+        65,
+        73,
+        85,
+        98,
+        100,
+        114
+      ],
+      "gpu_tokens": 128,
+      "kv_read_bytes_per_layer": 268435456,
+      "layer": 0,
+      "mode": "combined",
+      "pim_experts": [],
+      "pim_tokens": 0,
+      "placement": "gpu-only",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "1b902657bc662f98c6776b4b7fe03d29366b5b588b8ce1d2b751943a5efed8a8",
+      "step": 0
+    },
+    {
+      "batch_size": 16,
+      "case": "b16_c8k",
+      "context_lengths": [
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192
+      ],
+      "gpu_experts": [
+        43,
+        45,
+        65,
+        73,
+        85,
+        98,
+        100
+      ],
+      "gpu_tokens": 112,
+      "kv_read_bytes_per_layer": 268435456,
+      "layer": 0,
+      "mode": "expert-only",
+      "pim_experts": [
+        114
+      ],
+      "pim_tokens": 16,
+      "placement": "frozen-oracle",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 2048,
+        "pim_mac_waves": 768,
+        "pim_read_waves": 8
+      },
+      "shape_key": "721d1ffbcce835c31d643e3ffad679cfa42c3ac840b91dc3a8f84338dbc69245",
+      "step": 0
+    },
+    {
+      "batch_size": 16,
+      "case": "b16_c8k",
+      "context_lengths": [
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192
+      ],
+      "gpu_experts": [
+        43,
+        45,
+        65,
+        73,
+        85,
+        98,
+        100
+      ],
+      "gpu_tokens": 112,
+      "kv_read_bytes_per_layer": 268435456,
+      "layer": 0,
+      "mode": "kv-only",
+      "pim_experts": [
+        114
+      ],
+      "pim_tokens": 16,
+      "placement": "frozen-oracle",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "c3898dba0eadc0cc0f7933a1ff3a0c21b9bb856f4cdb0894aa3710cfa4930c34",
+      "step": 0
+    },
+    {
+      "batch_size": 16,
+      "case": "b16_c8k",
+      "context_lengths": [
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192
+      ],
+      "gpu_experts": [
+        43,
+        45,
+        65,
+        73,
+        85,
+        98,
+        100
+      ],
+      "gpu_tokens": 112,
+      "kv_read_bytes_per_layer": 268435456,
+      "layer": 0,
+      "mode": "combined",
+      "pim_experts": [
+        114
+      ],
+      "pim_tokens": 16,
+      "placement": "frozen-oracle",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 2048,
+        "pim_mac_waves": 768,
+        "pim_read_waves": 8
+      },
+      "shape_key": "cc5fa2d380d97dda182ca3a78f37d544a336823837d178ae929ee4c6cd5711c3",
+      "step": 0
+    },
+    {
+      "batch_size": 16,
+      "case": "b16_c8k",
+      "context_lengths": [
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192
+      ],
+      "gpu_experts": [
+        43,
+        45,
+        65,
+        73
+      ],
+      "gpu_tokens": 64,
+      "kv_read_bytes_per_layer": 268435456,
+      "layer": 0,
+      "mode": "expert-only",
+      "pim_experts": [
+        85,
+        98,
+        100,
+        114
+      ],
+      "pim_tokens": 64,
+      "placement": "fixed-half-prefix",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 8192,
+        "pim_mac_waves": 3072,
+        "pim_read_waves": 32
+      },
+      "shape_key": "61a354e5410c6bc400a1b8d3592198586eb22ba9a4a79bb194fb02114ba4fe0f",
+      "step": 0
+    },
+    {
+      "batch_size": 16,
+      "case": "b16_c8k",
+      "context_lengths": [
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192
+      ],
+      "gpu_experts": [
+        43,
+        45,
+        65,
+        73
+      ],
+      "gpu_tokens": 64,
+      "kv_read_bytes_per_layer": 268435456,
+      "layer": 0,
+      "mode": "kv-only",
+      "pim_experts": [
+        85,
+        98,
+        100,
+        114
+      ],
+      "pim_tokens": 64,
+      "placement": "fixed-half-prefix",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "c3898dba0eadc0cc0f7933a1ff3a0c21b9bb856f4cdb0894aa3710cfa4930c34",
+      "step": 0
+    },
+    {
+      "batch_size": 16,
+      "case": "b16_c8k",
+      "context_lengths": [
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192,
+        8192
+      ],
+      "gpu_experts": [
+        43,
+        45,
+        65,
+        73
+      ],
+      "gpu_tokens": 64,
+      "kv_read_bytes_per_layer": 268435456,
+      "layer": 0,
+      "mode": "combined",
+      "pim_experts": [
+        85,
+        98,
+        100,
+        114
+      ],
+      "pim_tokens": 64,
+      "placement": "fixed-half-prefix",
+      "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 8192,
+        "pim_mac_waves": 3072,
+        "pim_read_waves": 32
+      },
+      "shape_key": "cdf700c1a76b5dbd55ae7847ef3095b4b4175691e5eb606f84bace92efe889c5",
+      "step": 0
+    }
+  ],
+  "cycle_config_snapshot": {
+    "bank_groups_per_pseudo_channel": 6,
+    "banks_per_bank_group": 4,
+    "channels_per_stack": 16,
+    "columns": 256,
+    "dram_org_preset": "HBM3_8Gb_8hi",
+    "dram_timing_preset": "HBM3_6400Mbps",
+    "dual_row_buffer": true,
+    "expected_tick_ps": 312,
+    "gpu_cachelines_per_row": 32,
+    "hbm_pim_stacks": 8,
+    "internal_prefetch_size": 8,
+    "pim_buffer_size": 256,
+    "pim_io_interval_ps": 1024,
+    "pim_mac_interval_ps": 24576,
+    "pseudo_channels_per_channel": 2,
+    "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+    "read_buffer_size": 256,
+    "row_span_waves": 32,
+    "rows": 16384,
+    "sid_per_pseudo_channel": 1,
+    "transaction_bytes": 32
+  },
+  "frozen_baseline_sha256": "e60dc296d9c34384d1ec3c65e967f9eded2ae5b0f4b605c815e7ceb7cf1558ca",
+  "method": "kv-read-representative-microbenchmark-v1",
+  "planner_sha256": "1ec2ade6897322bfac0cc994a246edc227067c981480dd5d8ce3fc0630f3d984",
+  "program_snapshot": {
+    "frontend_path": "ramulator/extensions/sieve_kv_read/source/sieve_kv_read_frontend.cpp",
+    "frontend_sha256": "f31455da2f0ca4c1eadf12d37942d785916355fe2b96e52191828ff3f50bdacd",
+    "request_model_path": "src/sieve_replay/ramulator/kv_read_workload.py",
+    "request_model_sha256": "061a4989a645f91bf42e0ff677668967b6f4ad50249b6fc2f8514ef94af05900",
+    "runner_path": "scripts/run_kv_read_experiments.py",
+    "runner_sha256": "1ec2ade6897322bfac0cc994a246edc227067c981480dd5d8ce3fc0630f3d984"
+  },
+  "request_model": {
+    "fixed_half_rule": "sort by (-token_count, expert_id), assign first ceil(active_count/2) to GPU and the rest to PIM; freeze IDs per representative batch",
+    "kv_read_bytes": "2 * sum(context_lengths) * num_key_value_heads * head_dim * dtype_bytes",
+    "kv_read_transactions": "ceil(kv_read_bytes / transaction_bytes)",
+    "overlap_assumption": "simultaneous Expert+KV injection is a controlled stress microbenchmark; current decode Attention -> Router -> Expert remains serial",
+    "placement_scope": "GPU-only, prior Expert-only Oracle placement, and fixed hot-prefix ceil(active Experts/2) on GPU; no placement is re-optimized for KV contention"
+  },
+  "schema_version": 1,
+  "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+  "simulation_context": {
+    "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+    "extension_sha256": "8c1d2d8c82690296779d808d3dbd06b6d6ed8ba9b25d2e1a907cf6adbba388bd",
+    "kv_read_workload_sha256": "061a4989a645f91bf42e0ff677668967b6f4ad50249b6fc2f8514ef94af05900",
+    "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+    "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+    "model": "kv-read-concurrent-stress-v1"
+  },
+  "summary": {
+    "cases": [
+      "b8_c4k",
+      "b8_c8k",
+      "b8_c16k",
+      "b16_c8k"
+    ],
+    "completed": 0,
+    "consumers": 36,
+    "failed": 0,
+    "interpolated_workloads": 0,
+    "modes": [
+      "expert-only",
+      "kv-only",
+      "combined"
+    ],
+    "placements": [
+      "gpu-only",
+      "frozen-oracle",
+      "fixed-half-prefix"
+    ],
+    "remaining": 19,
+    "required_shapes": 19
+  },
+  "workloads": [
+    {
+      "consumers": [
+        {
+          "case": "b8_c4k",
+          "mode": "kv-only",
+          "placement": "gpu-only"
+        },
+        {
+          "case": "b8_c4k",
+          "mode": "kv-only",
+          "placement": "frozen-oracle"
+        },
+        {
+          "case": "b8_c4k",
+          "mode": "kv-only",
+          "placement": "fixed-half-prefix"
+        }
+      ],
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "086651f43deeb27c329b73ea5fdb2636c7cd239593e7acc1b658e39600fd7639"
+    },
+    {
+      "consumers": [
+        {
+          "case": "b8_c4k",
+          "mode": "combined",
+          "placement": "frozen-oracle"
+        }
+      ],
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "0fc462e51034129a5d92c1202114715804695f13840a57af0c1faec0550e2aea"
+    },
+    {
+      "consumers": [
+        {
+          "case": "b8_c16k",
+          "mode": "combined",
+          "placement": "gpu-only"
+        },
+        {
+          "case": "b16_c8k",
+          "mode": "combined",
+          "placement": "gpu-only"
+        }
+      ],
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "1b902657bc662f98c6776b4b7fe03d29366b5b588b8ce1d2b751943a5efed8a8"
+    },
+    {
+      "consumers": [
+        {
+          "case": "b8_c4k",
+          "mode": "combined",
+          "placement": "fixed-half-prefix"
+        }
+      ],
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "48b0cab302207be90ff4dae6f2bbb9fae82174adf9934ab09d10a3dc970f7903"
+    },
+    {
+      "consumers": [
+        {
+          "case": "b8_c4k",
+          "mode": "expert-only",
+          "placement": "gpu-only"
+        },
+        {
+          "case": "b8_c8k",
+          "mode": "expert-only",
+          "placement": "gpu-only"
+        },
+        {
+          "case": "b8_c16k",
+          "mode": "expert-only",
+          "placement": "gpu-only"
+        },
+        {
+          "case": "b16_c8k",
+          "mode": "expert-only",
+          "placement": "gpu-only"
+        }
+      ],
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "52ccb710699d573f717b10f9f89d0a7e6287c632dfb3e3159a64e267549eee5f"
+    },
+    {
+      "consumers": [
+        {
+          "case": "b16_c8k",
+          "mode": "expert-only",
+          "placement": "fixed-half-prefix"
+        }
+      ],
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 8192,
+        "pim_mac_waves": 3072,
+        "pim_read_waves": 32
+      },
+      "shape_key": "61a354e5410c6bc400a1b8d3592198586eb22ba9a4a79bb194fb02114ba4fe0f"
+    },
+    {
+      "consumers": [
+        {
+          "case": "b8_c8k",
+          "mode": "combined",
+          "placement": "gpu-only"
+        }
+      ],
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "6ac70e80a43138efda6468880d2247d1b954ba6a0caf3846af8f69cdc438dbf3"
+    },
+    {
+      "consumers": [
+        {
+          "case": "b16_c8k",
+          "mode": "expert-only",
+          "placement": "frozen-oracle"
+        }
+      ],
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 2048,
+        "pim_mac_waves": 768,
+        "pim_read_waves": 8
+      },
+      "shape_key": "721d1ffbcce835c31d643e3ffad679cfa42c3ac840b91dc3a8f84338dbc69245"
+    },
+    {
+      "consumers": [
+        {
+          "case": "b8_c8k",
+          "mode": "combined",
+          "placement": "frozen-oracle"
+        }
+      ],
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "7481f917e97e1db6760f8506ae31d31cbe4c6a1a0469acad5569d337ef33c8ce"
+    },
+    {
+      "consumers": [
+        {
+          "case": "b8_c16k",
+          "mode": "combined",
+          "placement": "fixed-half-prefix"
+        }
+      ],
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "987be3fda115241bbe194b830e0005589b32a70b6852bfd1ae7b3abd93502d71"
+    },
+    {
+      "consumers": [
+        {
+          "case": "b8_c4k",
+          "mode": "expert-only",
+          "placement": "fixed-half-prefix"
+        },
+        {
+          "case": "b8_c8k",
+          "mode": "expert-only",
+          "placement": "fixed-half-prefix"
+        },
+        {
+          "case": "b8_c16k",
+          "mode": "expert-only",
+          "placement": "fixed-half-prefix"
+        }
+      ],
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "a57657f8f60627c0b42bc8893efddef5de1d5c4d963625a8d6ddb8a4c5765bb1"
+    },
+    {
+      "consumers": [
+        {
+          "case": "b8_c16k",
+          "mode": "combined",
+          "placement": "frozen-oracle"
+        }
+      ],
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "a69e6d5251ebb1936b42ad0ed5eac084d5e705c93ce4529f6ca527bd16cca2ce"
+    },
+    {
+      "consumers": [
+        {
+          "case": "b8_c8k",
+          "mode": "kv-only",
+          "placement": "gpu-only"
+        },
+        {
+          "case": "b8_c8k",
+          "mode": "kv-only",
+          "placement": "frozen-oracle"
+        },
+        {
+          "case": "b8_c8k",
+          "mode": "kv-only",
+          "placement": "fixed-half-prefix"
+        }
+      ],
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "a6fb6210aaef4eefd3cf865a407e648d37fa1dce41ab0a5618cb76989bc07b14"
+    },
+    {
+      "consumers": [
+        {
+          "case": "b8_c8k",
+          "mode": "combined",
+          "placement": "fixed-half-prefix"
+        }
+      ],
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "c2804e40610e68d4510163daa20ec4d6ef40aa53468413b1aed624dbbe747444"
+    },
+    {
+      "consumers": [
+        {
+          "case": "b8_c16k",
+          "mode": "kv-only",
+          "placement": "gpu-only"
+        },
+        {
+          "case": "b8_c16k",
+          "mode": "kv-only",
+          "placement": "frozen-oracle"
+        },
+        {
+          "case": "b8_c16k",
+          "mode": "kv-only",
+          "placement": "fixed-half-prefix"
+        },
+        {
+          "case": "b16_c8k",
+          "mode": "kv-only",
+          "placement": "gpu-only"
+        },
+        {
+          "case": "b16_c8k",
+          "mode": "kv-only",
+          "placement": "frozen-oracle"
+        },
+        {
+          "case": "b16_c8k",
+          "mode": "kv-only",
+          "placement": "fixed-half-prefix"
+        }
+      ],
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "c3898dba0eadc0cc0f7933a1ff3a0c21b9bb856f4cdb0894aa3710cfa4930c34"
+    },
+    {
+      "consumers": [
+        {
+          "case": "b16_c8k",
+          "mode": "combined",
+          "placement": "frozen-oracle"
+        }
+      ],
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 2048,
+        "pim_mac_waves": 768,
+        "pim_read_waves": 8
+      },
+      "shape_key": "cc5fa2d380d97dda182ca3a78f37d544a336823837d178ae929ee4c6cd5711c3"
+    },
+    {
+      "consumers": [
+        {
+          "case": "b8_c4k",
+          "mode": "combined",
+          "placement": "gpu-only"
+        }
+      ],
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "cdcaff2fdb04a5fd6014e8c0bdd542bbe1943c614df1ba1d737f25dbeb4bf2a9"
+    },
+    {
+      "consumers": [
+        {
+          "case": "b16_c8k",
+          "mode": "combined",
+          "placement": "fixed-half-prefix"
+        }
+      ],
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 8192,
+        "pim_mac_waves": 3072,
+        "pim_read_waves": 32
+      },
+      "shape_key": "cdf700c1a76b5dbd55ae7847ef3095b4b4175691e5eb606f84bace92efe889c5"
+    },
+    {
+      "consumers": [
+        {
+          "case": "b8_c4k",
+          "mode": "expert-only",
+          "placement": "frozen-oracle"
+        },
+        {
+          "case": "b8_c8k",
+          "mode": "expert-only",
+          "placement": "frozen-oracle"
+        },
+        {
+          "case": "b8_c16k",
+          "mode": "expert-only",
+          "placement": "frozen-oracle"
+        }
+      ],
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "f6613ee99fd29306ac38ed1dfcddb7a9f4a11b218a49024de13b5a74d1e87881"
+    }
+  ]
+}

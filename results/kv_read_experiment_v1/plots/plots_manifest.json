@@ -1,0 +1,33 @@
+{
+  "classification": "Ramulator request-level microbenchmark plots; no end-to-end throughput",
+  "figures": {
+    "b8_context_expert_slowdown": {
+      "png": "082f984d3b1c80623760e112a81decc5c12fb36f1ab1e2541a489488e541c267",
+      "svg": "b06e20147e123ab3cd208f40660eda32cdc2a3ca74d9e8dbd968f5bbbbc64924"
+    },
+    "b8_context_kv_completion": {
+      "png": "adff16cee3417ff2bcd2f576a308a8c5bed2457af119a8104bae12fe86fb3dcd",
+      "svg": "d42c4389cdeeb0ba968349b6d6e2a58dc5c67b8e3b09ed2c776eae095b8a07c2"
+    },
+    "b8_context_kv_wait": {
+      "png": "881e84b3ca2c1014e9ffd088a89ee81c9f37ce8962379e5a476fcdf25841880d",
+      "svg": "791752ad4a38385a51fbd7de0d6d6c2afcea994fdb22a2f95c2e5a0db4863376"
+    }
+  },
+  "input_hashes": {
+    "comparison_sha256": "553ad5ac548d85e0fb2247ff1ad9b4f9a1217493aefa5ed502cf0ab1bf5a3446",
+    "exact_results_sha256": "34571b0d9a825056e47f9abf2d08231e454e1fe0ab1626222ea9bc826097ad53",
+    "frozen_baseline_sha256": "e60dc296d9c34384d1ec3c65e967f9eded2ae5b0f4b605c815e7ceb7cf1558ca",
+    "plan_sha256": "83b25936281e4fd31d2c50d9e1ae23b70b61a12abf521b37de341352522ff9c2",
+    "plotter_sha256": "f9119cd4b330922c84ce93a927b05197c1ce7cb62edd5400fc76b04677fb842e"
+  },
+  "limitations": [
+    "KV READ and Expert requests are injected simultaneously as a controlled stress microbenchmark",
+    "Current decode Attention -> Router -> Expert remains serial; these curves are not E2E latency",
+    "Accepted-to-column issue includes arbitration and ACT/PRE preparation, not pure FIFO wait",
+    "No paging, spill, eviction, hardware KV trace, or Shared CXL-PIM"
+  ],
+  "method": "kv-read-representative-plots-v1",
+  "schema_version": 1,
+  "scope": "B8 cases only, step 0, layer 0 representative; 4 cases remain in exact report but are not plotted here"
+}

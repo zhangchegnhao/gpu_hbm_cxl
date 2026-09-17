@@ -1,0 +1,1167 @@
+{
+  "cache_context": {
+    "binding_sha256": "e6d2f2ae4168addfec67d955ba212e8bbfd89c8121053e5073fc13a66709b87d",
+    "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+    "extension_sha256": "8c1d2d8c82690296779d808d3dbd06b6d6ed8ba9b25d2e1a907cf6adbba388bd",
+    "kv_read_workload_sha256": "061a4989a645f91bf42e0ff677668967b6f4ad50249b6fc2f8514ef94af05900",
+    "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+    "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+    "model": "kv-read-concurrent-stress-v1",
+    "plan_sha256": "83b25936281e4fd31d2c50d9e1ae23b70b61a12abf521b37de341352522ff9c2",
+    "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+    "ramulator_library_sha256": "4011b6290b6fad97996aa629f8ec2f4ca19cef58a3fbdacdc77a3f563458a277"
+  },
+  "classification": "exact Ramulator controlled simultaneous-injection microbenchmark, not A800 timing or end-to-end replay",
+  "entries": {
+    "086651f43deeb27c329b73ea5fdb2636c7cd239593e7acc1b658e39600fd7639": {
+      "cache_file_sha256": "349eb3386fbc82f5998b279b10343c05435b27b1387ef88347c49eab1c76a648",
+      "consumers": [
+        {
+          "case": "b8_c4k",
+          "mode": "kv-only",
+          "placement": "gpu-only"
+        },
+        {
+          "case": "b8_c4k",
+          "mode": "kv-only",
+          "placement": "frozen-oracle"
+        },
+        {
+          "case": "b8_c4k",
+          "mode": "kv-only",
+          "placement": "fixed-half-prefix"
+        }
+      ],
+      "origin": "new-exact-run",
+      "result": {
+        "controller_read_completed_requests": 2097152,
+        "gpu_blocked_by_pim_cycles": 0,
+        "gpu_column_issues": 2097152,
+        "gpu_completed_requests": 0,
+        "gpu_completion_cycles": 0,
+        "gpu_injected_requests": 0,
+        "gpu_injection_rejected_attempts": 0,
+        "gpu_max_request_residence_cycles": 0,
+        "gpu_read_transactions": 0,
+        "gpu_request_residence_cycles": 0,
+        "kv_completed_requests": 2097152,
+        "kv_completion_cycles": 66227,
+        "kv_injected_requests": 2097152,
+        "kv_injection_rejected_attempts": 10458368,
+        "kv_max_request_residence_cycles": 1379,
+        "kv_read_transactions": 2097152,
+        "kv_request_residence_cycles": 2260257152,
+        "pim_blocked_by_gpu_cycles": 0,
+        "pim_column_issues": 0,
+        "pim_completed_requests": 0,
+        "pim_completion_cycles": 0,
+        "pim_gwrite_completion_cycles": 0,
+        "pim_gwrite_waves": 0,
+        "pim_injected_requests": 0,
+        "pim_mac_completion_cycles": 0,
+        "pim_mac_waves": 0,
+        "pim_queue_wait_cycles": 0,
+        "pim_read_completion_cycles": 0,
+        "pim_read_waves": 0,
+        "pim_row_activations": 0,
+        "pim_row_conflicts": 0,
+        "read_latency_cycles": 44,
+        "tick_ps": 312,
+        "total_completion_cycles": 66227
+      },
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "086651f43deeb27c329b73ea5fdb2636c7cd239593e7acc1b658e39600fd7639"
+    },
+    "0fc462e51034129a5d92c1202114715804695f13840a57af0c1faec0550e2aea": {
+      "cache_file_sha256": "16e6333cc5334c9406a8d6cbe5a60e443485515711156f11ef4ee34efbe64a2f",
+      "consumers": [
+        {
+          "case": "b8_c4k",
+          "mode": "combined",
+          "placement": "frozen-oracle"
+        }
+      ],
+      "origin": "new-exact-run",
+      "result": {
+        "controller_read_completed_requests": 4161536,
+        "gpu_blocked_by_pim_cycles": 361472,
+        "gpu_column_issues": 4161536,
+        "gpu_completed_requests": 2064384,
+        "gpu_completion_cycles": 130197,
+        "gpu_injected_requests": 2064384,
+        "gpu_injection_rejected_attempts": 10723328,
+        "gpu_max_request_residence_cycles": 1674,
+        "gpu_read_transactions": 2064384,
+        "gpu_request_residence_cycles": 2199795712,
+        "kv_completed_requests": 2097152,
+        "kv_completion_cycles": 130481,
+        "kv_injected_requests": 2097152,
+        "kv_injection_rejected_attempts": 10218368,
+        "kv_max_request_residence_cycles": 1795,
+        "kv_read_transactions": 2097152,
+        "kv_request_residence_cycles": 2335171072,
+        "pim_blocked_by_gpu_cycles": 2816,
+        "pim_column_issues": 361472,
+        "pim_completed_requests": 361472,
+        "pim_completion_cycles": 39581,
+        "pim_gwrite_completion_cycles": 7705,
+        "pim_gwrite_waves": 1024,
+        "pim_injected_requests": 361472,
+        "pim_mac_completion_cycles": 39411,
+        "pim_mac_waves": 384,
+        "pim_queue_wait_cycles": 380123904,
+        "pim_read_completion_cycles": 39581,
+        "pim_read_waves": 4,
+        "pim_row_activations": 11520,
+        "pim_row_conflicts": 11264,
+        "read_latency_cycles": 44,
+        "tick_ps": 312,
+        "total_completion_cycles": 130481
+      },
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "0fc462e51034129a5d92c1202114715804695f13840a57af0c1faec0550e2aea"
+    },
+    "1b902657bc662f98c6776b4b7fe03d29366b5b588b8ce1d2b751943a5efed8a8": {
+      "cache_file_sha256": "c3e339a1538bca611ec954cc51750ae712324d304239a2bfa09890ad46b5c92d",
+      "consumers": [
+        {
+          "case": "b8_c16k",
+          "mode": "combined",
+          "placement": "gpu-only"
+        },
+        {
+          "case": "b16_c8k",
+          "mode": "combined",
+          "placement": "gpu-only"
+        }
+      ],
+      "origin": "new-exact-run",
+      "result": {
+        "controller_read_completed_requests": 10747904,
+        "gpu_blocked_by_pim_cycles": 0,
+        "gpu_column_issues": 10747904,
+        "gpu_completed_requests": 2359296,
+        "gpu_completion_cycles": 246226,
+        "gpu_injected_requests": 2359296,
+        "gpu_injection_rejected_attempts": 12205312,
+        "gpu_max_request_residence_cycles": 1631,
+        "gpu_read_transactions": 2359296,
+        "gpu_request_residence_cycles": 2509291904,
+        "kv_completed_requests": 8388608,
+        "kv_completion_cycles": 343834,
+        "kv_injected_requests": 8388608,
+        "kv_injection_rejected_attempts": 43079936,
+        "kv_max_request_residence_cycles": 1795,
+        "kv_read_transactions": 8388608,
+        "kv_request_residence_cycles": 9374083456,
+        "pim_blocked_by_gpu_cycles": 0,
+        "pim_column_issues": 0,
+        "pim_completed_requests": 0,
+        "pim_completion_cycles": 0,
+        "pim_gwrite_completion_cycles": 0,
+        "pim_gwrite_waves": 0,
+        "pim_injected_requests": 0,
+        "pim_mac_completion_cycles": 0,
+        "pim_mac_waves": 0,
+        "pim_queue_wait_cycles": 0,
+        "pim_read_completion_cycles": 0,
+        "pim_read_waves": 0,
+        "pim_row_activations": 0,
+        "pim_row_conflicts": 0,
+        "read_latency_cycles": 44,
+        "tick_ps": 312,
+        "total_completion_cycles": 343834
+      },
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "1b902657bc662f98c6776b4b7fe03d29366b5b588b8ce1d2b751943a5efed8a8"
+    },
+    "48b0cab302207be90ff4dae6f2bbb9fae82174adf9934ab09d10a3dc970f7903": {
+      "cache_file_sha256": "3012e0311276372227f36822ae80214f5163db08e306653410c1ad5c0e5800aa",
+      "consumers": [
+        {
+          "case": "b8_c4k",
+          "mode": "combined",
+          "placement": "fixed-half-prefix"
+        }
+      ],
+      "origin": "new-exact-run",
+      "result": {
+        "controller_read_completed_requests": 3276800,
+        "gpu_blocked_by_pim_cycles": 1273344,
+        "gpu_column_issues": 3276800,
+        "gpu_completed_requests": 1179648,
+        "gpu_completion_cycles": 88650,
+        "gpu_injected_requests": 1179648,
+        "gpu_injection_rejected_attempts": 7828992,
+        "gpu_max_request_residence_cycles": 1633,
+        "gpu_read_transactions": 1179648,
+        "gpu_request_residence_cycles": 1236958336,
+        "kv_completed_requests": 2097152,
+        "kv_completion_cycles": 103534,
+        "kv_injected_requests": 2097152,
+        "kv_injection_rejected_attempts": 8695808,
+        "kv_max_request_residence_cycles": 1794,
+        "kv_read_transactions": 2097152,
+        "kv_request_residence_cycles": 2342215680,
+        "pim_blocked_by_gpu_cycles": 13312,
+        "pim_column_issues": 1445888,
+        "pim_completed_requests": 1445888,
+        "pim_completion_cycles": 158019,
+        "pim_gwrite_completion_cycles": 30978,
+        "pim_gwrite_waves": 4096,
+        "pim_injected_requests": 1445888,
+        "pim_mac_completion_cycles": 157801,
+        "pim_mac_waves": 1536,
+        "pim_queue_wait_cycles": 2444659456,
+        "pim_read_completion_cycles": 158019,
+        "pim_read_waves": 16,
+        "pim_row_activations": 45312,
+        "pim_row_conflicts": 45056,
+        "read_latency_cycles": 44,
+        "tick_ps": 312,
+        "total_completion_cycles": 158019
+      },
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "48b0cab302207be90ff4dae6f2bbb9fae82174adf9934ab09d10a3dc970f7903"
+    },
+    "52ccb710699d573f717b10f9f89d0a7e6287c632dfb3e3159a64e267549eee5f": {
+      "cache_file_sha256": "9fa58e4559154f8aa029bef45b2a874a251a8359528f9b0aef8fbacbf56db9f7",
+      "consumers": [
+        {
+          "case": "b8_c4k",
+          "mode": "expert-only",
+          "placement": "gpu-only"
+        },
+        {
+          "case": "b8_c8k",
+          "mode": "expert-only",
+          "placement": "gpu-only"
+        },
+        {
+          "case": "b8_c16k",
+          "mode": "expert-only",
+          "placement": "gpu-only"
+        },
+        {
+          "case": "b16_c8k",
+          "mode": "expert-only",
+          "placement": "gpu-only"
+        }
+      ],
+      "origin": "new-exact-run",
+      "result": {
+        "controller_read_completed_requests": 2359296,
+        "gpu_blocked_by_pim_cycles": 0,
+        "gpu_column_issues": 2359296,
+        "gpu_completed_requests": 2359296,
+        "gpu_completion_cycles": 74643,
+        "gpu_injected_requests": 2359296,
+        "gpu_injection_rejected_attempts": 11812096,
+        "gpu_max_request_residence_cycles": 1379,
+        "gpu_read_transactions": 2359296,
+        "gpu_request_residence_cycles": 2549368960,
+        "kv_completed_requests": 0,
+        "kv_completion_cycles": 0,
+        "kv_injected_requests": 0,
+        "kv_injection_rejected_attempts": 0,
+        "kv_max_request_residence_cycles": 0,
+        "kv_read_transactions": 0,
+        "kv_request_residence_cycles": 0,
+        "pim_blocked_by_gpu_cycles": 0,
+        "pim_column_issues": 0,
+        "pim_completed_requests": 0,
+        "pim_completion_cycles": 0,
+        "pim_gwrite_completion_cycles": 0,
+        "pim_gwrite_waves": 0,
+        "pim_injected_requests": 0,
+        "pim_mac_completion_cycles": 0,
+        "pim_mac_waves": 0,
+        "pim_queue_wait_cycles": 0,
+        "pim_read_completion_cycles": 0,
+        "pim_read_waves": 0,
+        "pim_row_activations": 0,
+        "pim_row_conflicts": 0,
+        "read_latency_cycles": 44,
+        "tick_ps": 312,
+        "total_completion_cycles": 74643
+      },
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "52ccb710699d573f717b10f9f89d0a7e6287c632dfb3e3159a64e267549eee5f"
+    },
+    "61a354e5410c6bc400a1b8d3592198586eb22ba9a4a79bb194fb02114ba4fe0f": {
+      "cache_file_sha256": "b5333cf6c88c7dff1c1d7d0bbc8b65d764e4d9fd550db8cec0cd364161e868e1",
+      "consumers": [
+        {
+          "case": "b16_c8k",
+          "mode": "expert-only",
+          "placement": "fixed-half-prefix"
+        }
+      ],
+      "origin": "new-exact-run",
+      "result": {
+        "controller_read_completed_requests": 1179648,
+        "gpu_blocked_by_pim_cycles": 1230336,
+        "gpu_column_issues": 1179648,
+        "gpu_completed_requests": 1179648,
+        "gpu_completion_cycles": 36432,
+        "gpu_injected_requests": 1179648,
+        "gpu_injection_rejected_attempts": 5655552,
+        "gpu_max_request_residence_cycles": 1379,
+        "gpu_read_transactions": 1179648,
+        "gpu_request_residence_cycles": 1234565632,
+        "kv_completed_requests": 0,
+        "kv_completion_cycles": 0,
+        "kv_injected_requests": 0,
+        "kv_injection_rejected_attempts": 0,
+        "kv_max_request_residence_cycles": 0,
+        "kv_read_transactions": 0,
+        "kv_request_residence_cycles": 0,
+        "pim_blocked_by_gpu_cycles": 512,
+        "pim_column_issues": 2891776,
+        "pim_completed_requests": 2891776,
+        "pim_completion_cycles": 315819,
+        "pim_gwrite_completion_cycles": 61905,
+        "pim_gwrite_waves": 8192,
+        "pim_injected_requests": 2891776,
+        "pim_mac_completion_cycles": 315537,
+        "pim_mac_waves": 3072,
+        "pim_queue_wait_cycles": 7031697408,
+        "pim_read_completion_cycles": 315819,
+        "pim_read_waves": 32,
+        "pim_row_activations": 90368,
+        "pim_row_conflicts": 90112,
+        "read_latency_cycles": 44,
+        "tick_ps": 312,
+        "total_completion_cycles": 315819
+      },
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 8192,
+        "pim_mac_waves": 3072,
+        "pim_read_waves": 32
+      },
+      "shape_key": "61a354e5410c6bc400a1b8d3592198586eb22ba9a4a79bb194fb02114ba4fe0f"
+    },
+    "6ac70e80a43138efda6468880d2247d1b954ba6a0caf3846af8f69cdc438dbf3": {
+      "cache_file_sha256": "65cb758e063521349b8fb957cc680f95ba19866686267ddaab757597f35d1507",
+      "consumers": [
+        {
+          "case": "b8_c8k",
+          "mode": "combined",
+          "placement": "gpu-only"
+        }
+      ],
+      "origin": "new-exact-run",
+      "result": {
+        "controller_read_completed_requests": 6553600,
+        "gpu_blocked_by_pim_cycles": 0,
+        "gpu_column_issues": 6553600,
+        "gpu_completed_requests": 2359296,
+        "gpu_completion_cycles": 178154,
+        "gpu_injected_requests": 2359296,
+        "gpu_injection_rejected_attempts": 12372736,
+        "gpu_max_request_residence_cycles": 1636,
+        "gpu_read_transactions": 2359296,
+        "gpu_request_residence_cycles": 2506426240,
+        "kv_completed_requests": 4194304,
+        "kv_completion_cycles": 207858,
+        "kv_injected_requests": 4194304,
+        "kv_injection_rejected_attempts": 20993536,
+        "kv_max_request_residence_cycles": 1818,
+        "kv_read_transactions": 4194304,
+        "kv_request_residence_cycles": 4698465920,
+        "pim_blocked_by_gpu_cycles": 0,
+        "pim_column_issues": 0,
+        "pim_completed_requests": 0,
+        "pim_completion_cycles": 0,
+        "pim_gwrite_completion_cycles": 0,
+        "pim_gwrite_waves": 0,
+        "pim_injected_requests": 0,
+        "pim_mac_completion_cycles": 0,
+        "pim_mac_waves": 0,
+        "pim_queue_wait_cycles": 0,
+        "pim_read_completion_cycles": 0,
+        "pim_read_waves": 0,
+        "pim_row_activations": 0,
+        "pim_row_conflicts": 0,
+        "read_latency_cycles": 44,
+        "tick_ps": 312,
+        "total_completion_cycles": 207858
+      },
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "6ac70e80a43138efda6468880d2247d1b954ba6a0caf3846af8f69cdc438dbf3"
+    },
+    "721d1ffbcce835c31d643e3ffad679cfa42c3ac840b91dc3a8f84338dbc69245": {
+      "cache_file_sha256": "da2d6e77e2b0b12b54a3af7ea80a3acdc7b3a7542b020acfe6a6081a1edd97e0",
+      "consumers": [
+        {
+          "case": "b16_c8k",
+          "mode": "expert-only",
+          "placement": "frozen-oracle"
+        }
+      ],
+      "origin": "new-exact-run",
+      "result": {
+        "controller_read_completed_requests": 2064384,
+        "gpu_blocked_by_pim_cycles": 678400,
+        "gpu_column_issues": 2064384,
+        "gpu_completed_requests": 2064384,
+        "gpu_completion_cycles": 65151,
+        "gpu_injected_requests": 2064384,
+        "gpu_injection_rejected_attempts": 10305152,
+        "gpu_max_request_residence_cycles": 1403,
+        "gpu_read_transactions": 2064384,
+        "gpu_request_residence_cycles": 2223502720,
+        "kv_completed_requests": 0,
+        "kv_completion_cycles": 0,
+        "kv_injected_requests": 0,
+        "kv_injection_rejected_attempts": 0,
+        "kv_max_request_residence_cycles": 0,
+        "kv_read_transactions": 0,
+        "kv_request_residence_cycles": 0,
+        "pim_blocked_by_gpu_cycles": 1408,
+        "pim_column_issues": 722944,
+        "pim_completed_requests": 722944,
+        "pim_completion_cycles": 79042,
+        "pim_gwrite_completion_cycles": 15441,
+        "pim_gwrite_waves": 2048,
+        "pim_injected_requests": 722944,
+        "pim_mac_completion_cycles": 78856,
+        "pim_mac_waves": 768,
+        "pim_queue_wait_cycles": 930122112,
+        "pim_read_completion_cycles": 79042,
+        "pim_read_waves": 8,
+        "pim_row_activations": 22784,
+        "pim_row_conflicts": 22528,
+        "read_latency_cycles": 44,
+        "tick_ps": 312,
+        "total_completion_cycles": 79042
+      },
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 2048,
+        "pim_mac_waves": 768,
+        "pim_read_waves": 8
+      },
+      "shape_key": "721d1ffbcce835c31d643e3ffad679cfa42c3ac840b91dc3a8f84338dbc69245"
+    },
+    "7481f917e97e1db6760f8506ae31d31cbe4c6a1a0469acad5569d337ef33c8ce": {
+      "cache_file_sha256": "5e4c2012392dd428700ce4e03476603451ea84e1b9895e3453f39075f5a09766",
+      "consumers": [
+        {
+          "case": "b8_c8k",
+          "mode": "combined",
+          "placement": "frozen-oracle"
+        }
+      ],
+      "origin": "new-exact-run",
+      "result": {
+        "controller_read_completed_requests": 6258688,
+        "gpu_blocked_by_pim_cycles": 361472,
+        "gpu_column_issues": 6258688,
+        "gpu_completed_requests": 2064384,
+        "gpu_completion_cycles": 164003,
+        "gpu_injected_requests": 2064384,
+        "gpu_injection_rejected_attempts": 11127168,
+        "gpu_max_request_residence_cycles": 1703,
+        "gpu_read_transactions": 2064384,
+        "gpu_request_residence_cycles": 2195287040,
+        "kv_completed_requests": 4194304,
+        "kv_completion_cycles": 198343,
+        "kv_injected_requests": 4194304,
+        "kv_injection_rejected_attempts": 20745472,
+        "kv_max_request_residence_cycles": 1795,
+        "kv_read_transactions": 4194304,
+        "kv_request_residence_cycles": 4676044032,
+        "pim_blocked_by_gpu_cycles": 2816,
+        "pim_column_issues": 361472,
+        "pim_completed_requests": 361472,
+        "pim_completion_cycles": 39581,
+        "pim_gwrite_completion_cycles": 7705,
+        "pim_gwrite_waves": 1024,
+        "pim_injected_requests": 361472,
+        "pim_mac_completion_cycles": 39411,
+        "pim_mac_waves": 384,
+        "pim_queue_wait_cycles": 380123904,
+        "pim_read_completion_cycles": 39581,
+        "pim_read_waves": 4,
+        "pim_row_activations": 11520,
+        "pim_row_conflicts": 11264,
+        "read_latency_cycles": 44,
+        "tick_ps": 312,
+        "total_completion_cycles": 198343
+      },
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "7481f917e97e1db6760f8506ae31d31cbe4c6a1a0469acad5569d337ef33c8ce"
+    },
+    "987be3fda115241bbe194b830e0005589b32a70b6852bfd1ae7b3abd93502d71": {
+      "cache_file_sha256": "8091c71eeb95d4d15500829dd8578e9a648ac2bc722ca946c4cba3e6ba2cc80b",
+      "consumers": [
+        {
+          "case": "b8_c16k",
+          "mode": "combined",
+          "placement": "fixed-half-prefix"
+        }
+      ],
+      "origin": "new-exact-run",
+      "result": {
+        "controller_read_completed_requests": 9568256,
+        "gpu_blocked_by_pim_cycles": 1445888,
+        "gpu_column_issues": 9568256,
+        "gpu_completed_requests": 1179648,
+        "gpu_completion_cycles": 188742,
+        "gpu_injected_requests": 1179648,
+        "gpu_injection_rejected_attempts": 16914432,
+        "gpu_max_request_residence_cycles": 1655,
+        "gpu_read_transactions": 1179648,
+        "gpu_request_residence_cycles": 1199979904,
+        "kv_completed_requests": 8388608,
+        "kv_completion_cycles": 305425,
+        "kv_injected_requests": 8388608,
+        "kv_injection_rejected_attempts": 32287744,
+        "kv_max_request_residence_cycles": 1804,
+        "kv_read_transactions": 8388608,
+        "kv_request_residence_cycles": 9332832384,
+        "pim_blocked_by_gpu_cycles": 13312,
+        "pim_column_issues": 1445888,
+        "pim_completed_requests": 1445888,
+        "pim_completion_cycles": 158018,
+        "pim_gwrite_completion_cycles": 30978,
+        "pim_gwrite_waves": 4096,
+        "pim_injected_requests": 1445888,
+        "pim_mac_completion_cycles": 157800,
+        "pim_mac_waves": 1536,
+        "pim_queue_wait_cycles": 2444532992,
+        "pim_read_completion_cycles": 158018,
+        "pim_read_waves": 16,
+        "pim_row_activations": 45312,
+        "pim_row_conflicts": 45056,
+        "read_latency_cycles": 44,
+        "tick_ps": 312,
+        "total_completion_cycles": 305425
+      },
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "987be3fda115241bbe194b830e0005589b32a70b6852bfd1ae7b3abd93502d71"
+    },
+    "a57657f8f60627c0b42bc8893efddef5de1d5c4d963625a8d6ddb8a4c5765bb1": {
+      "cache_file_sha256": "a0de0d5e0a8e99e2f6692d42293e4f8d61b5ed94c29fbd22052ab7bafc63cf92",
+      "consumers": [
+        {
+          "case": "b8_c4k",
+          "mode": "expert-only",
+          "placement": "fixed-half-prefix"
+        },
+        {
+          "case": "b8_c8k",
+          "mode": "expert-only",
+          "placement": "fixed-half-prefix"
+        },
+        {
+          "case": "b8_c16k",
+          "mode": "expert-only",
+          "placement": "fixed-half-prefix"
+        }
+      ],
+      "origin": "new-exact-run",
+      "result": {
+        "controller_read_completed_requests": 1179648,
+        "gpu_blocked_by_pim_cycles": 1065472,
+        "gpu_column_issues": 1179648,
+        "gpu_completed_requests": 1179648,
+        "gpu_completion_cycles": 36455,
+        "gpu_injected_requests": 1179648,
+        "gpu_injection_rejected_attempts": 5658112,
+        "gpu_max_request_residence_cycles": 1387,
+        "gpu_read_transactions": 1179648,
+        "gpu_request_residence_cycles": 1235298944,
+        "kv_completed_requests": 0,
+        "kv_completion_cycles": 0,
+        "kv_injected_requests": 0,
+        "kv_injection_rejected_attempts": 0,
+        "kv_max_request_residence_cycles": 0,
+        "kv_read_transactions": 0,
+        "kv_request_residence_cycles": 0,
+        "pim_blocked_by_gpu_cycles": 768,
+        "pim_column_issues": 1445888,
+        "pim_completed_requests": 1445888,
+        "pim_completion_cycles": 157965,
+        "pim_gwrite_completion_cycles": 30929,
+        "pim_gwrite_waves": 4096,
+        "pim_injected_requests": 1445888,
+        "pim_mac_completion_cycles": 157747,
+        "pim_mac_waves": 1536,
+        "pim_queue_wait_cycles": 2441542144,
+        "pim_read_completion_cycles": 157965,
+        "pim_read_waves": 16,
+        "pim_row_activations": 45312,
+        "pim_row_conflicts": 45056,
+        "read_latency_cycles": 44,
+        "tick_ps": 312,
+        "total_completion_cycles": 157965
+      },
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "a57657f8f60627c0b42bc8893efddef5de1d5c4d963625a8d6ddb8a4c5765bb1"
+    },
+    "a69e6d5251ebb1936b42ad0ed5eac084d5e705c93ce4529f6ca527bd16cca2ce": {
+      "cache_file_sha256": "741940bf6703f93e5d7da6cb27f26e3d31d3c9e7631c1313b0f0713500fda7a9",
+      "consumers": [
+        {
+          "case": "b8_c16k",
+          "mode": "combined",
+          "placement": "frozen-oracle"
+        }
+      ],
+      "origin": "new-exact-run",
+      "result": {
+        "controller_read_completed_requests": 10452992,
+        "gpu_blocked_by_pim_cycles": 361472,
+        "gpu_column_issues": 10452992,
+        "gpu_completed_requests": 2064384,
+        "gpu_completion_cycles": 232048,
+        "gpu_injected_requests": 2064384,
+        "gpu_injection_rejected_attempts": 10831104,
+        "gpu_max_request_residence_cycles": 1674,
+        "gpu_read_transactions": 2064384,
+        "gpu_request_residence_cycles": 2193431680,
+        "kv_completed_requests": 8388608,
+        "kv_completion_cycles": 334232,
+        "kv_injected_requests": 8388608,
+        "kv_injection_rejected_attempts": 42949376,
+        "kv_max_request_residence_cycles": 1819,
+        "kv_read_transactions": 8388608,
+        "kv_request_residence_cycles": 9353368960,
+        "pim_blocked_by_gpu_cycles": 2816,
+        "pim_column_issues": 361472,
+        "pim_completed_requests": 361472,
+        "pim_completion_cycles": 39581,
+        "pim_gwrite_completion_cycles": 7705,
+        "pim_gwrite_waves": 1024,
+        "pim_injected_requests": 361472,
+        "pim_mac_completion_cycles": 39411,
+        "pim_mac_waves": 384,
+        "pim_queue_wait_cycles": 380123904,
+        "pim_read_completion_cycles": 39581,
+        "pim_read_waves": 4,
+        "pim_row_activations": 11520,
+        "pim_row_conflicts": 11264,
+        "read_latency_cycles": 44,
+        "tick_ps": 312,
+        "total_completion_cycles": 334232
+      },
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "a69e6d5251ebb1936b42ad0ed5eac084d5e705c93ce4529f6ca527bd16cca2ce"
+    },
+    "a6fb6210aaef4eefd3cf865a407e648d37fa1dce41ab0a5618cb76989bc07b14": {
+      "cache_file_sha256": "816dd78a3c6f4339ce26cfbb76669f5b9cede734424a38fcf5ad23977fc1cb02",
+      "consumers": [
+        {
+          "case": "b8_c8k",
+          "mode": "kv-only",
+          "placement": "gpu-only"
+        },
+        {
+          "case": "b8_c8k",
+          "mode": "kv-only",
+          "placement": "frozen-oracle"
+        },
+        {
+          "case": "b8_c8k",
+          "mode": "kv-only",
+          "placement": "fixed-half-prefix"
+        }
+      ],
+      "origin": "new-exact-run",
+      "result": {
+        "controller_read_completed_requests": 4194304,
+        "gpu_blocked_by_pim_cycles": 0,
+        "gpu_column_issues": 4194304,
+        "gpu_completed_requests": 0,
+        "gpu_completion_cycles": 0,
+        "gpu_injected_requests": 0,
+        "gpu_injection_rejected_attempts": 0,
+        "gpu_max_request_residence_cycles": 0,
+        "gpu_read_transactions": 0,
+        "gpu_request_residence_cycles": 0,
+        "kv_completed_requests": 4194304,
+        "kv_completion_cycles": 134167,
+        "kv_injected_requests": 4194304,
+        "kv_injection_rejected_attempts": 21390848,
+        "kv_max_request_residence_cycles": 1379,
+        "kv_read_transactions": 4194304,
+        "kv_request_residence_cycles": 4598411648,
+        "pim_blocked_by_gpu_cycles": 0,
+        "pim_column_issues": 0,
+        "pim_completed_requests": 0,
+        "pim_completion_cycles": 0,
+        "pim_gwrite_completion_cycles": 0,
+        "pim_gwrite_waves": 0,
+        "pim_injected_requests": 0,
+        "pim_mac_completion_cycles": 0,
+        "pim_mac_waves": 0,
+        "pim_queue_wait_cycles": 0,
+        "pim_read_completion_cycles": 0,
+        "pim_read_waves": 0,
+        "pim_row_activations": 0,
+        "pim_row_conflicts": 0,
+        "read_latency_cycles": 44,
+        "tick_ps": 312,
+        "total_completion_cycles": 134167
+      },
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "a6fb6210aaef4eefd3cf865a407e648d37fa1dce41ab0a5618cb76989bc07b14"
+    },
+    "c2804e40610e68d4510163daa20ec4d6ef40aa53468413b1aed624dbbe747444": {
+      "cache_file_sha256": "76fe281443e968c94b166d8c7d07ba0488af455c0ddb9deb9e9274870b23092f",
+      "consumers": [
+        {
+          "case": "b8_c8k",
+          "mode": "combined",
+          "placement": "fixed-half-prefix"
+        }
+      ],
+      "origin": "new-exact-run",
+      "result": {
+        "controller_read_completed_requests": 5373952,
+        "gpu_blocked_by_pim_cycles": 1445888,
+        "gpu_column_issues": 5373952,
+        "gpu_completed_requests": 1179648,
+        "gpu_completion_cycles": 121982,
+        "gpu_injected_requests": 1179648,
+        "gpu_injection_rejected_attempts": 11250560,
+        "gpu_max_request_residence_cycles": 1638,
+        "gpu_read_transactions": 1179648,
+        "gpu_request_residence_cycles": 1224427392,
+        "kv_completed_requests": 4194304,
+        "kv_completion_cycles": 170996,
+        "kv_injected_requests": 4194304,
+        "kv_injection_rejected_attempts": 16194048,
+        "kv_max_request_residence_cycles": 1817,
+        "kv_read_transactions": 4194304,
+        "kv_request_residence_cycles": 4678654592,
+        "pim_blocked_by_gpu_cycles": 13568,
+        "pim_column_issues": 1445888,
+        "pim_completed_requests": 1445888,
+        "pim_completion_cycles": 158021,
+        "pim_gwrite_completion_cycles": 30978,
+        "pim_gwrite_waves": 4096,
+        "pim_injected_requests": 1445888,
+        "pim_mac_completion_cycles": 157802,
+        "pim_mac_waves": 1536,
+        "pim_queue_wait_cycles": 2444586624,
+        "pim_read_completion_cycles": 158021,
+        "pim_read_waves": 16,
+        "pim_row_activations": 45312,
+        "pim_row_conflicts": 45056,
+        "read_latency_cycles": 44,
+        "tick_ps": 312,
+        "total_completion_cycles": 170996
+      },
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 4194304,
+        "pim_gwrite_waves": 4096,
+        "pim_mac_waves": 1536,
+        "pim_read_waves": 16
+      },
+      "shape_key": "c2804e40610e68d4510163daa20ec4d6ef40aa53468413b1aed624dbbe747444"
+    },
+    "c3898dba0eadc0cc0f7933a1ff3a0c21b9bb856f4cdb0894aa3710cfa4930c34": {
+      "cache_file_sha256": "08218f74bf538ccae05004a8954389110cbb3f461d95a3ad8ffa9670c8d79c9c",
+      "consumers": [
+        {
+          "case": "b8_c16k",
+          "mode": "kv-only",
+          "placement": "gpu-only"
+        },
+        {
+          "case": "b8_c16k",
+          "mode": "kv-only",
+          "placement": "frozen-oracle"
+        },
+        {
+          "case": "b8_c16k",
+          "mode": "kv-only",
+          "placement": "fixed-half-prefix"
+        },
+        {
+          "case": "b16_c8k",
+          "mode": "kv-only",
+          "placement": "gpu-only"
+        },
+        {
+          "case": "b16_c8k",
+          "mode": "kv-only",
+          "placement": "frozen-oracle"
+        },
+        {
+          "case": "b16_c8k",
+          "mode": "kv-only",
+          "placement": "fixed-half-prefix"
+        }
+      ],
+      "origin": "new-exact-run",
+      "result": {
+        "controller_read_completed_requests": 8388608,
+        "gpu_blocked_by_pim_cycles": 0,
+        "gpu_column_issues": 8388608,
+        "gpu_completed_requests": 0,
+        "gpu_completion_cycles": 0,
+        "gpu_injected_requests": 0,
+        "gpu_injection_rejected_attempts": 0,
+        "gpu_max_request_residence_cycles": 0,
+        "gpu_read_transactions": 0,
+        "gpu_request_residence_cycles": 0,
+        "kv_completed_requests": 8388608,
+        "kv_completion_cycles": 270003,
+        "kv_injected_requests": 8388608,
+        "kv_injection_rejected_attempts": 43291904,
+        "kv_max_request_residence_cycles": 1379,
+        "kv_read_transactions": 8388608,
+        "kv_request_residence_cycles": 9272076672,
+        "pim_blocked_by_gpu_cycles": 0,
+        "pim_column_issues": 0,
+        "pim_completed_requests": 0,
+        "pim_completion_cycles": 0,
+        "pim_gwrite_completion_cycles": 0,
+        "pim_gwrite_waves": 0,
+        "pim_injected_requests": 0,
+        "pim_mac_completion_cycles": 0,
+        "pim_mac_waves": 0,
+        "pim_queue_wait_cycles": 0,
+        "pim_read_completion_cycles": 0,
+        "pim_read_waves": 0,
+        "pim_row_activations": 0,
+        "pim_row_conflicts": 0,
+        "read_latency_cycles": 44,
+        "tick_ps": 312,
+        "total_completion_cycles": 270003
+      },
+      "shape": {
+        "gpu_read_transactions": 0,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "c3898dba0eadc0cc0f7933a1ff3a0c21b9bb856f4cdb0894aa3710cfa4930c34"
+    },
+    "cc5fa2d380d97dda182ca3a78f37d544a336823837d178ae929ee4c6cd5711c3": {
+      "cache_file_sha256": "8288ae0951ef05a3807f6c638ad4a1f9995429dec75022adbf2f347d8a481363",
+      "consumers": [
+        {
+          "case": "b16_c8k",
+          "mode": "combined",
+          "placement": "frozen-oracle"
+        }
+      ],
+      "origin": "new-exact-run",
+      "result": {
+        "controller_read_completed_requests": 10452992,
+        "gpu_blocked_by_pim_cycles": 722944,
+        "gpu_column_issues": 10452992,
+        "gpu_completed_requests": 2064384,
+        "gpu_completion_cycles": 230827,
+        "gpu_injected_requests": 2064384,
+        "gpu_injection_rejected_attempts": 10588416,
+        "gpu_max_request_residence_cycles": 1645,
+        "gpu_read_transactions": 2064384,
+        "gpu_request_residence_cycles": 2173007488,
+        "kv_completed_requests": 8388608,
+        "kv_completion_cycles": 333071,
+        "kv_injected_requests": 8388608,
+        "kv_injection_rejected_attempts": 43084672,
+        "kv_max_request_residence_cycles": 1799,
+        "kv_read_transactions": 8388608,
+        "kv_request_residence_cycles": 9337464704,
+        "pim_blocked_by_gpu_cycles": 4096,
+        "pim_column_issues": 722944,
+        "pim_completed_requests": 722944,
+        "pim_completion_cycles": 79053,
+        "pim_gwrite_completion_cycles": 15453,
+        "pim_gwrite_waves": 2048,
+        "pim_injected_requests": 722944,
+        "pim_mac_completion_cycles": 78866,
+        "pim_mac_waves": 768,
+        "pim_queue_wait_cycles": 930447232,
+        "pim_read_completion_cycles": 79053,
+        "pim_read_waves": 8,
+        "pim_row_activations": 22784,
+        "pim_row_conflicts": 22528,
+        "read_latency_cycles": 44,
+        "tick_ps": 312,
+        "total_completion_cycles": 333071
+      },
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 2048,
+        "pim_mac_waves": 768,
+        "pim_read_waves": 8
+      },
+      "shape_key": "cc5fa2d380d97dda182ca3a78f37d544a336823837d178ae929ee4c6cd5711c3"
+    },
+    "cdcaff2fdb04a5fd6014e8c0bdd542bbe1943c614df1ba1d737f25dbeb4bf2a9": {
+      "cache_file_sha256": "245d57cd3a0d5eb7b71e79c1eb447f6a91e4aed26fa6c983d5fdf3ab537e6693",
+      "consumers": [
+        {
+          "case": "b8_c4k",
+          "mode": "combined",
+          "placement": "gpu-only"
+        }
+      ],
+      "origin": "new-exact-run",
+      "result": {
+        "controller_read_completed_requests": 4456448,
+        "gpu_blocked_by_pim_cycles": 0,
+        "gpu_column_issues": 4456448,
+        "gpu_completed_requests": 2359296,
+        "gpu_completion_cycles": 140026,
+        "gpu_injected_requests": 2359296,
+        "gpu_injection_rejected_attempts": 11839744,
+        "gpu_max_request_residence_cycles": 1612,
+        "gpu_read_transactions": 2359296,
+        "gpu_request_residence_cycles": 2517574912,
+        "kv_completed_requests": 2097152,
+        "kv_completion_cycles": 136174,
+        "kv_injected_requests": 2097152,
+        "kv_injection_rejected_attempts": 10590336,
+        "kv_max_request_residence_cycles": 1789,
+        "kv_read_transactions": 2097152,
+        "kv_request_residence_cycles": 2345668608,
+        "pim_blocked_by_gpu_cycles": 0,
+        "pim_column_issues": 0,
+        "pim_completed_requests": 0,
+        "pim_completion_cycles": 0,
+        "pim_gwrite_completion_cycles": 0,
+        "pim_gwrite_waves": 0,
+        "pim_injected_requests": 0,
+        "pim_mac_completion_cycles": 0,
+        "pim_mac_waves": 0,
+        "pim_queue_wait_cycles": 0,
+        "pim_read_completion_cycles": 0,
+        "pim_read_waves": 0,
+        "pim_row_activations": 0,
+        "pim_row_conflicts": 0,
+        "read_latency_cycles": 44,
+        "tick_ps": 312,
+        "total_completion_cycles": 140026
+      },
+      "shape": {
+        "gpu_read_transactions": 2359296,
+        "kv_read_transactions": 2097152,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "shape_key": "cdcaff2fdb04a5fd6014e8c0bdd542bbe1943c614df1ba1d737f25dbeb4bf2a9"
+    },
+    "cdf700c1a76b5dbd55ae7847ef3095b4b4175691e5eb606f84bace92efe889c5": {
+      "cache_file_sha256": "4427dd9d4864cc18b864863081f06b0283c641714008054e0d0a863aa4f31556",
+      "consumers": [
+        {
+          "case": "b16_c8k",
+          "mode": "combined",
+          "placement": "fixed-half-prefix"
+        }
+      ],
+      "origin": "new-exact-run",
+      "result": {
+        "controller_read_completed_requests": 9568256,
+        "gpu_blocked_by_pim_cycles": 2856576,
+        "gpu_column_issues": 9568256,
+        "gpu_completed_requests": 1179648,
+        "gpu_completion_cycles": 189436,
+        "gpu_injected_requests": 1179648,
+        "gpu_injection_rejected_attempts": 15931776,
+        "gpu_max_request_residence_cycles": 1701,
+        "gpu_read_transactions": 1179648,
+        "gpu_request_residence_cycles": 1216977408,
+        "kv_completed_requests": 8388608,
+        "kv_completion_cycles": 306933,
+        "kv_injected_requests": 8388608,
+        "kv_injection_rejected_attempts": 33453056,
+        "kv_max_request_residence_cycles": 1790,
+        "kv_read_transactions": 8388608,
+        "kv_request_residence_cycles": 9364718976,
+        "pim_blocked_by_gpu_cycles": 18048,
+        "pim_column_issues": 2891776,
+        "pim_completed_requests": 2891776,
+        "pim_completion_cycles": 315896,
+        "pim_gwrite_completion_cycles": 61973,
+        "pim_gwrite_waves": 8192,
+        "pim_injected_requests": 2891776,
+        "pim_mac_completion_cycles": 315614,
+        "pim_mac_waves": 3072,
+        "pim_queue_wait_cycles": 7035701888,
+        "pim_read_completion_cycles": 315896,
+        "pim_read_waves": 32,
+        "pim_row_activations": 90368,
+        "pim_row_conflicts": 90112,
+        "read_latency_cycles": 44,
+        "tick_ps": 312,
+        "total_completion_cycles": 315896
+      },
+      "shape": {
+        "gpu_read_transactions": 1179648,
+        "kv_read_transactions": 8388608,
+        "pim_gwrite_waves": 8192,
+        "pim_mac_waves": 3072,
+        "pim_read_waves": 32
+      },
+      "shape_key": "cdf700c1a76b5dbd55ae7847ef3095b4b4175691e5eb606f84bace92efe889c5"
+    },
+    "f6613ee99fd29306ac38ed1dfcddb7a9f4a11b218a49024de13b5a74d1e87881": {
+      "cache_file_sha256": "0a184b74e6b6c679ba277668ca91cabf8b32c0df3ef536925d96b3136524cd97",
+      "consumers": [
+        {
+          "case": "b8_c4k",
+          "mode": "expert-only",
+          "placement": "frozen-oracle"
+        },
+        {
+          "case": "b8_c8k",
+          "mode": "expert-only",
+          "placement": "frozen-oracle"
+        },
+        {
+          "case": "b8_c16k",
+          "mode": "expert-only",
+          "placement": "frozen-oracle"
+        }
+      ],
+      "origin": "new-exact-run",
+      "result": {
+        "controller_read_completed_requests": 2064384,
+        "gpu_blocked_by_pim_cycles": 361472,
+        "gpu_column_issues": 2064384,
+        "gpu_completed_requests": 2064384,
+        "gpu_completion_cycles": 65059,
+        "gpu_injected_requests": 2064384,
+        "gpu_injection_rejected_attempts": 10291840,
+        "gpu_max_request_residence_cycles": 1389,
+        "gpu_read_transactions": 2064384,
+        "gpu_request_residence_cycles": 2220599296,
+        "kv_completed_requests": 0,
+        "kv_completion_cycles": 0,
+        "kv_injected_requests": 0,
+        "kv_injection_rejected_attempts": 0,
+        "kv_max_request_residence_cycles": 0,
+        "kv_read_transactions": 0,
+        "kv_request_residence_cycles": 0,
+        "pim_blocked_by_gpu_cycles": 1152,
+        "pim_column_issues": 361472,
+        "pim_completed_requests": 361472,
+        "pim_completion_cycles": 39576,
+        "pim_gwrite_completion_cycles": 7697,
+        "pim_gwrite_waves": 1024,
+        "pim_injected_requests": 361472,
+        "pim_mac_completion_cycles": 39405,
+        "pim_mac_waves": 384,
+        "pim_queue_wait_cycles": 379860736,
+        "pim_read_completion_cycles": 39576,
+        "pim_read_waves": 4,
+        "pim_row_activations": 11520,
+        "pim_row_conflicts": 11264,
+        "read_latency_cycles": 44,
+        "tick_ps": 312,
+        "total_completion_cycles": 65059
+      },
+      "shape": {
+        "gpu_read_transactions": 2064384,
+        "kv_read_transactions": 0,
+        "pim_gwrite_waves": 1024,
+        "pim_mac_waves": 384,
+        "pim_read_waves": 4
+      },
+      "shape_key": "f6613ee99fd29306ac38ed1dfcddb7a9f4a11b218a49024de13b5a74d1e87881"
+    }
+  },
+  "failures": [],
+  "method": "kv-read-representative-microbenchmark-v1",
+  "plan_sha256": "83b25936281e4fd31d2c50d9e1ae23b70b61a12abf521b37de341352522ff9c2",
+  "program_snapshot": {
+    "frontend_path": "ramulator/extensions/sieve_kv_read/source/sieve_kv_read_frontend.cpp",
+    "frontend_sha256": "f31455da2f0ca4c1eadf12d37942d785916355fe2b96e52191828ff3f50bdacd",
+    "request_model_path": "src/sieve_replay/ramulator/kv_read_workload.py",
+    "request_model_sha256": "061a4989a645f91bf42e0ff677668967b6f4ad50249b6fc2f8514ef94af05900",
+    "runner_path": "scripts/run_kv_read_experiments.py",
+    "runner_sha256": "1ec2ade6897322bfac0cc994a246edc227067c981480dd5d8ce3fc0630f3d984"
+  },
+  "schema_version": 1,
+  "scope": "one representative layer-batch per case: step 0, layer 0; not all 384 layer-batches",
+  "summary": {
+    "completed": 19,
+    "failed": 0,
+    "interpolated_workloads": 0,
+    "remaining": 0,
+    "required_shapes": 19
+  }
+}

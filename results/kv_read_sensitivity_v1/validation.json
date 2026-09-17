@@ -1,0 +1,43 @@
+{
+  "baseline_full_field_matches": 19,
+  "binary_provenance_recorded_at_execution": false,
+  "cache_namespaces": {
+    "991392c25ed170fc625d7fee971badf4e98dbd85bfcfbc634a5f547c90705d6b": 95,
+    "a47f7d70aaf730c9839c92c7770f18fbb70e5c68332a1e26dd8a24b8a3c09499": 95
+  },
+  "classification": "saved source/cache/counter audit; no new simulation",
+  "completed_requests_over_95_shapes": {
+    "gpu": 144506880,
+    "kv": 377487360,
+    "pim": 72294400
+  },
+  "e2e_extension_gate": "not established: injection/address sensitivity and A800 timing remain untested",
+  "frozen_files_verified": 350,
+  "input_hashes": {
+    "auditor_sha256": "32821b6f63df79d4904aec1787b0db4931085a890df25d9770c3f0a62ad5718e",
+    "base_audit_sha256": "e46c6dea6f55e4002c80859591502a1575a12812153ef8c725a12beb638b71ec",
+    "base_exact_sha256": "34571b0d9a825056e47f9abf2d08231e454e1fe0ab1626222ea9bc826097ad53",
+    "base_plan_sha256": "83b25936281e4fd31d2c50d9e1ae23b70b61a12abf521b37de341352522ff9c2",
+    "comparison_csv_sha256": "a1d5bdeab0b23629d353b8051e3f6758c945fd852434940905c204fb0c536c45",
+    "comparison_sha256": "25acfd8dc04e4b2911387ea99f3143f70707900baf8948fe5d877c79680a0af9",
+    "exact_results_sha256": "31954060210fe9d1f544873c26b5a123c5f5b8d0e4b371f272f9a667bac27b88",
+    "frozen_sha256": "e60dc296d9c34384d1ec3c65e967f9eded2ae5b0f4b605c815e7ceb7cf1558ca",
+    "plan_sha256": "a47f7d70aaf730c9839c92c7770f18fbb70e5c68332a1e26dd8a24b8a3c09499"
+  },
+  "limitations": [
+    "Historical sensitivity runs did not record binding/library hashes; source/cache audit does not attest the binary used at execution time",
+    "Cache namespaces reflect two plan versions, not additional workloads or independent hardware replicates",
+    "Controller variants keep simultaneous injection and the original abstract address mapping; injection/address robustness is untested",
+    "Each real trace contributes one layer-batch; timings are Ramulator microbenchmarks, not A800 or end-to-end measurements",
+    "Accepted-to-column issue includes ACT/PRE and arbitration; rejected attempts count retries, not dropped requests"
+  ],
+  "matched_comparison_sha256": "f8df71804faa1e1b650ee6a586aa82dff237c555185f50dfead7832b128f29ab",
+  "matched_comparisons": 60,
+  "status": "passed_with_provenance_limitation",
+  "summary": {
+    "completed": 95,
+    "failed": 0,
+    "interpolated": 0,
+    "required": 95
+  }
+}

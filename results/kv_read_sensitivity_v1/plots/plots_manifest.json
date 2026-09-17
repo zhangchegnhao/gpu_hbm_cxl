@@ -1,0 +1,22 @@
+{
+  "audit_sha256": "29787ff8220e2e3a54b53da899b50882b995ede7822faa8e4c38f55099f9ed76",
+  "classification": "audited Ramulator matched-control sensitivity plots; not A800 or end-to-end timing",
+  "figures": {
+    "b8_gpu_expert_delay.png": "ef54e9709b38dff4a2013c6b9ca330bc659eb64d6d5fdd9baa5d5187b89dc5a6",
+    "b8_gpu_expert_delay.svg": "4752ae4046c481632a6e287c8c0c846b0bdbf6df733c2a7cb2b953555facad87",
+    "b8_kv_residence.png": "ef766c762f146e3de078df95021b6f07088e79b8485a73f129c36c4f33caa3e9",
+    "b8_kv_residence.svg": "2fb84b7a59ed2d45c3c61d562240619ad1f3f292909471436419ef41a702aad8",
+    "b8_matched_competition.png": "3018ac8f9bfca0e10fc2bc5ed158a556644f05acaa113d6693b3b8700868db12",
+    "b8_matched_competition.svg": "fe3bdc9ce93784bcda2018bf243f8d52d54cbb22cbc2e02bb267d08bde63cfca"
+  },
+  "limitations": [
+    "Historical sensitivity runs did not record binding/library hashes; source/cache audit does not attest the binary used at execution time",
+    "Cache namespaces reflect two plan versions, not additional workloads or independent hardware replicates",
+    "Controller variants keep simultaneous injection and the original abstract address mapping; injection/address robustness is untested",
+    "Each real trace contributes one layer-batch; timings are Ramulator microbenchmarks, not A800 or end-to-end measurements",
+    "Accepted-to-column issue includes ACT/PRE and arbitration; rejected attempts count retries, not dropped requests"
+  ],
+  "matched_comparison_sha256": "f8df71804faa1e1b650ee6a586aa82dff237c555185f50dfead7832b128f29ab",
+  "plotter_sha256": "6615188d75bd5e0b5c4992c8ca1cf758878d3bb963dd2eb8464d6869ad34d356",
+  "scope": "3 B8 contexts, 3 fixed placements, 5 controller variants; B16/C8k remains in matched comparison"
+}

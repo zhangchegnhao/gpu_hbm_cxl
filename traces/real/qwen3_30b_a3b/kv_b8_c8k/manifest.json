@@ -1,0 +1,37 @@
+{
+  "capture": {
+    "created_at_utc": "2026-09-16T10:31:06.014496+00:00",
+    "device_map": "auto",
+    "fixed_batch": true,
+    "framework": "transformers",
+    "framework_version": "4.53.2",
+    "generation_strategy": "greedy-argmax-fixed-steps",
+    "timing_source": "routing-only; no hardware timing captured",
+    "torch_version": "2.7.1+cu126"
+  },
+  "model": {
+    "dtype": "bfloat16",
+    "name": "Qwen3-30B-A3B",
+    "num_experts": 128,
+    "num_experts_per_tok": 8,
+    "num_hidden_layers": 48,
+    "revision": "ad44e777bcd18fa416d9da3bd8f70d33ebb85d39"
+  },
+  "prompts": {
+    "count": 8,
+    "file": "prompts.jsonl",
+    "sha256": "449fda2363c429e1b8ab870416c3e33d04e69cb28a07312b3a33985a49a68472"
+  },
+  "schema_version": 2,
+  "trace_file": "router.jsonl",
+  "trace_sha256": "24e318ce191d407a49b2b0e049706d7f43224018b8920459169f5ae722cb3bc9",
+  "workload": {
+    "batch_size": 8,
+    "dataset": "qwen3-kv-long-context",
+    "dataset_revision": "v1",
+    "decode_steps": 8,
+    "prompt_count": 8,
+    "seed": 0,
+    "split": "b8_c8k"
+  }
+}

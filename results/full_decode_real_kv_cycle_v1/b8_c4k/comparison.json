@@ -1,0 +1,86 @@
+[
+  {
+    "gpu_expert_tokens": 24576,
+    "mean_gpu_experts_per_layer": 8.799479167,
+    "mean_pim_experts_per_layer": 0.0,
+    "mean_step_latency_us": 2605.334181888,
+    "memory_feasible": true,
+    "p95_step_latency_us": 2642.621157888,
+    "pim_expert_tokens": 0,
+    "policy": "gpu-only",
+    "throughput_request_tokens_per_s": 3070.623360187,
+    "total_latency_us": 20842.673455105
+  },
+  {
+    "gpu_expert_tokens": 24576,
+    "mean_gpu_experts_per_layer": 8.799479167,
+    "mean_pim_experts_per_layer": 0.0,
+    "mean_step_latency_us": 5479.712613888,
+    "memory_feasible": true,
+    "p95_step_latency_us": 5517.627852288,
+    "pim_expert_tokens": 0,
+    "policy": "noexp",
+    "throughput_request_tokens_per_s": 1459.930577331,
+    "total_latency_us": 43837.700911105
+  },
+  {
+    "gpu_expert_tokens": 0,
+    "mean_gpu_experts_per_layer": 0.0,
+    "mean_pim_experts_per_layer": 8.799479167,
+    "mean_step_latency_us": 8819.573952,
+    "memory_feasible": true,
+    "p95_step_latency_us": 8822.257651199,
+    "pim_expert_tokens": 24576,
+    "policy": "allexp",
+    "throughput_request_tokens_per_s": 907.073294418,
+    "total_latency_us": 70556.591615999
+  },
+  {
+    "gpu_expert_tokens": 24023,
+    "mean_gpu_experts_per_layer": 8.057291667,
+    "mean_pim_experts_per_layer": 0.7421875,
+    "mean_step_latency_us": 5371.716304624,
+    "memory_feasible": true,
+    "p95_step_latency_us": 5379.669321558,
+    "pim_expert_tokens": 553,
+    "policy": "pimoe",
+    "throughput_request_tokens_per_s": 1489.281925241,
+    "total_latency_us": 42973.730436993
+  },
+  {
+    "gpu_expert_tokens": 24576,
+    "mean_gpu_experts_per_layer": 8.799479167,
+    "mean_pim_experts_per_layer": 0.0,
+    "mean_step_latency_us": 6439.712613888,
+    "memory_feasible": true,
+    "p95_step_latency_us": 6477.627852288,
+    "pim_expert_tokens": 0,
+    "policy": "sieve",
+    "throughput_request_tokens_per_s": 1242.291462316,
+    "total_latency_us": 51517.700911105
+  },
+  {
+    "gpu_expert_tokens": 21415,
+    "mean_gpu_experts_per_layer": 7.0,
+    "mean_pim_experts_per_layer": 1.799479167,
+    "mean_step_latency_us": 6179.41868852,
+    "memory_feasible": true,
+    "p95_step_latency_us": 6182.144686128,
+    "pim_expert_tokens": 3161,
+    "policy": "sieve-cycle-v1",
+    "throughput_request_tokens_per_s": 1294.620158181,
+    "total_latency_us": 49435.349508161
+  },
+  {
+    "gpu_expert_tokens": 24576,
+    "mean_gpu_experts_per_layer": 8.799479167,
+    "mean_pim_experts_per_layer": 0.0,
+    "mean_step_latency_us": 6439.712613888,
+    "memory_feasible": true,
+    "p95_step_latency_us": 6477.627852288,
+    "pim_expert_tokens": 0,
+    "policy": "sieve-fixed-16-cycle-v1",
+    "throughput_request_tokens_per_s": 1242.291462316,
+    "total_latency_us": 51517.700911105
+  }
+]

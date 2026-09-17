@@ -1,0 +1,294 @@
+{
+  "attention": [
+    {
+      "batch_size": 16,
+      "context_length": 4096,
+      "duration_us": 138.459048
+    },
+    {
+      "batch_size": 16,
+      "context_length": 4097,
+      "duration_us": 138.483696
+    },
+    {
+      "batch_size": 16,
+      "context_length": 4098,
+      "duration_us": 138.508344
+    },
+    {
+      "batch_size": 16,
+      "context_length": 4099,
+      "duration_us": 138.557328
+    },
+    {
+      "batch_size": 16,
+      "context_length": 4100,
+      "duration_us": 138.581976
+    },
+    {
+      "batch_size": 16,
+      "context_length": 4101,
+      "duration_us": 138.606624
+    },
+    {
+      "batch_size": 16,
+      "context_length": 4102,
+      "duration_us": 138.655608
+    },
+    {
+      "batch_size": 16,
+      "context_length": 4103,
+      "duration_us": 138.68025599999999
+    }
+  ],
+  "expert_gemv": [
+    {
+      "compute_us": 1.180296,
+      "gwrite_us": 0.131664,
+      "read_us": 0.01404,
+      "token_count": 1
+    },
+    {
+      "compute_us": 2.359968,
+      "gwrite_us": 0.262704,
+      "read_us": 0.01404,
+      "token_count": 2
+    },
+    {
+      "compute_us": 3.539328,
+      "gwrite_us": 0.394056,
+      "read_us": 0.015288,
+      "token_count": 3
+    },
+    {
+      "compute_us": 4.719,
+      "gwrite_us": 0.525096,
+      "read_us": 0.015288,
+      "token_count": 4
+    },
+    {
+      "compute_us": 5.898672,
+      "gwrite_us": 0.656136,
+      "read_us": 0.016224,
+      "token_count": 5
+    },
+    {
+      "compute_us": 7.078344,
+      "gwrite_us": 0.787176,
+      "read_us": 0.016224,
+      "token_count": 6
+    },
+    {
+      "compute_us": 8.258016,
+      "gwrite_us": 0.918216,
+      "read_us": 0.01716,
+      "token_count": 7
+    },
+    {
+      "compute_us": 9.437688,
+      "gwrite_us": 1.049256,
+      "read_us": 0.01716,
+      "token_count": 8
+    },
+    {
+      "compute_us": 10.61736,
+      "gwrite_us": 1.180296,
+      "read_us": 0.018408,
+      "token_count": 9
+    },
+    {
+      "compute_us": 11.797032,
+      "gwrite_us": 1.311336,
+      "read_us": 0.018408,
+      "token_count": 10
+    },
+    {
+      "compute_us": 12.976704,
+      "gwrite_us": 1.442376,
+      "read_us": 0.019344,
+      "token_count": 11
+    },
+    {
+      "compute_us": 14.156376,
+      "gwrite_us": 1.573416,
+      "read_us": 0.019344,
+      "token_count": 12
+    },
+    {
+      "compute_us": 15.336048,
+      "gwrite_us": 1.704768,
+      "read_us": 0.02028,
+      "token_count": 13
+    },
+    {
+      "compute_us": 16.51572,
+      "gwrite_us": 1.835808,
+      "read_us": 0.02028,
+      "token_count": 14
+    },
+    {
+      "compute_us": 17.695392,
+      "gwrite_us": 1.966848,
+      "read_us": 0.021216,
+      "token_count": 15
+    },
+    {
+      "compute_us": 18.874752,
+      "gwrite_us": 2.097888,
+      "read_us": 0.021216,
+      "token_count": 16
+    },
+    {
+      "compute_us": 20.054424,
+      "gwrite_us": 2.228928,
+      "read_us": 0.022464,
+      "token_count": 17
+    },
+    {
+      "compute_us": 21.234096,
+      "gwrite_us": 2.359968,
+      "read_us": 0.022464,
+      "token_count": 18
+    },
+    {
+      "compute_us": 22.413768,
+      "gwrite_us": 2.491008,
+      "read_us": 0.0234,
+      "token_count": 19
+    },
+    {
+      "compute_us": 23.59344,
+      "gwrite_us": 2.622048,
+      "read_us": 0.0234,
+      "token_count": 20
+    },
+    {
+      "compute_us": 24.773112,
+      "gwrite_us": 2.753088,
+      "read_us": 0.024336,
+      "token_count": 21
+    },
+    {
+      "compute_us": 25.952784,
+      "gwrite_us": 2.884128,
+      "read_us": 0.024336,
+      "token_count": 22
+    },
+    {
+      "compute_us": 27.132456,
+      "gwrite_us": 3.01548,
+      "read_us": 0.025584,
+      "token_count": 23
+    },
+    {
+      "compute_us": 28.312128,
+      "gwrite_us": 3.14652,
+      "read_us": 0.025584,
+      "token_count": 24
+    },
+    {
+      "compute_us": 30.671472,
+      "gwrite_us": 3.4086,
+      "read_us": 0.02652,
+      "token_count": 26
+    },
+    {
+      "compute_us": 31.851144,
+      "gwrite_us": 3.53964,
+      "read_us": 0.027456,
+      "token_count": 27
+    },
+    {
+      "compute_us": 37.749192,
+      "gwrite_us": 4.19484,
+      "read_us": 0.02964,
+      "token_count": 32
+    },
+    {
+      "compute_us": 38.928864,
+      "gwrite_us": 4.326192,
+      "read_us": 0.030576,
+      "token_count": 33
+    },
+    {
+      "compute_us": 40.108536,
+      "gwrite_us": 4.457232,
+      "read_us": 0.030576,
+      "token_count": 34
+    },
+    {
+      "compute_us": 41.288208,
+      "gwrite_us": 4.588272,
+      "read_us": 0.031512,
+      "token_count": 35
+    },
+    {
+      "compute_us": 42.46788,
+      "gwrite_us": 4.719312,
+      "read_us": 0.031512,
+      "token_count": 36
+    },
+    {
+      "compute_us": 43.647552,
+      "gwrite_us": 4.850352,
+      "read_us": 0.03276,
+      "token_count": 37
+    },
+    {
+      "compute_us": 56.623632,
+      "gwrite_us": 6.292104,
+      "read_us": 0.037752,
+      "token_count": 48
+    },
+    {
+      "compute_us": 57.803304,
+      "gwrite_us": 6.423144,
+      "read_us": 0.038688,
+      "token_count": 49
+    },
+    {
+      "compute_us": 58.982976,
+      "gwrite_us": 6.554184,
+      "read_us": 0.038688,
+      "token_count": 50
+    },
+    {
+      "compute_us": 75.498072,
+      "gwrite_us": 8.389368,
+      "read_us": 0.045864,
+      "token_count": 64
+    },
+    {
+      "compute_us": 94.372512,
+      "gwrite_us": 10.48632,
+      "read_us": 0.053976,
+      "token_count": 80
+    },
+    {
+      "compute_us": 113.24664,
+      "gwrite_us": 12.583584,
+      "read_us": 0.0624,
+      "token_count": 96
+    },
+    {
+      "compute_us": 132.12108,
+      "gwrite_us": 14.680848,
+      "read_us": 0.070512,
+      "token_count": 112
+    },
+    {
+      "compute_us": 150.99552,
+      "gwrite_us": 16.7778,
+      "read_us": 0.078624,
+      "token_count": 128
+    }
+  ],
+  "metadata": {
+    "extension_commit": "cycle-v0-sha256:71a9909041fbf4cc70e1da5e4f6a98508e863053b392463349129791f1d182ce",
+    "hardware_config_sha256": "b9d6a5132a95cdc58e6cc0bcb2ec9aec691cb9ed19682d7cd28b1263f3783ef0",
+    "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+    "trace_generator_sha256": "ca7d67319ca506c042306f5451395231126aff40461158e015bbd052b802c6ae",
+    "units": "us"
+  },
+  "schema_version": 1
+}
