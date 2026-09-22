@@ -1,0 +1,31 @@
+{
+  "contention_timing_table": "ramulator/timing_tables/generated/qwen3_real_kv_b8_c8k_decode_cycle_v1_contention.json",
+  "hardware": "configs/hardware/sieve_b200_1gpu_cycle_v1.json",
+  "kv_read_mode": "overlap-local-hbm-v1",
+  "layers": "all",
+  "model": "configs/models/qwen3_30b_a3b.json",
+  "name": "full-decode-real-kv-stage1-overlap-local-hbm-v1-b8_c8k",
+  "pim_timing_table": "ramulator/timing_tables/generated/qwen3_real_kv_b8_c8k_decode_cycle_v0.json",
+  "policies": [
+    "gpu-only",
+    "noexp",
+    "allexp",
+    "pimoe",
+    "sieve",
+    "sieve-cycle-v1",
+    "sieve-fixed-16-cycle-v1"
+  ],
+  "ramulator_cycle_config": "configs/ramulator/sieve_hbm3e_cycle_v1.json",
+  "steps": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "trace": "traces/real/qwen3_30b_a3b/kv_b8_c8k/router.jsonl",
+  "trace_manifest": "traces/real/qwen3_30b_a3b/kv_b8_c8k/manifest.json"
+}

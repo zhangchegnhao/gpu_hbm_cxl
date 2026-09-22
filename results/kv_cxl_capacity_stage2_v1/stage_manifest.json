@@ -1,0 +1,19 @@
+{
+  "input_hashes": {
+    "experiment": "faddb5cc162c1015f45742c406994cb3c91c58aee4dcd1076f4876c13e0d97f4",
+    "hardware": "725866e25c2aee8d6b83ccd2a5b6b9986fb380fe9a715eb135370771cac16dff",
+    "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+    "prompts": "50b874b743669f7686b35b58cf3227c3942a1c2a2ea9ee14bcdda0a606a46866",
+    "trace": "a22fdc8afb9b93af6ea133ac254bac98830a5d07e4225edf2b37c348ea80bb34",
+    "trace_manifest": "78405e3e387e9ca309eb02e36500a9866ba01349d610b63d999878aeaa65aff4"
+  },
+  "manifest_validated": true,
+  "method": "analytic-kv-cxl-capacity-admission-v1",
+  "output_hashes": {
+    "cxl_capacity_states.csv": "496d5645c1993af823069e538752008217a3ce2b68ff750ac7e53f00a9cc0e47",
+    "cxl_capacity_states.json": "f59e97f0a71644e0a255d7a6bdeff5fa7baa9d6254763593429fce93c1a330d3",
+    "stage2_report.md": "739cb585bc5e87e980ae730a31cc316a485bc5cd8f195fc04493618b80bff00f"
+  },
+  "rows": 32,
+  "schema_version": 1
+}

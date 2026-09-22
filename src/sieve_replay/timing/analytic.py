@@ -104,6 +104,45 @@ class AnalyticTimingModel:
         command_count = 2 * len(context_lengths)
         return self._pim_roofline(operations, bytes_accessed, command_count, "decode attention on PIM")
 
+    def attention_kv_read(self, context_lengths: tuple[int, ...]) -> TimingEstimate:
+        """Analytic local-HBM read for the K/V history consumed by decode attention."""
+        if not context_lengths or any(length <= 0 for length in context_lengths):
+            raise ValueError("context_lengths must contain positive values")
+        kv_bytes = (
+            2
+            * sum(context_lengths)
+            * self.model.num_key_value_heads
+            * self.model.head_dim
+            * self.model.dtype_bytes
+        )
+        duration = self._seconds_to_us(kv_bytes / self.hbm_bytes_per_second)
+        return TimingEstimate(
+            duration,
+            0.0,
+            float(kv_bytes),
+            "analytic local-HBM KV READ stream",
+        )
+
+    def attention_compute_without_kv_read(
+        self,
+        context_lengths: tuple[int, ...],
+        target: str,
+    ) -> TimingEstimate:
+        """Split attention without double-counting KV bytes in stage-1 experiments."""
+        if target == "gpu":
+            total = self.gpu_attention(context_lengths)
+        elif target == "pim":
+            total = self.pim_attention(context_lengths)
+        else:
+            raise ValueError(f"unsupported attention target: {target}")
+        kv = self.attention_kv_read(context_lengths)
+        return TimingEstimate(
+            max(total.duration_us - kv.duration_us, 0.0),
+            total.flops,
+            max(total.bytes_accessed - kv.bytes_accessed, 0.0),
+            "decode attention compute after explicit KV READ",
+        )
+
     def output_projection(self, batch_size: int) -> TimingEstimate:
         in_features = self.model.q_projection_size
         out_features = self.model.hidden_size

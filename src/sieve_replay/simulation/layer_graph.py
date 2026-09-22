@@ -33,6 +33,7 @@ def build_layer_graph(
     trace: TraceBatch,
     decision: PlacementDecision,
     timing: AnalyticTimingModel,
+    kv_read_mode: str = "disabled",
 ) -> tuple[Event, ...]:
     by_id = {load.expert_id: load for load in trace.expert_loads}
     gpu_loads = tuple(by_id[expert] for expert in decision.gpu_experts)
@@ -58,25 +59,63 @@ def build_layer_graph(
         pim_io_resources = ()
         pim_compute_resources = ()
 
-    attention_timing = (
-        timing.gpu_attention(trace.context_lengths)
-        if decision.attention_target is AttentionTarget.GPU
-        else timing.pim_attention(trace.context_lengths)
+    attention_target = (
+        "gpu" if decision.attention_target is AttentionTarget.GPU else "pim"
     )
+    explicit_kv = kv_read_mode != "disabled"
+    if explicit_kv:
+        kv_read_timing = timing.attention_kv_read(trace.context_lengths)
+        attention_timing = timing.attention_compute_without_kv_read(
+            trace.context_lengths, attention_target
+        )
+    else:
+        kv_read_timing = None
+        attention_timing = (
+            timing.gpu_attention(trace.context_lengths)
+            if decision.attention_target is AttentionTarget.GPU
+            else timing.pim_attention(trace.context_lengths)
+        )
     attention_resource = (
         (GPU_COMPUTE,) if decision.attention_target is AttentionTarget.GPU else (PIM_COMPUTE,)
     )
+
+    if kv_read_mode == "serial-local-hbm-v1":
+        attention_dependencies = ("attention_kv_read",)
+        output_dependencies = ("attention",)
+    elif kv_read_mode == "overlap-local-hbm-v1":
+        attention_dependencies = ("rope",)
+        output_dependencies = ("attention", "attention_kv_read")
+    elif kv_read_mode == "disabled":
+        attention_dependencies = ("rope",)
+        output_dependencies = ("attention",)
+    else:
+        raise ValueError(
+            "kv_read_mode must be disabled, serial-local-hbm-v1, or overlap-local-hbm-v1"
+        )
+
+    attention_events: tuple[Event, ...] = ()
+    if explicit_kv:
+        attention_events = (
+            _event(
+                "attention_kv_read",
+                "kv_read",
+                (HBM_MEM_PATH,),
+                ("rope",),
+                kv_read_timing,
+            ),
+        )
 
     events = (
         _event("norm1", "norm", (GPU_COMPUTE,), (), timing.norm(batch)),
         _event("qkv", "qkv", (GPU_COMPUTE,), ("norm1",), timing.qkv_projection(batch)),
         _event("rope", "rope", (GPU_COMPUTE,), ("qkv",), timing.rope(batch)),
-        _event("attention", "attention", attention_resource, ("rope",), attention_timing),
+    ) + attention_events + (
+        _event("attention", "attention", attention_resource, attention_dependencies, attention_timing),
         _event(
             "o_proj",
             "attention_output",
             (GPU_COMPUTE,),
-            ("attention",),
+            output_dependencies,
             timing.output_projection(batch),
         ),
         _event("residual1", "residual", (GPU_COMPUTE,), ("o_proj",), timing.residual(batch)),

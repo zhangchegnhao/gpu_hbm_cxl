@@ -154,7 +154,9 @@ def run_experiment(
         decision = policy.place(trace)
         if hasattr(timing, "last_contention_report"):
             timing.last_contention_report = None
-        events = EventEngine().run(build_layer_graph(trace, decision, timing))
+        events = EventEngine().run(
+            build_layer_graph(trace, decision, timing, configuration.experiment.kv_read_mode)
+        )
         memory = estimate_memory_footprint(configuration.model, trace)
         contention = getattr(timing, "last_contention_report", None)
         summary = write_results(
@@ -177,7 +179,11 @@ def run_experiment(
         if hasattr(timing, "last_contention_report"):
             timing.last_contention_report = None
         layer_graph, previous_layer_tail = build_decode_layer_graph(
-            trace, decision, timing, previous_layer_tail
+            trace,
+            decision,
+            timing,
+            previous_layer_tail,
+            configuration.experiment.kv_read_mode,
         )
         graph.extend(layer_graph)
         memory = estimate_memory_footprint(configuration.model, trace)

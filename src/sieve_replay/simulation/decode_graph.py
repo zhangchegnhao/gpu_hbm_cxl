@@ -10,12 +10,13 @@ from .layer_graph import build_layer_graph
 def build_decode_graph(
     units: tuple[tuple[TraceBatch, PlacementDecision], ...],
     timing: AnalyticTimingModel,
+    kv_read_mode: str = "disabled",
 ) -> tuple[Event, ...]:
     events: list[Event] = []
     previous_layer_tail: str | None = None
     for trace, decision in units:
         layer_events, previous_layer_tail = build_decode_layer_graph(
-            trace, decision, timing, previous_layer_tail
+            trace, decision, timing, previous_layer_tail, kv_read_mode
         )
         events.extend(layer_events)
     return tuple(events)
@@ -26,10 +27,11 @@ def build_decode_layer_graph(
     decision: PlacementDecision,
     timing: AnalyticTimingModel,
     previous_layer_tail: str | None,
+    kv_read_mode: str = "disabled",
 ) -> tuple[tuple[Event, ...], str]:
     prefix = f"step{trace.step}.layer{trace.layer}."
     namespaced: list[Event] = []
-    for event in build_layer_graph(trace, decision, timing):
+    for event in build_layer_graph(trace, decision, timing, kv_read_mode):
         dependencies = tuple(prefix + dependency for dependency in event.dependencies)
         if event.name == "norm1" and previous_layer_tail is not None:
             dependencies = (previous_layer_tail,)

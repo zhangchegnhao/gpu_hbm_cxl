@@ -186,6 +186,17 @@ class ExperimentConfig:
     def is_single_layer_step(self) -> bool:
         return len(self.layers) == 1 and len(self.steps) == 1
 
+    @property
+    def kv_read_mode(self) -> str:
+        """Return the optional stage-1 local-HBM KV read execution mode."""
+        mode = self.raw.get("kv_read_mode", "disabled")
+        if mode not in {"disabled", "serial-local-hbm-v1", "overlap-local-hbm-v1"}:
+            raise ValueError(
+                "experiment field kv_read_mode must be one of "
+                "disabled, serial-local-hbm-v1, overlap-local-hbm-v1"
+            )
+        return str(mode)
+
 
 @dataclass(frozen=True)
 class LoadedConfiguration:

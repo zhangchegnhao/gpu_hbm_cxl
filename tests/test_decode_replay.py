@@ -71,6 +71,37 @@ class DecodeReplayTest(unittest.TestCase):
         self.assertEqual(result.summary["total_latency_us"], legacy.summary["total_latency_us"])
         self.assertEqual(result.summary["placement"], legacy.summary["placement"])
 
+    def test_explicit_serial_kv_read_adds_one_event_per_layer(self) -> None:
+        with tempfile.TemporaryDirectory(dir=ROOT) as temporary:
+            raw = json.loads((ROOT / "configs/experiments/full_decode_real_kv_b8_c4k.json").read_text())
+            raw["layers"] = [0]
+            raw["steps"] = [0]
+            raw["kv_read_mode"] = "serial-local-hbm-v1"
+            experiment = Path(temporary) / "kv_stage1.json"
+            experiment.write_text(json.dumps(raw), encoding="utf-8")
+            result = run_experiment(experiment, "gpu-only", Path(temporary) / "output")
+        self.assertEqual(len(result.events), 19)
+        by_name = {event.event.name: event for event in result.events}
+        self.assertEqual(
+            by_name["attention"].event.dependencies,
+            ("attention_kv_read",),
+        )
+        self.assertEqual(result.summary["kv_read"]["mode"], "serial-local-hbm-v1")
+        self.assertGreater(result.summary["kv_read"]["total_read_bytes"], 0)
+
+    def test_disabled_kv_mode_preserves_real_baseline_latency(self) -> None:
+        with tempfile.TemporaryDirectory(dir=ROOT) as temporary:
+            base = ROOT / "configs/experiments/full_decode_real_kv_b8_c4k.json"
+            raw = json.loads(base.read_text())
+            raw["layers"] = [0]
+            raw["steps"] = [0]
+            modified = Path(temporary) / "disabled.json"
+            modified.write_text(json.dumps(raw), encoding="utf-8")
+            result = run_experiment(modified, "gpu-only", Path(temporary) / "output")
+        self.assertEqual(len(result.events), 18)
+        self.assertEqual(result.summary["kv_read"]["mode"], "disabled")
+        self.assertEqual(result.summary["kv_read"]["total_read_bytes"], 0)
+
     def test_full_cycle_v1_writes_layer_and_policy_contention_reports(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
             output = Path(temporary)

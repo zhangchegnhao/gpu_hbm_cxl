@@ -56,6 +56,41 @@ def _result_classification(timing_backend: str) -> str:
     return classifications[timing_backend]
 
 
+def _kv_read_summary(
+    configuration: LoadedConfiguration,
+    traces: tuple[TraceBatch, ...],
+    critical_duration_by_category: dict[str, float],
+) -> dict[str, Any]:
+    mode = configuration.experiment.kv_read_mode
+    total_bytes = (
+        sum(
+            2
+            * sum(trace.context_lengths)
+            * configuration.model.num_key_value_heads
+            * configuration.model.head_dim
+            * configuration.model.dtype_bytes
+            for trace in traces
+        )
+        if mode != "disabled"
+        else 0
+    )
+    return {
+        "mode": mode,
+        "model": "analytic-local-hbm-v1" if mode != "disabled" else "disabled",
+        "execution": (
+            "serial_dependency"
+            if mode == "serial-local-hbm-v1"
+            else "parallel_read_and_compute_join"
+            if mode == "overlap-local-hbm-v1"
+            else "not_modeled"
+        ),
+        "total_read_bytes": total_bytes,
+        "critical_path_latency_us": _round(
+            critical_duration_by_category.get("kv_read", 0.0)
+        ),
+    }
+
+
 def _round(value: float) -> float:
     return round(value, 9)
 
@@ -129,6 +164,9 @@ def build_summary(
             "feasible": memory.total_bytes <= capacity_bytes,
         },
         "input_hashes": input_hashes,
+        "kv_read": _kv_read_summary(
+            configuration, (trace,), critical_duration_by_category
+        ),
     }
     if contention is not None:
         summary["contention"] = {
@@ -306,6 +344,9 @@ def build_decode_summary(
         "steps": step_rows,
         "layers": layer_rows,
         "input_hashes": _input_hashes(configuration),
+        "kv_read": _kv_read_summary(
+            configuration, traces, critical_duration_by_category
+        ),
     }
     contention_rows = [
         {"step": trace.step, "layer": trace.layer, **contention}
