@@ -9,10 +9,11 @@ from pathlib import Path
 from typing import Any
 
 from ..config import LoadedConfiguration
-from ..model import MemoryFootprint
+from ..model import MemoryFootprint, classify_capacity, estimate_memory_footprint
 from ..simulation import EventEngine, ScheduledEvent
 from ..trace import TraceBatch
 from ..types import PlacementDecision
+from ..timing import CXLReadConfig
 
 
 def sha256_file(path: Path) -> str:
@@ -87,6 +88,69 @@ def _kv_read_summary(
         "total_read_bytes": total_bytes,
         "critical_path_latency_us": _round(
             critical_duration_by_category.get("kv_read", 0.0)
+        ),
+    }
+
+
+def _cxl_summary(
+    configuration: LoadedConfiguration,
+    traces: tuple[TraceBatch, ...],
+    critical_duration_by_category: dict[str, float],
+) -> dict[str, Any]:
+    raw = configuration.experiment.raw
+    mode = raw.get("cxl_mode", "disabled")
+    if mode == "disabled":
+        return {
+            "mode": "disabled",
+            "model": "disabled",
+            "capacity_state": "not_modeled",
+            "feasible": True,
+            "local_capacity_bytes": 0,
+            "capacity_bytes": 0,
+            "peak_spill_bytes": 0,
+            "total_read_bytes": 0,
+            "critical_path_latency_us": 0.0,
+        }
+    cxl = CXLReadConfig.from_raw(raw, configuration.hardware)
+    admissions = [
+        classify_capacity(
+            estimate_memory_footprint(configuration.model, trace).total_bytes,
+            cxl.local_capacity_bytes,
+            cxl.capacity_bytes,
+        )
+        for trace in traces
+    ]
+    peak = max(admissions, key=lambda row: int(row["resident_bytes"]) + int(row["spill_bytes"]) + int(row["unallocated_bytes"]))
+    total_read_bytes = 0.0
+    for trace, admission in zip(traces, admissions):
+        memory = estimate_memory_footprint(configuration.model, trace)
+        layer_bytes = (
+            2
+            * sum(trace.context_lengths)
+            * configuration.model.num_key_value_heads
+            * configuration.model.head_dim
+            * configuration.model.dtype_bytes
+        )
+        fraction = float(admission["spill_bytes"]) / memory.kv_cache_bytes if memory.kv_cache_bytes else 0.0
+        total_read_bytes += layer_bytes * fraction
+    return {
+        "mode": mode,
+        "model": "analytic-cxl-memory-only-v1",
+        "execution": (
+            "serial_dependency"
+            if configuration.experiment.kv_read_mode == "serial-local-hbm-v1"
+            else "parallel_read_and_compute_join"
+        ),
+        "local_capacity_bytes": cxl.local_capacity_bytes,
+        "capacity_bytes": cxl.capacity_bytes,
+        "bandwidth_gb_s": _round(cxl.bandwidth_bytes_per_second / 1e9),
+        "latency_us": _round(cxl.latency_us),
+        "capacity_state": peak["state"],
+        "feasible": bool(peak["feasible"]),
+        "peak_spill_bytes": int(max(int(row["spill_bytes"]) for row in admissions)),
+        "total_read_bytes": int(round(total_read_bytes)),
+        "critical_path_latency_us": _round(
+            critical_duration_by_category.get("cxl_kv_read", 0.0)
         ),
     }
 
@@ -167,6 +231,7 @@ def build_summary(
         "kv_read": _kv_read_summary(
             configuration, (trace,), critical_duration_by_category
         ),
+        "cxl": _cxl_summary(configuration, (trace,), critical_duration_by_category),
     }
     if contention is not None:
         summary["contention"] = {
@@ -347,6 +412,7 @@ def build_decode_summary(
         "kv_read": _kv_read_summary(
             configuration, traces, critical_duration_by_category
         ),
+        "cxl": _cxl_summary(configuration, traces, critical_duration_by_category),
     }
     contention_rows = [
         {"step": trace.step, "layer": trace.layer, **contention}

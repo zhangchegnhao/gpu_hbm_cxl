@@ -4,6 +4,7 @@ from ..config import HardwareConfig, ModelConfig
 from ..types import ExpertLoad, TimingEstimate
 from .contention_table import ExpertContentionTiming, RamulatorContentionTable
 from .coupled import CoupledExpertTiming
+from .cxl import CXLReadConfig
 from .ramulator_model import RamulatorTableTimingModel
 from .ramulator_table import RamulatorTimingTable
 from .runtime_model import RuntimeExpertTimingModel
@@ -19,8 +20,9 @@ class RamulatorContentionTimingModel(RamulatorTableTimingModel):
         isolated_table: RamulatorTimingTable,
         contention_table: RamulatorContentionTable,
         runtime_expert_timing: RuntimeExpertTimingModel | None = None,
+        cxl_config: CXLReadConfig | None = None,
     ) -> None:
-        super().__init__(model, hardware, isolated_table, runtime_expert_timing)
+        super().__init__(model, hardware, isolated_table, runtime_expert_timing, cxl_config)
         if hardware.timing_backend != "ramulator-contention-v1":
             raise ValueError(f"unsupported contention backend: {hardware.timing_backend}")
         self.contention_table = contention_table

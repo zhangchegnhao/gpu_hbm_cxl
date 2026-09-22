@@ -12,6 +12,7 @@ from .simulation import EventEngine, ScheduledEvent, build_decode_layer_graph
 from .simulation.layer_graph import build_layer_graph
 from .timing import (
     AnalyticTimingModel,
+    CXLReadConfig,
     RamulatorContentionTable,
     RamulatorContentionTimingModel,
     RamulatorTableTimingModel,
@@ -59,9 +60,10 @@ class ReplayResult:
 
 def _create_timing(configuration: LoadedConfiguration) -> AnalyticTimingModel:
     runtime_timing = _load_runtime_timing(configuration)
+    cxl_config = CXLReadConfig.from_raw(configuration.experiment.raw, configuration.hardware)
     if configuration.hardware.timing_backend == "analytic-v0":
         return AnalyticTimingModel(
-            configuration.model, configuration.hardware, runtime_timing
+            configuration.model, configuration.hardware, runtime_timing, cxl_config
         )
     if configuration.hardware.timing_backend == "ramulator-table-v0":
         table_path = configuration.experiment.pim_timing_table_path
@@ -72,6 +74,7 @@ def _create_timing(configuration: LoadedConfiguration) -> AnalyticTimingModel:
             configuration.hardware,
             RamulatorTimingTable.load(table_path),
             runtime_timing,
+            cxl_config,
         )
     if configuration.hardware.timing_backend == "ramulator-contention-v1":
         isolated_path = configuration.experiment.pim_timing_table_path
@@ -96,6 +99,7 @@ def _create_timing(configuration: LoadedConfiguration) -> AnalyticTimingModel:
             RamulatorTimingTable.load(isolated_path),
             contention_table,
             runtime_timing,
+            cxl_config,
         )
     raise ValueError(f"unsupported timing backend: {configuration.hardware.timing_backend}")
 

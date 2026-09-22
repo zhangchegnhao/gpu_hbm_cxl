@@ -8,6 +8,7 @@ from .event import Event
 
 GPU_COMPUTE = "GPU_COMPUTE"
 HBM_MEM_PATH = "HBM_MEM_PATH"
+CXL_MEM_PATH = "CXL_MEM_PATH"
 PIM_COMPUTE = "PIM_COMPUTE"
 GPU_PIM_IO = "GPU_PIM_IO"
 
@@ -64,7 +65,7 @@ def build_layer_graph(
     )
     explicit_kv = kv_read_mode != "disabled"
     if explicit_kv:
-        kv_read_timing = timing.attention_kv_read(trace.context_lengths)
+        kv_read_timing = timing.local_attention_kv_read(trace)
         attention_timing = timing.attention_compute_without_kv_read(
             trace.context_lengths, attention_target
         )
@@ -104,18 +105,37 @@ def build_layer_graph(
                 kv_read_timing,
             ),
         )
+    cxl_events: tuple[Event, ...] = ()
+    if timing.cxl_config.enabled:
+        if not explicit_kv:
+            raise ValueError("CXL memory-only mode requires an explicit KV READ mode")
+        cxl_events = (
+            _event(
+                "cxl_kv_read",
+                "cxl_kv_read",
+                (CXL_MEM_PATH,),
+                ("rope",),
+                timing.cxl_kv_read(trace),
+            ),
+        )
+
+    read_dependencies = ("attention_kv_read",)
+    if cxl_events:
+        read_dependencies += ("cxl_kv_read",)
 
     events = (
         _event("norm1", "norm", (GPU_COMPUTE,), (), timing.norm(batch)),
         _event("qkv", "qkv", (GPU_COMPUTE,), ("norm1",), timing.qkv_projection(batch)),
         _event("rope", "rope", (GPU_COMPUTE,), ("qkv",), timing.rope(batch)),
-    ) + attention_events + (
-        _event("attention", "attention", attention_resource, attention_dependencies, attention_timing),
+    ) + attention_events + cxl_events + (
+        _event("attention", "attention", attention_resource,
+               read_dependencies if kv_read_mode == "serial-local-hbm-v1" else attention_dependencies,
+               attention_timing),
         _event(
             "o_proj",
             "attention_output",
             (GPU_COMPUTE,),
-            output_dependencies,
+            output_dependencies + ("cxl_kv_read",) if cxl_events else output_dependencies,
             timing.output_projection(batch),
         ),
         _event("residual1", "residual", (GPU_COMPUTE,), ("o_proj",), timing.residual(batch)),

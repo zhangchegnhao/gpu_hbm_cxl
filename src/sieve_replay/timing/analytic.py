@@ -3,8 +3,12 @@ from __future__ import annotations
 from collections.abc import Iterable
 
 from ..config import HardwareConfig, ModelConfig
+from ..model.capacity import classify_capacity
+from ..model.memory import MemoryFootprint, estimate_memory_footprint
+from ..trace import TraceBatch
 from ..types import ExpertLoad, TimingEstimate
 from .coupled import CoupledExpertTiming
+from .cxl import CXLReadConfig
 from .runtime_model import RuntimeExpertTimingModel
 
 
@@ -16,6 +20,7 @@ class AnalyticTimingModel:
         model: ModelConfig,
         hardware: HardwareConfig,
         runtime_expert_timing: RuntimeExpertTimingModel | None = None,
+        cxl_config: CXLReadConfig | None = None,
     ) -> None:
         if hardware.timing_backend not in {
             "analytic-v0",
@@ -26,6 +31,7 @@ class AnalyticTimingModel:
         self.model = model
         self.hardware = hardware
         self.runtime_expert_timing = runtime_expert_timing
+        self.cxl_config = cxl_config or CXLReadConfig()
 
     def coupled_expert_timing(
         self,
@@ -122,6 +128,70 @@ class AnalyticTimingModel:
             float(kv_bytes),
             "analytic local-HBM KV READ stream",
         )
+
+    def cxl_admission(self, trace: TraceBatch) -> dict[str, object]:
+        """Return byte-level admission for the memory-only CXL extension."""
+        memory = estimate_memory_footprint(self.model, trace)
+        if not self.cxl_config.enabled:
+            return {
+                "state": "not_modeled",
+                "feasible": True,
+                "local_capacity_bytes": 0,
+                "cxl_capacity_bytes": 0,
+                "resident_bytes": 0,
+                "spill_bytes": 0,
+                "unallocated_bytes": 0,
+                "memory": memory,
+            }
+        admission = classify_capacity(
+            memory.total_bytes,
+            self.cxl_config.local_capacity_bytes,
+            self.cxl_config.capacity_bytes,
+        )
+        admission["memory"] = memory
+        return admission
+
+    def local_attention_kv_read(self, trace: TraceBatch) -> TimingEstimate:
+        """Estimate the Local HBM portion of the KV stream."""
+        total = self.attention_kv_read(trace.context_lengths)
+        if not self.cxl_config.enabled:
+            return total
+        admission = self.cxl_admission(trace)
+        if admission["state"] == "oom":
+            raise ValueError("CXL memory-only configuration is over capacity")
+        memory = admission["memory"]
+        assert isinstance(memory, MemoryFootprint)
+        spill_fraction = (
+            float(admission["spill_bytes"]) / memory.kv_cache_bytes
+            if memory.kv_cache_bytes
+            else 0.0
+        )
+        local_bytes = max(0.0, total.bytes_accessed * (1.0 - spill_fraction))
+        duration = self._seconds_to_us(local_bytes / self.hbm_bytes_per_second)
+        return TimingEstimate(duration, total.flops, local_bytes, "analytic Local HBM KV READ stream")
+
+    def cxl_kv_read(self, trace: TraceBatch) -> TimingEstimate:
+        """Estimate a static spill KV READ stream on an independent CXL queue."""
+        total = self.attention_kv_read(trace.context_lengths)
+        if not self.cxl_config.enabled:
+            return TimingEstimate(0.0, 0.0, 0.0, "CXL KV READ disabled")
+        admission = self.cxl_admission(trace)
+        if admission["state"] == "oom":
+            raise ValueError("CXL memory-only configuration is over capacity")
+        memory = admission["memory"]
+        assert isinstance(memory, MemoryFootprint)
+        spill_fraction = (
+            float(admission["spill_bytes"]) / memory.kv_cache_bytes
+            if memory.kv_cache_bytes
+            else 0.0
+        )
+        cxl_bytes = total.bytes_accessed * spill_fraction
+        if cxl_bytes <= 0.0:
+            return TimingEstimate(0.0, 0.0, 0.0, "no KV bytes spilled to CXL")
+        duration = self.cxl_config.latency_us + self._seconds_to_us(
+            cxl_bytes / self.cxl_config.bandwidth_bytes_per_second
+        )
+        return TimingEstimate(duration, 0.0, cxl_bytes, "analytic CXL memory-only KV READ stream")
 
     def attention_compute_without_kv_read(
         self,

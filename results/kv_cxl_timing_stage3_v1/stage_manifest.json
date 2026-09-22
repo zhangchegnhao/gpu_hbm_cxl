@@ -1,0 +1,20 @@
+{
+  "input_hashes": {
+    "experiment": "faddb5cc162c1015f45742c406994cb3c91c58aee4dcd1076f4876c13e0d97f4",
+    "hardware": "725866e25c2aee8d6b83ccd2a5b6b9986fb380fe9a715eb135370771cac16dff",
+    "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+    "prompts": "50b874b743669f7686b35b58cf3227c3942a1c2a2ea9ee14bcdda0a606a46866",
+    "trace": "a22fdc8afb9b93af6ea133ac254bac98830a5d07e4225edf2b37c348ea80bb34",
+    "trace_manifest": "78405e3e387e9ca309eb02e36500a9866ba01349d610b63d999878aeaa65aff4"
+  },
+  "method": "analytic-cxl-memory-only-timing-sensitivity-v1",
+  "oom_rows": 156,
+  "output_hashes": {
+    "comparison.csv": "f51ef4e1c918a84d13a89062dc01bb8edbd3d95881ee1c2d2e82dcc032a9f233",
+    "comparison.json": "7584d793d2398cfa5b5badb334a063f8dfb3c3835aefa7159b9916abdeef393e",
+    "stage3_report.md": "74c963bd019c172d69d581b46b69c7e950564ea13f4b119e84521958162752c1"
+  },
+  "replayed_rows": 244,
+  "rows": 400,
+  "schema_version": 1
+}

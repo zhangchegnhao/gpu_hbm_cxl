@@ -5,6 +5,7 @@ from collections.abc import Iterable
 from ..config import HardwareConfig, ModelConfig
 from ..types import ExpertLoad, TimingEstimate
 from .analytic import AnalyticTimingModel
+from .cxl import CXLReadConfig
 from .ramulator_table import RamulatorTimingTable
 from .runtime_model import RuntimeExpertTimingModel
 
@@ -18,8 +19,9 @@ class RamulatorTableTimingModel(AnalyticTimingModel):
         hardware: HardwareConfig,
         table: RamulatorTimingTable,
         runtime_expert_timing: RuntimeExpertTimingModel | None = None,
+        cxl_config: CXLReadConfig | None = None,
     ) -> None:
-        super().__init__(model, hardware, runtime_expert_timing)
+        super().__init__(model, hardware, runtime_expert_timing, cxl_config)
         if hardware.timing_backend not in {"ramulator-table-v0", "ramulator-contention-v1"}:
             raise ValueError(f"unsupported Ramulator table backend: {hardware.timing_backend}")
         self.table = table
