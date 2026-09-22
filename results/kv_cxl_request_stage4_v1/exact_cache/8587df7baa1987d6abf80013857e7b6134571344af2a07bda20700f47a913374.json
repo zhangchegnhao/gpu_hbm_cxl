@@ -1,0 +1,73 @@
+{
+  "cache_input": {
+    "capacity": {
+      "cxl_capacity_bytes": 64000000000,
+      "domain": "a800",
+      "local_capacity_bytes": 80000000000,
+      "spill_bytes": 32605270016
+    },
+    "case": "b16_c32k",
+    "context": {
+      "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+      "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+      "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+      "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+      "model": "cxl-kv-memory-only-request-v1"
+    },
+    "mode": "cxl-kv-plus-local-kv",
+    "profile": "optimistic-assumption",
+    "profile_parameters": {
+      "address_mapping": "static-spill-offset; pass-through channel mapper",
+      "bandwidth_gb_s": 128.0,
+      "capacity_gb": 64,
+      "channel_count": 4,
+      "latency_us": 0.1,
+      "queue_depth": 256,
+      "transaction_bytes": 32
+    },
+    "request_scale": 4096,
+    "shape": {
+      "cxl_kv_read_transactions": 5183,
+      "gpu_read_transactions": 0,
+      "local_kv_read_transactions": 3009,
+      "pim_gwrite_waves": 0,
+      "pim_mac_waves": 0,
+      "pim_read_waves": 0
+    }
+  },
+  "result": {
+    "cxl_channels": 4,
+    "cxl_controller_completion_cycles": 5502,
+    "cxl_kv_completed_requests": 5183,
+    "cxl_kv_completion_cycles": 5502,
+    "cxl_kv_injected_requests": 5183,
+    "cxl_kv_injection_rejected_attempts": 20045,
+    "cxl_kv_read_transactions": 5183,
+    "cxl_link_busy_cycles": 20732,
+    "cxl_max_queue_wait_cycles": 1024,
+    "cxl_max_request_residence_cycles": 1345,
+    "cxl_queue_wait_cycles": 4707620,
+    "cxl_read_latency_cycles": 6371363,
+    "cxl_request_residence_cycles": 6371363,
+    "gpu_completed_requests": 0,
+    "gpu_completion_cycles": 0,
+    "gpu_injected_requests": 0,
+    "gpu_injection_rejected_attempts": 0,
+    "gpu_read_transactions": 0,
+    "local_channels": 128,
+    "local_kv_completed_requests": 3009,
+    "local_kv_completion_cycles": 237,
+    "local_kv_injected_requests": 3009,
+    "local_kv_injection_rejected_attempts": 0,
+    "local_kv_read_transactions": 3009,
+    "local_read_latency_cycles": 492735,
+    "pim_completed_requests": 0,
+    "pim_completion_cycles": 0,
+    "pim_gwrite_waves": 0,
+    "pim_injected_requests": 0,
+    "pim_mac_waves": 0,
+    "pim_read_waves": 0,
+    "tick_ps": 312,
+    "total_completion_cycles": 5502
+  }
+}

@@ -4,4 +4,5 @@ __pycache__/
 .pytest_cache/
 build/
 third_party/ramulator2/
+third_party/ramulator2_cxl/
 ramulator/timing_tables/generated/.cache/

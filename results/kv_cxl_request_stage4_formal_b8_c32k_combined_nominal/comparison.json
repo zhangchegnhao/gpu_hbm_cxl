@@ -1,0 +1,121 @@
+{
+  "metadata": {
+    "capacity_source": "results/kv_cxl_capacity_stage2_v1/cxl_capacity_states.json",
+    "capacity_source_sha256": "f59e97f0a71644e0a255d7a6bdeff5fa7baa9d6254763593429fce93c1a330d3",
+    "classification": "Ramulator request-level sensitivity; CXL profiles are assumptions, not A800 measurements",
+    "cycle_config": "configs/ramulator/sieve_hbm3e_cycle_v1.json",
+    "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+    "exact_runs": 1,
+    "execution": {
+      "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+      "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+      "ramulator_library_sha256": "3d2eb8a91aaef784bd15bfe74c42b809b636b2916461ddcd9cf0d9595d1e6a23"
+    },
+    "input_hashes": {
+      "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+      "source_experiment": "a7c9b066bf13605c02c80722c4da7d592407fd7a9e6a3c8df5ba1fad852559d9",
+      "source_manifest": "ee480b33260ce37eee51ec36f265d0443c9083122679d4cf39fc17cfb6ee8e33",
+      "source_trace": "afc5f6bf27a84bdf54294cd79b01bdc54037b6d8905ace7e6ae5c1e60eab750f"
+    },
+    "interpolation": 0,
+    "limitations": [
+      "CXL controller is a memory-only FIFO service model with explicit assumed bandwidth and latency.",
+      "Static spill fraction is derived from the Stage-2 A800 80 GB capacity admission rows.",
+      "No paging, eviction, recovery, CXL-PIM computation, or physical CXL device measurement.",
+      "Expert routing is a controlled template and is not a new A800 capture.",
+      "KV and Expert/PIM request counts use request_scale=1; scale=1 represents the full generated request count.",
+      "This stage validates request-level counters and pressure trends before full Decode integration."
+    ],
+    "method": "cxl-memory-only-request-level-stage4-v1",
+    "modes": [
+      "cxl-kv-plus-local-kv-plus-expert"
+    ],
+    "output_hashes": {
+      "comparison.csv": "c9b7d15f5f5773a4f35c8333226192ebfae1fc9173dcf3d37b91c0d48be8279c"
+    },
+    "pressure_points": [
+      {
+        "batch_size": 8,
+        "case": "b8_c32k",
+        "context_length": 32768
+      }
+    ],
+    "profiles": {
+      "nominal-assumption": {
+        "address_mapping": "static-spill-offset; pass-through channel mapper",
+        "bandwidth_gb_s": 64.0,
+        "capacity_gb": 64,
+        "channel_count": 4,
+        "latency_us": 0.25,
+        "queue_depth": 256,
+        "transaction_bytes": 32
+      }
+    },
+    "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+    "request_scale": 1,
+    "routing_template": "manifest-validated real B8/C4k step0/layer0, tiled by integer batch factor",
+    "rows": 1,
+    "schema_version": 1,
+    "simulation_context": {
+      "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+      "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+      "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+      "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+      "model": "cxl-kv-memory-only-request-v1"
+    }
+  },
+  "rows": [
+    {
+      "batch_size": 8,
+      "cache_key": "ac16064843c13d3ddf95473506af1fb912d337df6d0ba9ca762e3104ad7d3408",
+      "capacity_domain": "a800-80gb",
+      "capacity_state": "spill",
+      "case": "b8_c32k",
+      "classification": "Ramulator request-level memory-only CXL sensitivity; no A800 timing",
+      "context_length": 32768,
+      "cxl_bandwidth_gb_s": 64.0,
+      "cxl_channels": 4,
+      "cxl_controller_completion_cycles": 7787778,
+      "cxl_kv_completed_requests": 4449704,
+      "cxl_kv_completion_cycles": 7787778,
+      "cxl_kv_injected_requests": 4449704,
+      "cxl_kv_injection_rejected_attempts": 42261676,
+      "cxl_kv_read_transactions": 4449704,
+      "cxl_latency_us": 0.25,
+      "cxl_link_busy_cycles": 31147928,
+      "cxl_link_busy_ratio": 0.9998977885604854,
+      "cxl_max_queue_wait_cycles": 1792,
+      "cxl_max_request_residence_cycles": 2594,
+      "cxl_queue_wait_cycles": 7972879280,
+      "cxl_queue_wait_us": 2487538.33536,
+      "cxl_read_latency_cycles": 11541541888,
+      "cxl_read_latency_us": 3600961.069056,
+      "cxl_request_residence_cycles": 11541541888,
+      "gpu_completed_requests": 1179648,
+      "gpu_completion_cycles": 252403,
+      "gpu_injected_requests": 1179648,
+      "gpu_injection_rejected_attempts": 24908676,
+      "gpu_read_transactions": 1179648,
+      "kv_cache_bytes": 25769803776,
+      "local_channels": 128,
+      "local_kv_completed_requests": 12327512,
+      "local_kv_completion_cycles": 432955,
+      "local_kv_injected_requests": 12327512,
+      "local_kv_injection_rejected_attempts": 44841524,
+      "local_kv_read_transactions": 12327512,
+      "local_read_latency_cycles": 14920485420,
+      "mode": "cxl-kv-plus-local-kv-plus-expert",
+      "pim_completed_requests": 1445888,
+      "pim_completion_cycles": 158018,
+      "pim_gwrite_waves": 4096,
+      "pim_injected_requests": 1445888,
+      "pim_mac_waves": 1536,
+      "pim_read_waves": 16,
+      "profile": "nominal-assumption",
+      "spill_bytes": 6834745344,
+      "tick_ps": 312,
+      "total_completion_cycles": 7787778,
+      "total_completion_us": 2429.786736
+    }
+  ]
+}

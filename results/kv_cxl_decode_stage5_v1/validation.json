@@ -1,0 +1,20 @@
+{
+  "cases": [
+    "b16_c16k",
+    "b16_c32k",
+    "b32_c16k",
+    "b8_c32k"
+  ],
+  "comparison_sha256": "2905b00677be1255e584811a26a33e66026bcfb0c219b39715e8e948359a6d32",
+  "exact_runs": 8,
+  "interpolation": 0,
+  "layer_rows": 384,
+  "policies": [
+    "gpu-only",
+    "sieve"
+  ],
+  "request_scale": 4096,
+  "rows": 8,
+  "stage_manifest_sha256": "f2e1212c289d753160035b2cf4852be47253be4afba928f9f2319d20ef7d408a",
+  "status": "passed"
+}

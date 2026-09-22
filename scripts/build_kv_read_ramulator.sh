@@ -6,7 +6,7 @@ readonly KV_PROJECT_ROOT="$(cd -- "${KV_SCRIPT_DIR}/.." && pwd)"
 readonly KV_RAMULATOR_ROOT="${KV_PROJECT_ROOT}/third_party/ramulator2"
 readonly KV_BUILD_DIR="${RAMULATOR_BUILD_DIR:-${KV_PROJECT_ROOT}/build/ramulator2}"
 
-# Install the pinned baseline first, then add an independent registered frontend.
+# Keep the frozen KV READ baseline in the original Ramulator tree.
 "${KV_SCRIPT_DIR}/build_sieve_ramulator.sh"
 install -m 0644 \
     "${KV_PROJECT_ROOT}/ramulator/extensions/sieve_kv_read/source/sieve_kv_read_frontend.cpp" \

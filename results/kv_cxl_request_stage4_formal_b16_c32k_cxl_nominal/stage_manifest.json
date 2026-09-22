@@ -1,0 +1,33 @@
+{
+  "cases": [
+    "b16_c32k"
+  ],
+  "exact_runs": 1,
+  "execution": {
+    "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+    "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+    "ramulator_library_sha256": "3d2eb8a91aaef784bd15bfe74c42b809b636b2916461ddcd9cf0d9595d1e6a23"
+  },
+  "input_hashes": {
+    "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+    "source_experiment": "a7c9b066bf13605c02c80722c4da7d592407fd7a9e6a3c8df5ba1fad852559d9",
+    "source_manifest": "ee480b33260ce37eee51ec36f265d0443c9083122679d4cf39fc17cfb6ee8e33",
+    "source_trace": "afc5f6bf27a84bdf54294cd79b01bdc54037b6d8905ace7e6ae5c1e60eab750f"
+  },
+  "interpolation": 0,
+  "method": "cxl-memory-only-request-level-stage4-v1",
+  "modes": [
+    "cxl-kv-only"
+  ],
+  "output_hashes": {
+    "comparison.csv": "3f5910327c39a09cff9cb437bf36b505baa0b50751697e2f2e20083513500404",
+    "comparison.json": "7cd788cbf4777b13d3b14cee1b50e40b866bd9aec9a0094ae9ef38b8163389c2",
+    "stage4_report.md": "2f590c037cd05132e1e3da416865a3e0620eb6943ef65bb5eacaa68f3c0754b7"
+  },
+  "profiles": [
+    "nominal-assumption"
+  ],
+  "request_scale": 1,
+  "rows": 1,
+  "schema_version": 1
+}
