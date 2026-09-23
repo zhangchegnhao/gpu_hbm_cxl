@@ -1,0 +1,77 @@
+{
+  "cache_records": [
+    {
+      "executed": false,
+      "key": "8eeb4898ec14d4c1529fdd278416ac378fb1f54c4530e768f3a7d169710796d2",
+      "kind": "query-link",
+      "payload": {
+        "direction": "gpu-to-cxl-pim-write-proxied-by-fifo-read",
+        "transactions": 2048
+      },
+      "sha256": "e005c777b9b68f3408aa9d24313777779b4db79014905a25002ec2bacbb56f69"
+    },
+    {
+      "executed": false,
+      "key": "ab195e249ca580fe5b280b01bd4e1371e7193aae71cc93e14c45c4fe94cb4f09",
+      "kind": "query-gwrite",
+      "payload": {
+        "operation": "PIM_GWRITE",
+        "waves": 2048
+      },
+      "sha256": "9cb999cece8d7387f6dec5312a269bf02a980dc547091ed1c3618c93a2ad174f"
+    },
+    {
+      "executed": false,
+      "key": "e11ca1d6d4aa9524894b7dc71d07e9ace8f4c3ee77a9c904c073fec55e64600e",
+      "kind": "attention-mac",
+      "payload": {
+        "operation": "PIM_MAC",
+        "waves": 92703
+      },
+      "sha256": "0ce82fd78f1ee8f887bdb50a866219097bcae7c004a58bf20b5b82bdd70cf324"
+    },
+    {
+      "executed": false,
+      "key": "f326d24728043701188218f1aac4f52f65823baa96f3b706d580955ce486285f",
+      "kind": "partial-read",
+      "payload": {
+        "operation": "PIM_READ",
+        "waves": 4160
+      },
+      "sha256": "d1472854021fdd4c40015340ee1fed61148c309ee6d7dc3282fbe57b7ff9ffda"
+    },
+    {
+      "executed": false,
+      "key": "d9a5f9799748b05aecb8ed222390c3f24ee888c66d0ecb487b6b797ea4bd1dc2",
+      "kind": "partial-result-link",
+      "payload": {
+        "direction": "cxl-pim-to-gpu-read",
+        "transactions": 33280
+      },
+      "sha256": "8c6cad0ca730ba401a3576f48135e052d80203db7f1c5ed9d22a6ace6d44122e"
+    }
+  ],
+  "case": "b8_c32k",
+  "exact_runs": 5,
+  "execution": {
+    "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+    "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+    "ramulator_library_sha256": "3d2eb8a91aaef784bd15bfe74c42b809b636b2916461ddcd9cf0d9595d1e6a23"
+  },
+  "input_hashes": {
+    "cycle": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+    "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+    "stage7": "4b26b339ea6ec0a3f2aef1758fcd01163c4f7f86665567bc471ffb574b2ab898",
+    "stage7_validation": "59d93437ae882cf12b5f209d1bd2955ea0a7061dcca4a89f3e55606795ed5b40"
+  },
+  "interpolation": 0,
+  "new_runs_executed": 0,
+  "output_hashes": {
+    "comparison.csv": "18fe94becea6f3261dd490e22c34da5bfa981c88ee7a0a76a884b405043afa99",
+    "comparison.json": "5c6e0f934437efc37ce92ea55d4c70dc156508e86acb23e1bad1222aee95d36a",
+    "stage8_report.md": "9e199ed73802484bd31210823de04e5e540957010cc7b6b0aad6ff66d77d05b9"
+  },
+  "rows": 4,
+  "schema_version": 1,
+  "stage": "kv-cxl-pim-attention-stage8-v1"
+}

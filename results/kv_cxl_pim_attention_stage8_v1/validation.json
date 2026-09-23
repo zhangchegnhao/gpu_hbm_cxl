@@ -1,0 +1,13 @@
+{
+  "checks": {
+    "cache_records": 5,
+    "exact_runs": 5,
+    "interpolation": 0,
+    "link_traffic_reduction_fraction": 0.9920605954912955,
+    "rows": 4
+  },
+  "errors": [],
+  "schema_version": 1,
+  "stage": "kv-cxl-pim-attention-stage8-v1",
+  "status": "passed"
+}

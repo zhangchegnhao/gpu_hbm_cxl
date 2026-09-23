@@ -1,0 +1,3 @@
+scenario,evidence_class,capacity_state,estimated_attention_ms,estimated_decode_ms,estimated_throughput_tokens_per_s,memory_completion_us_per_layer,memory_delta_vs_resident_ms_per_decode,cxl_bandwidth_gb_s,cxl_latency_us,local_kv_read_transactions,cxl_kv_read_transactions
+resident-local-counterfactual,A800 trend extrapolation plus exact Ramulator Local-HBM counterfactual,infeasible-on-a800,599.6432100151267,726.0372784747964,11.018717960055424,169.016328,0.0,0.0,0.0,16777216,0
+nominal-memory-only-cxl-spill,A800 trend extrapolation plus paired exact Ramulator CXL spill delta,spill,708.1601895991266,834.5542580587963,9.585955523860477,2429.786736,108.51697958399998,64.0,0.25,12327512,4449704

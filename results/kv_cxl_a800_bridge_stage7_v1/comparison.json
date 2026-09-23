@@ -1,0 +1,140 @@
+{
+  "calibration": {
+    "anchors": [
+      {
+        "attention_decode_mean_ms": 96.52723228931427,
+        "case": "b8_c4k",
+        "context_length": 4096,
+        "decode_mean_ms": 223.478910446167,
+        "non_attention_decode_ms": 126.95167815685272
+      },
+      {
+        "attention_decode_mean_ms": 166.64755260944366,
+        "case": "b8_c8k",
+        "context_length": 8192,
+        "decode_mean_ms": 292.9900817871094,
+        "non_attention_decode_ms": 126.34252917766571
+      },
+      {
+        "attention_decode_mean_ms": 312.0952325463295,
+        "case": "b8_c16k",
+        "context_length": 16384,
+        "decode_mean_ms": 437.9832305908203,
+        "non_attention_decode_ms": 125.88799804449081
+      }
+    ],
+    "fit": {
+      "intercept_ms": 23.803392320871325,
+      "r_squared": 0.9999199080810292,
+      "slope_ms_per_context_token": 0.017573236623970194
+    },
+    "forward_holdout": {
+      "absolute_percentage_error": 0.016684135973958132,
+      "held_out_context": 16384,
+      "observed_attention_ms": 312.0952325463295,
+      "predicted_attention_ms": 306.88819324970245,
+      "train_contexts": [
+        4096,
+        8192
+      ]
+    },
+    "source": "results/a800_timing_memory_v1/summary.json",
+    "source_sha256": "9391b3bdb73017b6801b0fa52d9716ec1e4346f24555b6150c4da6f1beb0d96d",
+    "target": {
+      "attention_extrapolated_ms": 599.6432100151267,
+      "case": "b8_c32k",
+      "context_length": 32768,
+      "non_attention_mean_ms": 126.39406845966975,
+      "non_attention_range_ms": 1.063680112361908
+    }
+  },
+  "derived": {
+    "cxl_payload_bytes_per_layer": 142390528,
+    "cxl_payload_rate_to_resident_deadline_gb_s": 842.4661077715522,
+    "nominal_cxl_effective_payload_rate_gb_s": 58.60206819402112,
+    "nominal_cxl_memory_penalty_ms_per_decode": 108.51697958399998,
+    "nominal_cxl_throughput_change_fraction": -0.1300298674844873,
+    "resident_local_completion_us_per_layer": 169.016328,
+    "spill_cxl_completion_us_per_layer": 2429.786736,
+    "spill_fraction_of_kv_bytes": 0.26522302627563477,
+    "spill_local_completion_us_per_layer": 124.047144
+  },
+  "metadata": {
+    "capacity": {
+      "a800_local_capacity_bytes": 80000000000,
+      "cxl_capacity_bytes": 64000000000,
+      "kv_cache_bytes": 25769803776,
+      "peak_memory_bytes": 86834745344,
+      "spill_bytes": 6834745344
+    },
+    "case": "b8_c32k",
+    "classification": "mixed-source sensitivity analysis with explicit evidence separation",
+    "exact_cache": {
+      "key": "f47499c1186fc1331ea0dd141d7ea7194d0793f04030a2a89c1568da9127fdeb",
+      "sha256": "ec9f6b38b52381e53c9f82453e7b9c904902ba842465d66373f58be0cf745258",
+      "shape": {
+        "cxl_kv_read_transactions": 0,
+        "gpu_read_transactions": 0,
+        "local_kv_read_transactions": 16777216,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      }
+    },
+    "exact_new_runs": 1,
+    "execution": {
+      "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+      "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+      "ramulator_library_sha256": "3d2eb8a91aaef784bd15bfe74c42b809b636b2916461ddcd9cf0d9595d1e6a23"
+    },
+    "input_hashes": {
+      "a800_summary": "9391b3bdb73017b6801b0fa52d9716ec1e4346f24555b6150c4da6f1beb0d96d",
+      "capacity_source": "f59e97f0a71644e0a255d7a6bdeff5fa7baa9d6254763593429fce93c1a330d3",
+      "cycle_config": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+      "stage6_attention_cache": "c7852d0a0dcbaca1844259649f80ce2cb60e15fa7208469e503a6ce873037123",
+      "stage6_comparison": "fee0e773be92d86d7973d5a96396697bf6ae9052036b6af8c2f2f0868300d2ee"
+    },
+    "interpolation": 0,
+    "layers": 48,
+    "limitations": [
+      "B8/C32k A800 Attention and Decode values are linear extrapolations, not A800 measurements.",
+      "The resident B8/C32k request stream is a capacity-unconstrained Ramulator counterfactual and is infeasible in the formal A800 80 GB admission domain.",
+      "The CXL estimate adds an exact Ramulator memory-completion delta to the A800 trend; it is not a physical CXL measurement.",
+      "No paging transfer state machine, eviction, recovery, physical CXL protocol, CXL-PIM computation, or multi-GPU execution is modeled."
+    ],
+    "method": "A800 measured-trend extrapolation plus paired exact Ramulator memory delta",
+    "new_runs_executed": 1,
+    "schema_version": 1,
+    "stage": "kv-cxl-a800-bridge-stage7-v1"
+  },
+  "rows": [
+    {
+      "capacity_state": "infeasible-on-a800",
+      "cxl_bandwidth_gb_s": 0.0,
+      "cxl_kv_read_transactions": 0,
+      "cxl_latency_us": 0.0,
+      "estimated_attention_ms": 599.6432100151267,
+      "estimated_decode_ms": 726.0372784747964,
+      "estimated_throughput_tokens_per_s": 11.018717960055424,
+      "evidence_class": "A800 trend extrapolation plus exact Ramulator Local-HBM counterfactual",
+      "local_kv_read_transactions": 16777216,
+      "memory_completion_us_per_layer": 169.016328,
+      "memory_delta_vs_resident_ms_per_decode": 0.0,
+      "scenario": "resident-local-counterfactual"
+    },
+    {
+      "capacity_state": "spill",
+      "cxl_bandwidth_gb_s": 64.0,
+      "cxl_kv_read_transactions": 4449704,
+      "cxl_latency_us": 0.25,
+      "estimated_attention_ms": 708.1601895991266,
+      "estimated_decode_ms": 834.5542580587963,
+      "estimated_throughput_tokens_per_s": 9.585955523860477,
+      "evidence_class": "A800 trend extrapolation plus paired exact Ramulator CXL spill delta",
+      "local_kv_read_transactions": 12327512,
+      "memory_completion_us_per_layer": 2429.786736,
+      "memory_delta_vs_resident_ms_per_decode": 108.51697958399998,
+      "scenario": "nominal-memory-only-cxl-spill"
+    }
+  ]
+}

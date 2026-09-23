@@ -1,0 +1,27 @@
+{
+  "case": "b8_c32k",
+  "exact_new_runs": 1,
+  "execution": {
+    "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+    "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+    "ramulator_library_sha256": "3d2eb8a91aaef784bd15bfe74c42b809b636b2916461ddcd9cf0d9595d1e6a23"
+  },
+  "input_hashes": {
+    "a800_summary": "9391b3bdb73017b6801b0fa52d9716ec1e4346f24555b6150c4da6f1beb0d96d",
+    "capacity_source": "f59e97f0a71644e0a255d7a6bdeff5fa7baa9d6254763593429fce93c1a330d3",
+    "cycle_config": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+    "stage6_attention_cache": "c7852d0a0dcbaca1844259649f80ce2cb60e15fa7208469e503a6ce873037123",
+    "stage6_comparison": "fee0e773be92d86d7973d5a96396697bf6ae9052036b6af8c2f2f0868300d2ee"
+  },
+  "interpolation": 0,
+  "new_runs_executed": 1,
+  "output_hashes": {
+    "calibration.json": "02faddccee884c165a5defae1d3e7d039a2c5a015790a841652c69e741976dd5",
+    "comparison.csv": "f7febaa8e1d7e108bb92162897ef7d6f58d81a1473516b9b54c69b3c08879485",
+    "comparison.json": "4b26b339ea6ec0a3f2aef1758fcd01163c4f7f86665567bc471ffb574b2ab898",
+    "stage7_report.md": "cc6b8b6c906fdba5717bdb45381f784cfc3a692b5411ecb93890c362687e4df8"
+  },
+  "rows": 2,
+  "schema_version": 1,
+  "stage": "kv-cxl-a800-bridge-stage7-v1"
+}

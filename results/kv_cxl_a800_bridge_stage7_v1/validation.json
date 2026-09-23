@@ -1,0 +1,12 @@
+{
+  "checks": {
+    "exact_new_runs": 1,
+    "forward_holdout_absolute_percentage_error": 0.016684135973958132,
+    "interpolation": 0,
+    "rows": 2
+  },
+  "errors": [],
+  "schema_version": 1,
+  "stage": "kv-cxl-a800-bridge-stage7-v1",
+  "status": "passed"
+}

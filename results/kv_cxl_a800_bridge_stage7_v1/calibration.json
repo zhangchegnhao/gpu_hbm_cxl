@@ -1,0 +1,49 @@
+{
+  "anchors": [
+    {
+      "attention_decode_mean_ms": 96.52723228931427,
+      "case": "b8_c4k",
+      "context_length": 4096,
+      "decode_mean_ms": 223.478910446167,
+      "non_attention_decode_ms": 126.95167815685272
+    },
+    {
+      "attention_decode_mean_ms": 166.64755260944366,
+      "case": "b8_c8k",
+      "context_length": 8192,
+      "decode_mean_ms": 292.9900817871094,
+      "non_attention_decode_ms": 126.34252917766571
+    },
+    {
+      "attention_decode_mean_ms": 312.0952325463295,
+      "case": "b8_c16k",
+      "context_length": 16384,
+      "decode_mean_ms": 437.9832305908203,
+      "non_attention_decode_ms": 125.88799804449081
+    }
+  ],
+  "fit": {
+    "intercept_ms": 23.803392320871325,
+    "r_squared": 0.9999199080810292,
+    "slope_ms_per_context_token": 0.017573236623970194
+  },
+  "forward_holdout": {
+    "absolute_percentage_error": 0.016684135973958132,
+    "held_out_context": 16384,
+    "observed_attention_ms": 312.0952325463295,
+    "predicted_attention_ms": 306.88819324970245,
+    "train_contexts": [
+      4096,
+      8192
+    ]
+  },
+  "source": "results/a800_timing_memory_v1/summary.json",
+  "source_sha256": "9391b3bdb73017b6801b0fa52d9716ec1e4346f24555b6150c4da6f1beb0d96d",
+  "target": {
+    "attention_extrapolated_ms": 599.6432100151267,
+    "case": "b8_c32k",
+    "context_length": 32768,
+    "non_attention_mean_ms": 126.39406845966975,
+    "non_attention_range_ms": 1.063680112361908
+  }
+}

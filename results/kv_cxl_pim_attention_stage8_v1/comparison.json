@@ -1,0 +1,195 @@
+{
+  "derived": {
+    "critical_attention_branch": "local-gpu",
+    "cxl_pim_branch_ms_per_decode": 110.61246643200005,
+    "cxl_pim_branch_us_per_layer": 2304.426384000001,
+    "cxl_pim_link_bytes_per_layer": 1130496,
+    "ideal_overlap_decode_ms": 573.3112993759162,
+    "link_traffic_reduction_fraction": 0.9920605954912955,
+    "local_gpu_attention_ms": 446.91723091624647,
+    "local_gpu_context_equivalent": 24077.171875,
+    "memory_only_cxl_link_bytes_per_layer": 142390528,
+    "pim_gwrite_us": 2.097888,
+    "pim_mac_us": 2278.269552,
+    "pim_read_us": 4.273152,
+    "query_link_us": 1.36656,
+    "result_link_us": 18.419232,
+    "serialized_decode_ms": 683.9237658079162,
+    "serialized_throughput_change_vs_memory_only_fraction": 0.22024456493764455,
+    "throughput_change_vs_memory_only_fraction": 0.4556738354315688,
+    "throughput_change_vs_resident_fraction": 0.2663927595097666
+  },
+  "metadata": {
+    "cache_records": [
+      {
+        "executed": false,
+        "key": "8eeb4898ec14d4c1529fdd278416ac378fb1f54c4530e768f3a7d169710796d2",
+        "kind": "query-link",
+        "payload": {
+          "direction": "gpu-to-cxl-pim-write-proxied-by-fifo-read",
+          "transactions": 2048
+        },
+        "sha256": "e005c777b9b68f3408aa9d24313777779b4db79014905a25002ec2bacbb56f69"
+      },
+      {
+        "executed": false,
+        "key": "ab195e249ca580fe5b280b01bd4e1371e7193aae71cc93e14c45c4fe94cb4f09",
+        "kind": "query-gwrite",
+        "payload": {
+          "operation": "PIM_GWRITE",
+          "waves": 2048
+        },
+        "sha256": "9cb999cece8d7387f6dec5312a269bf02a980dc547091ed1c3618c93a2ad174f"
+      },
+      {
+        "executed": false,
+        "key": "e11ca1d6d4aa9524894b7dc71d07e9ace8f4c3ee77a9c904c073fec55e64600e",
+        "kind": "attention-mac",
+        "payload": {
+          "operation": "PIM_MAC",
+          "waves": 92703
+        },
+        "sha256": "0ce82fd78f1ee8f887bdb50a866219097bcae7c004a58bf20b5b82bdd70cf324"
+      },
+      {
+        "executed": false,
+        "key": "f326d24728043701188218f1aac4f52f65823baa96f3b706d580955ce486285f",
+        "kind": "partial-read",
+        "payload": {
+          "operation": "PIM_READ",
+          "waves": 4160
+        },
+        "sha256": "d1472854021fdd4c40015340ee1fed61148c309ee6d7dc3282fbe57b7ff9ffda"
+      },
+      {
+        "executed": false,
+        "key": "d9a5f9799748b05aecb8ed222390c3f24ee888c66d0ecb487b6b797ea4bd1dc2",
+        "kind": "partial-result-link",
+        "payload": {
+          "direction": "cxl-pim-to-gpu-read",
+          "transactions": 33280
+        },
+        "sha256": "8c6cad0ca730ba401a3576f48135e052d80203db7f1c5ed9d22a6ace6d44122e"
+      }
+    ],
+    "case": "b8_c32k",
+    "classification": "A800-anchored analytic sensitivity plus exact isolated Ramulator phases",
+    "component_us_per_layer": {
+      "pim_gwrite_us": 2.097888,
+      "pim_mac_us": 2278.269552,
+      "pim_read_us": 4.273152,
+      "query_link_us": 1.36656,
+      "result_link_us": 18.419232
+    },
+    "exact_runs": 5,
+    "execution": {
+      "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+      "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+      "ramulator_library_sha256": "3d2eb8a91aaef784bd15bfe74c42b809b636b2916461ddcd9cf0d9595d1e6a23"
+    },
+    "input_hashes": {
+      "cycle": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+      "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+      "stage7": "4b26b339ea6ec0a3f2aef1758fcd01163c4f7f86665567bc471ffb574b2ab898",
+      "stage7_validation": "59d93437ae882cf12b5f209d1bd2955ea0a7061dcca4a89f3e55606795ed5b40"
+    },
+    "interpolation": 0,
+    "layers": 48,
+    "limitations": [
+      "CXL-PIM topology and PIM timing are model assumptions, not a measured device.",
+      "Query writes are represented by the existing FIFO link READ proxy with identical byte service.",
+      "The five phases are isolated exact runs connected serially; their controllers do not contend in one Ramulator simulation.",
+      "The comparison reports ideal overlap and full serialization of the GPU/CXL-PIM branches; partial-result merge cost is zero in both bounds.",
+      "Softmax scalar operations, protocol overhead, paging, eviction, energy, multi-GPU sharing, and physical CXL are absent."
+    ],
+    "method": "decomposed isolated request-level CXL-PIM Attention lower bound",
+    "new_runs_executed": 0,
+    "phase_order": [
+      "query-link",
+      "query-gwrite",
+      "attention-mac",
+      "partial-read",
+      "partial-result-link"
+    ],
+    "schema_version": 1,
+    "shape": {
+      "kv_bytes_per_context_position": 2048,
+      "mac_operations": 569565184,
+      "mac_operations_per_wave": 6144,
+      "partial_result_bytes": 1064960,
+      "pim_gwrite_waves": 2048,
+      "pim_mac_waves": 92703,
+      "pim_read_waves": 4160,
+      "query_bytes": 65536,
+      "query_link_transactions": 2048,
+      "result_link_transactions": 33280,
+      "spilled_context_positions": 69527,
+      "spilled_kv_bytes_per_layer": 142390528
+    },
+    "stage": "kv-cxl-pim-attention-stage8-v1",
+    "topology_assumption": {
+      "banks_per_pseudo_channel": 24,
+      "channels": 4,
+      "partial_scalar_bytes": 4,
+      "pseudo_channels_per_channel": 2
+    }
+  },
+  "rows": [
+    {
+      "capacity_state": "infeasible-on-a800",
+      "cxl_bandwidth_gb_s": 0.0,
+      "cxl_kv_read_transactions": 0,
+      "cxl_latency_us": 0.0,
+      "estimated_attention_ms": 599.6432100151267,
+      "estimated_decode_ms": 726.0372784747964,
+      "estimated_throughput_tokens_per_s": 11.018717960055424,
+      "evidence_class": "A800 trend extrapolation plus exact Ramulator Local-HBM counterfactual",
+      "local_kv_read_transactions": 16777216,
+      "memory_completion_us_per_layer": 169.016328,
+      "memory_delta_vs_resident_ms_per_decode": 0.0,
+      "scenario": "resident-local-counterfactual"
+    },
+    {
+      "capacity_state": "spill",
+      "cxl_bandwidth_gb_s": 64.0,
+      "cxl_kv_read_transactions": 4449704,
+      "cxl_latency_us": 0.25,
+      "estimated_attention_ms": 708.1601895991266,
+      "estimated_decode_ms": 834.5542580587963,
+      "estimated_throughput_tokens_per_s": 9.585955523860477,
+      "evidence_class": "A800 trend extrapolation plus paired exact Ramulator CXL spill delta",
+      "local_kv_read_transactions": 12327512,
+      "memory_completion_us_per_layer": 2429.786736,
+      "memory_delta_vs_resident_ms_per_decode": 108.51697958399998,
+      "scenario": "nominal-memory-only-cxl-spill"
+    },
+    {
+      "capacity_state": "spill",
+      "cxl_bandwidth_gb_s": 64.0,
+      "cxl_kv_read_transactions": 0,
+      "cxl_latency_us": 0.25,
+      "estimated_attention_ms": 446.91723091624647,
+      "estimated_decode_ms": 573.3112993759162,
+      "estimated_throughput_tokens_per_s": 13.954024643694414,
+      "evidence_class": "A800 local-branch extrapolation plus five isolated exact Ramulator phase results",
+      "local_kv_read_transactions": 12327512,
+      "memory_completion_us_per_layer": 2304.426384000001,
+      "memory_delta_vs_resident_ms_per_decode": -152.7259790988802,
+      "scenario": "optimistic-cxl-pim-attention"
+    },
+    {
+      "capacity_state": "spill",
+      "cxl_bandwidth_gb_s": 64.0,
+      "cxl_kv_read_transactions": 0,
+      "cxl_latency_us": 0.25,
+      "estimated_attention_ms": 557.5296973482465,
+      "estimated_decode_ms": 683.9237658079162,
+      "estimated_throughput_tokens_per_s": 11.69721012772474,
+      "evidence_class": "A800 local-branch extrapolation plus five isolated exact Ramulator phases serialized as a scheduling bound",
+      "local_kv_read_transactions": 12327512,
+      "memory_completion_us_per_layer": 2304.426384000001,
+      "memory_delta_vs_resident_ms_per_decode": -42.11351266688018,
+      "scenario": "serialized-cxl-pim-attention"
+    }
+  ]
+}

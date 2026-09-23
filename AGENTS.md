@@ -209,8 +209,51 @@ READ buffer=256 的 single-row。95/95 完成、失败和插值均为 0。结果
 和放置。19 个去重 shape 的平均控制器差值不是 KV 平均竞争惩罚。single/dual 只改变
 PIM/normal row-buffer 假设，并未改变 KV/Expert 地址映射；serial/staggered 注入和
 地址布局扫描尚未实现。不能把结果直接纳入串行端到端回放或宣称真实 A800 带宽瓶颈。
-下一步是独立 A800 Attention/Decode 计时与显存采样的准备；原 Router hook 的
-`.cpu().tolist()` 会引入同步，不能直接用该捕获 pass 的时间作无干扰性能基准。
+独立 A800 Attention/Decode 计时与显存采样已经完成；原 Router hook 的
+`.cpu().tolist()` 会引入同步，因此实测使用了不带 Router hook 的独立 pass。B8/C4k、
+B8/C8k、B8/C16k、B16/C4k、B16/C8k 的结果位于
+`results/a800_timing_memory_v1/`，说明见 `docs/a800_timing_memory_capture_v1.md`。
+
+KV CXL Stage 4--6 已实现 memory-only CXL 请求模型，并将 Local/CXL KV Attention
+阶段与后续 Expert 阶段按 Decode 依赖顺序接入 48 层事件图。Stage 6 的 B8/C32k
+正式点使用 `request_scale=1`，包含 4 个精确 Ramulator 运行、192 个逐层结果，插值为
+0；名义 CXL 假设为 64 GB/s、0.25 us、4 个 channel 和 64 GB 容量。这仍是固定参数
+的 CXL FIFO 内存模型，不是物理 CXL 设备、paging 或 CXL-PIM。结果位于
+`results/kv_cxl_phase_stage6_b8_c32k_formal_v1/`，分析见
+`docs/kv_cxl_phase_stage6_analysis.md`。
+
+Stage 7 已完成 A800 实测锚定的 B8/C32k 配对分析。B8/C4k+C8k 前向预测 C16k
+Attention 的绝对百分比误差为 1.668%，三点线性拟合 R² 为 0.999920；C32k 数字仍是
+外推，不是 A800 实测。新增一次 16,777,216 条 Local-HBM KV READ 的 full-count
+精确 Ramulator 运行，并与 Stage 6 的 CXL spill 结果按哈希配对，插值为 0。名义
+64 GB/s memory-only CXL 相对容量不受限的 Local-HBM 反事实增加 108.517 ms/Decode，
+估算吞吐下降 13.003%；这说明它可以满足解析容量准入，但不能作为无代价扩容。
+842.466 GB/s 只是由 spilled payload 和全 Local-HBM 完成期限导出的 payload-rate
+门槛，不是物理 CXL 带宽需求或实测结果。结果位于
+`results/kv_cxl_a800_bridge_stage7_v1/`，分析见
+`docs/kv_cxl_a800_bridge_stage7_analysis.md`。下一阶段应先定义 CXL-PIM Attention 的
+query/partial-result 数据流和请求计数，再与 memory-only CXL 做同一输入、同一容量
+拆分的精确比较；不得直接把 Stage 7 外推数字当作 CXL-PIM 性能。
+
+Stage 8 已完成首个分解式 CXL-PIM Attention 下界模型。它假设 4 个 CXL-PIM channel、
+每 channel 2 个 PCH、每 PCH 24 个 bank，沿用当前 HBM3 时序与 PIM command interval；
+这些都是模型假设，不是物理设备参数。B8/C32k 每层发送 65,536 B query，spilled KV
+保留在 CXL-PIM 侧，并返回每 PCH、每请求、每 Attention head 一份 FP32
+`(max, sum, value vector)` partial state，共 1,064,960 B。query link、PIM GWRITE、
+PIM MAC、PIM READ 和 result link 为 5 个独立精确 Ramulator 运行，全部完成且插值为
+0；五阶段在结果中按依赖顺序串联，但没有进入同一个 controller 竞争模拟。
+
+相对 memory-only CXL 每层传输 142,390,528 B raw spilled KV，Stage 8 的 query 与
+partial result 合计为 1,130,496 B，解析链路流量减少 99.206%。CXL-PIM 分支每层
+2,304.426 us，其中 PIM MAC 为 2,278.270 us。与 A800 拟合的本地 GPU Attention
+分支组合后，理想并行与完全串行两种调度界分别得到 573.311 ms 和 683.924 ms 的
+估算 Decode 时延；相对 Stage 7 memory-only CXL 的估算吞吐改善分别为 45.567% 和
+22.024%。这些数字依赖理想 PIM 吞吐、FP32 partial 格式、零 merge cost 等假设，
+不是物理 CXL-PIM 性能，也不表示 Shared CXL-PIM 或多 GPU 已实现。结果位于
+`results/kv_cxl_pim_attention_stage8_v1/`，分析见
+`docs/kv_cxl_pim_attention_stage8_analysis.md`。下一阶段应扫描 CXL-PIM channel/PCH、
+PIM MAC interval、partial 精度、merge cost 和 overlap，并在敏感性边界稳定后再考虑
+统一 CXL-PIM controller 或 Shared CXL-PIM。
 
 物理A800显存为80 GB，当前模拟容量为96 GB，二者必须分开报告。Batch=16、
 Context=32k和Batch=32、Context=16k可用于模拟容量压力，但不能直接称为A800实测

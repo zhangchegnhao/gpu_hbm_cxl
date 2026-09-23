@@ -1,0 +1,99 @@
+{
+  "cache_input": {
+    "case": "b8_c32k",
+    "cxl_context": {
+      "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+      "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+      "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+      "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+      "model": "cxl-kv-memory-only-request-v1"
+    },
+    "cxl_pim_context": {
+      "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+      "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+      "model": "isolated-cxl-pim-attention-v1",
+      "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+      "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+    },
+    "cycle_tick_ps": 312,
+    "input_hashes": {
+      "cycle": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+      "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+      "stage7": "4b26b339ea6ec0a3f2aef1758fcd01163c4f7f86665567bc471ffb574b2ab898",
+      "stage7_validation": "59d93437ae882cf12b5f209d1bd2955ea0a7061dcca4a89f3e55606795ed5b40"
+    },
+    "kind": "query-link",
+    "payload": {
+      "direction": "gpu-to-cxl-pim-write-proxied-by-fifo-read",
+      "transactions": 2048
+    },
+    "profile": {
+      "address_mapping": "static-spill-offset; pass-through channel mapper",
+      "bandwidth_gb_s": 64.0,
+      "capacity_gb": 64,
+      "channel_count": 4,
+      "latency_us": 0.25,
+      "name": "nominal-assumption",
+      "queue_depth": 256,
+      "transaction_bytes": 32
+    },
+    "schema_version": 1,
+    "shape": {
+      "kv_bytes_per_context_position": 2048,
+      "mac_operations": 569565184,
+      "mac_operations_per_wave": 6144,
+      "partial_result_bytes": 1064960,
+      "pim_gwrite_waves": 2048,
+      "pim_mac_waves": 92703,
+      "pim_read_waves": 4160,
+      "query_bytes": 65536,
+      "query_link_transactions": 2048,
+      "result_link_transactions": 33280,
+      "spilled_context_positions": 69527,
+      "spilled_kv_bytes_per_layer": 142390528
+    },
+    "stage": "kv-cxl-pim-attention-stage8-v1",
+    "topology": {
+      "banks_per_pseudo_channel": 24,
+      "channels": 4,
+      "partial_scalar_bytes": 4,
+      "pseudo_channels_per_channel": 2
+    }
+  },
+  "result": {
+    "cxl_channels": 4,
+    "cxl_controller_completion_cycles": 4380,
+    "cxl_kv_completed_requests": 2048,
+    "cxl_kv_completion_cycles": 4380,
+    "cxl_kv_injected_requests": 2048,
+    "cxl_kv_injection_rejected_attempts": 8944,
+    "cxl_kv_read_transactions": 2048,
+    "cxl_link_busy_cycles": 14336,
+    "cxl_max_queue_wait_cycles": 1792,
+    "cxl_max_request_residence_cycles": 2594,
+    "cxl_queue_wait_cycles": 2679728,
+    "cxl_read_latency_cycles": 4322224,
+    "cxl_request_residence_cycles": 4322224,
+    "gpu_completed_requests": 0,
+    "gpu_completion_cycles": 0,
+    "gpu_injected_requests": 0,
+    "gpu_injection_rejected_attempts": 0,
+    "gpu_read_transactions": 0,
+    "local_channels": 128,
+    "local_kv_completed_requests": 0,
+    "local_kv_completion_cycles": 0,
+    "local_kv_injected_requests": 0,
+    "local_kv_injection_rejected_attempts": 0,
+    "local_kv_read_transactions": 0,
+    "local_read_latency_cycles": 0,
+    "pim_completed_requests": 0,
+    "pim_completion_cycles": 0,
+    "pim_gwrite_waves": 0,
+    "pim_injected_requests": 0,
+    "pim_mac_waves": 0,
+    "pim_read_waves": 0,
+    "tick_ps": 312,
+    "total_completion_cycles": 4380
+  },
+  "result_type": "cxl-transfer"
+}
