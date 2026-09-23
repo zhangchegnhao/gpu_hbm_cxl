@@ -1,0 +1,50 @@
+{
+  "case": "b8_c4k",
+  "created_at_utc": "2026-09-23T02:01:01.628510+00:00",
+  "device": {
+    "capability": [
+      8,
+      0
+    ],
+    "device_count": 1,
+    "name": "NVIDIA A800-SXM4-80GB",
+    "total_memory_bytes": 85293072384
+  },
+  "experiment": "a800-independent-attention-decode-timing-v1",
+  "memory_source": "CUDA allocator counters and past_key_values tensors",
+  "model": {
+    "dtype": "bfloat16",
+    "head_dim": 128,
+    "num_hidden_layers": 48,
+    "num_key_value_heads": 4,
+    "path": "/data/hf-cache/transformers/models--Qwen--Qwen3-30B-A3B/snapshots/ad44e777bcd18fa416d9da3bd8f70d33ebb85d39",
+    "revision": "ad44e777bcd18fa416d9da3bd8f70d33ebb85d39"
+  },
+  "outputs": {
+    "memory.json": "fb9d36ddfbe9fd9e31ddfea44aadc193d0d6370f0b7c7800c24163983d7204c0",
+    "prompts.jsonl": "18a8d59e0a5518c408277dcc529991b1be9a4a526641efdbf87b3f5fbeadf4b8",
+    "timing.json": "e09f45e94bb48b6f30b5090de7432e1ff59c8e5e95216fc2dee99c0674a972a2"
+  },
+  "prompts": {
+    "count": 8,
+    "sha256": "18a8d59e0a5518c408277dcc529991b1be9a4a526641efdbf87b3f5fbeadf4b8",
+    "snapshot": "prompts.jsonl",
+    "snapshot_sha256": "18a8d59e0a5518c408277dcc529991b1be9a4a526641efdbf87b3f5fbeadf4b8",
+    "source": "/data/kv_prompts/b8_c4k/prompts.jsonl"
+  },
+  "schema_version": 1,
+  "software": {
+    "cuda": "12.6",
+    "python": "3.12.11",
+    "torch": "2.7.1+cu126",
+    "transformers": "4.53.2"
+  },
+  "status": "passed",
+  "timing_source": "CUDA events; independent pass without Router hooks",
+  "workload": {
+    "batch_size": 8,
+    "context_length": 4096,
+    "decode_steps": 8,
+    "warmup_runs": 1
+  }
+}

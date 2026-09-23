@@ -1,0 +1,19 @@
+{
+  "case": "b8_c32k",
+  "comparison_sha256": "fee0e773be92d86d7973d5a96396697bf6ae9052036b6af8c2f2f0868300d2ee",
+  "exact_runs": 4,
+  "interpolation": 0,
+  "layer_rows": 192,
+  "policies": [
+    "gpu-only",
+    "sieve"
+  ],
+  "request_scales": [
+    4096,
+    1
+  ],
+  "rows": 4,
+  "stage_manifest_sha256": "bf14b01b79b868af4050ef94237f116239cb2f8a2c280437fe05db2e665e3507",
+  "status": "passed",
+  "unique_shapes": 4
+}

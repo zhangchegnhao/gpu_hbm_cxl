@@ -1,0 +1,37 @@
+{
+  "case": "b8_c32k",
+  "exact_runs": 2,
+  "execution": {
+    "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+    "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+    "ramulator_library_sha256": "3d2eb8a91aaef784bd15bfe74c42b809b636b2916461ddcd9cf0d9595d1e6a23"
+  },
+  "input_hashes": {
+    "capacity_source": "f59e97f0a71644e0a255d7a6bdeff5fa7baa9d6254763593429fce93c1a330d3",
+    "cycle_config": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+    "hardware": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
+    "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+    "source_experiment": "a7c9b066bf13605c02c80722c4da7d592407fd7a9e6a3c8df5ba1fad852559d9",
+    "source_manifest": "ee480b33260ce37eee51ec36f265d0443c9083122679d4cf39fc17cfb6ee8e33",
+    "source_trace": "afc5f6bf27a84bdf54294cd79b01bdc54037b6d8905ace7e6ae5c1e60eab750f"
+  },
+  "interpolation": 0,
+  "layer_rows": 96,
+  "output_hashes": {
+    "comparison.csv": "dd79521d927f1df7788314065858121c4706fa134f29862d53ce7a270a8bd884",
+    "comparison.json": "d3f33032b54be84f8a91de6cabbe1b88fc8aa9a2ad2fb87b3e58dfe428304a20",
+    "layer_results.csv": "3920a7a58b97fac0cdff282686a2ab6744f2eb937ce6c383cb19adcd7112539f",
+    "stage6_report.md": "0d56129d32974c7644a50e88bb3e312de3d8d3f7194088ab0d640b37af6bce6d"
+  },
+  "policies": [
+    "gpu-only",
+    "sieve"
+  ],
+  "request_scales": [
+    4096
+  ],
+  "rows": 2,
+  "schema_version": 1,
+  "stage": "kv-cxl-phase-stage6-v1",
+  "unique_shapes": 2
+}

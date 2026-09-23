@@ -1,0 +1,51 @@
+Loading checkpoint shards:   0%|          | 0/16 [00:00<?, ?it/s]Loading checkpoint shards:   6%|▋         | 1/16 [00:01<00:19,  1.27s/it]Loading checkpoint shards:  12%|█▎        | 2/16 [00:02<00:18,  1.36s/it]Loading checkpoint shards:  19%|█▉        | 3/16 [00:04<00:17,  1.38s/it]Loading checkpoint shards:  25%|██▌       | 4/16 [00:05<00:16,  1.42s/it]Loading checkpoint shards:  31%|███▏      | 5/16 [00:07<00:15,  1.42s/it]Loading checkpoint shards:  38%|███▊      | 6/16 [00:08<00:14,  1.43s/it]Loading checkpoint shards:  44%|████▍     | 7/16 [00:09<00:12,  1.43s/it]Loading checkpoint shards:  50%|█████     | 8/16 [00:11<00:11,  1.42s/it]Loading checkpoint shards:  56%|█████▋    | 9/16 [00:12<00:10,  1.44s/it]Loading checkpoint shards:  62%|██████▎   | 10/16 [00:14<00:09,  1.50s/it]Loading checkpoint shards:  69%|██████▉   | 11/16 [00:15<00:07,  1.50s/it]Loading checkpoint shards:  75%|███████▌  | 12/16 [00:17<00:06,  1.52s/it]Loading checkpoint shards:  81%|████████▏ | 13/16 [00:19<00:04,  1.58s/it]Loading checkpoint shards:  88%|████████▊ | 14/16 [00:20<00:03,  1.57s/it]Loading checkpoint shards:  94%|█████████▍| 15/16 [00:22<00:01,  1.62s/it]Loading checkpoint shards: 100%|██████████| 16/16 [00:22<00:00,  1.20s/it]Loading checkpoint shards: 100%|██████████| 16/16 [00:22<00:00,  1.42s/it]
+{
+  "case": "b16_c8k",
+  "created_at_utc": "2026-09-23T02:06:33.007122+00:00",
+  "device": {
+    "capability": [
+      8,
+      0
+    ],
+    "device_count": 1,
+    "name": "NVIDIA A800-SXM4-80GB",
+    "total_memory_bytes": 85293072384
+  },
+  "experiment": "a800-independent-attention-decode-timing-v1",
+  "memory_source": "CUDA allocator counters and past_key_values tensors",
+  "model": {
+    "dtype": "bfloat16",
+    "head_dim": 128,
+    "num_hidden_layers": 48,
+    "num_key_value_heads": 4,
+    "path": "/data/hf-cache/transformers/models--Qwen--Qwen3-30B-A3B/snapshots/ad44e777bcd18fa416d9da3bd8f70d33ebb85d39",
+    "revision": "ad44e777bcd18fa416d9da3bd8f70d33ebb85d39"
+  },
+  "outputs": {
+    "memory.json": "99557defebd7949a5017dcf64d39899038c1c9e7884fd07b2ecf3acd07cfb662",
+    "prompts.jsonl": "c2c1e60a8498c6109e48316d8ccf62dbf7ac5d69b324e25289f0b075b1f94df5",
+    "timing.json": "c7958b9fc8284792abcf56a17e87c4424e6d29ea15ef0b0fc5f01b3eccd74a05"
+  },
+  "prompts": {
+    "count": 16,
+    "sha256": "c2c1e60a8498c6109e48316d8ccf62dbf7ac5d69b324e25289f0b075b1f94df5",
+    "snapshot": "prompts.jsonl",
+    "snapshot_sha256": "c2c1e60a8498c6109e48316d8ccf62dbf7ac5d69b324e25289f0b075b1f94df5",
+    "source": "/data/kv_prompts/b16_c8k/prompts.jsonl"
+  },
+  "schema_version": 1,
+  "software": {
+    "cuda": "12.6",
+    "python": "3.12.11",
+    "torch": "2.7.1+cu126",
+    "transformers": "4.53.2"
+  },
+  "status": "passed",
+  "timing_source": "CUDA events; independent pass without Router hooks",
+  "workload": {
+    "batch_size": 16,
+    "context_length": 8192,
+    "decode_steps": 8,
+    "warmup_runs": 1
+  }
+}

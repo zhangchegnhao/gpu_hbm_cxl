@@ -1,0 +1,336 @@
+{
+  "batch_size": 8,
+  "case": "b8_c4k",
+  "context_length": 4096,
+  "decode_attention_ms": [
+    105.33376002311707,
+    95.77062439918518,
+    95.80339205265045,
+    95.49619221687317,
+    94.98521673679352,
+    94.7486721277237,
+    95.04563236236572,
+    95.03436839580536
+  ],
+  "decode_median_ms": 221.86495971679688,
+  "decode_ms": [
+    245.9647979736328,
+    221.86495971679688,
+    225.30662536621094,
+    221.9622344970703,
+    219.4503631591797,
+    221.42361450195312,
+    215.24070739746094,
+    216.61798095703125
+  ],
+  "decode_steps": 8,
+  "decode_tokens_per_second": 35.79756131810518,
+  "device": {
+    "capability": [
+      8,
+      0
+    ],
+    "device_count": 1,
+    "name": "NVIDIA A800-SXM4-80GB",
+    "total_memory_bytes": 85293072384
+  },
+  "input_token_lengths": [
+    4095,
+    4095,
+    4095,
+    4095,
+    4095,
+    4095,
+    4095,
+    4095
+  ],
+  "kv_cache_bytes_after_decode": 3226730496,
+  "kv_cache_bytes_after_prefill": 3220439040,
+  "memory": [
+    {
+      "allocated_bytes": 64296840192,
+      "kv_cache_bytes": 3220439040,
+      "peak_allocated_bytes": 66309739008,
+      "peak_reserved_bytes": 66869788672,
+      "phase": "prefill",
+      "reserved_bytes": 66869788672
+    },
+    {
+      "allocated_bytes": 64299860992,
+      "kv_cache_bytes": 3221225472,
+      "peak_allocated_bytes": 66309739008,
+      "peak_reserved_bytes": 66869788672,
+      "phase": "decode",
+      "reserved_bytes": 66869788672,
+      "step": 0
+    },
+    {
+      "allocated_bytes": 64300262912,
+      "kv_cache_bytes": 3222011904,
+      "peak_allocated_bytes": 66309739008,
+      "peak_reserved_bytes": 66869788672,
+      "phase": "decode",
+      "reserved_bytes": 66869788672,
+      "step": 1
+    },
+    {
+      "allocated_bytes": 64300975616,
+      "kv_cache_bytes": 3222798336,
+      "peak_allocated_bytes": 66309739008,
+      "peak_reserved_bytes": 66869788672,
+      "phase": "decode",
+      "reserved_bytes": 66869788672,
+      "step": 2
+    },
+    {
+      "allocated_bytes": 64301762048,
+      "kv_cache_bytes": 3223584768,
+      "peak_allocated_bytes": 66309739008,
+      "peak_reserved_bytes": 66869788672,
+      "phase": "decode",
+      "reserved_bytes": 66869788672,
+      "step": 3
+    },
+    {
+      "allocated_bytes": 64302548480,
+      "kv_cache_bytes": 3224371200,
+      "peak_allocated_bytes": 66309739008,
+      "peak_reserved_bytes": 66869788672,
+      "phase": "decode",
+      "reserved_bytes": 66869788672,
+      "step": 4
+    },
+    {
+      "allocated_bytes": 64303334912,
+      "kv_cache_bytes": 3225157632,
+      "peak_allocated_bytes": 66309739008,
+      "peak_reserved_bytes": 66869788672,
+      "phase": "decode",
+      "reserved_bytes": 66869788672,
+      "step": 5
+    },
+    {
+      "allocated_bytes": 64304121344,
+      "kv_cache_bytes": 3225944064,
+      "peak_allocated_bytes": 66309739008,
+      "peak_reserved_bytes": 66869788672,
+      "phase": "decode",
+      "reserved_bytes": 66869788672,
+      "step": 6
+    },
+    {
+      "allocated_bytes": 64304907776,
+      "kv_cache_bytes": 3226730496,
+      "peak_allocated_bytes": 66309739008,
+      "peak_reserved_bytes": 66869788672,
+      "phase": "decode",
+      "reserved_bytes": 66869788672,
+      "step": 7
+    }
+  ],
+  "peak_allocated_bytes": 66309739008,
+  "peak_reserved_bytes": 66869788672,
+  "prefill_attention_modules": [
+    {
+      "duration_ms": 20.0263671875,
+      "module": "model.layers.0.self_attn"
+    },
+    {
+      "duration_ms": 20.08780860900879,
+      "module": "model.layers.1.self_attn"
+    },
+    {
+      "duration_ms": 19.936256408691406,
+      "module": "model.layers.2.self_attn"
+    },
+    {
+      "duration_ms": 19.950592041015625,
+      "module": "model.layers.3.self_attn"
+    },
+    {
+      "duration_ms": 19.966976165771484,
+      "module": "model.layers.4.self_attn"
+    },
+    {
+      "duration_ms": 19.938304901123047,
+      "module": "model.layers.5.self_attn"
+    },
+    {
+      "duration_ms": 19.952640533447266,
+      "module": "model.layers.6.self_attn"
+    },
+    {
+      "duration_ms": 20.04582405090332,
+      "module": "model.layers.7.self_attn"
+    },
+    {
+      "duration_ms": 19.953664779663086,
+      "module": "model.layers.8.self_attn"
+    },
+    {
+      "duration_ms": 19.961856842041016,
+      "module": "model.layers.9.self_attn"
+    },
+    {
+      "duration_ms": 19.952640533447266,
+      "module": "model.layers.10.self_attn"
+    },
+    {
+      "duration_ms": 19.928064346313477,
+      "module": "model.layers.11.self_attn"
+    },
+    {
+      "duration_ms": 19.934207916259766,
+      "module": "model.layers.12.self_attn"
+    },
+    {
+      "duration_ms": 19.960832595825195,
+      "module": "model.layers.13.self_attn"
+    },
+    {
+      "duration_ms": 19.950592041015625,
+      "module": "model.layers.14.self_attn"
+    },
+    {
+      "duration_ms": 19.942399978637695,
+      "module": "model.layers.15.self_attn"
+    },
+    {
+      "duration_ms": 19.933183670043945,
+      "module": "model.layers.16.self_attn"
+    },
+    {
+      "duration_ms": 19.962879180908203,
+      "module": "model.layers.17.self_attn"
+    },
+    {
+      "duration_ms": 19.948543548583984,
+      "module": "model.layers.18.self_attn"
+    },
+    {
+      "duration_ms": 19.948543548583984,
+      "module": "model.layers.19.self_attn"
+    },
+    {
+      "duration_ms": 19.926015853881836,
+      "module": "model.layers.20.self_attn"
+    },
+    {
+      "duration_ms": 19.938304901123047,
+      "module": "model.layers.21.self_attn"
+    },
+    {
+      "duration_ms": 19.933183670043945,
+      "module": "model.layers.22.self_attn"
+    },
+    {
+      "duration_ms": 19.952640533447266,
+      "module": "model.layers.23.self_attn"
+    },
+    {
+      "duration_ms": 19.949567794799805,
+      "module": "model.layers.24.self_attn"
+    },
+    {
+      "duration_ms": 19.939327239990234,
+      "module": "model.layers.25.self_attn"
+    },
+    {
+      "duration_ms": 19.923967361450195,
+      "module": "model.layers.26.self_attn"
+    },
+    {
+      "duration_ms": 19.970048904418945,
+      "module": "model.layers.27.self_attn"
+    },
+    {
+      "duration_ms": 19.928064346313477,
+      "module": "model.layers.28.self_attn"
+    },
+    {
+      "duration_ms": 19.949567794799805,
+      "module": "model.layers.29.self_attn"
+    },
+    {
+      "duration_ms": 19.957759857177734,
+      "module": "model.layers.30.self_attn"
+    },
+    {
+      "duration_ms": 19.964927673339844,
+      "module": "model.layers.31.self_attn"
+    },
+    {
+      "duration_ms": 19.945472717285156,
+      "module": "model.layers.32.self_attn"
+    },
+    {
+      "duration_ms": 19.937280654907227,
+      "module": "model.layers.33.self_attn"
+    },
+    {
+      "duration_ms": 19.939327239990234,
+      "module": "model.layers.34.self_attn"
+    },
+    {
+      "duration_ms": 19.955711364746094,
+      "module": "model.layers.35.self_attn"
+    },
+    {
+      "duration_ms": 19.957759857177734,
+      "module": "model.layers.36.self_attn"
+    },
+    {
+      "duration_ms": 19.941375732421875,
+      "module": "model.layers.37.self_attn"
+    },
+    {
+      "duration_ms": 19.944448471069336,
+      "module": "model.layers.38.self_attn"
+    },
+    {
+      "duration_ms": 19.936256408691406,
+      "module": "model.layers.39.self_attn"
+    },
+    {
+      "duration_ms": 19.922943115234375,
+      "module": "model.layers.40.self_attn"
+    },
+    {
+      "duration_ms": 19.939327239990234,
+      "module": "model.layers.41.self_attn"
+    },
+    {
+      "duration_ms": 19.949567794799805,
+      "module": "model.layers.42.self_attn"
+    },
+    {
+      "duration_ms": 19.941375732421875,
+      "module": "model.layers.43.self_attn"
+    },
+    {
+      "duration_ms": 19.953664779663086,
+      "module": "model.layers.44.self_attn"
+    },
+    {
+      "duration_ms": 19.932159423828125,
+      "module": "model.layers.45.self_attn"
+    },
+    {
+      "duration_ms": 19.965951919555664,
+      "module": "model.layers.46.self_attn"
+    },
+    {
+      "duration_ms": 19.919872283935547,
+      "module": "model.layers.47.self_attn"
+    }
+  ],
+  "prefill_attention_ms": 957.6980495452881,
+  "prefill_ms": 3892.590576171875,
+  "software": {
+    "cuda": "12.6",
+    "python": "3.12.11",
+    "torch": "2.7.1+cu126",
+    "transformers": "4.53.2"
+  },
+  "status": "passed"
+}

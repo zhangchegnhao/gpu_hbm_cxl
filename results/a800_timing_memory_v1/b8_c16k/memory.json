@@ -1,0 +1,82 @@
+[
+  {
+    "allocated_bytes": 73962089472,
+    "kv_cache_bytes": 12884115456,
+    "peak_allocated_bytes": 82021176832,
+    "peak_reserved_bytes": 84223721472,
+    "phase": "prefill",
+    "reserved_bytes": 84223721472
+  },
+  {
+    "allocated_bytes": 73965110272,
+    "kv_cache_bytes": 12884901888,
+    "peak_allocated_bytes": 82021176832,
+    "peak_reserved_bytes": 84223721472,
+    "phase": "decode",
+    "reserved_bytes": 84223721472,
+    "step": 0
+  },
+  {
+    "allocated_bytes": 73966226432,
+    "kv_cache_bytes": 12885688320,
+    "peak_allocated_bytes": 82021176832,
+    "peak_reserved_bytes": 84223721472,
+    "phase": "decode",
+    "reserved_bytes": 84223721472,
+    "step": 1
+  },
+  {
+    "allocated_bytes": 73966224896,
+    "kv_cache_bytes": 12886474752,
+    "peak_allocated_bytes": 82021176832,
+    "peak_reserved_bytes": 84223721472,
+    "phase": "decode",
+    "reserved_bytes": 84223721472,
+    "step": 2
+  },
+  {
+    "allocated_bytes": 73967725568,
+    "kv_cache_bytes": 12887261184,
+    "peak_allocated_bytes": 82021176832,
+    "peak_reserved_bytes": 84223721472,
+    "phase": "decode",
+    "reserved_bytes": 84223721472,
+    "step": 3
+  },
+  {
+    "allocated_bytes": 73968428032,
+    "kv_cache_bytes": 12888047616,
+    "peak_allocated_bytes": 82021176832,
+    "peak_reserved_bytes": 84223721472,
+    "phase": "decode",
+    "reserved_bytes": 84223721472,
+    "step": 4
+  },
+  {
+    "allocated_bytes": 73969298432,
+    "kv_cache_bytes": 12888834048,
+    "peak_allocated_bytes": 82021176832,
+    "peak_reserved_bytes": 84223721472,
+    "phase": "decode",
+    "reserved_bytes": 84223721472,
+    "step": 5
+  },
+  {
+    "allocated_bytes": 73969370624,
+    "kv_cache_bytes": 12889620480,
+    "peak_allocated_bytes": 82021176832,
+    "peak_reserved_bytes": 84223721472,
+    "phase": "decode",
+    "reserved_bytes": 84223721472,
+    "step": 6
+  },
+  {
+    "allocated_bytes": 73970871296,
+    "kv_cache_bytes": 12890406912,
+    "peak_allocated_bytes": 82021176832,
+    "peak_reserved_bytes": 84223721472,
+    "phase": "decode",
+    "reserved_bytes": 84223721472,
+    "step": 7
+  }
+]

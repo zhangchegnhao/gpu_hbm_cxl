@@ -1,0 +1,391 @@
+{
+  "metadata": {
+    "cache_records": [
+      {
+        "cache_key": "cc7c6f09b9cabca72b0eb163bbc34947deeac7c4ddb76b4f4a8fe7df6a1e91be",
+        "cache_sha256": "868966dd06b0233aa675e7d5bc9c67e5b811db263578ebb3fed8c5b56ce121f7",
+        "consumers": [
+          "gpu-only",
+          "sieve"
+        ],
+        "executed": true,
+        "phase": "attention",
+        "request_scale": 4096,
+        "shape": {
+          "cxl_kv_read_transactions": 1087,
+          "gpu_read_transactions": 0,
+          "local_kv_read_transactions": 3009,
+          "pim_gwrite_waves": 0,
+          "pim_mac_waves": 0,
+          "pim_read_waves": 0
+        }
+      },
+      {
+        "cache_key": "b0ddfcf3acac9e43dc286ee840cfe3c315492fa804e8db4333387f9f0c22974a",
+        "cache_sha256": "087a07a1c0c3ec38d48162bb8b1e11c96c40498ea8d8767fb0a7ee74c7580f7d",
+        "consumers": [
+          "gpu-only",
+          "sieve"
+        ],
+        "executed": true,
+        "phase": "expert",
+        "request_scale": 4096,
+        "shape": {
+          "cxl_kv_read_transactions": 0,
+          "gpu_read_transactions": 576,
+          "local_kv_read_transactions": 0,
+          "pim_gwrite_waves": 0,
+          "pim_mac_waves": 0,
+          "pim_read_waves": 0
+        }
+      },
+      {
+        "cache_key": "8a5311003929e85f7544031237fea0dc4f57d2ca087a77064d02b994c80aec7a",
+        "cache_sha256": "c7852d0a0dcbaca1844259649f80ce2cb60e15fa7208469e503a6ce873037123",
+        "consumers": [
+          "gpu-only",
+          "sieve"
+        ],
+        "executed": true,
+        "phase": "attention",
+        "request_scale": 1,
+        "shape": {
+          "cxl_kv_read_transactions": 4449704,
+          "gpu_read_transactions": 0,
+          "local_kv_read_transactions": 12327512,
+          "pim_gwrite_waves": 0,
+          "pim_mac_waves": 0,
+          "pim_read_waves": 0
+        }
+      },
+      {
+        "cache_key": "6890636d0cff6c3ad9cfca23ab2c9f1ba4c8b085c3ca78b754d5cd42c26cebed",
+        "cache_sha256": "49425500d53817f2d706f8c05eda8c3bd92e9386daca48584ab490102aac1bc1",
+        "consumers": [
+          "gpu-only",
+          "sieve"
+        ],
+        "executed": true,
+        "phase": "expert",
+        "request_scale": 1,
+        "shape": {
+          "cxl_kv_read_transactions": 0,
+          "gpu_read_transactions": 2359296,
+          "local_kv_read_transactions": 0,
+          "pim_gwrite_waves": 0,
+          "pim_mac_waves": 0,
+          "pim_read_waves": 0
+        }
+      }
+    ],
+    "case": "b8_c32k",
+    "classification": "Ramulator request-level phase milestones plus analytic Decode graph; no A800 or physical CXL timing",
+    "decode_steps": 1,
+    "exact_runs": 4,
+    "execution": {
+      "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+      "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+      "ramulator_library_sha256": "3d2eb8a91aaef784bd15bfe74c42b809b636b2916461ddcd9cf0d9595d1e6a23"
+    },
+    "input_hashes": {
+      "capacity_source": "f59e97f0a71644e0a255d7a6bdeff5fa7baa9d6254763593429fce93c1a330d3",
+      "cycle_config": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+      "hardware": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
+      "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+      "source_experiment": "a7c9b066bf13605c02c80722c4da7d592407fd7a9e6a3c8df5ba1fad852559d9",
+      "source_manifest": "ee480b33260ce37eee51ec36f265d0443c9083122679d4cf39fc17cfb6ee8e33",
+      "source_trace": "afc5f6bf27a84bdf54294cd79b01bdc54037b6d8905ace7e6ae5c1e60eab750f"
+    },
+    "interpolation": 0,
+    "layers": 48,
+    "limitations": [
+      "Attention KV and Expert requests are separate phases because the current Decode graph orders Expert after Attention.",
+      "CXL is a fixed-bandwidth, fixed-latency FIFO memory-only assumption.",
+      "Routing is a controlled B8/C4k template assigned C32k context, not a new A800 capture.",
+      "GPU arithmetic and Attention compute remain analytic; PIM intermediate Expert milestones are unavailable.",
+      "No paging transfer state machine, eviction, recovery, physical CXL protocol, multi-GPU, or CXL-PIM computation."
+    ],
+    "method": "phase-faithful-request-level-cxl-in-48-layer-decode-graph",
+    "new_runs": 4,
+    "policies": [
+      "gpu-only",
+      "sieve"
+    ],
+    "profile": {
+      "address_mapping": "static-spill-offset; pass-through channel mapper",
+      "bandwidth_gb_s": 64.0,
+      "capacity_gb": 64,
+      "channel_count": 4,
+      "latency_us": 0.25,
+      "name": "nominal-assumption",
+      "queue_depth": 256,
+      "transaction_bytes": 32
+    },
+    "request_scales": [
+      4096,
+      1
+    ],
+    "schema_version": 1,
+    "shape_deduplication": "simulation inputs only; policy and case labels are consumers",
+    "stage": "kv-cxl-phase-stage6-v1",
+    "unique_shapes": 4
+  },
+  "rows": [
+    {
+      "attention_cache_key": "cc7c6f09b9cabca72b0eb163bbc34947deeac7c4ddb76b4f4a8fe7df6a1e91be",
+      "attention_critical_path_us": 48.786432000000104,
+      "attention_latency_share": 0.050223599697271956,
+      "attention_latency_us": 48.786432000000104,
+      "attention_shape": {
+        "cxl_kv_read_transactions": 1087,
+        "gpu_read_transactions": 0,
+        "local_kv_read_transactions": 3009,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "capacity_feasible": true,
+      "capacity_state": "spill",
+      "case": "b8_c32k",
+      "classification": "phase-faithful 48-layer Decode graph with exact request-level memory milestones; CXL profile and routing tiling are assumptions",
+      "critical_path": "step0.layer0.norm1;step0.layer0.qkv;step0.layer0.rope;step0.layer0.attention;step0.layer0.o_proj;step0.layer0.residual1;step0.layer0.norm2;step0.layer0.router;step0.layer0.metadata;step0.layer0.scheduler;step0.layer0.gpu_weight_load;step0.layer0.gpu_expert_compute;step0.layer0.combine;step0.layer0.residual2;step0.layer1.norm1;step0.layer1.qkv;step0.layer1.rope;step0.layer1.attention;step0.layer1.o_proj;step0.layer1.residual1;step0.layer1.norm2;step0.layer1.router;step0.layer1.metadata;step0.layer1.scheduler;step0.layer1.gpu_weight_load;step0.layer1.gpu_expert_compute;step0.layer1.combine;step0.layer1.residual2;step0.layer2.norm1;step0.layer2.qkv;step0.layer2.rope;step0.layer2.attention;step0.layer2.o_proj;step0.layer2.residual1;step0.layer2.norm2;step0.layer2.router;step0.layer2.metadata;step0.layer2.scheduler;step0.layer2.gpu_weight_load;step0.layer2.gpu_expert_compute;step0.layer2.combine;step0.layer2.residual2;step0.layer3.norm1;step0.layer3.qkv;step0.layer3.rope;step0.layer3.attention;step0.layer3.o_proj;step0.layer3.residual1;step0.layer3.norm2;step0.layer3.router;step0.layer3.metadata;step0.layer3.scheduler;step0.layer3.gpu_weight_load;step0.layer3.gpu_expert_compute;step0.layer3.combine;step0.layer3.residual2;step0.layer4.norm1;step0.layer4.qkv;step0.layer4.rope;step0.layer4.attention;step0.layer4.o_proj;step0.layer4.residual1;step0.layer4.norm2;step0.layer4.router;step0.layer4.metadata;step0.layer4.scheduler;step0.layer4.gpu_weight_load;step0.layer4.gpu_expert_compute;step0.layer4.combine;step0.layer4.residual2;step0.layer5.norm1;step0.layer5.qkv;step0.layer5.rope;step0.layer5.attention;step0.layer5.o_proj;step0.layer5.residual1;step0.layer5.norm2;step0.layer5.router;step0.layer5.metadata;step0.layer5.scheduler;step0.layer5.gpu_weight_load;step0.layer5.gpu_expert_compute;step0.layer5.combine;step0.layer5.residual2;step0.layer6.norm1;step0.layer6.qkv;step0.layer6.rope;step0.layer6.attention;step0.layer6.o_proj;step0.layer6.residual1;step0.layer6.norm2;step0.layer6.router;step0.layer6.metadata;step0.layer6.scheduler;step0.layer6.gpu_weight_load;step0.layer6.gpu_expert_compute;step0.layer6.combine;step0.layer6.residual2;step0.layer7.norm1;step0.layer7.qkv;step0.layer7.rope;step0.layer7.attention;step0.layer7.o_proj;step0.layer7.residual1;step0.layer7.norm2;step0.layer7.router;step0.layer7.metadata;step0.layer7.scheduler;step0.layer7.gpu_weight_load;step0.layer7.gpu_expert_compute;step0.layer7.combine;step0.layer7.residual2;step0.layer8.norm1;step0.layer8.qkv;step0.layer8.rope;step0.layer8.attention;step0.layer8.o_proj;step0.layer8.residual1;step0.layer8.norm2;step0.layer8.router;step0.layer8.metadata;step0.layer8.scheduler;step0.layer8.gpu_weight_load;step0.layer8.gpu_expert_compute;step0.layer8.combine;step0.layer8.residual2;step0.layer9.norm1;step0.layer9.qkv;step0.layer9.rope;step0.layer9.attention;step0.layer9.o_proj;step0.layer9.residual1;step0.layer9.norm2;step0.layer9.router;step0.layer9.metadata;step0.layer9.scheduler;step0.layer9.gpu_weight_load;step0.layer9.gpu_expert_compute;step0.layer9.combine;step0.layer9.residual2;step0.layer10.norm1;step0.layer10.qkv;step0.layer10.rope;step0.layer10.attention;step0.layer10.o_proj;step0.layer10.residual1;step0.layer10.norm2;step0.layer10.router;step0.layer10.metadata;step0.layer10.scheduler;step0.layer10.gpu_weight_load;step0.layer10.gpu_expert_compute;step0.layer10.combine;step0.layer10.residual2;step0.layer11.norm1;step0.layer11.qkv;step0.layer11.rope;step0.layer11.attention;step0.layer11.o_proj;step0.layer11.residual1;step0.layer11.norm2;step0.layer11.router;step0.layer11.metadata;step0.layer11.scheduler;step0.layer11.gpu_weight_load;step0.layer11.gpu_expert_compute;step0.layer11.combine;step0.layer11.residual2;step0.layer12.norm1;step0.layer12.qkv;step0.layer12.rope;step0.layer12.attention;step0.layer12.o_proj;step0.layer12.residual1;step0.layer12.norm2;step0.layer12.router;step0.layer12.metadata;step0.layer12.scheduler;step0.layer12.gpu_weight_load;step0.layer12.gpu_expert_compute;step0.layer12.combine;step0.layer12.residual2;step0.layer13.norm1;step0.layer13.qkv;step0.layer13.rope;step0.layer13.attention;step0.layer13.o_proj;step0.layer13.residual1;step0.layer13.norm2;step0.layer13.router;step0.layer13.metadata;step0.layer13.scheduler;step0.layer13.gpu_weight_load;step0.layer13.gpu_expert_compute;step0.layer13.combine;step0.layer13.residual2;step0.layer14.norm1;step0.layer14.qkv;step0.layer14.rope;step0.layer14.attention;step0.layer14.o_proj;step0.layer14.residual1;step0.layer14.norm2;step0.layer14.router;step0.layer14.metadata;step0.layer14.scheduler;step0.layer14.gpu_weight_load;step0.layer14.gpu_expert_compute;step0.layer14.combine;step0.layer14.residual2;step0.layer15.norm1;step0.layer15.qkv;step0.layer15.rope;step0.layer15.attention;step0.layer15.o_proj;step0.layer15.residual1;step0.layer15.norm2;step0.layer15.router;step0.layer15.metadata;step0.layer15.scheduler;step0.layer15.gpu_weight_load;step0.layer15.gpu_expert_compute;step0.layer15.combine;step0.layer15.residual2;step0.layer16.norm1;step0.layer16.qkv;step0.layer16.rope;step0.layer16.attention;step0.layer16.o_proj;step0.layer16.residual1;step0.layer16.norm2;step0.layer16.router;step0.layer16.metadata;step0.layer16.scheduler;step0.layer16.gpu_weight_load;step0.layer16.gpu_expert_compute;step0.layer16.combine;step0.layer16.residual2;step0.layer17.norm1;step0.layer17.qkv;step0.layer17.rope;step0.layer17.attention;step0.layer17.o_proj;step0.layer17.residual1;step0.layer17.norm2;step0.layer17.router;step0.layer17.metadata;step0.layer17.scheduler;step0.layer17.gpu_weight_load;step0.layer17.gpu_expert_compute;step0.layer17.combine;step0.layer17.residual2;step0.layer18.norm1;step0.layer18.qkv;step0.layer18.rope;step0.layer18.attention;step0.layer18.o_proj;step0.layer18.residual1;step0.layer18.norm2;step0.layer18.router;step0.layer18.metadata;step0.layer18.scheduler;step0.layer18.gpu_weight_load;step0.layer18.gpu_expert_compute;step0.layer18.combine;step0.layer18.residual2;step0.layer19.norm1;step0.layer19.qkv;step0.layer19.rope;step0.layer19.attention;step0.layer19.o_proj;step0.layer19.residual1;step0.layer19.norm2;step0.layer19.router;step0.layer19.metadata;step0.layer19.scheduler;step0.layer19.gpu_weight_load;step0.layer19.gpu_expert_compute;step0.layer19.combine;step0.layer19.residual2;step0.layer20.norm1;step0.layer20.qkv;step0.layer20.rope;step0.layer20.attention;step0.layer20.o_proj;step0.layer20.residual1;step0.layer20.norm2;step0.layer20.router;step0.layer20.metadata;step0.layer20.scheduler;step0.layer20.gpu_weight_load;step0.layer20.gpu_expert_compute;step0.layer20.combine;step0.layer20.residual2;step0.layer21.norm1;step0.layer21.qkv;step0.layer21.rope;step0.layer21.attention;step0.layer21.o_proj;step0.layer21.residual1;step0.layer21.norm2;step0.layer21.router;step0.layer21.metadata;step0.layer21.scheduler;step0.layer21.gpu_weight_load;step0.layer21.gpu_expert_compute;step0.layer21.combine;step0.layer21.residual2;step0.layer22.norm1;step0.layer22.qkv;step0.layer22.rope;step0.layer22.attention;step0.layer22.o_proj;step0.layer22.residual1;step0.layer22.norm2;step0.layer22.router;step0.layer22.metadata;step0.layer22.scheduler;step0.layer22.gpu_weight_load;step0.layer22.gpu_expert_compute;step0.layer22.combine;step0.layer22.residual2;step0.layer23.norm1;step0.layer23.qkv;step0.layer23.rope;step0.layer23.attention;step0.layer23.o_proj;step0.layer23.residual1;step0.layer23.norm2;step0.layer23.router;step0.layer23.metadata;step0.layer23.scheduler;step0.layer23.gpu_weight_load;step0.layer23.gpu_expert_compute;step0.layer23.combine;step0.layer23.residual2;step0.layer24.norm1;step0.layer24.qkv;step0.layer24.rope;step0.layer24.attention;step0.layer24.o_proj;step0.layer24.residual1;step0.layer24.norm2;step0.layer24.router;step0.layer24.metadata;step0.layer24.scheduler;step0.layer24.gpu_weight_load;step0.layer24.gpu_expert_compute;step0.layer24.combine;step0.layer24.residual2;step0.layer25.norm1;step0.layer25.qkv;step0.layer25.rope;step0.layer25.attention;step0.layer25.o_proj;step0.layer25.residual1;step0.layer25.norm2;step0.layer25.router;step0.layer25.metadata;step0.layer25.scheduler;step0.layer25.gpu_weight_load;step0.layer25.gpu_expert_compute;step0.layer25.combine;step0.layer25.residual2;step0.layer26.norm1;step0.layer26.qkv;step0.layer26.rope;step0.layer26.attention;step0.layer26.o_proj;step0.layer26.residual1;step0.layer26.norm2;step0.layer26.router;step0.layer26.metadata;step0.layer26.scheduler;step0.layer26.gpu_weight_load;step0.layer26.gpu_expert_compute;step0.layer26.combine;step0.layer26.residual2;step0.layer27.norm1;step0.layer27.qkv;step0.layer27.rope;step0.layer27.attention;step0.layer27.o_proj;step0.layer27.residual1;step0.layer27.norm2;step0.layer27.router;step0.layer27.metadata;step0.layer27.scheduler;step0.layer27.gpu_weight_load;step0.layer27.gpu_expert_compute;step0.layer27.combine;step0.layer27.residual2;step0.layer28.norm1;step0.layer28.qkv;step0.layer28.rope;step0.layer28.attention;step0.layer28.o_proj;step0.layer28.residual1;step0.layer28.norm2;step0.layer28.router;step0.layer28.metadata;step0.layer28.scheduler;step0.layer28.gpu_weight_load;step0.layer28.gpu_expert_compute;step0.layer28.combine;step0.layer28.residual2;step0.layer29.norm1;step0.layer29.qkv;step0.layer29.rope;step0.layer29.attention;step0.layer29.o_proj;step0.layer29.residual1;step0.layer29.norm2;step0.layer29.router;step0.layer29.metadata;step0.layer29.scheduler;step0.layer29.gpu_weight_load;step0.layer29.gpu_expert_compute;step0.layer29.combine;step0.layer29.residual2;step0.layer30.norm1;step0.layer30.qkv;step0.layer30.rope;step0.layer30.attention;step0.layer30.o_proj;step0.layer30.residual1;step0.layer30.norm2;step0.layer30.router;step0.layer30.metadata;step0.layer30.scheduler;step0.layer30.gpu_weight_load;step0.layer30.gpu_expert_compute;step0.layer30.combine;step0.layer30.residual2;step0.layer31.norm1;step0.layer31.qkv;step0.layer31.rope;step0.layer31.attention;step0.layer31.o_proj;step0.layer31.residual1;step0.layer31.norm2;step0.layer31.router;step0.layer31.metadata;step0.layer31.scheduler;step0.layer31.gpu_weight_load;step0.layer31.gpu_expert_compute;step0.layer31.combine;step0.layer31.residual2;step0.layer32.norm1;step0.layer32.qkv;step0.layer32.rope;step0.layer32.attention;step0.layer32.o_proj;step0.layer32.residual1;step0.layer32.norm2;step0.layer32.router;step0.layer32.metadata;step0.layer32.scheduler;step0.layer32.gpu_weight_load;step0.layer32.gpu_expert_compute;step0.layer32.combine;step0.layer32.residual2;step0.layer33.norm1;step0.layer33.qkv;step0.layer33.rope;step0.layer33.attention;step0.layer33.o_proj;step0.layer33.residual1;step0.layer33.norm2;step0.layer33.router;step0.layer33.metadata;step0.layer33.scheduler;step0.layer33.gpu_weight_load;step0.layer33.gpu_expert_compute;step0.layer33.combine;step0.layer33.residual2;step0.layer34.norm1;step0.layer34.qkv;step0.layer34.rope;step0.layer34.attention;step0.layer34.o_proj;step0.layer34.residual1;step0.layer34.norm2;step0.layer34.router;step0.layer34.metadata;step0.layer34.scheduler;step0.layer34.gpu_weight_load;step0.layer34.gpu_expert_compute;step0.layer34.combine;step0.layer34.residual2;step0.layer35.norm1;step0.layer35.qkv;step0.layer35.rope;step0.layer35.attention;step0.layer35.o_proj;step0.layer35.residual1;step0.layer35.norm2;step0.layer35.router;step0.layer35.metadata;step0.layer35.scheduler;step0.layer35.gpu_weight_load;step0.layer35.gpu_expert_compute;step0.layer35.combine;step0.layer35.residual2;step0.layer36.norm1;step0.layer36.qkv;step0.layer36.rope;step0.layer36.attention;step0.layer36.o_proj;step0.layer36.residual1;step0.layer36.norm2;step0.layer36.router;step0.layer36.metadata;step0.layer36.scheduler;step0.layer36.gpu_weight_load;step0.layer36.gpu_expert_compute;step0.layer36.combine;step0.layer36.residual2;step0.layer37.norm1;step0.layer37.qkv;step0.layer37.rope;step0.layer37.attention;step0.layer37.o_proj;step0.layer37.residual1;step0.layer37.norm2;step0.layer37.router;step0.layer37.metadata;step0.layer37.scheduler;step0.layer37.gpu_weight_load;step0.layer37.gpu_expert_compute;step0.layer37.combine;step0.layer37.residual2;step0.layer38.norm1;step0.layer38.qkv;step0.layer38.rope;step0.layer38.attention;step0.layer38.o_proj;step0.layer38.residual1;step0.layer38.norm2;step0.layer38.router;step0.layer38.metadata;step0.layer38.scheduler;step0.layer38.gpu_weight_load;step0.layer38.gpu_expert_compute;step0.layer38.combine;step0.layer38.residual2;step0.layer39.norm1;step0.layer39.qkv;step0.layer39.rope;step0.layer39.attention;step0.layer39.o_proj;step0.layer39.residual1;step0.layer39.norm2;step0.layer39.router;step0.layer39.metadata;step0.layer39.scheduler;step0.layer39.gpu_weight_load;step0.layer39.gpu_expert_compute;step0.layer39.combine;step0.layer39.residual2;step0.layer40.norm1;step0.layer40.qkv;step0.layer40.rope;step0.layer40.attention;step0.layer40.o_proj;step0.layer40.residual1;step0.layer40.norm2;step0.layer40.router;step0.layer40.metadata;step0.layer40.scheduler;step0.layer40.gpu_weight_load;step0.layer40.gpu_expert_compute;step0.layer40.combine;step0.layer40.residual2;step0.layer41.norm1;step0.layer41.qkv;step0.layer41.rope;step0.layer41.attention;step0.layer41.o_proj;step0.layer41.residual1;step0.layer41.norm2;step0.layer41.router;step0.layer41.metadata;step0.layer41.scheduler;step0.layer41.gpu_weight_load;step0.layer41.gpu_expert_compute;step0.layer41.combine;step0.layer41.residual2;step0.layer42.norm1;step0.layer42.qkv;step0.layer42.rope;step0.layer42.attention;step0.layer42.o_proj;step0.layer42.residual1;step0.layer42.norm2;step0.layer42.router;step0.layer42.metadata;step0.layer42.scheduler;step0.layer42.gpu_weight_load;step0.layer42.gpu_expert_compute;step0.layer42.combine;step0.layer42.residual2;step0.layer43.norm1;step0.layer43.qkv;step0.layer43.rope;step0.layer43.attention;step0.layer43.o_proj;step0.layer43.residual1;step0.layer43.norm2;step0.layer43.router;step0.layer43.metadata;step0.layer43.scheduler;step0.layer43.gpu_weight_load;step0.layer43.gpu_expert_compute;step0.layer43.combine;step0.layer43.residual2;step0.layer44.norm1;step0.layer44.qkv;step0.layer44.rope;step0.layer44.attention;step0.layer44.o_proj;step0.layer44.residual1;step0.layer44.norm2;step0.layer44.router;step0.layer44.metadata;step0.layer44.scheduler;step0.layer44.gpu_weight_load;step0.layer44.gpu_expert_compute;step0.layer44.combine;step0.layer44.residual2;step0.layer45.norm1;step0.layer45.qkv;step0.layer45.rope;step0.layer45.attention;step0.layer45.o_proj;step0.layer45.residual1;step0.layer45.norm2;step0.layer45.router;step0.layer45.metadata;step0.layer45.scheduler;step0.layer45.gpu_weight_load;step0.layer45.gpu_expert_compute;step0.layer45.combine;step0.layer45.residual2;step0.layer46.norm1;step0.layer46.qkv;step0.layer46.rope;step0.layer46.attention;step0.layer46.o_proj;step0.layer46.residual1;step0.layer46.norm2;step0.layer46.router;step0.layer46.metadata;step0.layer46.scheduler;step0.layer46.gpu_weight_load;step0.layer46.gpu_expert_compute;step0.layer46.combine;step0.layer46.residual2;step0.layer47.norm1;step0.layer47.qkv;step0.layer47.rope;step0.layer47.attention;step0.layer47.o_proj;step0.layer47.residual1;step0.layer47.norm2;step0.layer47.router;step0.layer47.metadata;step0.layer47.scheduler;step0.layer47.gpu_weight_load;step0.layer47.gpu_expert_compute;step0.layer47.combine;step0.layer47.residual2",
+      "cxl_critical_path_us": 0.0,
+      "cxl_kv_completion_us_per_layer": 0.8424,
+      "cxl_kv_event_latency_us": 40.435199999999995,
+      "cxl_link_busy_ratio": 0.7045370370370371,
+      "cxl_max_queue_wait_us": 0.550056,
+      "cxl_queue_wait_us_all_requests": 14344.806528000001,
+      "decode_steps": 1,
+      "expert_cache_key": "b0ddfcf3acac9e43dc286ee840cfe3c315492fa804e8db4333387f9f0c22974a",
+      "expert_critical_path_us": 158.84675788800004,
+      "expert_event_latency_us": 158.84675788800004,
+      "expert_shape": {
+        "cxl_kv_read_transactions": 0,
+        "gpu_read_transactions": 576,
+        "local_kv_read_transactions": 0,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "gpu_expert_completion_us_per_layer": 0.040872,
+      "interpolation": 0,
+      "kv_cache_bytes": 25769803776,
+      "layers": 48,
+      "local_kv_completion_us_per_layer": 0.073944,
+      "local_kv_event_latency_us": 3.549312,
+      "peak_memory_bytes": 86834745344,
+      "pim_expert_completion_us_per_layer": 0.0,
+      "placement": {
+        "attention_target": "gpu",
+        "gpu_experts": [
+          14,
+          31,
+          43,
+          63,
+          83,
+          93,
+          97,
+          120
+        ],
+        "pim_experts": []
+      },
+      "policy": "gpu-only",
+      "request_scale": 4096,
+      "simulated_local_state_without_cxl": "resident",
+      "throughput_request_tokens_per_s": 8235.666784940837,
+      "total_latency_us": 971.3846138880023
+    },
+    {
+      "attention_cache_key": "cc7c6f09b9cabca72b0eb163bbc34947deeac7c4ddb76b4f4a8fe7df6a1e91be",
+      "attention_critical_path_us": 22586.978303999993,
+      "attention_latency_share": 0.9230637202497621,
+      "attention_latency_us": 22586.978303999993,
+      "attention_shape": {
+        "cxl_kv_read_transactions": 1087,
+        "gpu_read_transactions": 0,
+        "local_kv_read_transactions": 3009,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "capacity_feasible": true,
+      "capacity_state": "spill",
+      "case": "b8_c32k",
+      "classification": "phase-faithful 48-layer Decode graph with exact request-level memory milestones; CXL profile and routing tiling are assumptions",
+      "critical_path": "step0.layer0.norm1;step0.layer0.qkv;step0.layer0.rope;step0.layer0.attention;step0.layer0.o_proj;step0.layer0.residual1;step0.layer0.norm2;step0.layer0.router;step0.layer0.metadata;step0.layer0.scheduler;step0.layer0.gpu_weight_load;step0.layer0.gpu_expert_compute;step0.layer0.combine;step0.layer0.residual2;step0.layer1.norm1;step0.layer1.qkv;step0.layer1.rope;step0.layer1.attention;step0.layer1.o_proj;step0.layer1.residual1;step0.layer1.norm2;step0.layer1.router;step0.layer1.metadata;step0.layer1.scheduler;step0.layer1.gpu_weight_load;step0.layer1.gpu_expert_compute;step0.layer1.combine;step0.layer1.residual2;step0.layer2.norm1;step0.layer2.qkv;step0.layer2.rope;step0.layer2.attention;step0.layer2.o_proj;step0.layer2.residual1;step0.layer2.norm2;step0.layer2.router;step0.layer2.metadata;step0.layer2.scheduler;step0.layer2.gpu_weight_load;step0.layer2.gpu_expert_compute;step0.layer2.combine;step0.layer2.residual2;step0.layer3.norm1;step0.layer3.qkv;step0.layer3.rope;step0.layer3.attention;step0.layer3.o_proj;step0.layer3.residual1;step0.layer3.norm2;step0.layer3.router;step0.layer3.metadata;step0.layer3.scheduler;step0.layer3.gpu_weight_load;step0.layer3.gpu_expert_compute;step0.layer3.combine;step0.layer3.residual2;step0.layer4.norm1;step0.layer4.qkv;step0.layer4.rope;step0.layer4.attention;step0.layer4.o_proj;step0.layer4.residual1;step0.layer4.norm2;step0.layer4.router;step0.layer4.metadata;step0.layer4.scheduler;step0.layer4.gpu_weight_load;step0.layer4.gpu_expert_compute;step0.layer4.combine;step0.layer4.residual2;step0.layer5.norm1;step0.layer5.qkv;step0.layer5.rope;step0.layer5.attention;step0.layer5.o_proj;step0.layer5.residual1;step0.layer5.norm2;step0.layer5.router;step0.layer5.metadata;step0.layer5.scheduler;step0.layer5.gpu_weight_load;step0.layer5.gpu_expert_compute;step0.layer5.combine;step0.layer5.residual2;step0.layer6.norm1;step0.layer6.qkv;step0.layer6.rope;step0.layer6.attention;step0.layer6.o_proj;step0.layer6.residual1;step0.layer6.norm2;step0.layer6.router;step0.layer6.metadata;step0.layer6.scheduler;step0.layer6.gpu_weight_load;step0.layer6.gpu_expert_compute;step0.layer6.combine;step0.layer6.residual2;step0.layer7.norm1;step0.layer7.qkv;step0.layer7.rope;step0.layer7.attention;step0.layer7.o_proj;step0.layer7.residual1;step0.layer7.norm2;step0.layer7.router;step0.layer7.metadata;step0.layer7.scheduler;step0.layer7.gpu_weight_load;step0.layer7.gpu_expert_compute;step0.layer7.combine;step0.layer7.residual2;step0.layer8.norm1;step0.layer8.qkv;step0.layer8.rope;step0.layer8.attention;step0.layer8.o_proj;step0.layer8.residual1;step0.layer8.norm2;step0.layer8.router;step0.layer8.metadata;step0.layer8.scheduler;step0.layer8.gpu_weight_load;step0.layer8.gpu_expert_compute;step0.layer8.combine;step0.layer8.residual2;step0.layer9.norm1;step0.layer9.qkv;step0.layer9.rope;step0.layer9.attention;step0.layer9.o_proj;step0.layer9.residual1;step0.layer9.norm2;step0.layer9.router;step0.layer9.metadata;step0.layer9.scheduler;step0.layer9.gpu_weight_load;step0.layer9.gpu_expert_compute;step0.layer9.combine;step0.layer9.residual2;step0.layer10.norm1;step0.layer10.qkv;step0.layer10.rope;step0.layer10.attention;step0.layer10.o_proj;step0.layer10.residual1;step0.layer10.norm2;step0.layer10.router;step0.layer10.metadata;step0.layer10.scheduler;step0.layer10.gpu_weight_load;step0.layer10.gpu_expert_compute;step0.layer10.combine;step0.layer10.residual2;step0.layer11.norm1;step0.layer11.qkv;step0.layer11.rope;step0.layer11.attention;step0.layer11.o_proj;step0.layer11.residual1;step0.layer11.norm2;step0.layer11.router;step0.layer11.metadata;step0.layer11.scheduler;step0.layer11.gpu_weight_load;step0.layer11.gpu_expert_compute;step0.layer11.combine;step0.layer11.residual2;step0.layer12.norm1;step0.layer12.qkv;step0.layer12.rope;step0.layer12.attention;step0.layer12.o_proj;step0.layer12.residual1;step0.layer12.norm2;step0.layer12.router;step0.layer12.metadata;step0.layer12.scheduler;step0.layer12.gpu_weight_load;step0.layer12.gpu_expert_compute;step0.layer12.combine;step0.layer12.residual2;step0.layer13.norm1;step0.layer13.qkv;step0.layer13.rope;step0.layer13.attention;step0.layer13.o_proj;step0.layer13.residual1;step0.layer13.norm2;step0.layer13.router;step0.layer13.metadata;step0.layer13.scheduler;step0.layer13.gpu_weight_load;step0.layer13.gpu_expert_compute;step0.layer13.combine;step0.layer13.residual2;step0.layer14.norm1;step0.layer14.qkv;step0.layer14.rope;step0.layer14.attention;step0.layer14.o_proj;step0.layer14.residual1;step0.layer14.norm2;step0.layer14.router;step0.layer14.metadata;step0.layer14.scheduler;step0.layer14.gpu_weight_load;step0.layer14.gpu_expert_compute;step0.layer14.combine;step0.layer14.residual2;step0.layer15.norm1;step0.layer15.qkv;step0.layer15.rope;step0.layer15.attention;step0.layer15.o_proj;step0.layer15.residual1;step0.layer15.norm2;step0.layer15.router;step0.layer15.metadata;step0.layer15.scheduler;step0.layer15.gpu_weight_load;step0.layer15.gpu_expert_compute;step0.layer15.combine;step0.layer15.residual2;step0.layer16.norm1;step0.layer16.qkv;step0.layer16.rope;step0.layer16.attention;step0.layer16.o_proj;step0.layer16.residual1;step0.layer16.norm2;step0.layer16.router;step0.layer16.metadata;step0.layer16.scheduler;step0.layer16.gpu_weight_load;step0.layer16.gpu_expert_compute;step0.layer16.combine;step0.layer16.residual2;step0.layer17.norm1;step0.layer17.qkv;step0.layer17.rope;step0.layer17.attention;step0.layer17.o_proj;step0.layer17.residual1;step0.layer17.norm2;step0.layer17.router;step0.layer17.metadata;step0.layer17.scheduler;step0.layer17.gpu_weight_load;step0.layer17.gpu_expert_compute;step0.layer17.combine;step0.layer17.residual2;step0.layer18.norm1;step0.layer18.qkv;step0.layer18.rope;step0.layer18.attention;step0.layer18.o_proj;step0.layer18.residual1;step0.layer18.norm2;step0.layer18.router;step0.layer18.metadata;step0.layer18.scheduler;step0.layer18.gpu_weight_load;step0.layer18.gpu_expert_compute;step0.layer18.combine;step0.layer18.residual2;step0.layer19.norm1;step0.layer19.qkv;step0.layer19.rope;step0.layer19.attention;step0.layer19.o_proj;step0.layer19.residual1;step0.layer19.norm2;step0.layer19.router;step0.layer19.metadata;step0.layer19.scheduler;step0.layer19.gpu_weight_load;step0.layer19.gpu_expert_compute;step0.layer19.combine;step0.layer19.residual2;step0.layer20.norm1;step0.layer20.qkv;step0.layer20.rope;step0.layer20.attention;step0.layer20.o_proj;step0.layer20.residual1;step0.layer20.norm2;step0.layer20.router;step0.layer20.metadata;step0.layer20.scheduler;step0.layer20.gpu_weight_load;step0.layer20.gpu_expert_compute;step0.layer20.combine;step0.layer20.residual2;step0.layer21.norm1;step0.layer21.qkv;step0.layer21.rope;step0.layer21.attention;step0.layer21.o_proj;step0.layer21.residual1;step0.layer21.norm2;step0.layer21.router;step0.layer21.metadata;step0.layer21.scheduler;step0.layer21.gpu_weight_load;step0.layer21.gpu_expert_compute;step0.layer21.combine;step0.layer21.residual2;step0.layer22.norm1;step0.layer22.qkv;step0.layer22.rope;step0.layer22.attention;step0.layer22.o_proj;step0.layer22.residual1;step0.layer22.norm2;step0.layer22.router;step0.layer22.metadata;step0.layer22.scheduler;step0.layer22.gpu_weight_load;step0.layer22.gpu_expert_compute;step0.layer22.combine;step0.layer22.residual2;step0.layer23.norm1;step0.layer23.qkv;step0.layer23.rope;step0.layer23.attention;step0.layer23.o_proj;step0.layer23.residual1;step0.layer23.norm2;step0.layer23.router;step0.layer23.metadata;step0.layer23.scheduler;step0.layer23.gpu_weight_load;step0.layer23.gpu_expert_compute;step0.layer23.combine;step0.layer23.residual2;step0.layer24.norm1;step0.layer24.qkv;step0.layer24.rope;step0.layer24.attention;step0.layer24.o_proj;step0.layer24.residual1;step0.layer24.norm2;step0.layer24.router;step0.layer24.metadata;step0.layer24.scheduler;step0.layer24.gpu_weight_load;step0.layer24.gpu_expert_compute;step0.layer24.combine;step0.layer24.residual2;step0.layer25.norm1;step0.layer25.qkv;step0.layer25.rope;step0.layer25.attention;step0.layer25.o_proj;step0.layer25.residual1;step0.layer25.norm2;step0.layer25.router;step0.layer25.metadata;step0.layer25.scheduler;step0.layer25.gpu_weight_load;step0.layer25.gpu_expert_compute;step0.layer25.combine;step0.layer25.residual2;step0.layer26.norm1;step0.layer26.qkv;step0.layer26.rope;step0.layer26.attention;step0.layer26.o_proj;step0.layer26.residual1;step0.layer26.norm2;step0.layer26.router;step0.layer26.metadata;step0.layer26.scheduler;step0.layer26.gpu_weight_load;step0.layer26.gpu_expert_compute;step0.layer26.combine;step0.layer26.residual2;step0.layer27.norm1;step0.layer27.qkv;step0.layer27.rope;step0.layer27.attention;step0.layer27.o_proj;step0.layer27.residual1;step0.layer27.norm2;step0.layer27.router;step0.layer27.metadata;step0.layer27.scheduler;step0.layer27.gpu_weight_load;step0.layer27.gpu_expert_compute;step0.layer27.combine;step0.layer27.residual2;step0.layer28.norm1;step0.layer28.qkv;step0.layer28.rope;step0.layer28.attention;step0.layer28.o_proj;step0.layer28.residual1;step0.layer28.norm2;step0.layer28.router;step0.layer28.metadata;step0.layer28.scheduler;step0.layer28.gpu_weight_load;step0.layer28.gpu_expert_compute;step0.layer28.combine;step0.layer28.residual2;step0.layer29.norm1;step0.layer29.qkv;step0.layer29.rope;step0.layer29.attention;step0.layer29.o_proj;step0.layer29.residual1;step0.layer29.norm2;step0.layer29.router;step0.layer29.metadata;step0.layer29.scheduler;step0.layer29.gpu_weight_load;step0.layer29.gpu_expert_compute;step0.layer29.combine;step0.layer29.residual2;step0.layer30.norm1;step0.layer30.qkv;step0.layer30.rope;step0.layer30.attention;step0.layer30.o_proj;step0.layer30.residual1;step0.layer30.norm2;step0.layer30.router;step0.layer30.metadata;step0.layer30.scheduler;step0.layer30.gpu_weight_load;step0.layer30.gpu_expert_compute;step0.layer30.combine;step0.layer30.residual2;step0.layer31.norm1;step0.layer31.qkv;step0.layer31.rope;step0.layer31.attention;step0.layer31.o_proj;step0.layer31.residual1;step0.layer31.norm2;step0.layer31.router;step0.layer31.metadata;step0.layer31.scheduler;step0.layer31.gpu_weight_load;step0.layer31.gpu_expert_compute;step0.layer31.combine;step0.layer31.residual2;step0.layer32.norm1;step0.layer32.qkv;step0.layer32.rope;step0.layer32.attention;step0.layer32.o_proj;step0.layer32.residual1;step0.layer32.norm2;step0.layer32.router;step0.layer32.metadata;step0.layer32.scheduler;step0.layer32.gpu_weight_load;step0.layer32.gpu_expert_compute;step0.layer32.combine;step0.layer32.residual2;step0.layer33.norm1;step0.layer33.qkv;step0.layer33.rope;step0.layer33.attention;step0.layer33.o_proj;step0.layer33.residual1;step0.layer33.norm2;step0.layer33.router;step0.layer33.metadata;step0.layer33.scheduler;step0.layer33.gpu_weight_load;step0.layer33.gpu_expert_compute;step0.layer33.combine;step0.layer33.residual2;step0.layer34.norm1;step0.layer34.qkv;step0.layer34.rope;step0.layer34.attention;step0.layer34.o_proj;step0.layer34.residual1;step0.layer34.norm2;step0.layer34.router;step0.layer34.metadata;step0.layer34.scheduler;step0.layer34.gpu_weight_load;step0.layer34.gpu_expert_compute;step0.layer34.combine;step0.layer34.residual2;step0.layer35.norm1;step0.layer35.qkv;step0.layer35.rope;step0.layer35.attention;step0.layer35.o_proj;step0.layer35.residual1;step0.layer35.norm2;step0.layer35.router;step0.layer35.metadata;step0.layer35.scheduler;step0.layer35.gpu_weight_load;step0.layer35.gpu_expert_compute;step0.layer35.combine;step0.layer35.residual2;step0.layer36.norm1;step0.layer36.qkv;step0.layer36.rope;step0.layer36.attention;step0.layer36.o_proj;step0.layer36.residual1;step0.layer36.norm2;step0.layer36.router;step0.layer36.metadata;step0.layer36.scheduler;step0.layer36.gpu_weight_load;step0.layer36.gpu_expert_compute;step0.layer36.combine;step0.layer36.residual2;step0.layer37.norm1;step0.layer37.qkv;step0.layer37.rope;step0.layer37.attention;step0.layer37.o_proj;step0.layer37.residual1;step0.layer37.norm2;step0.layer37.router;step0.layer37.metadata;step0.layer37.scheduler;step0.layer37.gpu_weight_load;step0.layer37.gpu_expert_compute;step0.layer37.combine;step0.layer37.residual2;step0.layer38.norm1;step0.layer38.qkv;step0.layer38.rope;step0.layer38.attention;step0.layer38.o_proj;step0.layer38.residual1;step0.layer38.norm2;step0.layer38.router;step0.layer38.metadata;step0.layer38.scheduler;step0.layer38.gpu_weight_load;step0.layer38.gpu_expert_compute;step0.layer38.combine;step0.layer38.residual2;step0.layer39.norm1;step0.layer39.qkv;step0.layer39.rope;step0.layer39.attention;step0.layer39.o_proj;step0.layer39.residual1;step0.layer39.norm2;step0.layer39.router;step0.layer39.metadata;step0.layer39.scheduler;step0.layer39.gpu_weight_load;step0.layer39.gpu_expert_compute;step0.layer39.combine;step0.layer39.residual2;step0.layer40.norm1;step0.layer40.qkv;step0.layer40.rope;step0.layer40.attention;step0.layer40.o_proj;step0.layer40.residual1;step0.layer40.norm2;step0.layer40.router;step0.layer40.metadata;step0.layer40.scheduler;step0.layer40.gpu_weight_load;step0.layer40.gpu_expert_compute;step0.layer40.combine;step0.layer40.residual2;step0.layer41.norm1;step0.layer41.qkv;step0.layer41.rope;step0.layer41.attention;step0.layer41.o_proj;step0.layer41.residual1;step0.layer41.norm2;step0.layer41.router;step0.layer41.metadata;step0.layer41.scheduler;step0.layer41.gpu_weight_load;step0.layer41.gpu_expert_compute;step0.layer41.combine;step0.layer41.residual2;step0.layer42.norm1;step0.layer42.qkv;step0.layer42.rope;step0.layer42.attention;step0.layer42.o_proj;step0.layer42.residual1;step0.layer42.norm2;step0.layer42.router;step0.layer42.metadata;step0.layer42.scheduler;step0.layer42.gpu_weight_load;step0.layer42.gpu_expert_compute;step0.layer42.combine;step0.layer42.residual2;step0.layer43.norm1;step0.layer43.qkv;step0.layer43.rope;step0.layer43.attention;step0.layer43.o_proj;step0.layer43.residual1;step0.layer43.norm2;step0.layer43.router;step0.layer43.metadata;step0.layer43.scheduler;step0.layer43.gpu_weight_load;step0.layer43.gpu_expert_compute;step0.layer43.combine;step0.layer43.residual2;step0.layer44.norm1;step0.layer44.qkv;step0.layer44.rope;step0.layer44.attention;step0.layer44.o_proj;step0.layer44.residual1;step0.layer44.norm2;step0.layer44.router;step0.layer44.metadata;step0.layer44.scheduler;step0.layer44.gpu_weight_load;step0.layer44.gpu_expert_compute;step0.layer44.combine;step0.layer44.residual2;step0.layer45.norm1;step0.layer45.qkv;step0.layer45.rope;step0.layer45.attention;step0.layer45.o_proj;step0.layer45.residual1;step0.layer45.norm2;step0.layer45.router;step0.layer45.metadata;step0.layer45.scheduler;step0.layer45.gpu_weight_load;step0.layer45.gpu_expert_compute;step0.layer45.combine;step0.layer45.residual2;step0.layer46.norm1;step0.layer46.qkv;step0.layer46.rope;step0.layer46.attention;step0.layer46.o_proj;step0.layer46.residual1;step0.layer46.norm2;step0.layer46.router;step0.layer46.metadata;step0.layer46.scheduler;step0.layer46.gpu_weight_load;step0.layer46.gpu_expert_compute;step0.layer46.combine;step0.layer46.residual2;step0.layer47.norm1;step0.layer47.qkv;step0.layer47.rope;step0.layer47.attention;step0.layer47.o_proj;step0.layer47.residual1;step0.layer47.norm2;step0.layer47.router;step0.layer47.metadata;step0.layer47.scheduler;step0.layer47.gpu_weight_load;step0.layer47.gpu_expert_compute;step0.layer47.combine;step0.layer47.residual2",
+      "cxl_critical_path_us": 0.0,
+      "cxl_kv_completion_us_per_layer": 0.8424,
+      "cxl_kv_event_latency_us": 40.435199999999995,
+      "cxl_link_busy_ratio": 0.7045370370370371,
+      "cxl_max_queue_wait_us": 0.550056,
+      "cxl_queue_wait_us_all_requests": 14344.806528000001,
+      "decode_steps": 1,
+      "expert_cache_key": "b0ddfcf3acac9e43dc286ee840cfe3c315492fa804e8db4333387f9f0c22974a",
+      "expert_critical_path_us": 158.84675788800004,
+      "expert_event_latency_us": 158.84675788800004,
+      "expert_shape": {
+        "cxl_kv_read_transactions": 0,
+        "gpu_read_transactions": 576,
+        "local_kv_read_transactions": 0,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "gpu_expert_completion_us_per_layer": 0.040872,
+      "interpolation": 0,
+      "kv_cache_bytes": 25769803776,
+      "layers": 48,
+      "local_kv_completion_us_per_layer": 0.073944,
+      "local_kv_event_latency_us": 3.549312,
+      "peak_memory_bytes": 86834745344,
+      "pim_expert_completion_us_per_layer": 0.0,
+      "placement": {
+        "attention_target": "pim",
+        "gpu_experts": [
+          14,
+          31,
+          43,
+          63,
+          83,
+          93,
+          97,
+          120
+        ],
+        "pim_experts": []
+      },
+      "policy": "sieve",
+      "request_scale": 4096,
+      "simulated_local_state_without_cxl": "resident",
+      "throughput_request_tokens_per_s": 326.9365942893899,
+      "total_latency_us": 24469.576485888123
+    },
+    {
+      "attention_cache_key": "8a5311003929e85f7544031237fea0dc4f57d2ca087a77064d02b994c80aec7a",
+      "attention_critical_path_us": 116629.76332799991,
+      "attention_latency_share": 0.9828219440453387,
+      "attention_latency_us": 48.786432000000104,
+      "attention_shape": {
+        "cxl_kv_read_transactions": 4449704,
+        "gpu_read_transactions": 0,
+        "local_kv_read_transactions": 12327512,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "capacity_feasible": true,
+      "capacity_state": "spill",
+      "case": "b8_c32k",
+      "classification": "phase-faithful 48-layer Decode graph with exact request-level memory milestones; CXL profile and routing tiling are assumptions",
+      "critical_path": "step0.layer0.norm1;step0.layer0.qkv;step0.layer0.rope;step0.layer0.cxl_kv_read;step0.layer0.o_proj;step0.layer0.residual1;step0.layer0.norm2;step0.layer0.router;step0.layer0.metadata;step0.layer0.scheduler;step0.layer0.gpu_weight_load;step0.layer0.gpu_expert_compute;step0.layer0.combine;step0.layer0.residual2;step0.layer1.norm1;step0.layer1.qkv;step0.layer1.rope;step0.layer1.cxl_kv_read;step0.layer1.o_proj;step0.layer1.residual1;step0.layer1.norm2;step0.layer1.router;step0.layer1.metadata;step0.layer1.scheduler;step0.layer1.gpu_weight_load;step0.layer1.gpu_expert_compute;step0.layer1.combine;step0.layer1.residual2;step0.layer2.norm1;step0.layer2.qkv;step0.layer2.rope;step0.layer2.cxl_kv_read;step0.layer2.o_proj;step0.layer2.residual1;step0.layer2.norm2;step0.layer2.router;step0.layer2.metadata;step0.layer2.scheduler;step0.layer2.gpu_weight_load;step0.layer2.gpu_expert_compute;step0.layer2.combine;step0.layer2.residual2;step0.layer3.norm1;step0.layer3.qkv;step0.layer3.rope;step0.layer3.cxl_kv_read;step0.layer3.o_proj;step0.layer3.residual1;step0.layer3.norm2;step0.layer3.router;step0.layer3.metadata;step0.layer3.scheduler;step0.layer3.gpu_weight_load;step0.layer3.gpu_expert_compute;step0.layer3.combine;step0.layer3.residual2;step0.layer4.norm1;step0.layer4.qkv;step0.layer4.rope;step0.layer4.cxl_kv_read;step0.layer4.o_proj;step0.layer4.residual1;step0.layer4.norm2;step0.layer4.router;step0.layer4.metadata;step0.layer4.scheduler;step0.layer4.gpu_weight_load;step0.layer4.gpu_expert_compute;step0.layer4.combine;step0.layer4.residual2;step0.layer5.norm1;step0.layer5.qkv;step0.layer5.rope;step0.layer5.cxl_kv_read;step0.layer5.o_proj;step0.layer5.residual1;step0.layer5.norm2;step0.layer5.router;step0.layer5.metadata;step0.layer5.scheduler;step0.layer5.gpu_weight_load;step0.layer5.gpu_expert_compute;step0.layer5.combine;step0.layer5.residual2;step0.layer6.norm1;step0.layer6.qkv;step0.layer6.rope;step0.layer6.cxl_kv_read;step0.layer6.o_proj;step0.layer6.residual1;step0.layer6.norm2;step0.layer6.router;step0.layer6.metadata;step0.layer6.scheduler;step0.layer6.gpu_weight_load;step0.layer6.gpu_expert_compute;step0.layer6.combine;step0.layer6.residual2;step0.layer7.norm1;step0.layer7.qkv;step0.layer7.rope;step0.layer7.cxl_kv_read;step0.layer7.o_proj;step0.layer7.residual1;step0.layer7.norm2;step0.layer7.router;step0.layer7.metadata;step0.layer7.scheduler;step0.layer7.gpu_weight_load;step0.layer7.gpu_expert_compute;step0.layer7.combine;step0.layer7.residual2;step0.layer8.norm1;step0.layer8.qkv;step0.layer8.rope;step0.layer8.cxl_kv_read;step0.layer8.o_proj;step0.layer8.residual1;step0.layer8.norm2;step0.layer8.router;step0.layer8.metadata;step0.layer8.scheduler;step0.layer8.gpu_weight_load;step0.layer8.gpu_expert_compute;step0.layer8.combine;step0.layer8.residual2;step0.layer9.norm1;step0.layer9.qkv;step0.layer9.rope;step0.layer9.cxl_kv_read;step0.layer9.o_proj;step0.layer9.residual1;step0.layer9.norm2;step0.layer9.router;step0.layer9.metadata;step0.layer9.scheduler;step0.layer9.gpu_weight_load;step0.layer9.gpu_expert_compute;step0.layer9.combine;step0.layer9.residual2;step0.layer10.norm1;step0.layer10.qkv;step0.layer10.rope;step0.layer10.cxl_kv_read;step0.layer10.o_proj;step0.layer10.residual1;step0.layer10.norm2;step0.layer10.router;step0.layer10.metadata;step0.layer10.scheduler;step0.layer10.gpu_weight_load;step0.layer10.gpu_expert_compute;step0.layer10.combine;step0.layer10.residual2;step0.layer11.norm1;step0.layer11.qkv;step0.layer11.rope;step0.layer11.cxl_kv_read;step0.layer11.o_proj;step0.layer11.residual1;step0.layer11.norm2;step0.layer11.router;step0.layer11.metadata;step0.layer11.scheduler;step0.layer11.gpu_weight_load;step0.layer11.gpu_expert_compute;step0.layer11.combine;step0.layer11.residual2;step0.layer12.norm1;step0.layer12.qkv;step0.layer12.rope;step0.layer12.cxl_kv_read;step0.layer12.o_proj;step0.layer12.residual1;step0.layer12.norm2;step0.layer12.router;step0.layer12.metadata;step0.layer12.scheduler;step0.layer12.gpu_weight_load;step0.layer12.gpu_expert_compute;step0.layer12.combine;step0.layer12.residual2;step0.layer13.norm1;step0.layer13.qkv;step0.layer13.rope;step0.layer13.cxl_kv_read;step0.layer13.o_proj;step0.layer13.residual1;step0.layer13.norm2;step0.layer13.router;step0.layer13.metadata;step0.layer13.scheduler;step0.layer13.gpu_weight_load;step0.layer13.gpu_expert_compute;step0.layer13.combine;step0.layer13.residual2;step0.layer14.norm1;step0.layer14.qkv;step0.layer14.rope;step0.layer14.cxl_kv_read;step0.layer14.o_proj;step0.layer14.residual1;step0.layer14.norm2;step0.layer14.router;step0.layer14.metadata;step0.layer14.scheduler;step0.layer14.gpu_weight_load;step0.layer14.gpu_expert_compute;step0.layer14.combine;step0.layer14.residual2;step0.layer15.norm1;step0.layer15.qkv;step0.layer15.rope;step0.layer15.cxl_kv_read;step0.layer15.o_proj;step0.layer15.residual1;step0.layer15.norm2;step0.layer15.router;step0.layer15.metadata;step0.layer15.scheduler;step0.layer15.gpu_weight_load;step0.layer15.gpu_expert_compute;step0.layer15.combine;step0.layer15.residual2;step0.layer16.norm1;step0.layer16.qkv;step0.layer16.rope;step0.layer16.cxl_kv_read;step0.layer16.o_proj;step0.layer16.residual1;step0.layer16.norm2;step0.layer16.router;step0.layer16.metadata;step0.layer16.scheduler;step0.layer16.gpu_weight_load;step0.layer16.gpu_expert_compute;step0.layer16.combine;step0.layer16.residual2;step0.layer17.norm1;step0.layer17.qkv;step0.layer17.rope;step0.layer17.cxl_kv_read;step0.layer17.o_proj;step0.layer17.residual1;step0.layer17.norm2;step0.layer17.router;step0.layer17.metadata;step0.layer17.scheduler;step0.layer17.gpu_weight_load;step0.layer17.gpu_expert_compute;step0.layer17.combine;step0.layer17.residual2;step0.layer18.norm1;step0.layer18.qkv;step0.layer18.rope;step0.layer18.cxl_kv_read;step0.layer18.o_proj;step0.layer18.residual1;step0.layer18.norm2;step0.layer18.router;step0.layer18.metadata;step0.layer18.scheduler;step0.layer18.gpu_weight_load;step0.layer18.gpu_expert_compute;step0.layer18.combine;step0.layer18.residual2;step0.layer19.norm1;step0.layer19.qkv;step0.layer19.rope;step0.layer19.cxl_kv_read;step0.layer19.o_proj;step0.layer19.residual1;step0.layer19.norm2;step0.layer19.router;step0.layer19.metadata;step0.layer19.scheduler;step0.layer19.gpu_weight_load;step0.layer19.gpu_expert_compute;step0.layer19.combine;step0.layer19.residual2;step0.layer20.norm1;step0.layer20.qkv;step0.layer20.rope;step0.layer20.cxl_kv_read;step0.layer20.o_proj;step0.layer20.residual1;step0.layer20.norm2;step0.layer20.router;step0.layer20.metadata;step0.layer20.scheduler;step0.layer20.gpu_weight_load;step0.layer20.gpu_expert_compute;step0.layer20.combine;step0.layer20.residual2;step0.layer21.norm1;step0.layer21.qkv;step0.layer21.rope;step0.layer21.cxl_kv_read;step0.layer21.o_proj;step0.layer21.residual1;step0.layer21.norm2;step0.layer21.router;step0.layer21.metadata;step0.layer21.scheduler;step0.layer21.gpu_weight_load;step0.layer21.gpu_expert_compute;step0.layer21.combine;step0.layer21.residual2;step0.layer22.norm1;step0.layer22.qkv;step0.layer22.rope;step0.layer22.cxl_kv_read;step0.layer22.o_proj;step0.layer22.residual1;step0.layer22.norm2;step0.layer22.router;step0.layer22.metadata;step0.layer22.scheduler;step0.layer22.gpu_weight_load;step0.layer22.gpu_expert_compute;step0.layer22.combine;step0.layer22.residual2;step0.layer23.norm1;step0.layer23.qkv;step0.layer23.rope;step0.layer23.cxl_kv_read;step0.layer23.o_proj;step0.layer23.residual1;step0.layer23.norm2;step0.layer23.router;step0.layer23.metadata;step0.layer23.scheduler;step0.layer23.gpu_weight_load;step0.layer23.gpu_expert_compute;step0.layer23.combine;step0.layer23.residual2;step0.layer24.norm1;step0.layer24.qkv;step0.layer24.rope;step0.layer24.cxl_kv_read;step0.layer24.o_proj;step0.layer24.residual1;step0.layer24.norm2;step0.layer24.router;step0.layer24.metadata;step0.layer24.scheduler;step0.layer24.gpu_weight_load;step0.layer24.gpu_expert_compute;step0.layer24.combine;step0.layer24.residual2;step0.layer25.norm1;step0.layer25.qkv;step0.layer25.rope;step0.layer25.cxl_kv_read;step0.layer25.o_proj;step0.layer25.residual1;step0.layer25.norm2;step0.layer25.router;step0.layer25.metadata;step0.layer25.scheduler;step0.layer25.gpu_weight_load;step0.layer25.gpu_expert_compute;step0.layer25.combine;step0.layer25.residual2;step0.layer26.norm1;step0.layer26.qkv;step0.layer26.rope;step0.layer26.cxl_kv_read;step0.layer26.o_proj;step0.layer26.residual1;step0.layer26.norm2;step0.layer26.router;step0.layer26.metadata;step0.layer26.scheduler;step0.layer26.gpu_weight_load;step0.layer26.gpu_expert_compute;step0.layer26.combine;step0.layer26.residual2;step0.layer27.norm1;step0.layer27.qkv;step0.layer27.rope;step0.layer27.cxl_kv_read;step0.layer27.o_proj;step0.layer27.residual1;step0.layer27.norm2;step0.layer27.router;step0.layer27.metadata;step0.layer27.scheduler;step0.layer27.gpu_weight_load;step0.layer27.gpu_expert_compute;step0.layer27.combine;step0.layer27.residual2;step0.layer28.norm1;step0.layer28.qkv;step0.layer28.rope;step0.layer28.cxl_kv_read;step0.layer28.o_proj;step0.layer28.residual1;step0.layer28.norm2;step0.layer28.router;step0.layer28.metadata;step0.layer28.scheduler;step0.layer28.gpu_weight_load;step0.layer28.gpu_expert_compute;step0.layer28.combine;step0.layer28.residual2;step0.layer29.norm1;step0.layer29.qkv;step0.layer29.rope;step0.layer29.cxl_kv_read;step0.layer29.o_proj;step0.layer29.residual1;step0.layer29.norm2;step0.layer29.router;step0.layer29.metadata;step0.layer29.scheduler;step0.layer29.gpu_weight_load;step0.layer29.gpu_expert_compute;step0.layer29.combine;step0.layer29.residual2;step0.layer30.norm1;step0.layer30.qkv;step0.layer30.rope;step0.layer30.cxl_kv_read;step0.layer30.o_proj;step0.layer30.residual1;step0.layer30.norm2;step0.layer30.router;step0.layer30.metadata;step0.layer30.scheduler;step0.layer30.gpu_weight_load;step0.layer30.gpu_expert_compute;step0.layer30.combine;step0.layer30.residual2;step0.layer31.norm1;step0.layer31.qkv;step0.layer31.rope;step0.layer31.cxl_kv_read;step0.layer31.o_proj;step0.layer31.residual1;step0.layer31.norm2;step0.layer31.router;step0.layer31.metadata;step0.layer31.scheduler;step0.layer31.gpu_weight_load;step0.layer31.gpu_expert_compute;step0.layer31.combine;step0.layer31.residual2;step0.layer32.norm1;step0.layer32.qkv;step0.layer32.rope;step0.layer32.cxl_kv_read;step0.layer32.o_proj;step0.layer32.residual1;step0.layer32.norm2;step0.layer32.router;step0.layer32.metadata;step0.layer32.scheduler;step0.layer32.gpu_weight_load;step0.layer32.gpu_expert_compute;step0.layer32.combine;step0.layer32.residual2;step0.layer33.norm1;step0.layer33.qkv;step0.layer33.rope;step0.layer33.cxl_kv_read;step0.layer33.o_proj;step0.layer33.residual1;step0.layer33.norm2;step0.layer33.router;step0.layer33.metadata;step0.layer33.scheduler;step0.layer33.gpu_weight_load;step0.layer33.gpu_expert_compute;step0.layer33.combine;step0.layer33.residual2;step0.layer34.norm1;step0.layer34.qkv;step0.layer34.rope;step0.layer34.cxl_kv_read;step0.layer34.o_proj;step0.layer34.residual1;step0.layer34.norm2;step0.layer34.router;step0.layer34.metadata;step0.layer34.scheduler;step0.layer34.gpu_weight_load;step0.layer34.gpu_expert_compute;step0.layer34.combine;step0.layer34.residual2;step0.layer35.norm1;step0.layer35.qkv;step0.layer35.rope;step0.layer35.cxl_kv_read;step0.layer35.o_proj;step0.layer35.residual1;step0.layer35.norm2;step0.layer35.router;step0.layer35.metadata;step0.layer35.scheduler;step0.layer35.gpu_weight_load;step0.layer35.gpu_expert_compute;step0.layer35.combine;step0.layer35.residual2;step0.layer36.norm1;step0.layer36.qkv;step0.layer36.rope;step0.layer36.cxl_kv_read;step0.layer36.o_proj;step0.layer36.residual1;step0.layer36.norm2;step0.layer36.router;step0.layer36.metadata;step0.layer36.scheduler;step0.layer36.gpu_weight_load;step0.layer36.gpu_expert_compute;step0.layer36.combine;step0.layer36.residual2;step0.layer37.norm1;step0.layer37.qkv;step0.layer37.rope;step0.layer37.cxl_kv_read;step0.layer37.o_proj;step0.layer37.residual1;step0.layer37.norm2;step0.layer37.router;step0.layer37.metadata;step0.layer37.scheduler;step0.layer37.gpu_weight_load;step0.layer37.gpu_expert_compute;step0.layer37.combine;step0.layer37.residual2;step0.layer38.norm1;step0.layer38.qkv;step0.layer38.rope;step0.layer38.cxl_kv_read;step0.layer38.o_proj;step0.layer38.residual1;step0.layer38.norm2;step0.layer38.router;step0.layer38.metadata;step0.layer38.scheduler;step0.layer38.gpu_weight_load;step0.layer38.gpu_expert_compute;step0.layer38.combine;step0.layer38.residual2;step0.layer39.norm1;step0.layer39.qkv;step0.layer39.rope;step0.layer39.cxl_kv_read;step0.layer39.o_proj;step0.layer39.residual1;step0.layer39.norm2;step0.layer39.router;step0.layer39.metadata;step0.layer39.scheduler;step0.layer39.gpu_weight_load;step0.layer39.gpu_expert_compute;step0.layer39.combine;step0.layer39.residual2;step0.layer40.norm1;step0.layer40.qkv;step0.layer40.rope;step0.layer40.cxl_kv_read;step0.layer40.o_proj;step0.layer40.residual1;step0.layer40.norm2;step0.layer40.router;step0.layer40.metadata;step0.layer40.scheduler;step0.layer40.gpu_weight_load;step0.layer40.gpu_expert_compute;step0.layer40.combine;step0.layer40.residual2;step0.layer41.norm1;step0.layer41.qkv;step0.layer41.rope;step0.layer41.cxl_kv_read;step0.layer41.o_proj;step0.layer41.residual1;step0.layer41.norm2;step0.layer41.router;step0.layer41.metadata;step0.layer41.scheduler;step0.layer41.gpu_weight_load;step0.layer41.gpu_expert_compute;step0.layer41.combine;step0.layer41.residual2;step0.layer42.norm1;step0.layer42.qkv;step0.layer42.rope;step0.layer42.cxl_kv_read;step0.layer42.o_proj;step0.layer42.residual1;step0.layer42.norm2;step0.layer42.router;step0.layer42.metadata;step0.layer42.scheduler;step0.layer42.gpu_weight_load;step0.layer42.gpu_expert_compute;step0.layer42.combine;step0.layer42.residual2;step0.layer43.norm1;step0.layer43.qkv;step0.layer43.rope;step0.layer43.cxl_kv_read;step0.layer43.o_proj;step0.layer43.residual1;step0.layer43.norm2;step0.layer43.router;step0.layer43.metadata;step0.layer43.scheduler;step0.layer43.gpu_weight_load;step0.layer43.gpu_expert_compute;step0.layer43.combine;step0.layer43.residual2;step0.layer44.norm1;step0.layer44.qkv;step0.layer44.rope;step0.layer44.cxl_kv_read;step0.layer44.o_proj;step0.layer44.residual1;step0.layer44.norm2;step0.layer44.router;step0.layer44.metadata;step0.layer44.scheduler;step0.layer44.gpu_weight_load;step0.layer44.gpu_expert_compute;step0.layer44.combine;step0.layer44.residual2;step0.layer45.norm1;step0.layer45.qkv;step0.layer45.rope;step0.layer45.cxl_kv_read;step0.layer45.o_proj;step0.layer45.residual1;step0.layer45.norm2;step0.layer45.router;step0.layer45.metadata;step0.layer45.scheduler;step0.layer45.gpu_weight_load;step0.layer45.gpu_expert_compute;step0.layer45.combine;step0.layer45.residual2;step0.layer46.norm1;step0.layer46.qkv;step0.layer46.rope;step0.layer46.cxl_kv_read;step0.layer46.o_proj;step0.layer46.residual1;step0.layer46.norm2;step0.layer46.router;step0.layer46.metadata;step0.layer46.scheduler;step0.layer46.gpu_weight_load;step0.layer46.gpu_expert_compute;step0.layer46.combine;step0.layer46.residual2;step0.layer47.norm1;step0.layer47.qkv;step0.layer47.rope;step0.layer47.cxl_kv_read;step0.layer47.o_proj;step0.layer47.residual1;step0.layer47.norm2;step0.layer47.router;step0.layer47.metadata;step0.layer47.scheduler;step0.layer47.gpu_weight_load;step0.layer47.gpu_expert_compute;step0.layer47.combine;step0.layer47.residual2",
+      "cxl_critical_path_us": 116629.76332799991,
+      "cxl_kv_completion_us_per_layer": 2429.786736,
+      "cxl_kv_event_latency_us": 116629.76332799991,
+      "cxl_link_busy_ratio": 0.9998977885604854,
+      "cxl_max_queue_wait_us": 0.559104,
+      "cxl_queue_wait_us_all_requests": 119401840.09728,
+      "decode_steps": 1,
+      "expert_cache_key": "6890636d0cff6c3ad9cfca23ab2c9f1ba4c8b085c3ca78b754d5cd42c26cebed",
+      "expert_critical_path_us": 1274.7384698880012,
+      "expert_event_latency_us": 1274.7384698880012,
+      "expert_shape": {
+        "cxl_kv_read_transactions": 0,
+        "gpu_read_transactions": 2359296,
+        "local_kv_read_transactions": 0,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "gpu_expert_completion_us_per_layer": 23.288616,
+      "interpolation": 0,
+      "kv_cache_bytes": 25769803776,
+      "layers": 48,
+      "local_kv_completion_us_per_layer": 124.047144,
+      "local_kv_event_latency_us": 5954.262912000005,
+      "peak_memory_bytes": 86834745344,
+      "pim_expert_completion_us_per_layer": 0.0,
+      "placement": {
+        "attention_target": "gpu",
+        "gpu_experts": [
+          14,
+          31,
+          43,
+          63,
+          83,
+          93,
+          97,
+          120
+        ],
+        "pim_experts": []
+      },
+      "policy": "gpu-only",
+      "request_scale": 1,
+      "simulated_local_state_without_cxl": "resident",
+      "throughput_request_tokens_per_s": 67.41482901110459,
+      "total_latency_us": 118668.25322188741
+    },
+    {
+      "attention_cache_key": "8a5311003929e85f7544031237fea0dc4f57d2ca087a77064d02b994c80aec7a",
+      "attention_critical_path_us": 116629.76332799991,
+      "attention_latency_share": 0.9749349354092308,
+      "attention_latency_us": 22586.978303999993,
+      "attention_shape": {
+        "cxl_kv_read_transactions": 4449704,
+        "gpu_read_transactions": 0,
+        "local_kv_read_transactions": 12327512,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "capacity_feasible": true,
+      "capacity_state": "spill",
+      "case": "b8_c32k",
+      "classification": "phase-faithful 48-layer Decode graph with exact request-level memory milestones; CXL profile and routing tiling are assumptions",
+      "critical_path": "step0.layer0.norm1;step0.layer0.qkv;step0.layer0.rope;step0.layer0.cxl_kv_read;step0.layer0.o_proj;step0.layer0.residual1;step0.layer0.norm2;step0.layer0.router;step0.layer0.metadata;step0.layer0.scheduler;step0.layer0.gpu_weight_load;step0.layer0.gpu_expert_compute;step0.layer0.combine;step0.layer0.residual2;step0.layer1.norm1;step0.layer1.qkv;step0.layer1.rope;step0.layer1.cxl_kv_read;step0.layer1.o_proj;step0.layer1.residual1;step0.layer1.norm2;step0.layer1.router;step0.layer1.metadata;step0.layer1.scheduler;step0.layer1.gpu_weight_load;step0.layer1.gpu_expert_compute;step0.layer1.combine;step0.layer1.residual2;step0.layer2.norm1;step0.layer2.qkv;step0.layer2.rope;step0.layer2.cxl_kv_read;step0.layer2.o_proj;step0.layer2.residual1;step0.layer2.norm2;step0.layer2.router;step0.layer2.metadata;step0.layer2.scheduler;step0.layer2.gpu_weight_load;step0.layer2.gpu_expert_compute;step0.layer2.combine;step0.layer2.residual2;step0.layer3.norm1;step0.layer3.qkv;step0.layer3.rope;step0.layer3.cxl_kv_read;step0.layer3.o_proj;step0.layer3.residual1;step0.layer3.norm2;step0.layer3.router;step0.layer3.metadata;step0.layer3.scheduler;step0.layer3.gpu_weight_load;step0.layer3.gpu_expert_compute;step0.layer3.combine;step0.layer3.residual2;step0.layer4.norm1;step0.layer4.qkv;step0.layer4.rope;step0.layer4.cxl_kv_read;step0.layer4.o_proj;step0.layer4.residual1;step0.layer4.norm2;step0.layer4.router;step0.layer4.metadata;step0.layer4.scheduler;step0.layer4.gpu_weight_load;step0.layer4.gpu_expert_compute;step0.layer4.combine;step0.layer4.residual2;step0.layer5.norm1;step0.layer5.qkv;step0.layer5.rope;step0.layer5.cxl_kv_read;step0.layer5.o_proj;step0.layer5.residual1;step0.layer5.norm2;step0.layer5.router;step0.layer5.metadata;step0.layer5.scheduler;step0.layer5.gpu_weight_load;step0.layer5.gpu_expert_compute;step0.layer5.combine;step0.layer5.residual2;step0.layer6.norm1;step0.layer6.qkv;step0.layer6.rope;step0.layer6.cxl_kv_read;step0.layer6.o_proj;step0.layer6.residual1;step0.layer6.norm2;step0.layer6.router;step0.layer6.metadata;step0.layer6.scheduler;step0.layer6.gpu_weight_load;step0.layer6.gpu_expert_compute;step0.layer6.combine;step0.layer6.residual2;step0.layer7.norm1;step0.layer7.qkv;step0.layer7.rope;step0.layer7.cxl_kv_read;step0.layer7.o_proj;step0.layer7.residual1;step0.layer7.norm2;step0.layer7.router;step0.layer7.metadata;step0.layer7.scheduler;step0.layer7.gpu_weight_load;step0.layer7.gpu_expert_compute;step0.layer7.combine;step0.layer7.residual2;step0.layer8.norm1;step0.layer8.qkv;step0.layer8.rope;step0.layer8.cxl_kv_read;step0.layer8.o_proj;step0.layer8.residual1;step0.layer8.norm2;step0.layer8.router;step0.layer8.metadata;step0.layer8.scheduler;step0.layer8.gpu_weight_load;step0.layer8.gpu_expert_compute;step0.layer8.combine;step0.layer8.residual2;step0.layer9.norm1;step0.layer9.qkv;step0.layer9.rope;step0.layer9.cxl_kv_read;step0.layer9.o_proj;step0.layer9.residual1;step0.layer9.norm2;step0.layer9.router;step0.layer9.metadata;step0.layer9.scheduler;step0.layer9.gpu_weight_load;step0.layer9.gpu_expert_compute;step0.layer9.combine;step0.layer9.residual2;step0.layer10.norm1;step0.layer10.qkv;step0.layer10.rope;step0.layer10.cxl_kv_read;step0.layer10.o_proj;step0.layer10.residual1;step0.layer10.norm2;step0.layer10.router;step0.layer10.metadata;step0.layer10.scheduler;step0.layer10.gpu_weight_load;step0.layer10.gpu_expert_compute;step0.layer10.combine;step0.layer10.residual2;step0.layer11.norm1;step0.layer11.qkv;step0.layer11.rope;step0.layer11.cxl_kv_read;step0.layer11.o_proj;step0.layer11.residual1;step0.layer11.norm2;step0.layer11.router;step0.layer11.metadata;step0.layer11.scheduler;step0.layer11.gpu_weight_load;step0.layer11.gpu_expert_compute;step0.layer11.combine;step0.layer11.residual2;step0.layer12.norm1;step0.layer12.qkv;step0.layer12.rope;step0.layer12.cxl_kv_read;step0.layer12.o_proj;step0.layer12.residual1;step0.layer12.norm2;step0.layer12.router;step0.layer12.metadata;step0.layer12.scheduler;step0.layer12.gpu_weight_load;step0.layer12.gpu_expert_compute;step0.layer12.combine;step0.layer12.residual2;step0.layer13.norm1;step0.layer13.qkv;step0.layer13.rope;step0.layer13.cxl_kv_read;step0.layer13.o_proj;step0.layer13.residual1;step0.layer13.norm2;step0.layer13.router;step0.layer13.metadata;step0.layer13.scheduler;step0.layer13.gpu_weight_load;step0.layer13.gpu_expert_compute;step0.layer13.combine;step0.layer13.residual2;step0.layer14.norm1;step0.layer14.qkv;step0.layer14.rope;step0.layer14.cxl_kv_read;step0.layer14.o_proj;step0.layer14.residual1;step0.layer14.norm2;step0.layer14.router;step0.layer14.metadata;step0.layer14.scheduler;step0.layer14.gpu_weight_load;step0.layer14.gpu_expert_compute;step0.layer14.combine;step0.layer14.residual2;step0.layer15.norm1;step0.layer15.qkv;step0.layer15.rope;step0.layer15.cxl_kv_read;step0.layer15.o_proj;step0.layer15.residual1;step0.layer15.norm2;step0.layer15.router;step0.layer15.metadata;step0.layer15.scheduler;step0.layer15.gpu_weight_load;step0.layer15.gpu_expert_compute;step0.layer15.combine;step0.layer15.residual2;step0.layer16.norm1;step0.layer16.qkv;step0.layer16.rope;step0.layer16.cxl_kv_read;step0.layer16.o_proj;step0.layer16.residual1;step0.layer16.norm2;step0.layer16.router;step0.layer16.metadata;step0.layer16.scheduler;step0.layer16.gpu_weight_load;step0.layer16.gpu_expert_compute;step0.layer16.combine;step0.layer16.residual2;step0.layer17.norm1;step0.layer17.qkv;step0.layer17.rope;step0.layer17.cxl_kv_read;step0.layer17.o_proj;step0.layer17.residual1;step0.layer17.norm2;step0.layer17.router;step0.layer17.metadata;step0.layer17.scheduler;step0.layer17.gpu_weight_load;step0.layer17.gpu_expert_compute;step0.layer17.combine;step0.layer17.residual2;step0.layer18.norm1;step0.layer18.qkv;step0.layer18.rope;step0.layer18.cxl_kv_read;step0.layer18.o_proj;step0.layer18.residual1;step0.layer18.norm2;step0.layer18.router;step0.layer18.metadata;step0.layer18.scheduler;step0.layer18.gpu_weight_load;step0.layer18.gpu_expert_compute;step0.layer18.combine;step0.layer18.residual2;step0.layer19.norm1;step0.layer19.qkv;step0.layer19.rope;step0.layer19.cxl_kv_read;step0.layer19.o_proj;step0.layer19.residual1;step0.layer19.norm2;step0.layer19.router;step0.layer19.metadata;step0.layer19.scheduler;step0.layer19.gpu_weight_load;step0.layer19.gpu_expert_compute;step0.layer19.combine;step0.layer19.residual2;step0.layer20.norm1;step0.layer20.qkv;step0.layer20.rope;step0.layer20.cxl_kv_read;step0.layer20.o_proj;step0.layer20.residual1;step0.layer20.norm2;step0.layer20.router;step0.layer20.metadata;step0.layer20.scheduler;step0.layer20.gpu_weight_load;step0.layer20.gpu_expert_compute;step0.layer20.combine;step0.layer20.residual2;step0.layer21.norm1;step0.layer21.qkv;step0.layer21.rope;step0.layer21.cxl_kv_read;step0.layer21.o_proj;step0.layer21.residual1;step0.layer21.norm2;step0.layer21.router;step0.layer21.metadata;step0.layer21.scheduler;step0.layer21.gpu_weight_load;step0.layer21.gpu_expert_compute;step0.layer21.combine;step0.layer21.residual2;step0.layer22.norm1;step0.layer22.qkv;step0.layer22.rope;step0.layer22.cxl_kv_read;step0.layer22.o_proj;step0.layer22.residual1;step0.layer22.norm2;step0.layer22.router;step0.layer22.metadata;step0.layer22.scheduler;step0.layer22.gpu_weight_load;step0.layer22.gpu_expert_compute;step0.layer22.combine;step0.layer22.residual2;step0.layer23.norm1;step0.layer23.qkv;step0.layer23.rope;step0.layer23.cxl_kv_read;step0.layer23.o_proj;step0.layer23.residual1;step0.layer23.norm2;step0.layer23.router;step0.layer23.metadata;step0.layer23.scheduler;step0.layer23.gpu_weight_load;step0.layer23.gpu_expert_compute;step0.layer23.combine;step0.layer23.residual2;step0.layer24.norm1;step0.layer24.qkv;step0.layer24.rope;step0.layer24.cxl_kv_read;step0.layer24.o_proj;step0.layer24.residual1;step0.layer24.norm2;step0.layer24.router;step0.layer24.metadata;step0.layer24.scheduler;step0.layer24.gpu_weight_load;step0.layer24.gpu_expert_compute;step0.layer24.combine;step0.layer24.residual2;step0.layer25.norm1;step0.layer25.qkv;step0.layer25.rope;step0.layer25.cxl_kv_read;step0.layer25.o_proj;step0.layer25.residual1;step0.layer25.norm2;step0.layer25.router;step0.layer25.metadata;step0.layer25.scheduler;step0.layer25.gpu_weight_load;step0.layer25.gpu_expert_compute;step0.layer25.combine;step0.layer25.residual2;step0.layer26.norm1;step0.layer26.qkv;step0.layer26.rope;step0.layer26.cxl_kv_read;step0.layer26.o_proj;step0.layer26.residual1;step0.layer26.norm2;step0.layer26.router;step0.layer26.metadata;step0.layer26.scheduler;step0.layer26.gpu_weight_load;step0.layer26.gpu_expert_compute;step0.layer26.combine;step0.layer26.residual2;step0.layer27.norm1;step0.layer27.qkv;step0.layer27.rope;step0.layer27.cxl_kv_read;step0.layer27.o_proj;step0.layer27.residual1;step0.layer27.norm2;step0.layer27.router;step0.layer27.metadata;step0.layer27.scheduler;step0.layer27.gpu_weight_load;step0.layer27.gpu_expert_compute;step0.layer27.combine;step0.layer27.residual2;step0.layer28.norm1;step0.layer28.qkv;step0.layer28.rope;step0.layer28.cxl_kv_read;step0.layer28.o_proj;step0.layer28.residual1;step0.layer28.norm2;step0.layer28.router;step0.layer28.metadata;step0.layer28.scheduler;step0.layer28.gpu_weight_load;step0.layer28.gpu_expert_compute;step0.layer28.combine;step0.layer28.residual2;step0.layer29.norm1;step0.layer29.qkv;step0.layer29.rope;step0.layer29.cxl_kv_read;step0.layer29.o_proj;step0.layer29.residual1;step0.layer29.norm2;step0.layer29.router;step0.layer29.metadata;step0.layer29.scheduler;step0.layer29.gpu_weight_load;step0.layer29.gpu_expert_compute;step0.layer29.combine;step0.layer29.residual2;step0.layer30.norm1;step0.layer30.qkv;step0.layer30.rope;step0.layer30.cxl_kv_read;step0.layer30.o_proj;step0.layer30.residual1;step0.layer30.norm2;step0.layer30.router;step0.layer30.metadata;step0.layer30.scheduler;step0.layer30.gpu_weight_load;step0.layer30.gpu_expert_compute;step0.layer30.combine;step0.layer30.residual2;step0.layer31.norm1;step0.layer31.qkv;step0.layer31.rope;step0.layer31.cxl_kv_read;step0.layer31.o_proj;step0.layer31.residual1;step0.layer31.norm2;step0.layer31.router;step0.layer31.metadata;step0.layer31.scheduler;step0.layer31.gpu_weight_load;step0.layer31.gpu_expert_compute;step0.layer31.combine;step0.layer31.residual2;step0.layer32.norm1;step0.layer32.qkv;step0.layer32.rope;step0.layer32.cxl_kv_read;step0.layer32.o_proj;step0.layer32.residual1;step0.layer32.norm2;step0.layer32.router;step0.layer32.metadata;step0.layer32.scheduler;step0.layer32.gpu_weight_load;step0.layer32.gpu_expert_compute;step0.layer32.combine;step0.layer32.residual2;step0.layer33.norm1;step0.layer33.qkv;step0.layer33.rope;step0.layer33.cxl_kv_read;step0.layer33.o_proj;step0.layer33.residual1;step0.layer33.norm2;step0.layer33.router;step0.layer33.metadata;step0.layer33.scheduler;step0.layer33.gpu_weight_load;step0.layer33.gpu_expert_compute;step0.layer33.combine;step0.layer33.residual2;step0.layer34.norm1;step0.layer34.qkv;step0.layer34.rope;step0.layer34.cxl_kv_read;step0.layer34.o_proj;step0.layer34.residual1;step0.layer34.norm2;step0.layer34.router;step0.layer34.metadata;step0.layer34.scheduler;step0.layer34.gpu_weight_load;step0.layer34.gpu_expert_compute;step0.layer34.combine;step0.layer34.residual2;step0.layer35.norm1;step0.layer35.qkv;step0.layer35.rope;step0.layer35.cxl_kv_read;step0.layer35.o_proj;step0.layer35.residual1;step0.layer35.norm2;step0.layer35.router;step0.layer35.metadata;step0.layer35.scheduler;step0.layer35.gpu_weight_load;step0.layer35.gpu_expert_compute;step0.layer35.combine;step0.layer35.residual2;step0.layer36.norm1;step0.layer36.qkv;step0.layer36.rope;step0.layer36.cxl_kv_read;step0.layer36.o_proj;step0.layer36.residual1;step0.layer36.norm2;step0.layer36.router;step0.layer36.metadata;step0.layer36.scheduler;step0.layer36.gpu_weight_load;step0.layer36.gpu_expert_compute;step0.layer36.combine;step0.layer36.residual2;step0.layer37.norm1;step0.layer37.qkv;step0.layer37.rope;step0.layer37.cxl_kv_read;step0.layer37.o_proj;step0.layer37.residual1;step0.layer37.norm2;step0.layer37.router;step0.layer37.metadata;step0.layer37.scheduler;step0.layer37.gpu_weight_load;step0.layer37.gpu_expert_compute;step0.layer37.combine;step0.layer37.residual2;step0.layer38.norm1;step0.layer38.qkv;step0.layer38.rope;step0.layer38.cxl_kv_read;step0.layer38.o_proj;step0.layer38.residual1;step0.layer38.norm2;step0.layer38.router;step0.layer38.metadata;step0.layer38.scheduler;step0.layer38.gpu_weight_load;step0.layer38.gpu_expert_compute;step0.layer38.combine;step0.layer38.residual2;step0.layer39.norm1;step0.layer39.qkv;step0.layer39.rope;step0.layer39.cxl_kv_read;step0.layer39.o_proj;step0.layer39.residual1;step0.layer39.norm2;step0.layer39.router;step0.layer39.metadata;step0.layer39.scheduler;step0.layer39.gpu_weight_load;step0.layer39.gpu_expert_compute;step0.layer39.combine;step0.layer39.residual2;step0.layer40.norm1;step0.layer40.qkv;step0.layer40.rope;step0.layer40.cxl_kv_read;step0.layer40.o_proj;step0.layer40.residual1;step0.layer40.norm2;step0.layer40.router;step0.layer40.metadata;step0.layer40.scheduler;step0.layer40.gpu_weight_load;step0.layer40.gpu_expert_compute;step0.layer40.combine;step0.layer40.residual2;step0.layer41.norm1;step0.layer41.qkv;step0.layer41.rope;step0.layer41.cxl_kv_read;step0.layer41.o_proj;step0.layer41.residual1;step0.layer41.norm2;step0.layer41.router;step0.layer41.metadata;step0.layer41.scheduler;step0.layer41.gpu_weight_load;step0.layer41.gpu_expert_compute;step0.layer41.combine;step0.layer41.residual2;step0.layer42.norm1;step0.layer42.qkv;step0.layer42.rope;step0.layer42.cxl_kv_read;step0.layer42.o_proj;step0.layer42.residual1;step0.layer42.norm2;step0.layer42.router;step0.layer42.metadata;step0.layer42.scheduler;step0.layer42.gpu_weight_load;step0.layer42.gpu_expert_compute;step0.layer42.combine;step0.layer42.residual2;step0.layer43.norm1;step0.layer43.qkv;step0.layer43.rope;step0.layer43.cxl_kv_read;step0.layer43.o_proj;step0.layer43.residual1;step0.layer43.norm2;step0.layer43.router;step0.layer43.metadata;step0.layer43.scheduler;step0.layer43.gpu_weight_load;step0.layer43.gpu_expert_compute;step0.layer43.combine;step0.layer43.residual2;step0.layer44.norm1;step0.layer44.qkv;step0.layer44.rope;step0.layer44.cxl_kv_read;step0.layer44.o_proj;step0.layer44.residual1;step0.layer44.norm2;step0.layer44.router;step0.layer44.metadata;step0.layer44.scheduler;step0.layer44.gpu_weight_load;step0.layer44.gpu_expert_compute;step0.layer44.combine;step0.layer44.residual2;step0.layer45.norm1;step0.layer45.qkv;step0.layer45.rope;step0.layer45.cxl_kv_read;step0.layer45.o_proj;step0.layer45.residual1;step0.layer45.norm2;step0.layer45.router;step0.layer45.metadata;step0.layer45.scheduler;step0.layer45.gpu_weight_load;step0.layer45.gpu_expert_compute;step0.layer45.combine;step0.layer45.residual2;step0.layer46.norm1;step0.layer46.qkv;step0.layer46.rope;step0.layer46.cxl_kv_read;step0.layer46.o_proj;step0.layer46.residual1;step0.layer46.norm2;step0.layer46.router;step0.layer46.metadata;step0.layer46.scheduler;step0.layer46.gpu_weight_load;step0.layer46.gpu_expert_compute;step0.layer46.combine;step0.layer46.residual2;step0.layer47.norm1;step0.layer47.qkv;step0.layer47.rope;step0.layer47.cxl_kv_read;step0.layer47.o_proj;step0.layer47.residual1;step0.layer47.norm2;step0.layer47.router;step0.layer47.metadata;step0.layer47.scheduler;step0.layer47.gpu_weight_load;step0.layer47.gpu_expert_compute;step0.layer47.combine;step0.layer47.residual2",
+      "cxl_critical_path_us": 116629.76332799991,
+      "cxl_kv_completion_us_per_layer": 2429.786736,
+      "cxl_kv_event_latency_us": 116629.76332799991,
+      "cxl_link_busy_ratio": 0.9998977885604854,
+      "cxl_max_queue_wait_us": 0.559104,
+      "cxl_queue_wait_us_all_requests": 119401840.09728,
+      "decode_steps": 1,
+      "expert_cache_key": "6890636d0cff6c3ad9cfca23ab2c9f1ba4c8b085c3ca78b754d5cd42c26cebed",
+      "expert_critical_path_us": 1274.7384698880012,
+      "expert_event_latency_us": 1274.7384698880012,
+      "expert_shape": {
+        "cxl_kv_read_transactions": 0,
+        "gpu_read_transactions": 2359296,
+        "local_kv_read_transactions": 0,
+        "pim_gwrite_waves": 0,
+        "pim_mac_waves": 0,
+        "pim_read_waves": 0
+      },
+      "gpu_expert_completion_us_per_layer": 23.288616,
+      "interpolation": 0,
+      "kv_cache_bytes": 25769803776,
+      "layers": 48,
+      "local_kv_completion_us_per_layer": 124.047144,
+      "local_kv_event_latency_us": 5954.262912000005,
+      "peak_memory_bytes": 86834745344,
+      "pim_expert_completion_us_per_layer": 0.0,
+      "placement": {
+        "attention_target": "pim",
+        "gpu_experts": [
+          14,
+          31,
+          43,
+          63,
+          83,
+          93,
+          97,
+          120
+        ],
+        "pim_experts": []
+      },
+      "policy": "sieve",
+      "request_scale": 1,
+      "simulated_local_state_without_cxl": "resident",
+      "throughput_request_tokens_per_s": 66.8738344374346,
+      "total_latency_us": 119628.25322188741
+    }
+  ]
+}
