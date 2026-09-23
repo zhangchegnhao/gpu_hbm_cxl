@@ -1,0 +1,1147 @@
+{
+  "cache_records": [
+    {
+      "cache_path": "results/kv_cxl_pim_attention_stage8_v1/exact_cache/8eeb4898ec14d4c1529fdd278416ac378fb1f54c4530e768f3a7d169710796d2.json",
+      "component": "query_link",
+      "consumers": [
+        "c2_mac12288_p2",
+        "c2_mac12288_p4",
+        "c2_mac24576_p2",
+        "c2_mac24576_p4",
+        "c2_mac49152_p2",
+        "c2_mac49152_p4",
+        "c4_mac12288_p2",
+        "c4_mac12288_p4",
+        "c4_mac24576_p2",
+        "c4_mac24576_p4",
+        "c4_mac49152_p2",
+        "c4_mac49152_p4",
+        "c8_mac12288_p2",
+        "c8_mac12288_p4",
+        "c8_mac24576_p2",
+        "c8_mac24576_p4",
+        "c8_mac49152_p2",
+        "c8_mac49152_p4"
+      ],
+      "executed_this_invocation": false,
+      "key": "03d27aefbc94240d8f6df85cfd73482e3e6784e443fe6844168bf701af235404",
+      "sha256": "e005c777b9b68f3408aa9d24313777779b4db79014905a25002ec2bacbb56f69",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "cxl-fifo-transfer-read-proxy",
+        "schema_version": 1,
+        "transactions": 2048
+      },
+      "source": "stage8-reuse"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_sensitivity_stage9_v1/exact_cache/c669415a0945a16b479c77619106ef58065709e326338bc758d6d6b86ba3efdf.json",
+      "component": "pim_gwrite",
+      "consumers": [
+        "c2_mac12288_p2",
+        "c2_mac12288_p4",
+        "c2_mac24576_p2",
+        "c2_mac24576_p4",
+        "c2_mac49152_p2",
+        "c2_mac49152_p4"
+      ],
+      "executed_this_invocation": true,
+      "key": "c669415a0945a16b479c77619106ef58065709e326338bc758d6d6b86ba3efdf",
+      "sha256": "9b51b4047fb3d7558b30f48bcda63391213ade1fcd2b3ca8720079b1361cacf7",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "isolated-cxl-pim-operation",
+        "operation": "PIM_GWRITE",
+        "schema_version": 1,
+        "timing": {
+          "pim_io_interval_ps": 1024,
+          "row_span_waves": 32,
+          "tick_ps": 312
+        },
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 2,
+          "pseudo_channels_per_channel": 2
+        },
+        "waves": 2048
+      },
+      "source": "stage9-exact-cache"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_sensitivity_stage9_v1/exact_cache/ec2b5a79667cc82636e23c7002da329049d7ba76488c27c843df1a71969993f0.json",
+      "component": "pim_mac",
+      "consumers": [
+        "c2_mac12288_p2",
+        "c2_mac12288_p4"
+      ],
+      "executed_this_invocation": true,
+      "key": "ec2b5a79667cc82636e23c7002da329049d7ba76488c27c843df1a71969993f0",
+      "sha256": "d65408f08e8beea85a7e6382ff16ec838834da654b52928ab6f09cdcbc889c13",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "isolated-cxl-pim-operation",
+        "operation": "PIM_MAC",
+        "schema_version": 1,
+        "timing": {
+          "pim_mac_interval_ps": 12288,
+          "row_span_waves": 32,
+          "tick_ps": 312
+        },
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 2,
+          "pseudo_channels_per_channel": 2
+        },
+        "waves": 185406
+      },
+      "source": "stage9-exact-cache"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_sensitivity_stage9_v1/exact_cache/cd34722e5ab13d26d4a8b157c624beb202f48c5821341cf955272a40e4a94616.json",
+      "component": "pim_read",
+      "consumers": [
+        "c2_mac12288_p2",
+        "c2_mac24576_p2",
+        "c2_mac49152_p2"
+      ],
+      "executed_this_invocation": true,
+      "key": "cd34722e5ab13d26d4a8b157c624beb202f48c5821341cf955272a40e4a94616",
+      "sha256": "76eb44bfbdeb4e268f355aa9ee89705fd312e263ae9421dc9824d2ba997b511f",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "isolated-cxl-pim-operation",
+        "operation": "PIM_READ",
+        "schema_version": 1,
+        "timing": {
+          "pim_io_interval_ps": 1024,
+          "row_span_waves": 32,
+          "tick_ps": 312
+        },
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 2,
+          "pseudo_channels_per_channel": 2
+        },
+        "waves": 2080
+      },
+      "source": "stage9-exact-cache"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_sensitivity_stage9_v1/exact_cache/baf13428efb1a2fef17d35535cb5fc01d003835d5ffbc6c3b520363d088be0b9.json",
+      "component": "result_link",
+      "consumers": [
+        "c2_mac12288_p2",
+        "c2_mac24576_p2",
+        "c2_mac49152_p2"
+      ],
+      "executed_this_invocation": true,
+      "key": "baf13428efb1a2fef17d35535cb5fc01d003835d5ffbc6c3b520363d088be0b9",
+      "sha256": "74f7787f6fde1f0e90dbf48839f1aa061adf72e1be1a9b9044618d1cf1f07761",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "cxl-fifo-transfer-read-proxy",
+        "schema_version": 1,
+        "transactions": 8320
+      },
+      "source": "stage9-exact-cache"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_sensitivity_stage9_v1/exact_cache/eb179588c5448fa96d986449178cdcd745ac1ea51c54b6c78e2f93af0a2b8091.json",
+      "component": "pim_read",
+      "consumers": [
+        "c2_mac12288_p4",
+        "c2_mac24576_p4",
+        "c2_mac49152_p4"
+      ],
+      "executed_this_invocation": true,
+      "key": "eb179588c5448fa96d986449178cdcd745ac1ea51c54b6c78e2f93af0a2b8091",
+      "sha256": "527c3b1c0701edfeee81ae6ca8991f0777b9f5bb77cbb73f24b295be906f58f3",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "isolated-cxl-pim-operation",
+        "operation": "PIM_READ",
+        "schema_version": 1,
+        "timing": {
+          "pim_io_interval_ps": 1024,
+          "row_span_waves": 32,
+          "tick_ps": 312
+        },
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 2,
+          "pseudo_channels_per_channel": 2
+        },
+        "waves": 4160
+      },
+      "source": "stage9-exact-cache"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_sensitivity_stage9_v1/exact_cache/9e7bd5c0887cd0a680e33a2c6310224b395f8cbd094caf618ae9b4cf5fdfc780.json",
+      "component": "result_link",
+      "consumers": [
+        "c2_mac12288_p4",
+        "c2_mac24576_p4",
+        "c2_mac49152_p4",
+        "c4_mac12288_p2",
+        "c4_mac24576_p2",
+        "c4_mac49152_p2"
+      ],
+      "executed_this_invocation": true,
+      "key": "9e7bd5c0887cd0a680e33a2c6310224b395f8cbd094caf618ae9b4cf5fdfc780",
+      "sha256": "eed9ef276ae0f121bc300cec47aa33a3c121eca2152b5ad2d6dabb132418580b",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "cxl-fifo-transfer-read-proxy",
+        "schema_version": 1,
+        "transactions": 16640
+      },
+      "source": "stage9-exact-cache"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_sensitivity_stage9_v1/exact_cache/8c80f2c23fe0f0700177449a351d9c495371282ca593c007a02e3310c1490b9e.json",
+      "component": "pim_mac",
+      "consumers": [
+        "c2_mac24576_p2",
+        "c2_mac24576_p4"
+      ],
+      "executed_this_invocation": true,
+      "key": "8c80f2c23fe0f0700177449a351d9c495371282ca593c007a02e3310c1490b9e",
+      "sha256": "f574bf0746c2c9dedc3ba23b417e8c3f4dda7f729a6b1cfd9f8aa9768a41db66",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "isolated-cxl-pim-operation",
+        "operation": "PIM_MAC",
+        "schema_version": 1,
+        "timing": {
+          "pim_mac_interval_ps": 24576,
+          "row_span_waves": 32,
+          "tick_ps": 312
+        },
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 2,
+          "pseudo_channels_per_channel": 2
+        },
+        "waves": 185406
+      },
+      "source": "stage9-exact-cache"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_sensitivity_stage9_v1/exact_cache/2bb75ace9a77290d3c3a4d05f4556f15f8436aec0cad9319185b0e498bed1ccd.json",
+      "component": "pim_mac",
+      "consumers": [
+        "c2_mac49152_p2",
+        "c2_mac49152_p4"
+      ],
+      "executed_this_invocation": true,
+      "key": "2bb75ace9a77290d3c3a4d05f4556f15f8436aec0cad9319185b0e498bed1ccd",
+      "sha256": "2854b15bfeea59438759eb9571a34e77aa15ac0bee71718b528bf0b1d4d1953b",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "isolated-cxl-pim-operation",
+        "operation": "PIM_MAC",
+        "schema_version": 1,
+        "timing": {
+          "pim_mac_interval_ps": 49152,
+          "row_span_waves": 32,
+          "tick_ps": 312
+        },
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 2,
+          "pseudo_channels_per_channel": 2
+        },
+        "waves": 185406
+      },
+      "source": "stage9-exact-cache"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_attention_stage8_v1/exact_cache/ab195e249ca580fe5b280b01bd4e1371e7193aae71cc93e14c45c4fe94cb4f09.json",
+      "component": "pim_gwrite",
+      "consumers": [
+        "c4_mac12288_p2",
+        "c4_mac12288_p4",
+        "c4_mac24576_p2",
+        "c4_mac24576_p4",
+        "c4_mac49152_p2",
+        "c4_mac49152_p4"
+      ],
+      "executed_this_invocation": false,
+      "key": "f9cc147248a071de63a7a7f66d57351c849de94023296ecf0e0fe09fd5ee0b91",
+      "sha256": "9cb999cece8d7387f6dec5312a269bf02a980dc547091ed1c3618c93a2ad174f",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "isolated-cxl-pim-operation",
+        "operation": "PIM_GWRITE",
+        "schema_version": 1,
+        "timing": {
+          "pim_io_interval_ps": 1024,
+          "row_span_waves": 32,
+          "tick_ps": 312
+        },
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 4,
+          "pseudo_channels_per_channel": 2
+        },
+        "waves": 2048
+      },
+      "source": "stage8-reuse"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_sensitivity_stage9_v1/exact_cache/befff91dd7b076d193229878654ece5c9291eb0c910ccb5c59f3d583b222875d.json",
+      "component": "pim_mac",
+      "consumers": [
+        "c4_mac12288_p2",
+        "c4_mac12288_p4"
+      ],
+      "executed_this_invocation": true,
+      "key": "befff91dd7b076d193229878654ece5c9291eb0c910ccb5c59f3d583b222875d",
+      "sha256": "81ecc6654fd85d2bfb5f0e0cab4e0508cf73bbab027347308a25af1512339786",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "isolated-cxl-pim-operation",
+        "operation": "PIM_MAC",
+        "schema_version": 1,
+        "timing": {
+          "pim_mac_interval_ps": 12288,
+          "row_span_waves": 32,
+          "tick_ps": 312
+        },
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 4,
+          "pseudo_channels_per_channel": 2
+        },
+        "waves": 92703
+      },
+      "source": "stage9-exact-cache"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_sensitivity_stage9_v1/exact_cache/a5c2e23c04e332300127ba9f9c7b8704bbcfb22dcaa1586fe40ad333bdda4c27.json",
+      "component": "pim_read",
+      "consumers": [
+        "c4_mac12288_p2",
+        "c4_mac24576_p2",
+        "c4_mac49152_p2"
+      ],
+      "executed_this_invocation": true,
+      "key": "a5c2e23c04e332300127ba9f9c7b8704bbcfb22dcaa1586fe40ad333bdda4c27",
+      "sha256": "4a209b85c320eb9e5a3f9a86286bb30c80ebd4faa2beba8b0f442d087e6e64b5",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "isolated-cxl-pim-operation",
+        "operation": "PIM_READ",
+        "schema_version": 1,
+        "timing": {
+          "pim_io_interval_ps": 1024,
+          "row_span_waves": 32,
+          "tick_ps": 312
+        },
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 4,
+          "pseudo_channels_per_channel": 2
+        },
+        "waves": 2080
+      },
+      "source": "stage9-exact-cache"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_attention_stage8_v1/exact_cache/f326d24728043701188218f1aac4f52f65823baa96f3b706d580955ce486285f.json",
+      "component": "pim_read",
+      "consumers": [
+        "c4_mac12288_p4",
+        "c4_mac24576_p4",
+        "c4_mac49152_p4"
+      ],
+      "executed_this_invocation": false,
+      "key": "e3d06ec18c7898987f536ec0a795744f46f833109a673e86121cc93cb94ac35e",
+      "sha256": "d1472854021fdd4c40015340ee1fed61148c309ee6d7dc3282fbe57b7ff9ffda",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "isolated-cxl-pim-operation",
+        "operation": "PIM_READ",
+        "schema_version": 1,
+        "timing": {
+          "pim_io_interval_ps": 1024,
+          "row_span_waves": 32,
+          "tick_ps": 312
+        },
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 4,
+          "pseudo_channels_per_channel": 2
+        },
+        "waves": 4160
+      },
+      "source": "stage8-reuse"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_attention_stage8_v1/exact_cache/d9a5f9799748b05aecb8ed222390c3f24ee888c66d0ecb487b6b797ea4bd1dc2.json",
+      "component": "result_link",
+      "consumers": [
+        "c4_mac12288_p4",
+        "c4_mac24576_p4",
+        "c4_mac49152_p4",
+        "c8_mac12288_p2",
+        "c8_mac24576_p2",
+        "c8_mac49152_p2"
+      ],
+      "executed_this_invocation": false,
+      "key": "f89bee8db4b6b68ab5058b0d1b33cf8a2eb1b8ccf0c9031ea25f9e1c1af3f743",
+      "sha256": "8c6cad0ca730ba401a3576f48135e052d80203db7f1c5ed9d22a6ace6d44122e",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "cxl-fifo-transfer-read-proxy",
+        "schema_version": 1,
+        "transactions": 33280
+      },
+      "source": "stage8-reuse"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_attention_stage8_v1/exact_cache/e11ca1d6d4aa9524894b7dc71d07e9ace8f4c3ee77a9c904c073fec55e64600e.json",
+      "component": "pim_mac",
+      "consumers": [
+        "c4_mac24576_p2",
+        "c4_mac24576_p4"
+      ],
+      "executed_this_invocation": false,
+      "key": "508a059b451cc32dc7faaa34b821bafdfacca65afb2f598a4a968687c9808dd4",
+      "sha256": "0ce82fd78f1ee8f887bdb50a866219097bcae7c004a58bf20b5b82bdd70cf324",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "isolated-cxl-pim-operation",
+        "operation": "PIM_MAC",
+        "schema_version": 1,
+        "timing": {
+          "pim_mac_interval_ps": 24576,
+          "row_span_waves": 32,
+          "tick_ps": 312
+        },
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 4,
+          "pseudo_channels_per_channel": 2
+        },
+        "waves": 92703
+      },
+      "source": "stage8-reuse"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_sensitivity_stage9_v1/exact_cache/df853e0fc48e936d37232d7439d5db5969ede33fb95fdf99c4bd15420e1fe4ea.json",
+      "component": "pim_mac",
+      "consumers": [
+        "c4_mac49152_p2",
+        "c4_mac49152_p4"
+      ],
+      "executed_this_invocation": true,
+      "key": "df853e0fc48e936d37232d7439d5db5969ede33fb95fdf99c4bd15420e1fe4ea",
+      "sha256": "c0bbeb45670ddf4cec146fafce629b638900bf3275e65a606d99cbbe81c8a2f3",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "isolated-cxl-pim-operation",
+        "operation": "PIM_MAC",
+        "schema_version": 1,
+        "timing": {
+          "pim_mac_interval_ps": 49152,
+          "row_span_waves": 32,
+          "tick_ps": 312
+        },
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 4,
+          "pseudo_channels_per_channel": 2
+        },
+        "waves": 92703
+      },
+      "source": "stage9-exact-cache"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_sensitivity_stage9_v1/exact_cache/b2a1229bc662f90007579610c234db1683e665cfe35e97e39452a49df1b1436b.json",
+      "component": "pim_gwrite",
+      "consumers": [
+        "c8_mac12288_p2",
+        "c8_mac12288_p4",
+        "c8_mac24576_p2",
+        "c8_mac24576_p4",
+        "c8_mac49152_p2",
+        "c8_mac49152_p4"
+      ],
+      "executed_this_invocation": true,
+      "key": "b2a1229bc662f90007579610c234db1683e665cfe35e97e39452a49df1b1436b",
+      "sha256": "bb985b82cdcc04387dfba21b34a132a08db53ede44aaa47b99170e7cefc0c671",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "isolated-cxl-pim-operation",
+        "operation": "PIM_GWRITE",
+        "schema_version": 1,
+        "timing": {
+          "pim_io_interval_ps": 1024,
+          "row_span_waves": 32,
+          "tick_ps": 312
+        },
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 8,
+          "pseudo_channels_per_channel": 2
+        },
+        "waves": 2048
+      },
+      "source": "stage9-exact-cache"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_sensitivity_stage9_v1/exact_cache/7f953521fef2ed4c2e3dcfd9836469cb430e61abba6a98d6aaccfcd229b8197e.json",
+      "component": "pim_mac",
+      "consumers": [
+        "c8_mac12288_p2",
+        "c8_mac12288_p4"
+      ],
+      "executed_this_invocation": true,
+      "key": "7f953521fef2ed4c2e3dcfd9836469cb430e61abba6a98d6aaccfcd229b8197e",
+      "sha256": "5ba748e9edcbeac36374457a8fe6b195f73ac8f5803c0759108287f2ca50ff32",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "isolated-cxl-pim-operation",
+        "operation": "PIM_MAC",
+        "schema_version": 1,
+        "timing": {
+          "pim_mac_interval_ps": 12288,
+          "row_span_waves": 32,
+          "tick_ps": 312
+        },
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 8,
+          "pseudo_channels_per_channel": 2
+        },
+        "waves": 46352
+      },
+      "source": "stage9-exact-cache"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_sensitivity_stage9_v1/exact_cache/f3011c8bcf86d59ce6e507c580ea139cc3f71bdc0c06bb53760dd61a66ad4c49.json",
+      "component": "pim_read",
+      "consumers": [
+        "c8_mac12288_p2",
+        "c8_mac24576_p2",
+        "c8_mac49152_p2"
+      ],
+      "executed_this_invocation": true,
+      "key": "f3011c8bcf86d59ce6e507c580ea139cc3f71bdc0c06bb53760dd61a66ad4c49",
+      "sha256": "8976a91260e32fd948a9bd5f671c88b4ec060f7c9954d050df81e89af7e318d9",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "isolated-cxl-pim-operation",
+        "operation": "PIM_READ",
+        "schema_version": 1,
+        "timing": {
+          "pim_io_interval_ps": 1024,
+          "row_span_waves": 32,
+          "tick_ps": 312
+        },
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 8,
+          "pseudo_channels_per_channel": 2
+        },
+        "waves": 2080
+      },
+      "source": "stage9-exact-cache"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_sensitivity_stage9_v1/exact_cache/74eb38fcaf97dbef412b918a8ad9bc88a225bdf5e25b94b7aa71041ac742614c.json",
+      "component": "pim_read",
+      "consumers": [
+        "c8_mac12288_p4",
+        "c8_mac24576_p4",
+        "c8_mac49152_p4"
+      ],
+      "executed_this_invocation": true,
+      "key": "74eb38fcaf97dbef412b918a8ad9bc88a225bdf5e25b94b7aa71041ac742614c",
+      "sha256": "91cd3d7198faf7d78659f6f6e6f08e92c75fa103a312d9c503a6c02a46669843",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "isolated-cxl-pim-operation",
+        "operation": "PIM_READ",
+        "schema_version": 1,
+        "timing": {
+          "pim_io_interval_ps": 1024,
+          "row_span_waves": 32,
+          "tick_ps": 312
+        },
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 8,
+          "pseudo_channels_per_channel": 2
+        },
+        "waves": 4160
+      },
+      "source": "stage9-exact-cache"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_sensitivity_stage9_v1/exact_cache/95345998d71236c601435b4d58611e8b8a715457a3e88cfbc2fb205bd6d11077.json",
+      "component": "result_link",
+      "consumers": [
+        "c8_mac12288_p4",
+        "c8_mac24576_p4",
+        "c8_mac49152_p4"
+      ],
+      "executed_this_invocation": true,
+      "key": "95345998d71236c601435b4d58611e8b8a715457a3e88cfbc2fb205bd6d11077",
+      "sha256": "0c430bc03f4636afafd5e0093b4da4fbfc9d191ea3c2240c15a1bec31f7cd109",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "cxl-fifo-transfer-read-proxy",
+        "schema_version": 1,
+        "transactions": 66560
+      },
+      "source": "stage9-exact-cache"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_sensitivity_stage9_v1/exact_cache/0cdfacfa36be87d74ee0e45f22d1772d57236a9711151d045ccd4a5930156bba.json",
+      "component": "pim_mac",
+      "consumers": [
+        "c8_mac24576_p2",
+        "c8_mac24576_p4"
+      ],
+      "executed_this_invocation": true,
+      "key": "0cdfacfa36be87d74ee0e45f22d1772d57236a9711151d045ccd4a5930156bba",
+      "sha256": "5809df09f98217608b2a8de23f5573fd5c451e9670c3d899bdd44b248efeb239",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "isolated-cxl-pim-operation",
+        "operation": "PIM_MAC",
+        "schema_version": 1,
+        "timing": {
+          "pim_mac_interval_ps": 24576,
+          "row_span_waves": 32,
+          "tick_ps": 312
+        },
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 8,
+          "pseudo_channels_per_channel": 2
+        },
+        "waves": 46352
+      },
+      "source": "stage9-exact-cache"
+    },
+    {
+      "cache_path": "results/kv_cxl_pim_sensitivity_stage9_v1/exact_cache/fb31c6ff56f49f3228a22d7421c94d6e0e8effdd75568d73bc391ab2c2e14a05.json",
+      "component": "pim_mac",
+      "consumers": [
+        "c8_mac49152_p2",
+        "c8_mac49152_p4"
+      ],
+      "executed_this_invocation": true,
+      "key": "fb31c6ff56f49f3228a22d7421c94d6e0e8effdd75568d73bc391ab2c2e14a05",
+      "sha256": "cae9aef3399482357cbd2ddc15b48a4104e0646cc13d12f2f3371b2d5b1962e0",
+      "simulation_identity": {
+        "context": {
+          "cxl": {
+            "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+            "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+            "model": "cxl-kv-memory-only-request-v1"
+          },
+          "cxl_pim": {
+            "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+            "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+            "model": "isolated-cxl-pim-attention-v1",
+            "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+            "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+          },
+          "profile": {
+            "bandwidth_gb_s": 64.0,
+            "channel_count": 4,
+            "latency_us": 0.25
+          }
+        },
+        "kind": "isolated-cxl-pim-operation",
+        "operation": "PIM_MAC",
+        "schema_version": 1,
+        "timing": {
+          "pim_mac_interval_ps": 49152,
+          "row_span_waves": 32,
+          "tick_ps": 312
+        },
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 8,
+          "pseudo_channels_per_channel": 2
+        },
+        "waves": 46352
+      },
+      "source": "stage9-exact-cache"
+    }
+  ],
+  "design_points": 18,
+  "exact_components": 23,
+  "execution": {
+    "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+    "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+    "ramulator_library_sha256": "3d2eb8a91aaef784bd15bfe74c42b809b636b2916461ddcd9cf0d9595d1e6a23"
+  },
+  "input_hashes": {
+    "cycle": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+    "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+    "stage8": "5c6e0f934437efc37ce92ea55d4c70dc156508e86acb23e1bad1222aee95d36a",
+    "stage8_validation": "89337aed5c60c475190df17c7827622b3d30a28cc9b327e4c5842a8053fa1c67"
+  },
+  "interpolation": 0,
+  "new_exact_components": 18,
+  "new_runs_executed": 18,
+  "output_hashes": {
+    "design_summary.csv": "9e7033edaf1b9ca7522d5cf20de76eb2f076d0f04110ae91171967e40a8c828f",
+    "factor_summary.csv": "6b90762ec610dc40a0a0a021a95a0749764c172c9232c73f9d5ee3fc83689858",
+    "sensitivity.csv": "5653cba1d0df6bb3c38cda2bf7c0965938f6e47fcaa96fe79e67efaa3ee764cb",
+    "sensitivity.json": "40bd69268c9adacd3fb0dec0c2edb521a02a1c0516f9ac62c224523ed4f33551",
+    "stage9_report.md": "0cfb33a615127ba099db7e1a2e92e881019bbae4ae289dd1dfead57dd72a792b"
+  },
+  "reused_stage8_components": 5,
+  "rows": 162,
+  "schema_version": 1,
+  "stage": "kv-cxl-pim-sensitivity-stage9-v1"
+}

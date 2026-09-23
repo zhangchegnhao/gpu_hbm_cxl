@@ -1,0 +1,86 @@
+{
+  "case": "b8_c32k",
+  "design_ids": [
+    "c2_mac49152_p4",
+    "c4_mac24576_p4",
+    "c8_mac24576_p4"
+  ],
+  "exact_sources": [
+    {
+      "cache_key": "8a5311003929e85f7544031237fea0dc4f57d2ca087a77064d02b994c80aec7a",
+      "kind": "stage6-attention",
+      "path": "results/kv_cxl_phase_stage6_b8_c32k_formal_v1/exact_cache/8a5311003929e85f7544031237fea0dc4f57d2ca087a77064d02b994c80aec7a.json",
+      "sha256": "c7852d0a0dcbaca1844259649f80ce2cb60e15fa7208469e503a6ce873037123"
+    },
+    {
+      "cache_key": "6890636d0cff6c3ad9cfca23ab2c9f1ba4c8b085c3ca78b754d5cd42c26cebed",
+      "kind": "stage6-expert",
+      "path": "results/kv_cxl_phase_stage6_b8_c32k_formal_v1/exact_cache/6890636d0cff6c3ad9cfca23ab2c9f1ba4c8b085c3ca78b754d5cd42c26cebed.json",
+      "sha256": "49425500d53817f2d706f8c05eda8c3bd92e9386daca48584ab490102aac1bc1"
+    },
+    {
+      "cache_key": "f47499c1186fc1331ea0dd141d7ea7194d0793f04030a2a89c1568da9127fdeb",
+      "kind": "stage7-resident-local-attention",
+      "path": "results/kv_cxl_a800_bridge_stage7_v1/exact_cache/f47499c1186fc1331ea0dd141d7ea7194d0793f04030a2a89c1568da9127fdeb.json",
+      "sha256": "ec9f6b38b52381e53c9f82453e7b9c904902ba842465d66373f58be0cf745258"
+    },
+    {
+      "cache_key": "a913f0a672cdde86d3f401ab94e6ba3a049a659051879a9f61e666d9b294ffdd",
+      "design_id": "c2_mac49152_p4",
+      "kind": "stage10-cxl-pim-pipeline",
+      "path": "results/kv_cxl_pim_pipeline_stage10_v1/exact_cache/a913f0a672cdde86d3f401ab94e6ba3a049a659051879a9f61e666d9b294ffdd.json",
+      "sha256": "857794030b8f1527f59d906fca052bf3e541cdc594eef00b02ab3eba767ca4a4"
+    },
+    {
+      "cache_key": "d87a22964ddf0c34fa8052850784354e676fea26a6756c8e7e81bb8f976ba166",
+      "design_id": "c4_mac24576_p4",
+      "kind": "stage10-cxl-pim-pipeline",
+      "path": "results/kv_cxl_pim_pipeline_stage10_v1/exact_cache/d87a22964ddf0c34fa8052850784354e676fea26a6756c8e7e81bb8f976ba166.json",
+      "sha256": "d9acab399dab462414f74e29e6601845a7ccf0ed257a65f3dd084b6ab7aca272"
+    },
+    {
+      "cache_key": "f0732959a1378182550c71090ffaf20f1545777d2bbf7f865e0300d1d640d631",
+      "design_id": "c8_mac24576_p4",
+      "kind": "stage10-cxl-pim-pipeline",
+      "path": "results/kv_cxl_pim_pipeline_stage10_v1/exact_cache/f0732959a1378182550c71090ffaf20f1545777d2bbf7f865e0300d1d640d631.json",
+      "sha256": "085e160b133de22a1d73731d71c46dec9ddedea485b92d44c91c16de6d450504"
+    }
+  ],
+  "input_hashes": {
+    "capacity_source": "f59e97f0a71644e0a255d7a6bdeff5fa7baa9d6254763593429fce93c1a330d3",
+    "cycle_config": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+    "hardware": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
+    "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+    "source_experiment": "a7c9b066bf13605c02c80722c4da7d592407fd7a9e6a3c8df5ba1fad852559d9",
+    "source_manifest": "ee480b33260ce37eee51ec36f265d0443c9083122679d4cf39fc17cfb6ee8e33",
+    "source_trace": "afc5f6bf27a84bdf54294cd79b01bdc54037b6d8905ace7e6ae5c1e60eab750f",
+    "stage10_comparison": "151ba8db1d285e866e66a4cf1da2da257d7f90568951f1e97031a35d9f2b06fc",
+    "stage10_manifest": "1a5dfdcab8d22355471a8e06631aea35534cd5e1d1faef316796033351719027",
+    "stage10_validation": "b17e6d2f941f10832120a49e9210f74134884b9e2d85a1bb20c0baab534f0946",
+    "stage6_comparison": "fee0e773be92d86d7973d5a96396697bf6ae9052036b6af8c2f2f0868300d2ee",
+    "stage6_layer_results": "d9744624151ce230323861e6c566b489a7294a0781a4f54003f14323f713734c",
+    "stage6_manifest": "bf14b01b79b868af4050ef94237f116239cb2f8a2c280437fe05db2e665e3507",
+    "stage6_validation": "44ae3bc7b216d1c601844306fe11d5847422973825a3b4f8c6aa831d0f7642a1",
+    "stage7_calibration": "02faddccee884c165a5defae1d3e7d039a2c5a015790a841652c69e741976dd5",
+    "stage7_comparison": "4b26b339ea6ec0a3f2aef1758fcd01163c4f7f86665567bc471ffb574b2ab898",
+    "stage7_manifest": "24d485c21468c8bf82e6c2e12f258a52a9cfd5ce24f7dc2a8a51f1791e2efdc1",
+    "stage7_validation": "59d93437ae882cf12b5f209d1bd2955ea0a7061dcca4a89f3e55606795ed5b40"
+  },
+  "interpolation": 0,
+  "layer_rows": 384,
+  "new_ramulator_runs": 0,
+  "output_hashes": {
+    "comparison.csv": "48bea78be011c694b164237763a8b565e8031d653d5528edcbc598b6f367d7d0",
+    "comparison.json": "e58bccda190836c965b210f61080559440bd4c488e7b6e45c211cf0c66bec726",
+    "layer_results.csv": "deeda94b2dcf4bcd6167ccbf098629879eb81b6ab5629d8322cbce87f4a7dcd1",
+    "stage11_report.md": "6aeafa1ed276c32d2cc7622e8bcfbd5b39abde96df1f621527a84286989fc957"
+  },
+  "reused_exact_cache_artifacts": 6,
+  "rows": 8,
+  "schedule_modes": [
+    "ideal-overlap-bound",
+    "fully-serialized-bound"
+  ],
+  "schema_version": 1,
+  "stage": "kv-cxl-pim-decode-stage11-v1"
+}

@@ -1,0 +1,15 @@
+{
+  "checks": {
+    "binary_provenance_bound": true,
+    "exact_runs": 9,
+    "interpolation": 0,
+    "layer_rows": 432,
+    "one_chunk_identity_designs": 3,
+    "one_chunk_identity_fields_per_design": 10,
+    "rows": 9
+  },
+  "errors": [],
+  "schema_version": 1,
+  "stage": "kv-cxl-pim-chunk-stage12-v1",
+  "status": "passed"
+}

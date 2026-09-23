@@ -255,6 +255,96 @@ partial result 合计为 1,130,496 B，解析链路流量减少 99.206%。CXL-PI
 PIM MAC interval、partial 精度、merge cost 和 overlap，并在敏感性边界稳定后再考虑
 统一 CXL-PIM controller 或 Shared CXL-PIM。
 
+Stage 9 已完成 CXL-PIM 参数敏感性扫描。矩阵包含 channel=`2/4/8`、每 channel 2 个
+PCH、MAC interval=`12288/24576/49152 ps`、partial scalar=`2/4 bytes`，形成 18 个
+硬件/格式设计；每个设计再扫描 overlap=`0/0.5/1` 和 merge=`0/5/20 us/layer`，共
+162 行。组件按有效模拟输入去重为 23 个，其中 5 个按身份和 SHA-256 复用 Stage 8，
+18 个为新增精确 Ramulator 运行；failed=0、interpolation=0，独立验证通过。
+
+162 行中 156 行优于 64 GB/s memory-only CXL，138 行优于容量不受限 Local-HBM
+反事实；按每个设计的最差调度行判断，16/18 个设计稳健优于 memory-only CXL，12/18
+稳健优于 Local-HBM 反事实。失效区集中在 2-channel 与最慢 49152 ps MAC：
+`c2_mac49152_p4` 在 overlap=0、merge=20 us/layer 时为 1012.518 ms、7.901 token/s，
+比 memory-only CXL 更差。Stage 8 名义点 `c4_mac24576_p4` 的最差扫描结果为
+684.884 ms，仍优于两个对照。2-byte partial 只带来约 0.306 ms 的全矩阵平均时延
+改善，且尚未验证数值误差，不能据此宣称低精度可用。
+
+结果位于 `results/kv_cxl_pim_sensitivity_stage9_v1/`，分析见
+`docs/kv_cxl_pim_sensitivity_stage9_analysis.md`。这仍是 A800 C32k 外推、隔离
+Ramulator 组件和解析调度组合，不是物理 CXL-PIM 或统一 controller 结果。下一阶段应
+选择名义点、2-channel 失效边界和 8-channel 稳健点做统一 CXL-PIM 请求级验证，并
+独立验证 2-byte partial 的 Attention 数值误差；在此之前不扩展 Shared CXL-PIM。
+
+Stage 10 已完成三个 Stage-9 边界点的统一请求级流水与 partial-state 数值敏感性。
+新增 `SieveCXLPIMPipeline` 前端，在同一次 Ramulator simulation 中按完成依赖执行
+query link、PIM GWRITE、PIM MAC、PIM READ 和 result link；link controller 与
+CXL-PIM media controller 仍是独立资源，三个 PIM 阶段共享持续 controller 状态，
+不得称为单一物理队列竞争。`c2_mac49152_p4`、`c4_mac24576_p4` 和
+`c8_mac24576_p4` 三次 full-count 运行均精确完成，failed=0、interpolation=0。
+
+三个设计的统一流水相对 Stage 9 隔离求和差值分别为 `-0.001872`、`-0.001872` 和
+`-0.001560 us/layer`，只是周期取整量级，说明当前严格串行、分资源模型下隔离求和
+没有遗漏明显阶段开销，不能解释为统一流水加速。完全串行 Decode 分别为 1011.558、
+683.924 和 630.118 ms；2-channel 慢 MAC 负对照仍差于 memory-only CXL，名义点和
+8-channel 点仍优于 memory-only CXL 与 Local-HBM 反事实。
+
+partial 精度实验使用 head_dim=128、Context=`4k/16k/32k`、PCH=`4/8/16`、logit
+std=`1/4`、8 个 seed 和 FP32/BF16/FP16，共 432 条确定性合成 trial。BF16 最大绝对
+误差为 `0.021268`、最大相对 L2 为 `0.266684`、最低 cosine 为 `0.975323`；FP16
+对应为 `0.003107`、`0.024038` 和 `0.999717`。这不是 A800 activation 或任务精度
+结果；`partial_scalar_bytes=2` 只能作为流量参数，BF16/FP16 必须分开报告，正式
+端到端点继续使用 FP32 partial。
+
+结果位于 `results/kv_cxl_pim_pipeline_stage10_v1/`，分析见
+`docs/kv_cxl_pim_pipeline_stage10_analysis.md`。下一阶段应把名义点和 8-channel 点的
+统一 timing 接入 48 层 Decode 事件图，以 2-channel 慢 MAC 为负对照；真实 partial
+精度验证未完成前不得用合成结果宣称 2-byte 格式可部署，也不扩展 Shared CXL-PIM。
+
+Stage 11 已将三个 Stage-10 FP32 partial 设计接入 A800 校准的 48 层 MoE Decode
+事件图，并保留 Router、Expert 和 Combine 节点。实验复用 Stage 6 的 full-count
+Expert/Attention、Stage 7 的全 Local-HBM 对照和 Stage 10 的三条统一 pipeline，
+共绑定 6 个精确缓存；新增 Ramulator 运行为 0，8 个场景行、384 个逐层结果均完整，
+interpolation=0，独立验证通过。
+
+事件图同时报告理想重叠和完全串行两个边界。理想重叠下三个设计均为 573.311 ms，
+因为 A800 外推的本地 Attention 分支仍在关键路径；这只是调度上界，不是已实现策略。
+完全串行下 `c2_mac49152_p4`、`c4_mac24576_p4` 和 `c8_mac24576_p4` 分别为
+1011.558、683.924 和 630.118 ms。相对 834.554 ms 的 64 GB/s memory-only CXL，
+2-channel 慢 MAC 负对照吞吐下降 17.498%，4-channel 名义点和 8-channel 稳健点吞吐
+分别提高 22.024% 和 32.444%。
+
+Stage 11 用 A800 B8 的 126.394 ms/Decode 非 Attention 均值校准事件图总量；其中
+2598.504868 us/layer 是未归因的校准残差，不能把逐项 Router、Expert、Combine 数值
+称为 A800 分项实测。B8/C32k Router 仍是 B8/C4k 模板的受控 tiling，Attention 仍是
+C4k--C16k 的 A800 趋势外推。结果位于
+`results/kv_cxl_pim_decode_stage11_v1/`，分析见
+`docs/kv_cxl_pim_decode_stage11_analysis.md`。下一阶段应实现显式 chunk/tile 依赖、
+partial readiness、双缓冲限制和 GPU merge 工作，以事件级调度替代理想 overlap 比例；
+在该门槛完成前不扩展 Shared CXL-PIM 或多 GPU。
+
+Stage 12 已完成显式 chunk/tile CXL-PIM Attention 流水。三个 Stage-10 边界设计分别
+运行 1 chunk/1 slot、8 chunks/1 slot 和 8 chunks/2 slots，共 9/9 个 full-count
+Ramulator workload；failed=0、remaining=0、interpolation=0，执行时 binding、library、
+源码和输入哈希均已保存。三组单 chunk 结果在 query、GWRITE、MAC、READ、result-link
+及最终完成的 10 个周期字段上逐项复现 Stage 10。
+
+8-chunk 模型让每个 chunk 返回一份完整 FP32 partial state，因此 PIM READ 与结果链路
+请求总量为单 chunk 的 8 倍。双缓冲相对单缓冲将 2/4/8-channel 三个设计的精确分支
+时延分别降低 0.709%、5.238% 和 17.436%，buffer stall 均降为 0；但当前 48 层回放中
+三条 CXL-PIM 分支都在不可抢占的本地 GPU Attention 结束前完成，所以相同 chunk 数的
+单/双缓冲端到端时延相同。8 chunks 的额外 Decode 开销来自 7 次额外解析 merge kernel，
+三个设计分别增加约 0.403、0.470 和 0.604 ms/Decode。
+
+Stage 12 的 9 个显式调度点为 573.369--574.002 ms/Decode，相对 834.554 ms 的
+memory-only CXL 吞吐提高 45.392%--45.553%。这依赖 RoPE 后两个 Attention 分支同时启动、
+本地 GPU Attention 非抢占且 merge 后置的调度假设；2-channel 慢 MAC 负对照因此不再像
+完全串行边界那样失败。GPU merge 使用当前模拟 GPU peak/HBM 参数的 roofline 加每 chunk
+1 us kernel overhead，不是 A800 实测。结果位于
+`results/kv_cxl_pim_chunk_stage12_v1/`，分析见
+`docs/kv_cxl_pim_chunk_stage12_analysis.md`。下一阶段应将本地 GPU Attention 也拆成显式
+tile，扫描 CXL-PIM 启动偏移、merge 批处理/优先级和 2/4/8 chunk，在调度结论稳定前不扩展
+Shared CXL-PIM 或多 GPU。
+
 物理A800显存为80 GB，当前模拟容量为96 GB，二者必须分开报告。Batch=16、
 Context=32k和Batch=32、Context=16k可用于模拟容量压力，但不能直接称为A800实测
 结果。若未实现spill，只能将超容量配置标记为`infeasible`，不能声称已经完成KV

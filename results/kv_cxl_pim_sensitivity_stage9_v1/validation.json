@@ -1,0 +1,14 @@
+{
+  "checks": {
+    "design_points": 18,
+    "exact_components": 23,
+    "interpolation": 0,
+    "new_exact_components": 18,
+    "reused_stage8_components": 5,
+    "rows": 162
+  },
+  "errors": [],
+  "schema_version": 1,
+  "stage": "kv-cxl-pim-sensitivity-stage9-v1",
+  "status": "passed"
+}

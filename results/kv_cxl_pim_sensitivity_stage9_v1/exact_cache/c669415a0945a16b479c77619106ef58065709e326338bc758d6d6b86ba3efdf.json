@@ -1,0 +1,57 @@
+{
+  "cache_input": {
+    "schema_version": 1,
+    "simulation_identity": {
+      "context": {
+        "cxl": {
+          "cxl_kv_workload_sha256": "2e1206e0830e56efd9dfed51d2898ba8192b5db0a7f6e789a5125e6f3f153eca",
+          "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "extension_sha256": "abc1d1606daba719027c8b41010fa47a0f244b68fd29710b42466109074265b3",
+          "mixed_workload_sha256": "6b4c07d72b836747a20b8c8cacd94d045dd1f0225090f755f7ed1f49184338da",
+          "model": "cxl-kv-memory-only-request-v1"
+        },
+        "cxl_pim": {
+          "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "microbenchmark_sha256": "26bb6a2ef884b41d07399407a7db9375936436a109410e5dfaa35f6b943ea918",
+          "model": "isolated-cxl-pim-attention-v1",
+          "pim_extension_sha256": "8e960d244ce63f576e7bda40c9b93c8b7a13877653e52ba0ab0c2c31652dca83",
+          "runner_sha256": "13b39a89c60ffe1cea99d1f1d89cc9969b7c589fe2c41fb3bd8293f7fa6ca9f7"
+        },
+        "profile": {
+          "bandwidth_gb_s": 64.0,
+          "channel_count": 4,
+          "latency_us": 0.25
+        }
+      },
+      "kind": "isolated-cxl-pim-operation",
+      "operation": "PIM_GWRITE",
+      "schema_version": 1,
+      "timing": {
+        "pim_io_interval_ps": 1024,
+        "row_span_waves": 32,
+        "tick_ps": 312
+      },
+      "topology": {
+        "banks_per_pseudo_channel": 24,
+        "channels": 2,
+        "pseudo_channels_per_channel": 2
+      },
+      "waves": 2048
+    },
+    "stage": "kv-cxl-pim-sensitivity-stage9-v1"
+  },
+  "result": {
+    "completed_requests": 8192,
+    "cycles_by_waves": {
+      "2048": 6724
+    },
+    "duration_us_by_waves": {
+      "2048": 2.097888
+    },
+    "injected_requests": 8192,
+    "max_waves": 2048,
+    "operation": "PIM_GWRITE",
+    "tick_ps": 312
+  },
+  "result_type": "pim-operation"
+}

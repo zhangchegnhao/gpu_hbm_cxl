@@ -1,0 +1,13 @@
+{
+  "checks": {
+    "boundary_designs": 3,
+    "exact_runs": 3,
+    "interpolation": 0,
+    "precision_summary_rows": 9,
+    "precision_trials": 432
+  },
+  "errors": [],
+  "schema_version": 1,
+  "stage": "kv-cxl-pim-pipeline-stage10-v1",
+  "status": "passed"
+}

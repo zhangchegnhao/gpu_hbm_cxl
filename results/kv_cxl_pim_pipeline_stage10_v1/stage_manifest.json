@@ -1,0 +1,204 @@
+{
+  "cache_records": [
+    {
+      "cache_input": {
+        "case": "b8_c32k",
+        "design_id": "c2_mac49152_p4",
+        "execution": {
+          "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+          "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+          "ramulator_library_sha256": "5160925ef0fbebc66441f9b6fe0bd8dd12b0f33adc0fddcf6ada103636192c61"
+        },
+        "input_hashes": {
+          "cycle": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+          "precision_model": "0d77ef46e590c3eea49f29148e65b58d1c580774f456b526ceb8965ac1d6569c",
+          "stage9": "40bd69268c9adacd3fb0dec0c2edb521a02a1c0516f9ac62c224523ed4f33551",
+          "stage9_runner": "d27f4e08a968c9fbfe318e43b150d401c2ced325a64a645248f722d0a061cf82",
+          "stage9_validation": "a3315c67018478c2ccf3613bb0a55ff56fa59f030ac9135b8979cb02db9109fb"
+        },
+        "link_profile": {
+          "bandwidth_gb_s": 64.0,
+          "channel_count": 4,
+          "latency_us": 0.25
+        },
+        "mac_interval_ps": 49152,
+        "pipeline_context": {
+          "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "extension_sha256": "3848e71088882ca7c0e0bc45306f3cb605bc12075fabfb3c03142367200d4c63",
+          "model": "unified-cxl-pim-pipeline-v1",
+          "runner_sha256": "fe0fd8f5f9d98c5c290ce8db021b47a10d7552596c5f5f799b978704ad32c439"
+        },
+        "schema_version": 1,
+        "shape": {
+          "kv_bytes_per_context_position": 2048,
+          "mac_operations": 569565184,
+          "mac_operations_per_wave": 3072,
+          "partial_result_bytes": 532480,
+          "pim_gwrite_waves": 2048,
+          "pim_mac_waves": 185406,
+          "pim_read_waves": 4160,
+          "query_bytes": 65536,
+          "query_link_transactions": 2048,
+          "result_link_transactions": 16640,
+          "spilled_context_positions": 69527,
+          "spilled_kv_bytes_per_layer": 142390528
+        },
+        "stage": "kv-cxl-pim-pipeline-stage10-v1",
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 2,
+          "partial_scalar_bytes": 4,
+          "pseudo_channels_per_channel": 2
+        }
+      },
+      "cache_path": "results/kv_cxl_pim_pipeline_stage10_v1/exact_cache/a913f0a672cdde86d3f401ab94e6ba3a049a659051879a9f61e666d9b294ffdd.json",
+      "design_id": "c2_mac49152_p4",
+      "executed_this_invocation": true,
+      "key": "a913f0a672cdde86d3f401ab94e6ba3a049a659051879a9f61e666d9b294ffdd",
+      "sha256": "857794030b8f1527f59d906fca052bf3e541cdc594eef00b02ab3eba767ca4a4"
+    },
+    {
+      "cache_input": {
+        "case": "b8_c32k",
+        "design_id": "c4_mac24576_p4",
+        "execution": {
+          "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+          "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+          "ramulator_library_sha256": "5160925ef0fbebc66441f9b6fe0bd8dd12b0f33adc0fddcf6ada103636192c61"
+        },
+        "input_hashes": {
+          "cycle": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+          "precision_model": "0d77ef46e590c3eea49f29148e65b58d1c580774f456b526ceb8965ac1d6569c",
+          "stage9": "40bd69268c9adacd3fb0dec0c2edb521a02a1c0516f9ac62c224523ed4f33551",
+          "stage9_runner": "d27f4e08a968c9fbfe318e43b150d401c2ced325a64a645248f722d0a061cf82",
+          "stage9_validation": "a3315c67018478c2ccf3613bb0a55ff56fa59f030ac9135b8979cb02db9109fb"
+        },
+        "link_profile": {
+          "bandwidth_gb_s": 64.0,
+          "channel_count": 4,
+          "latency_us": 0.25
+        },
+        "mac_interval_ps": 24576,
+        "pipeline_context": {
+          "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "extension_sha256": "3848e71088882ca7c0e0bc45306f3cb605bc12075fabfb3c03142367200d4c63",
+          "model": "unified-cxl-pim-pipeline-v1",
+          "runner_sha256": "fe0fd8f5f9d98c5c290ce8db021b47a10d7552596c5f5f799b978704ad32c439"
+        },
+        "schema_version": 1,
+        "shape": {
+          "kv_bytes_per_context_position": 2048,
+          "mac_operations": 569565184,
+          "mac_operations_per_wave": 6144,
+          "partial_result_bytes": 1064960,
+          "pim_gwrite_waves": 2048,
+          "pim_mac_waves": 92703,
+          "pim_read_waves": 4160,
+          "query_bytes": 65536,
+          "query_link_transactions": 2048,
+          "result_link_transactions": 33280,
+          "spilled_context_positions": 69527,
+          "spilled_kv_bytes_per_layer": 142390528
+        },
+        "stage": "kv-cxl-pim-pipeline-stage10-v1",
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 4,
+          "partial_scalar_bytes": 4,
+          "pseudo_channels_per_channel": 2
+        }
+      },
+      "cache_path": "results/kv_cxl_pim_pipeline_stage10_v1/exact_cache/d87a22964ddf0c34fa8052850784354e676fea26a6756c8e7e81bb8f976ba166.json",
+      "design_id": "c4_mac24576_p4",
+      "executed_this_invocation": true,
+      "key": "d87a22964ddf0c34fa8052850784354e676fea26a6756c8e7e81bb8f976ba166",
+      "sha256": "d9acab399dab462414f74e29e6601845a7ccf0ed257a65f3dd084b6ab7aca272"
+    },
+    {
+      "cache_input": {
+        "case": "b8_c32k",
+        "design_id": "c8_mac24576_p4",
+        "execution": {
+          "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+          "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+          "ramulator_library_sha256": "5160925ef0fbebc66441f9b6fe0bd8dd12b0f33adc0fddcf6ada103636192c61"
+        },
+        "input_hashes": {
+          "cycle": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+          "precision_model": "0d77ef46e590c3eea49f29148e65b58d1c580774f456b526ceb8965ac1d6569c",
+          "stage9": "40bd69268c9adacd3fb0dec0c2edb521a02a1c0516f9ac62c224523ed4f33551",
+          "stage9_runner": "d27f4e08a968c9fbfe318e43b150d401c2ced325a64a645248f722d0a061cf82",
+          "stage9_validation": "a3315c67018478c2ccf3613bb0a55ff56fa59f030ac9135b8979cb02db9109fb"
+        },
+        "link_profile": {
+          "bandwidth_gb_s": 64.0,
+          "channel_count": 4,
+          "latency_us": 0.25
+        },
+        "mac_interval_ps": 24576,
+        "pipeline_context": {
+          "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "extension_sha256": "3848e71088882ca7c0e0bc45306f3cb605bc12075fabfb3c03142367200d4c63",
+          "model": "unified-cxl-pim-pipeline-v1",
+          "runner_sha256": "fe0fd8f5f9d98c5c290ce8db021b47a10d7552596c5f5f799b978704ad32c439"
+        },
+        "schema_version": 1,
+        "shape": {
+          "kv_bytes_per_context_position": 2048,
+          "mac_operations": 569565184,
+          "mac_operations_per_wave": 12288,
+          "partial_result_bytes": 2129920,
+          "pim_gwrite_waves": 2048,
+          "pim_mac_waves": 46352,
+          "pim_read_waves": 4160,
+          "query_bytes": 65536,
+          "query_link_transactions": 2048,
+          "result_link_transactions": 66560,
+          "spilled_context_positions": 69527,
+          "spilled_kv_bytes_per_layer": 142390528
+        },
+        "stage": "kv-cxl-pim-pipeline-stage10-v1",
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 8,
+          "partial_scalar_bytes": 4,
+          "pseudo_channels_per_channel": 2
+        }
+      },
+      "cache_path": "results/kv_cxl_pim_pipeline_stage10_v1/exact_cache/f0732959a1378182550c71090ffaf20f1545777d2bbf7f865e0300d1d640d631.json",
+      "design_id": "c8_mac24576_p4",
+      "executed_this_invocation": true,
+      "key": "f0732959a1378182550c71090ffaf20f1545777d2bbf7f865e0300d1d640d631",
+      "sha256": "085e160b133de22a1d73731d71c46dec9ddedea485b92d44c91c16de6d450504"
+    }
+  ],
+  "exact_runs": 3,
+  "execution": {
+    "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+    "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+    "ramulator_library_sha256": "5160925ef0fbebc66441f9b6fe0bd8dd12b0f33adc0fddcf6ada103636192c61"
+  },
+  "input_hashes": {
+    "cycle": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+    "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+    "precision_model": "0d77ef46e590c3eea49f29148e65b58d1c580774f456b526ceb8965ac1d6569c",
+    "stage9": "40bd69268c9adacd3fb0dec0c2edb521a02a1c0516f9ac62c224523ed4f33551",
+    "stage9_runner": "d27f4e08a968c9fbfe318e43b150d401c2ced325a64a645248f722d0a061cf82",
+    "stage9_validation": "a3315c67018478c2ccf3613bb0a55ff56fa59f030ac9135b8979cb02db9109fb"
+  },
+  "interpolation": 0,
+  "new_runs_executed": 3,
+  "output_hashes": {
+    "partial_precision.json": "0b3b8df8fd9a0fe5891e8dd8d6132be013675b6ada6fd6ec585815f13d19464b",
+    "partial_precision_summary.csv": "efb815d371190cec8a0c1eee9e3d2312f2677cdfda8564705b527e8e3aa59eaa",
+    "partial_precision_trials.csv": "1e3458a50486a24c83f363f07b9ef413ddb357ef37ca2abdfe61c2728b8370bb",
+    "pipeline_comparison.csv": "7bd0aac6ebc1d73ec0399f5fbb8fcd2cb12e476698f9de5111babc721be7bc7b",
+    "pipeline_comparison.json": "151ba8db1d285e866e66a4cf1da2da257d7f90568951f1e97031a35d9f2b06fc",
+    "stage10_report.md": "4c28b28266393f0b0b984644ec878232ca7c9ea100383a3faab340ab5ad8e162"
+  },
+  "schema_version": 1,
+  "stage": "kv-cxl-pim-pipeline-stage10-v1"
+}

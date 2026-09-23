@@ -1,0 +1,95 @@
+{
+  "cache_input": {
+    "case": "b8_c32k",
+    "design_id": "c2_mac49152_p4",
+    "execution": {
+      "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+      "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+      "ramulator_library_sha256": "5160925ef0fbebc66441f9b6fe0bd8dd12b0f33adc0fddcf6ada103636192c61"
+    },
+    "input_hashes": {
+      "cycle": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+      "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+      "precision_model": "0d77ef46e590c3eea49f29148e65b58d1c580774f456b526ceb8965ac1d6569c",
+      "stage9": "40bd69268c9adacd3fb0dec0c2edb521a02a1c0516f9ac62c224523ed4f33551",
+      "stage9_runner": "d27f4e08a968c9fbfe318e43b150d401c2ced325a64a645248f722d0a061cf82",
+      "stage9_validation": "a3315c67018478c2ccf3613bb0a55ff56fa59f030ac9135b8979cb02db9109fb"
+    },
+    "link_profile": {
+      "bandwidth_gb_s": 64.0,
+      "channel_count": 4,
+      "latency_us": 0.25
+    },
+    "mac_interval_ps": 49152,
+    "pipeline_context": {
+      "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+      "extension_sha256": "3848e71088882ca7c0e0bc45306f3cb605bc12075fabfb3c03142367200d4c63",
+      "model": "unified-cxl-pim-pipeline-v1",
+      "runner_sha256": "fe0fd8f5f9d98c5c290ce8db021b47a10d7552596c5f5f799b978704ad32c439"
+    },
+    "schema_version": 1,
+    "shape": {
+      "kv_bytes_per_context_position": 2048,
+      "mac_operations": 569565184,
+      "mac_operations_per_wave": 3072,
+      "partial_result_bytes": 532480,
+      "pim_gwrite_waves": 2048,
+      "pim_mac_waves": 185406,
+      "pim_read_waves": 4160,
+      "query_bytes": 65536,
+      "query_link_transactions": 2048,
+      "result_link_transactions": 16640,
+      "spilled_context_positions": 69527,
+      "spilled_kv_bytes_per_layer": 142390528
+    },
+    "stage": "kv-cxl-pim-pipeline-stage10-v1",
+    "topology": {
+      "banks_per_pseudo_channel": 24,
+      "channels": 2,
+      "partial_scalar_bytes": 4,
+      "pseudo_channels_per_channel": 2
+    }
+  },
+  "result": {
+    "controller_link_requests": 18688,
+    "controller_pim_gwrite_requests": 8192,
+    "controller_pim_mac_requests": 741624,
+    "controller_pim_read_requests": 16640,
+    "link_busy_cycles": 130816,
+    "link_channels": 4,
+    "link_max_queue_wait_cycles": 1792,
+    "link_max_request_residence_cycles": 2594,
+    "link_queue_wait_cycles": 31508320,
+    "link_request_residence_cycles": 46496096,
+    "pim_channels": 2,
+    "pim_gwrite_completed_requests": 8192,
+    "pim_gwrite_completion_cycles": 11104,
+    "pim_gwrite_injected_requests": 8192,
+    "pim_gwrite_start_cycles": 4381,
+    "pim_gwrite_waves": 2048,
+    "pim_mac_completed_requests": 741624,
+    "pim_mac_completion_cycles": 29219680,
+    "pim_mac_injected_requests": 741624,
+    "pim_mac_start_cycles": 11104,
+    "pim_mac_waves": 185406,
+    "pim_read_completed_requests": 16640,
+    "pim_read_completion_cycles": 29233373,
+    "pim_read_injected_requests": 16640,
+    "pim_read_start_cycles": 29219680,
+    "pim_read_waves": 4160,
+    "pipeline_completion_cycles": 29263288,
+    "pseudo_channels_per_channel": 2,
+    "query_link_completed_requests": 2048,
+    "query_link_completion_cycles": 4380,
+    "query_link_injected_requests": 2048,
+    "query_link_rejected_attempts": 8944,
+    "query_link_transactions": 2048,
+    "result_link_completed_requests": 16640,
+    "result_link_completion_cycles": 29263288,
+    "result_link_injected_requests": 16640,
+    "result_link_rejected_attempts": 147568,
+    "result_link_start_cycles": 29233373,
+    "result_link_transactions": 16640,
+    "tick_ps": 312
+  }
+}

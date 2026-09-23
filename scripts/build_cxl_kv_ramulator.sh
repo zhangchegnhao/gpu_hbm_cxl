@@ -22,6 +22,12 @@ install -m 0644 \
     "${CXL_EXTENSION_ROOT}/source/sieve_cxl_kv_frontend.cpp" \
     "${CXL_RAMULATOR_ROOT}/src/ramulator/frontend/impl/memory_trace/sieve_cxl_kv_frontend.cpp"
 install -m 0644 \
+    "${CXL_EXTENSION_ROOT}/source/sieve_cxl_pim_pipeline_frontend.cpp" \
+    "${CXL_RAMULATOR_ROOT}/src/ramulator/frontend/impl/memory_trace/sieve_cxl_pim_pipeline_frontend.cpp"
+install -m 0644 \
+    "${CXL_EXTENSION_ROOT}/source/sieve_cxl_pim_chunk_pipeline_frontend.cpp" \
+    "${CXL_RAMULATOR_ROOT}/src/ramulator/frontend/impl/memory_trace/sieve_cxl_pim_chunk_pipeline_frontend.cpp"
+install -m 0644 \
     "${CXL_EXTENSION_ROOT}/source/sieve_cxl_memory_controller.cpp" \
     "${CXL_RAMULATOR_ROOT}/src/ramulator/controller/impl/sieve_cxl_memory_controller.cpp"
 python3 - "${CXL_RAMULATOR_ROOT}/src/ramulator/frontend/CMakeLists.txt" <<'PY'
@@ -34,6 +40,20 @@ anchor = "  impl/memory_trace/sieve_kv_read_frontend.cpp\n"
 if entry not in text:
     if text.count(anchor) != 1:
         raise SystemExit("expected exactly one installed SieveKVRead source entry")
+    path.write_text(text.replace(anchor, anchor + entry))
+text = path.read_text()
+entry = "  impl/memory_trace/sieve_cxl_pim_pipeline_frontend.cpp\n"
+anchor = "  impl/memory_trace/sieve_cxl_kv_frontend.cpp\n"
+if entry not in text:
+    if text.count(anchor) != 1:
+        raise SystemExit("expected exactly one installed SieveCXLKV source entry")
+    path.write_text(text.replace(anchor, anchor + entry))
+text = path.read_text()
+entry = "  impl/memory_trace/sieve_cxl_pim_chunk_pipeline_frontend.cpp\n"
+anchor = "  impl/memory_trace/sieve_cxl_pim_pipeline_frontend.cpp\n"
+if entry not in text:
+    if text.count(anchor) != 1:
+        raise SystemExit("expected exactly one installed SieveCXLPIMPipeline source entry")
     path.write_text(text.replace(anchor, anchor + entry))
 PY
 python3 - "${CXL_RAMULATOR_ROOT}/src/ramulator/controller/CMakeLists.txt" <<'PY'

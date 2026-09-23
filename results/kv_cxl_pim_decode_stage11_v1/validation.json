@@ -1,0 +1,14 @@
+{
+  "checks": {
+    "designs": 3,
+    "interpolation": 0,
+    "layer_rows": 384,
+    "new_ramulator_runs": 0,
+    "reused_exact_cache_artifacts": 6,
+    "rows": 8
+  },
+  "errors": [],
+  "schema_version": 1,
+  "stage": "kv-cxl-pim-decode-stage11-v1",
+  "status": "passed"
+}

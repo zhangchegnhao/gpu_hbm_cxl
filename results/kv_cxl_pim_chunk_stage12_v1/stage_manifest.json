@@ -1,0 +1,830 @@
+{
+  "cache_records": [
+    {
+      "cache_input": {
+        "base_shape": {
+          "kv_bytes_per_context_position": 2048,
+          "mac_operations": 569565184,
+          "mac_operations_per_wave": 3072,
+          "partial_result_bytes": 532480,
+          "pim_gwrite_waves": 2048,
+          "pim_mac_waves": 185406,
+          "pim_read_waves": 4160,
+          "query_bytes": 65536,
+          "query_link_transactions": 2048,
+          "result_link_transactions": 16640,
+          "spilled_context_positions": 69527,
+          "spilled_kv_bytes_per_layer": 142390528
+        },
+        "buffer_slots": 1,
+        "case": "b8_c32k",
+        "chunk_count": 1,
+        "chunk_shape": {
+          "pim_gwrite_waves_once": 2048,
+          "pim_mac_waves_total": 185406,
+          "pim_read_waves_per_chunk": 4160,
+          "query_link_transactions_once": 2048,
+          "result_link_transactions_per_chunk": 16640
+        },
+        "config_id": "chunks1_slots1",
+        "design_id": "c2_mac49152_p4",
+        "execution": {
+          "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+          "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+          "ramulator_library_sha256": "5160925ef0fbebc66441f9b6fe0bd8dd12b0f33adc0fddcf6ada103636192c61"
+        },
+        "input_hashes": {
+          "cycle_config": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "hardware": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
+          "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+          "source_experiment": "a7c9b066bf13605c02c80722c4da7d592407fd7a9e6a3c8df5ba1fad852559d9",
+          "source_manifest": "ee480b33260ce37eee51ec36f265d0443c9083122679d4cf39fc17cfb6ee8e33",
+          "source_trace": "afc5f6bf27a84bdf54294cd79b01bdc54037b6d8905ace7e6ae5c1e60eab750f",
+          "stage10_comparison": "151ba8db1d285e866e66a4cf1da2da257d7f90568951f1e97031a35d9f2b06fc",
+          "stage10_manifest": "1a5dfdcab8d22355471a8e06631aea35534cd5e1d1faef316796033351719027",
+          "stage10_validation": "b17e6d2f941f10832120a49e9210f74134884b9e2d85a1bb20c0baab534f0946",
+          "stage11_comparison": "e58bccda190836c965b210f61080559440bd4c488e7b6e45c211cf0c66bec726",
+          "stage11_layer_results": "deeda94b2dcf4bcd6167ccbf098629879eb81b6ab5629d8322cbce87f4a7dcd1",
+          "stage11_manifest": "61254ef804c676865b36d0762f18a0b6ba390c78e5f92ffdd1c298d0ba502601",
+          "stage11_validation": "fbaea5b83bc78caaeee1671583a7cb6f4d4ebdf57712d14bd5ea59a4f2ed507e",
+          "stage12_runner": "05541a1dd82f2d3e837a22e3e072c58ddbf77bd32e52ae8a94830c9abd25d46d"
+        },
+        "link_profile": {
+          "bandwidth_gb_s": 64.0,
+          "channel_count": 4,
+          "latency_us": 0.25
+        },
+        "mac_interval_ps": 49152,
+        "pipeline_context": {
+          "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "extension_sha256": "d495b6d4f11fd69887409cd727237e91a9e4b6697956cd0d53e355536beb7af3",
+          "model": "unified-cxl-pim-chunk-pipeline-v1",
+          "runner_sha256": "54785b57cd672e4aebad378242827ac384c50932e4c1c0ea647dedb0bb1a3bbc"
+        },
+        "schema_version": 1,
+        "stage": "kv-cxl-pim-chunk-stage12-v1",
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 2,
+          "partial_scalar_bytes": 4,
+          "pseudo_channels_per_channel": 2
+        }
+      },
+      "cache_path": "results/kv_cxl_pim_chunk_stage12_v1/exact_cache/e5dcf6892f2681b8c8cc2e9774ce79d1b8c75ab5f7873bf3ec9cf7bbe4e7131b.json",
+      "config_id": "chunks1_slots1",
+      "design_id": "c2_mac49152_p4",
+      "executed_this_invocation": true,
+      "key": "e5dcf6892f2681b8c8cc2e9774ce79d1b8c75ab5f7873bf3ec9cf7bbe4e7131b",
+      "sha256": "904eb05c1c620df4a5fc45fac25968ef462b3c3ba5e925ac22b0e6d01e072c68"
+    },
+    {
+      "cache_input": {
+        "base_shape": {
+          "kv_bytes_per_context_position": 2048,
+          "mac_operations": 569565184,
+          "mac_operations_per_wave": 3072,
+          "partial_result_bytes": 532480,
+          "pim_gwrite_waves": 2048,
+          "pim_mac_waves": 185406,
+          "pim_read_waves": 4160,
+          "query_bytes": 65536,
+          "query_link_transactions": 2048,
+          "result_link_transactions": 16640,
+          "spilled_context_positions": 69527,
+          "spilled_kv_bytes_per_layer": 142390528
+        },
+        "buffer_slots": 1,
+        "case": "b8_c32k",
+        "chunk_count": 8,
+        "chunk_shape": {
+          "pim_gwrite_waves_once": 2048,
+          "pim_mac_waves_total": 185406,
+          "pim_read_waves_per_chunk": 4160,
+          "query_link_transactions_once": 2048,
+          "result_link_transactions_per_chunk": 16640
+        },
+        "config_id": "chunks8_slots1",
+        "design_id": "c2_mac49152_p4",
+        "execution": {
+          "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+          "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+          "ramulator_library_sha256": "5160925ef0fbebc66441f9b6fe0bd8dd12b0f33adc0fddcf6ada103636192c61"
+        },
+        "input_hashes": {
+          "cycle_config": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "hardware": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
+          "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+          "source_experiment": "a7c9b066bf13605c02c80722c4da7d592407fd7a9e6a3c8df5ba1fad852559d9",
+          "source_manifest": "ee480b33260ce37eee51ec36f265d0443c9083122679d4cf39fc17cfb6ee8e33",
+          "source_trace": "afc5f6bf27a84bdf54294cd79b01bdc54037b6d8905ace7e6ae5c1e60eab750f",
+          "stage10_comparison": "151ba8db1d285e866e66a4cf1da2da257d7f90568951f1e97031a35d9f2b06fc",
+          "stage10_manifest": "1a5dfdcab8d22355471a8e06631aea35534cd5e1d1faef316796033351719027",
+          "stage10_validation": "b17e6d2f941f10832120a49e9210f74134884b9e2d85a1bb20c0baab534f0946",
+          "stage11_comparison": "e58bccda190836c965b210f61080559440bd4c488e7b6e45c211cf0c66bec726",
+          "stage11_layer_results": "deeda94b2dcf4bcd6167ccbf098629879eb81b6ab5629d8322cbce87f4a7dcd1",
+          "stage11_manifest": "61254ef804c676865b36d0762f18a0b6ba390c78e5f92ffdd1c298d0ba502601",
+          "stage11_validation": "fbaea5b83bc78caaeee1671583a7cb6f4d4ebdf57712d14bd5ea59a4f2ed507e",
+          "stage12_runner": "05541a1dd82f2d3e837a22e3e072c58ddbf77bd32e52ae8a94830c9abd25d46d"
+        },
+        "link_profile": {
+          "bandwidth_gb_s": 64.0,
+          "channel_count": 4,
+          "latency_us": 0.25
+        },
+        "mac_interval_ps": 49152,
+        "pipeline_context": {
+          "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "extension_sha256": "d495b6d4f11fd69887409cd727237e91a9e4b6697956cd0d53e355536beb7af3",
+          "model": "unified-cxl-pim-chunk-pipeline-v1",
+          "runner_sha256": "54785b57cd672e4aebad378242827ac384c50932e4c1c0ea647dedb0bb1a3bbc"
+        },
+        "schema_version": 1,
+        "stage": "kv-cxl-pim-chunk-stage12-v1",
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 2,
+          "partial_scalar_bytes": 4,
+          "pseudo_channels_per_channel": 2
+        }
+      },
+      "cache_path": "results/kv_cxl_pim_chunk_stage12_v1/exact_cache/5ec89b7ee0696737e328a23e3d0ff1e2bc7f2e52d35fa463a61655cdea8d8631.json",
+      "config_id": "chunks8_slots1",
+      "design_id": "c2_mac49152_p4",
+      "executed_this_invocation": true,
+      "key": "5ec89b7ee0696737e328a23e3d0ff1e2bc7f2e52d35fa463a61655cdea8d8631",
+      "sha256": "7690cabb3108ceba9151f15d5e0a8c3f98c8d88de93475d9280353ac04ff9d10"
+    },
+    {
+      "cache_input": {
+        "base_shape": {
+          "kv_bytes_per_context_position": 2048,
+          "mac_operations": 569565184,
+          "mac_operations_per_wave": 3072,
+          "partial_result_bytes": 532480,
+          "pim_gwrite_waves": 2048,
+          "pim_mac_waves": 185406,
+          "pim_read_waves": 4160,
+          "query_bytes": 65536,
+          "query_link_transactions": 2048,
+          "result_link_transactions": 16640,
+          "spilled_context_positions": 69527,
+          "spilled_kv_bytes_per_layer": 142390528
+        },
+        "buffer_slots": 2,
+        "case": "b8_c32k",
+        "chunk_count": 8,
+        "chunk_shape": {
+          "pim_gwrite_waves_once": 2048,
+          "pim_mac_waves_total": 185406,
+          "pim_read_waves_per_chunk": 4160,
+          "query_link_transactions_once": 2048,
+          "result_link_transactions_per_chunk": 16640
+        },
+        "config_id": "chunks8_slots2",
+        "design_id": "c2_mac49152_p4",
+        "execution": {
+          "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+          "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+          "ramulator_library_sha256": "5160925ef0fbebc66441f9b6fe0bd8dd12b0f33adc0fddcf6ada103636192c61"
+        },
+        "input_hashes": {
+          "cycle_config": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "hardware": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
+          "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+          "source_experiment": "a7c9b066bf13605c02c80722c4da7d592407fd7a9e6a3c8df5ba1fad852559d9",
+          "source_manifest": "ee480b33260ce37eee51ec36f265d0443c9083122679d4cf39fc17cfb6ee8e33",
+          "source_trace": "afc5f6bf27a84bdf54294cd79b01bdc54037b6d8905ace7e6ae5c1e60eab750f",
+          "stage10_comparison": "151ba8db1d285e866e66a4cf1da2da257d7f90568951f1e97031a35d9f2b06fc",
+          "stage10_manifest": "1a5dfdcab8d22355471a8e06631aea35534cd5e1d1faef316796033351719027",
+          "stage10_validation": "b17e6d2f941f10832120a49e9210f74134884b9e2d85a1bb20c0baab534f0946",
+          "stage11_comparison": "e58bccda190836c965b210f61080559440bd4c488e7b6e45c211cf0c66bec726",
+          "stage11_layer_results": "deeda94b2dcf4bcd6167ccbf098629879eb81b6ab5629d8322cbce87f4a7dcd1",
+          "stage11_manifest": "61254ef804c676865b36d0762f18a0b6ba390c78e5f92ffdd1c298d0ba502601",
+          "stage11_validation": "fbaea5b83bc78caaeee1671583a7cb6f4d4ebdf57712d14bd5ea59a4f2ed507e",
+          "stage12_runner": "05541a1dd82f2d3e837a22e3e072c58ddbf77bd32e52ae8a94830c9abd25d46d"
+        },
+        "link_profile": {
+          "bandwidth_gb_s": 64.0,
+          "channel_count": 4,
+          "latency_us": 0.25
+        },
+        "mac_interval_ps": 49152,
+        "pipeline_context": {
+          "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "extension_sha256": "d495b6d4f11fd69887409cd727237e91a9e4b6697956cd0d53e355536beb7af3",
+          "model": "unified-cxl-pim-chunk-pipeline-v1",
+          "runner_sha256": "54785b57cd672e4aebad378242827ac384c50932e4c1c0ea647dedb0bb1a3bbc"
+        },
+        "schema_version": 1,
+        "stage": "kv-cxl-pim-chunk-stage12-v1",
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 2,
+          "partial_scalar_bytes": 4,
+          "pseudo_channels_per_channel": 2
+        }
+      },
+      "cache_path": "results/kv_cxl_pim_chunk_stage12_v1/exact_cache/9a404d5b281e76fa886f8494ff5c526122a5d03bd561d4869b551e7f9188b0d9.json",
+      "config_id": "chunks8_slots2",
+      "design_id": "c2_mac49152_p4",
+      "executed_this_invocation": true,
+      "key": "9a404d5b281e76fa886f8494ff5c526122a5d03bd561d4869b551e7f9188b0d9",
+      "sha256": "bacccf9e02d8416aaffe844aa92424004501c6732e3f0b708a1c021caa644c5b"
+    },
+    {
+      "cache_input": {
+        "base_shape": {
+          "kv_bytes_per_context_position": 2048,
+          "mac_operations": 569565184,
+          "mac_operations_per_wave": 6144,
+          "partial_result_bytes": 1064960,
+          "pim_gwrite_waves": 2048,
+          "pim_mac_waves": 92703,
+          "pim_read_waves": 4160,
+          "query_bytes": 65536,
+          "query_link_transactions": 2048,
+          "result_link_transactions": 33280,
+          "spilled_context_positions": 69527,
+          "spilled_kv_bytes_per_layer": 142390528
+        },
+        "buffer_slots": 1,
+        "case": "b8_c32k",
+        "chunk_count": 1,
+        "chunk_shape": {
+          "pim_gwrite_waves_once": 2048,
+          "pim_mac_waves_total": 92703,
+          "pim_read_waves_per_chunk": 4160,
+          "query_link_transactions_once": 2048,
+          "result_link_transactions_per_chunk": 33280
+        },
+        "config_id": "chunks1_slots1",
+        "design_id": "c4_mac24576_p4",
+        "execution": {
+          "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+          "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+          "ramulator_library_sha256": "5160925ef0fbebc66441f9b6fe0bd8dd12b0f33adc0fddcf6ada103636192c61"
+        },
+        "input_hashes": {
+          "cycle_config": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "hardware": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
+          "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+          "source_experiment": "a7c9b066bf13605c02c80722c4da7d592407fd7a9e6a3c8df5ba1fad852559d9",
+          "source_manifest": "ee480b33260ce37eee51ec36f265d0443c9083122679d4cf39fc17cfb6ee8e33",
+          "source_trace": "afc5f6bf27a84bdf54294cd79b01bdc54037b6d8905ace7e6ae5c1e60eab750f",
+          "stage10_comparison": "151ba8db1d285e866e66a4cf1da2da257d7f90568951f1e97031a35d9f2b06fc",
+          "stage10_manifest": "1a5dfdcab8d22355471a8e06631aea35534cd5e1d1faef316796033351719027",
+          "stage10_validation": "b17e6d2f941f10832120a49e9210f74134884b9e2d85a1bb20c0baab534f0946",
+          "stage11_comparison": "e58bccda190836c965b210f61080559440bd4c488e7b6e45c211cf0c66bec726",
+          "stage11_layer_results": "deeda94b2dcf4bcd6167ccbf098629879eb81b6ab5629d8322cbce87f4a7dcd1",
+          "stage11_manifest": "61254ef804c676865b36d0762f18a0b6ba390c78e5f92ffdd1c298d0ba502601",
+          "stage11_validation": "fbaea5b83bc78caaeee1671583a7cb6f4d4ebdf57712d14bd5ea59a4f2ed507e",
+          "stage12_runner": "05541a1dd82f2d3e837a22e3e072c58ddbf77bd32e52ae8a94830c9abd25d46d"
+        },
+        "link_profile": {
+          "bandwidth_gb_s": 64.0,
+          "channel_count": 4,
+          "latency_us": 0.25
+        },
+        "mac_interval_ps": 24576,
+        "pipeline_context": {
+          "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "extension_sha256": "d495b6d4f11fd69887409cd727237e91a9e4b6697956cd0d53e355536beb7af3",
+          "model": "unified-cxl-pim-chunk-pipeline-v1",
+          "runner_sha256": "54785b57cd672e4aebad378242827ac384c50932e4c1c0ea647dedb0bb1a3bbc"
+        },
+        "schema_version": 1,
+        "stage": "kv-cxl-pim-chunk-stage12-v1",
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 4,
+          "partial_scalar_bytes": 4,
+          "pseudo_channels_per_channel": 2
+        }
+      },
+      "cache_path": "results/kv_cxl_pim_chunk_stage12_v1/exact_cache/57c7b156b0aa892ba5bf0b5a807743df5ce069bac39e3f2a85d39ecb41e0fd99.json",
+      "config_id": "chunks1_slots1",
+      "design_id": "c4_mac24576_p4",
+      "executed_this_invocation": true,
+      "key": "57c7b156b0aa892ba5bf0b5a807743df5ce069bac39e3f2a85d39ecb41e0fd99",
+      "sha256": "856125778f5e150ede4ffb21c4a1b113a6655eb4e9d2d13f682f9384705fd9a7"
+    },
+    {
+      "cache_input": {
+        "base_shape": {
+          "kv_bytes_per_context_position": 2048,
+          "mac_operations": 569565184,
+          "mac_operations_per_wave": 6144,
+          "partial_result_bytes": 1064960,
+          "pim_gwrite_waves": 2048,
+          "pim_mac_waves": 92703,
+          "pim_read_waves": 4160,
+          "query_bytes": 65536,
+          "query_link_transactions": 2048,
+          "result_link_transactions": 33280,
+          "spilled_context_positions": 69527,
+          "spilled_kv_bytes_per_layer": 142390528
+        },
+        "buffer_slots": 1,
+        "case": "b8_c32k",
+        "chunk_count": 8,
+        "chunk_shape": {
+          "pim_gwrite_waves_once": 2048,
+          "pim_mac_waves_total": 92703,
+          "pim_read_waves_per_chunk": 4160,
+          "query_link_transactions_once": 2048,
+          "result_link_transactions_per_chunk": 33280
+        },
+        "config_id": "chunks8_slots1",
+        "design_id": "c4_mac24576_p4",
+        "execution": {
+          "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+          "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+          "ramulator_library_sha256": "5160925ef0fbebc66441f9b6fe0bd8dd12b0f33adc0fddcf6ada103636192c61"
+        },
+        "input_hashes": {
+          "cycle_config": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "hardware": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
+          "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+          "source_experiment": "a7c9b066bf13605c02c80722c4da7d592407fd7a9e6a3c8df5ba1fad852559d9",
+          "source_manifest": "ee480b33260ce37eee51ec36f265d0443c9083122679d4cf39fc17cfb6ee8e33",
+          "source_trace": "afc5f6bf27a84bdf54294cd79b01bdc54037b6d8905ace7e6ae5c1e60eab750f",
+          "stage10_comparison": "151ba8db1d285e866e66a4cf1da2da257d7f90568951f1e97031a35d9f2b06fc",
+          "stage10_manifest": "1a5dfdcab8d22355471a8e06631aea35534cd5e1d1faef316796033351719027",
+          "stage10_validation": "b17e6d2f941f10832120a49e9210f74134884b9e2d85a1bb20c0baab534f0946",
+          "stage11_comparison": "e58bccda190836c965b210f61080559440bd4c488e7b6e45c211cf0c66bec726",
+          "stage11_layer_results": "deeda94b2dcf4bcd6167ccbf098629879eb81b6ab5629d8322cbce87f4a7dcd1",
+          "stage11_manifest": "61254ef804c676865b36d0762f18a0b6ba390c78e5f92ffdd1c298d0ba502601",
+          "stage11_validation": "fbaea5b83bc78caaeee1671583a7cb6f4d4ebdf57712d14bd5ea59a4f2ed507e",
+          "stage12_runner": "05541a1dd82f2d3e837a22e3e072c58ddbf77bd32e52ae8a94830c9abd25d46d"
+        },
+        "link_profile": {
+          "bandwidth_gb_s": 64.0,
+          "channel_count": 4,
+          "latency_us": 0.25
+        },
+        "mac_interval_ps": 24576,
+        "pipeline_context": {
+          "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "extension_sha256": "d495b6d4f11fd69887409cd727237e91a9e4b6697956cd0d53e355536beb7af3",
+          "model": "unified-cxl-pim-chunk-pipeline-v1",
+          "runner_sha256": "54785b57cd672e4aebad378242827ac384c50932e4c1c0ea647dedb0bb1a3bbc"
+        },
+        "schema_version": 1,
+        "stage": "kv-cxl-pim-chunk-stage12-v1",
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 4,
+          "partial_scalar_bytes": 4,
+          "pseudo_channels_per_channel": 2
+        }
+      },
+      "cache_path": "results/kv_cxl_pim_chunk_stage12_v1/exact_cache/f970d92eb2446cc346af9eafe4244fe10851fd1c4075f126fbb6b60dd7329410.json",
+      "config_id": "chunks8_slots1",
+      "design_id": "c4_mac24576_p4",
+      "executed_this_invocation": true,
+      "key": "f970d92eb2446cc346af9eafe4244fe10851fd1c4075f126fbb6b60dd7329410",
+      "sha256": "95b8356f13d813f4a0fe32f08803db046ffd88ca9f11b2263c3db145b5d57562"
+    },
+    {
+      "cache_input": {
+        "base_shape": {
+          "kv_bytes_per_context_position": 2048,
+          "mac_operations": 569565184,
+          "mac_operations_per_wave": 6144,
+          "partial_result_bytes": 1064960,
+          "pim_gwrite_waves": 2048,
+          "pim_mac_waves": 92703,
+          "pim_read_waves": 4160,
+          "query_bytes": 65536,
+          "query_link_transactions": 2048,
+          "result_link_transactions": 33280,
+          "spilled_context_positions": 69527,
+          "spilled_kv_bytes_per_layer": 142390528
+        },
+        "buffer_slots": 2,
+        "case": "b8_c32k",
+        "chunk_count": 8,
+        "chunk_shape": {
+          "pim_gwrite_waves_once": 2048,
+          "pim_mac_waves_total": 92703,
+          "pim_read_waves_per_chunk": 4160,
+          "query_link_transactions_once": 2048,
+          "result_link_transactions_per_chunk": 33280
+        },
+        "config_id": "chunks8_slots2",
+        "design_id": "c4_mac24576_p4",
+        "execution": {
+          "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+          "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+          "ramulator_library_sha256": "5160925ef0fbebc66441f9b6fe0bd8dd12b0f33adc0fddcf6ada103636192c61"
+        },
+        "input_hashes": {
+          "cycle_config": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "hardware": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
+          "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+          "source_experiment": "a7c9b066bf13605c02c80722c4da7d592407fd7a9e6a3c8df5ba1fad852559d9",
+          "source_manifest": "ee480b33260ce37eee51ec36f265d0443c9083122679d4cf39fc17cfb6ee8e33",
+          "source_trace": "afc5f6bf27a84bdf54294cd79b01bdc54037b6d8905ace7e6ae5c1e60eab750f",
+          "stage10_comparison": "151ba8db1d285e866e66a4cf1da2da257d7f90568951f1e97031a35d9f2b06fc",
+          "stage10_manifest": "1a5dfdcab8d22355471a8e06631aea35534cd5e1d1faef316796033351719027",
+          "stage10_validation": "b17e6d2f941f10832120a49e9210f74134884b9e2d85a1bb20c0baab534f0946",
+          "stage11_comparison": "e58bccda190836c965b210f61080559440bd4c488e7b6e45c211cf0c66bec726",
+          "stage11_layer_results": "deeda94b2dcf4bcd6167ccbf098629879eb81b6ab5629d8322cbce87f4a7dcd1",
+          "stage11_manifest": "61254ef804c676865b36d0762f18a0b6ba390c78e5f92ffdd1c298d0ba502601",
+          "stage11_validation": "fbaea5b83bc78caaeee1671583a7cb6f4d4ebdf57712d14bd5ea59a4f2ed507e",
+          "stage12_runner": "05541a1dd82f2d3e837a22e3e072c58ddbf77bd32e52ae8a94830c9abd25d46d"
+        },
+        "link_profile": {
+          "bandwidth_gb_s": 64.0,
+          "channel_count": 4,
+          "latency_us": 0.25
+        },
+        "mac_interval_ps": 24576,
+        "pipeline_context": {
+          "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "extension_sha256": "d495b6d4f11fd69887409cd727237e91a9e4b6697956cd0d53e355536beb7af3",
+          "model": "unified-cxl-pim-chunk-pipeline-v1",
+          "runner_sha256": "54785b57cd672e4aebad378242827ac384c50932e4c1c0ea647dedb0bb1a3bbc"
+        },
+        "schema_version": 1,
+        "stage": "kv-cxl-pim-chunk-stage12-v1",
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 4,
+          "partial_scalar_bytes": 4,
+          "pseudo_channels_per_channel": 2
+        }
+      },
+      "cache_path": "results/kv_cxl_pim_chunk_stage12_v1/exact_cache/2c3bcdf940429a10c2d7fdcb48855d992ab7be27596b117755e9de657da1c373.json",
+      "config_id": "chunks8_slots2",
+      "design_id": "c4_mac24576_p4",
+      "executed_this_invocation": true,
+      "key": "2c3bcdf940429a10c2d7fdcb48855d992ab7be27596b117755e9de657da1c373",
+      "sha256": "25093bce26f5af5730d73b661fa0fa2eca8e2d871775266047e8a47e032cfedd"
+    },
+    {
+      "cache_input": {
+        "base_shape": {
+          "kv_bytes_per_context_position": 2048,
+          "mac_operations": 569565184,
+          "mac_operations_per_wave": 12288,
+          "partial_result_bytes": 2129920,
+          "pim_gwrite_waves": 2048,
+          "pim_mac_waves": 46352,
+          "pim_read_waves": 4160,
+          "query_bytes": 65536,
+          "query_link_transactions": 2048,
+          "result_link_transactions": 66560,
+          "spilled_context_positions": 69527,
+          "spilled_kv_bytes_per_layer": 142390528
+        },
+        "buffer_slots": 1,
+        "case": "b8_c32k",
+        "chunk_count": 1,
+        "chunk_shape": {
+          "pim_gwrite_waves_once": 2048,
+          "pim_mac_waves_total": 46352,
+          "pim_read_waves_per_chunk": 4160,
+          "query_link_transactions_once": 2048,
+          "result_link_transactions_per_chunk": 66560
+        },
+        "config_id": "chunks1_slots1",
+        "design_id": "c8_mac24576_p4",
+        "execution": {
+          "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+          "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+          "ramulator_library_sha256": "5160925ef0fbebc66441f9b6fe0bd8dd12b0f33adc0fddcf6ada103636192c61"
+        },
+        "input_hashes": {
+          "cycle_config": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "hardware": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
+          "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+          "source_experiment": "a7c9b066bf13605c02c80722c4da7d592407fd7a9e6a3c8df5ba1fad852559d9",
+          "source_manifest": "ee480b33260ce37eee51ec36f265d0443c9083122679d4cf39fc17cfb6ee8e33",
+          "source_trace": "afc5f6bf27a84bdf54294cd79b01bdc54037b6d8905ace7e6ae5c1e60eab750f",
+          "stage10_comparison": "151ba8db1d285e866e66a4cf1da2da257d7f90568951f1e97031a35d9f2b06fc",
+          "stage10_manifest": "1a5dfdcab8d22355471a8e06631aea35534cd5e1d1faef316796033351719027",
+          "stage10_validation": "b17e6d2f941f10832120a49e9210f74134884b9e2d85a1bb20c0baab534f0946",
+          "stage11_comparison": "e58bccda190836c965b210f61080559440bd4c488e7b6e45c211cf0c66bec726",
+          "stage11_layer_results": "deeda94b2dcf4bcd6167ccbf098629879eb81b6ab5629d8322cbce87f4a7dcd1",
+          "stage11_manifest": "61254ef804c676865b36d0762f18a0b6ba390c78e5f92ffdd1c298d0ba502601",
+          "stage11_validation": "fbaea5b83bc78caaeee1671583a7cb6f4d4ebdf57712d14bd5ea59a4f2ed507e",
+          "stage12_runner": "05541a1dd82f2d3e837a22e3e072c58ddbf77bd32e52ae8a94830c9abd25d46d"
+        },
+        "link_profile": {
+          "bandwidth_gb_s": 64.0,
+          "channel_count": 4,
+          "latency_us": 0.25
+        },
+        "mac_interval_ps": 24576,
+        "pipeline_context": {
+          "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "extension_sha256": "d495b6d4f11fd69887409cd727237e91a9e4b6697956cd0d53e355536beb7af3",
+          "model": "unified-cxl-pim-chunk-pipeline-v1",
+          "runner_sha256": "54785b57cd672e4aebad378242827ac384c50932e4c1c0ea647dedb0bb1a3bbc"
+        },
+        "schema_version": 1,
+        "stage": "kv-cxl-pim-chunk-stage12-v1",
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 8,
+          "partial_scalar_bytes": 4,
+          "pseudo_channels_per_channel": 2
+        }
+      },
+      "cache_path": "results/kv_cxl_pim_chunk_stage12_v1/exact_cache/a077f6e8463e827bc1421f37c1fdcff688f5e99f1606feb6d768ea6a36abe842.json",
+      "config_id": "chunks1_slots1",
+      "design_id": "c8_mac24576_p4",
+      "executed_this_invocation": true,
+      "key": "a077f6e8463e827bc1421f37c1fdcff688f5e99f1606feb6d768ea6a36abe842",
+      "sha256": "1e713b03c19de55858d97929c49d4ed69750ab13d9bdd75394565d5a72ac59d1"
+    },
+    {
+      "cache_input": {
+        "base_shape": {
+          "kv_bytes_per_context_position": 2048,
+          "mac_operations": 569565184,
+          "mac_operations_per_wave": 12288,
+          "partial_result_bytes": 2129920,
+          "pim_gwrite_waves": 2048,
+          "pim_mac_waves": 46352,
+          "pim_read_waves": 4160,
+          "query_bytes": 65536,
+          "query_link_transactions": 2048,
+          "result_link_transactions": 66560,
+          "spilled_context_positions": 69527,
+          "spilled_kv_bytes_per_layer": 142390528
+        },
+        "buffer_slots": 1,
+        "case": "b8_c32k",
+        "chunk_count": 8,
+        "chunk_shape": {
+          "pim_gwrite_waves_once": 2048,
+          "pim_mac_waves_total": 46352,
+          "pim_read_waves_per_chunk": 4160,
+          "query_link_transactions_once": 2048,
+          "result_link_transactions_per_chunk": 66560
+        },
+        "config_id": "chunks8_slots1",
+        "design_id": "c8_mac24576_p4",
+        "execution": {
+          "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+          "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+          "ramulator_library_sha256": "5160925ef0fbebc66441f9b6fe0bd8dd12b0f33adc0fddcf6ada103636192c61"
+        },
+        "input_hashes": {
+          "cycle_config": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "hardware": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
+          "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+          "source_experiment": "a7c9b066bf13605c02c80722c4da7d592407fd7a9e6a3c8df5ba1fad852559d9",
+          "source_manifest": "ee480b33260ce37eee51ec36f265d0443c9083122679d4cf39fc17cfb6ee8e33",
+          "source_trace": "afc5f6bf27a84bdf54294cd79b01bdc54037b6d8905ace7e6ae5c1e60eab750f",
+          "stage10_comparison": "151ba8db1d285e866e66a4cf1da2da257d7f90568951f1e97031a35d9f2b06fc",
+          "stage10_manifest": "1a5dfdcab8d22355471a8e06631aea35534cd5e1d1faef316796033351719027",
+          "stage10_validation": "b17e6d2f941f10832120a49e9210f74134884b9e2d85a1bb20c0baab534f0946",
+          "stage11_comparison": "e58bccda190836c965b210f61080559440bd4c488e7b6e45c211cf0c66bec726",
+          "stage11_layer_results": "deeda94b2dcf4bcd6167ccbf098629879eb81b6ab5629d8322cbce87f4a7dcd1",
+          "stage11_manifest": "61254ef804c676865b36d0762f18a0b6ba390c78e5f92ffdd1c298d0ba502601",
+          "stage11_validation": "fbaea5b83bc78caaeee1671583a7cb6f4d4ebdf57712d14bd5ea59a4f2ed507e",
+          "stage12_runner": "05541a1dd82f2d3e837a22e3e072c58ddbf77bd32e52ae8a94830c9abd25d46d"
+        },
+        "link_profile": {
+          "bandwidth_gb_s": 64.0,
+          "channel_count": 4,
+          "latency_us": 0.25
+        },
+        "mac_interval_ps": 24576,
+        "pipeline_context": {
+          "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "extension_sha256": "d495b6d4f11fd69887409cd727237e91a9e4b6697956cd0d53e355536beb7af3",
+          "model": "unified-cxl-pim-chunk-pipeline-v1",
+          "runner_sha256": "54785b57cd672e4aebad378242827ac384c50932e4c1c0ea647dedb0bb1a3bbc"
+        },
+        "schema_version": 1,
+        "stage": "kv-cxl-pim-chunk-stage12-v1",
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 8,
+          "partial_scalar_bytes": 4,
+          "pseudo_channels_per_channel": 2
+        }
+      },
+      "cache_path": "results/kv_cxl_pim_chunk_stage12_v1/exact_cache/7512f5f7d5fe2b2b9f702016d4d569489b15048e7dd51f87c5d38bfa68698e9e.json",
+      "config_id": "chunks8_slots1",
+      "design_id": "c8_mac24576_p4",
+      "executed_this_invocation": true,
+      "key": "7512f5f7d5fe2b2b9f702016d4d569489b15048e7dd51f87c5d38bfa68698e9e",
+      "sha256": "aaa6caf1560c7a0748a50c2a2248b4f122563a43533db47a6f32150b61a2d6a7"
+    },
+    {
+      "cache_input": {
+        "base_shape": {
+          "kv_bytes_per_context_position": 2048,
+          "mac_operations": 569565184,
+          "mac_operations_per_wave": 12288,
+          "partial_result_bytes": 2129920,
+          "pim_gwrite_waves": 2048,
+          "pim_mac_waves": 46352,
+          "pim_read_waves": 4160,
+          "query_bytes": 65536,
+          "query_link_transactions": 2048,
+          "result_link_transactions": 66560,
+          "spilled_context_positions": 69527,
+          "spilled_kv_bytes_per_layer": 142390528
+        },
+        "buffer_slots": 2,
+        "case": "b8_c32k",
+        "chunk_count": 8,
+        "chunk_shape": {
+          "pim_gwrite_waves_once": 2048,
+          "pim_mac_waves_total": 46352,
+          "pim_read_waves_per_chunk": 4160,
+          "query_link_transactions_once": 2048,
+          "result_link_transactions_per_chunk": 66560
+        },
+        "config_id": "chunks8_slots2",
+        "design_id": "c8_mac24576_p4",
+        "execution": {
+          "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+          "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+          "ramulator_library_sha256": "5160925ef0fbebc66441f9b6fe0bd8dd12b0f33adc0fddcf6ada103636192c61"
+        },
+        "input_hashes": {
+          "cycle_config": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "hardware": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
+          "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+          "source_experiment": "a7c9b066bf13605c02c80722c4da7d592407fd7a9e6a3c8df5ba1fad852559d9",
+          "source_manifest": "ee480b33260ce37eee51ec36f265d0443c9083122679d4cf39fc17cfb6ee8e33",
+          "source_trace": "afc5f6bf27a84bdf54294cd79b01bdc54037b6d8905ace7e6ae5c1e60eab750f",
+          "stage10_comparison": "151ba8db1d285e866e66a4cf1da2da257d7f90568951f1e97031a35d9f2b06fc",
+          "stage10_manifest": "1a5dfdcab8d22355471a8e06631aea35534cd5e1d1faef316796033351719027",
+          "stage10_validation": "b17e6d2f941f10832120a49e9210f74134884b9e2d85a1bb20c0baab534f0946",
+          "stage11_comparison": "e58bccda190836c965b210f61080559440bd4c488e7b6e45c211cf0c66bec726",
+          "stage11_layer_results": "deeda94b2dcf4bcd6167ccbf098629879eb81b6ab5629d8322cbce87f4a7dcd1",
+          "stage11_manifest": "61254ef804c676865b36d0762f18a0b6ba390c78e5f92ffdd1c298d0ba502601",
+          "stage11_validation": "fbaea5b83bc78caaeee1671583a7cb6f4d4ebdf57712d14bd5ea59a4f2ed507e",
+          "stage12_runner": "05541a1dd82f2d3e837a22e3e072c58ddbf77bd32e52ae8a94830c9abd25d46d"
+        },
+        "link_profile": {
+          "bandwidth_gb_s": 64.0,
+          "channel_count": 4,
+          "latency_us": 0.25
+        },
+        "mac_interval_ps": 24576,
+        "pipeline_context": {
+          "cycle_config_sha256": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+          "extension_sha256": "d495b6d4f11fd69887409cd727237e91a9e4b6697956cd0d53e355536beb7af3",
+          "model": "unified-cxl-pim-chunk-pipeline-v1",
+          "runner_sha256": "54785b57cd672e4aebad378242827ac384c50932e4c1c0ea647dedb0bb1a3bbc"
+        },
+        "schema_version": 1,
+        "stage": "kv-cxl-pim-chunk-stage12-v1",
+        "topology": {
+          "banks_per_pseudo_channel": 24,
+          "channels": 8,
+          "partial_scalar_bytes": 4,
+          "pseudo_channels_per_channel": 2
+        }
+      },
+      "cache_path": "results/kv_cxl_pim_chunk_stage12_v1/exact_cache/175983400c5461c21a87527ab51a111eab00bbef3bdd9ab3efaa948542d9a4b1.json",
+      "config_id": "chunks8_slots2",
+      "design_id": "c8_mac24576_p4",
+      "executed_this_invocation": true,
+      "key": "175983400c5461c21a87527ab51a111eab00bbef3bdd9ab3efaa948542d9a4b1",
+      "sha256": "d65ad2d15a88ce545be7bf6ed3060f8f1e0c810f3454e95ad5c6ca897fd5fb0f"
+    }
+  ],
+  "case": "b8_c32k",
+  "design_ids": [
+    "c2_mac49152_p4",
+    "c4_mac24576_p4",
+    "c8_mac24576_p4"
+  ],
+  "exact_runs": 9,
+  "execution": {
+    "binding_sha256": "d798c022f722177d7c184f2e0f5630c787f6b927632b9868e57b3473348d1547",
+    "ramulator_commit": "b30320bc9385b708e86b67ebb9f48858cc66d798",
+    "ramulator_library_sha256": "5160925ef0fbebc66441f9b6fe0bd8dd12b0f33adc0fddcf6ada103636192c61"
+  },
+  "failed_runs": 0,
+  "input_hashes": {
+    "cycle_config": "3427dcc3bd0dd0c41bd027de9a9c893c05a17eba4513479bf50c58a98a5167ca",
+    "hardware": "982986e154190fe9976ab796867123e1b3d25f198d0d313b05b5c609f320846e",
+    "model": "75ce2cafd2488059b0bfd1dbc0fd3acf01110916b50abe1aed07051aa4d33ced",
+    "source_experiment": "a7c9b066bf13605c02c80722c4da7d592407fd7a9e6a3c8df5ba1fad852559d9",
+    "source_manifest": "ee480b33260ce37eee51ec36f265d0443c9083122679d4cf39fc17cfb6ee8e33",
+    "source_trace": "afc5f6bf27a84bdf54294cd79b01bdc54037b6d8905ace7e6ae5c1e60eab750f",
+    "stage10_comparison": "151ba8db1d285e866e66a4cf1da2da257d7f90568951f1e97031a35d9f2b06fc",
+    "stage10_manifest": "1a5dfdcab8d22355471a8e06631aea35534cd5e1d1faef316796033351719027",
+    "stage10_validation": "b17e6d2f941f10832120a49e9210f74134884b9e2d85a1bb20c0baab534f0946",
+    "stage11_comparison": "e58bccda190836c965b210f61080559440bd4c488e7b6e45c211cf0c66bec726",
+    "stage11_layer_results": "deeda94b2dcf4bcd6167ccbf098629879eb81b6ab5629d8322cbce87f4a7dcd1",
+    "stage11_manifest": "61254ef804c676865b36d0762f18a0b6ba390c78e5f92ffdd1c298d0ba502601",
+    "stage11_validation": "fbaea5b83bc78caaeee1671583a7cb6f4d4ebdf57712d14bd5ea59a4f2ed507e",
+    "stage12_runner": "05541a1dd82f2d3e837a22e3e072c58ddbf77bd32e52ae8a94830c9abd25d46d"
+  },
+  "interpolation": 0,
+  "layer_rows": 432,
+  "new_runs_executed": 9,
+  "one_chunk_identity": {
+    "c2_mac49152_p4": {
+      "differing_fields": [],
+      "fields_checked": 10,
+      "passed": true,
+      "stage10_cycles": {
+        "pim_gwrite_completion_cycles": 11104,
+        "pim_gwrite_start_cycles": 4381,
+        "pim_mac_completion_cycles": 29219680,
+        "pim_mac_start_cycles": 11104,
+        "pim_read_completion_cycles": 29233373,
+        "pim_read_start_cycles": 29219680,
+        "pipeline_completion_cycles": 29263288,
+        "query_link_completion_cycles": 4380,
+        "result_link_completion_cycles": 29263288,
+        "result_link_start_cycles": 29233373
+      },
+      "stage12_cycles": {
+        "pim_gwrite_completion_cycles": 11104,
+        "pim_gwrite_start_cycles": 4381,
+        "pim_mac_completion_cycles": 29219680,
+        "pim_mac_start_cycles": 11104,
+        "pim_read_completion_cycles": 29233373,
+        "pim_read_start_cycles": 29219680,
+        "pipeline_completion_cycles": 29263288,
+        "query_link_completion_cycles": 4380,
+        "result_link_completion_cycles": 29263288,
+        "result_link_start_cycles": 29233373
+      }
+    },
+    "c4_mac24576_p4": {
+      "differing_fields": [],
+      "fields_checked": 10,
+      "passed": true,
+      "stage10_cycles": {
+        "pim_gwrite_completion_cycles": 11104,
+        "pim_gwrite_start_cycles": 4381,
+        "pim_mac_completion_cycles": 7313247,
+        "pim_mac_start_cycles": 11104,
+        "pim_read_completion_cycles": 7326941,
+        "pim_read_start_cycles": 7313247,
+        "pipeline_completion_cycles": 7385976,
+        "query_link_completion_cycles": 4380,
+        "result_link_completion_cycles": 7385976,
+        "result_link_start_cycles": 7326941
+      },
+      "stage12_cycles": {
+        "pim_gwrite_completion_cycles": 11104,
+        "pim_gwrite_start_cycles": 4381,
+        "pim_mac_completion_cycles": 7313247,
+        "pim_mac_start_cycles": 11104,
+        "pim_read_completion_cycles": 7326941,
+        "pim_read_start_cycles": 7313247,
+        "pipeline_completion_cycles": 7385976,
+        "query_link_completion_cycles": 4380,
+        "result_link_completion_cycles": 7385976,
+        "result_link_start_cycles": 7326941
+      }
+    },
+    "c8_mac24576_p4": {
+      "differing_fields": [],
+      "fields_checked": 10,
+      "passed": true,
+      "stage10_cycles": {
+        "pim_gwrite_completion_cycles": 11104,
+        "pim_gwrite_start_cycles": 4381,
+        "pim_mac_completion_cycles": 3662215,
+        "pim_mac_start_cycles": 11104,
+        "pim_read_completion_cycles": 3675909,
+        "pim_read_start_cycles": 3662215,
+        "pipeline_completion_cycles": 3793184,
+        "query_link_completion_cycles": 4380,
+        "result_link_completion_cycles": 3793184,
+        "result_link_start_cycles": 3675909
+      },
+      "stage12_cycles": {
+        "pim_gwrite_completion_cycles": 11104,
+        "pim_gwrite_start_cycles": 4381,
+        "pim_mac_completion_cycles": 3662215,
+        "pim_mac_start_cycles": 11104,
+        "pim_read_completion_cycles": 3675909,
+        "pim_read_start_cycles": 3662215,
+        "pipeline_completion_cycles": 3793184,
+        "query_link_completion_cycles": 4380,
+        "result_link_completion_cycles": 3793184,
+        "result_link_start_cycles": 3675909
+      }
+    }
+  },
+  "output_hashes": {
+    "comparison.csv": "68f0a25c3b0a2d5e1898f9104860b66982098ad7628b41ada9e950adc5aca659",
+    "comparison.json": "0dae46246776526850f1c1a9fd4108d28a2cdaf7726d967c5b766f612f8b9c2c",
+    "exact_workloads.csv": "728ef264465011b950abe10aec8c0fd42c8f4c0f0441a79256088e793a0b9495",
+    "exact_workloads.json": "57485860128373a6967ef09a974b1537f2a77a0f30f3d5a89a84aa1c64d9d53a",
+    "layer_results.csv": "f5f3191ce0166a2acb1965596ebe1abb486bca6d7b6c0a547d46c8133b4c0445",
+    "stage12_report.md": "4eb1ceb9ee520912ee51773f548b161e77ca761059251018ea47c6501add11a8"
+  },
+  "remaining_runs": 0,
+  "rows": 9,
+  "schema_version": 1,
+  "stage": "kv-cxl-pim-chunk-stage12-v1"
+}
